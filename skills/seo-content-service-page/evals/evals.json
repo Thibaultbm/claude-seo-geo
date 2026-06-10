@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-content-service-page",
+  "evals": [
+    {
+      "id": "split-one-page-agency-site",
+      "prompt": "My web design agency has a single homepage that lists everything we do: web design, SEO, branding, and Google Ads. We get almost zero organic leads. What should I change on the site?",
+      "expected_output": "Diagnoses the one-page site as the core problem: one page cannot rank for four different service SERPs because each service has its own keyword and intent. Recommends one dedicated page per service plus a services hub, with a proposed URL per service. For each page, prescribes the canonical 9-block wireframe (hero with above-the-fold CTA, client logos, benefits as outcomes, 3-4 step process, founder section with real photo, 750+ word SEO text block benchmarked against ranking competitors, formatted client reviews, 3+ question FAQ, final CTA with 2-3 related blog posts). Gives the metadata pattern (service keyword in title, H1, slug, meta under 160 characters, first paragraph). Includes the GEO layer: question-form H2s with direct 2-4 sentence answers, sourced statistics or quotations, Person and Organization schema, visible pricing. Points to seo-keyword-research for keyword choice and seo-internal-linking for the mini silo.",
+      "files": []
+    },
+    {
+      "id": "emergency-plumber-city-page",
+      "prompt": "Write the complete structure and draft for a service page targeting 'emergency plumber lyon' for my company Dupont Plomberie. We answer calls 24/7 and reach most of Lyon in under an hour.",
+      "expected_output": "Delivers the page in the skill's output order: keyword and intent summary, then a metadata table with the city in the title (about 50-60 characters, e.g. 'Emergency Plumber in Lyon | Dupont Plomberie'), slug /emergency-plumber-lyon/, handwritten meta description of 160 characters or fewer, H1 containing the keyword, and the keyword plus city in the first 100 words. Drafts all 9 wireframe blocks in order with CTAs above the fold and after major sections, a founder block calling for a real photo and named story, a 750+ word text block with question-form H2s including a pricing question answered with a price range in plain text, reviews in first name + situation + problem + result format, and a FAQ of 3+ People Also Ask style questions with direct answers. Flags Lyon in image alts. Recommends LocalBusiness, Person, Organization, and FAQPage schema via seo-schema-markup, links 2-3 supporting blog posts, and applies the GEO checklist (self-sufficient page, extractable facts like the under-60-minute response time, sourced statistic or quotation). Mentions the seo-local skill for the Google Business Profile side.",
+      "files": []
+    },
+    {
+      "id": "audit-thin-cro-landing-page",
+      "prompt": "My landing page for 'shopify cro agency' is about 300 words: a headline, three feature bullets, and a contact form at the bottom. It does not rank anywhere and converts poorly. Audit it and tell me how to fix it.",
+      "expected_output": "Produces a gap table mapping the page against the 9-block wireframe (hero, logos, benefits, process, founder, SEO text block, reviews, FAQ, final CTA plus related posts), marking most blocks missing. Flags the 300-word count against the 750+ word floor and instructs benchmarking the top 3 ranking competitors to set the real target, suggesting the bundled audit script from the seo-geo-audit skill (scripts/seo_audit.py) to extract competitor titles, headings, and word counts. Calls out the single bottom CTA and prescribes CTAs above the fold and after each major section, rewriting feature bullets as client outcomes, adding a named founder with a real photo for E-E-A-T, formatted reviews, a 3+ question FAQ from People Also Ask, and visible pricing or a range. Includes the GEO layer pass: question-form H2s with direct answers, sourced statistics and quotations citing the Princeton GEO findings, machine-readable Person and Organization schema, AI crawler access via seo-technical. Ends with a prioritized high/medium/low fix list.",
+      "files": []
+    }
+  ]
+}

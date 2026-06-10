@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-local",
+  "evals": [
+    {
+      "id": "dental-clinic-invisible-in-maps",
+      "prompt": "My dental clinic in Geneva never shows up in the Google Maps results for 'dentist geneva', while the same three competitors are always there. Our profile has existed for two years. Where do I start?",
+      "expected_output": "Starts with the diagnosis step: check the pack from inside the service area on 5-10 real queries and build a gap table against the 3 pack leaders covering review count, rating, review recency, primary category, photo count, and linked website strength. Orders the plan by the four pillars with reviews first as the strongest lever (labeled as field observation consistent with the Whitespark survey, not an official Google statement): review engine with ask-at-peak-of-satisfaction timing, short link or QR code, steady weekly velocity, 100% reply rate including negatives, and an explicit warning that incentivized or gated reviews violate Google policy. Then profile completeness (most specific primary category such as a dentistry specialty, services with prices, real photos, about 1h30 of work), honest expectations on posts (activity signal, low direct ranking impact), and the linked website (dedicated location page with LocalBusiness schema, embedded map, local keyword pattern, NAP byte-identical everywhere). Addresses the business name trade-off honestly: keywords in the name correlate with ranking gains but violate GBP guidelines with suspension risk. Closes with the GEO layer: AI assistants answering 'best dentist in Geneva' draw on the profile, review platforms, and the site's local pages, and detailed review text plus owner replies feed those answers.",
+      "files": []
+    },
+    {
+      "id": "suspended-profile-no-duplicate",
+      "prompt": "Google suspended my Google Business Profile this morning, we are a locksmith company. Can I just create a new listing to get back on Maps quickly?",
+      "expected_output": "Answers no immediately: creating a second profile violates Google's duplicate listing guidelines, makes reinstatement harder, and can get both removed. Walks through the reinstatement procedure: identify the suspension type and likely trigger (notes locksmiths are a heavily scrutinized industry, plus common triggers like keywords added to the name, address edits, or a virtual office), bring the profile to full guideline compliance before appealing, gather the evidence pack (business registration, recent proof of address in the business name, storefront photos with permanent signage, branded vehicle photo, trade license), then submit one complete appeal through Google's appeals tool rather than multiple thin ones. Sets timeline expectations of days to weeks, advises against editing the profile while the appeal is pending, and recommends keeping the website location page strong since it keeps ranking organically while the profile is down. Ends with prevention: freeze risky edits after reinstatement and keep the name guideline-compliant.",
+      "files": []
+    },
+    {
+      "id": "multi-city-service-area-setup",
+      "prompt": "My plumbing company is based in Lyon and we serve 12 surrounding cities. How should I set up our local SEO, the Google profile, and the website pages?",
+      "expected_output": "Sets up the profile as a service-area business: one single profile (explicitly warns that fake addresses or virtual offices in other cities violate Google guidelines and risk suspension), address hidden if it is a home base, all 12 cities listed as service areas, most specific primary category (Plumber or Emergency plumber if available), services with price ranges, real photos. Builds the review engine with reviews that naturally mention the service and the city. On the website, prescribes a parent region service page plus unique child city pages following the seo-content-service-page skill, each with genuinely local substance (local reviews, completed local jobs, neighborhoods, response times) to avoid doorway pages, the local keyword pattern (city in title, URL, H1, meta, first paragraph, image alts), LocalBusiness schema with areaServed, an embedded map, and byte-identical NAP everywhere with citation building handed to the seo-backlinks skill. Includes the GEO layer: 'best plumber in [city]' AI answers draw on the profile, review platforms, and the city pages, and local brand mentions correlate with AI visibility about 3 times more strongly than backlinks per the Ahrefs correlation study. Points to geo-tracking for measuring AI mentions.",
+      "files": []
+    }
+  ]
+}

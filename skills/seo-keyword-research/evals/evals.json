@@ -1,0 +1,56 @@
+{
+  "skill": "seo-keyword-research",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": "freelance-invoicing-keyword-map",
+      "title": "Keyword map and prompt panel for a bootstrapped SaaS, free sources only",
+      "user_prompt": "I run billingkit.example, invoicing software for freelancers. I have Google Search Console access but zero budget for Ahrefs or Semrush. What keywords should I target and which pages should I create? I also want to show up when people ask ChatGPT for invoicing tools.",
+      "expected_behaviors": [
+        "Starts from Google Search Console queries at average positions 5-20 and labels them quick wins before proposing any new page",
+        "Validates each candidate keyword against at least two free evidence sources (autocomplete, People Also Ask, related searches, Reddit, customer words) and rejects unvalidated jargon",
+        "Maps every keyword to exactly one intent and one page using the intent table, with informational articles linking to a commercial page",
+        "Leaves search volume blank rather than inventing numbers, since no paid tool is available",
+        "Delivers the keyword map table, the placement matrix for the top 5 keywords, and a buyer prompt panel of 50-100 prompts using the four documented patterns",
+        "States that the prompt panel is the measurement input for geo-tracking and that page citability work belongs to geo-visibility"
+      ],
+      "failure_modes": [
+        "Recommends buying a keyword tool as a prerequisite",
+        "Invents monthly search volumes without a source",
+        "Assigns multiple distinct intents to one page, or proposes two pages for the same intent"
+      ]
+    },
+    {
+      "id": "cannibalization-merge-decision",
+      "title": "Two blog posts flip-flopping on the same query",
+      "user_prompt": "We have /blog/crm-for-small-business and /blog/best-crm-small-companies. Our ranking for 'crm for small business' keeps flip-flopping between the two URLs around position 9. Should we keep both pages?",
+      "expected_behaviors": [
+        "Applies the two-search SERP test: search both keyword variants in Google and compare the top 10 result sets",
+        "Concludes that largely identical results mean same intent, therefore one page only: merge content into the stronger URL and 301 the weaker one",
+        "Explains why: two pages on one intent split internal links and ranking signals, and URL flip-flopping is the classic cannibalization symptom",
+        "Recommends consolidating inbound internal anchors to the surviving URL (seo-internal-linking) and completing the 8-point placement matrix on it"
+      ],
+      "failure_modes": [
+        "Recommends keeping and differentiating both pages without checking SERP overlap",
+        "Recommends deleting a page without a 301 redirect",
+        "Treats the flip-flopping as a Google bug rather than an intent collision"
+      ]
+    },
+    {
+      "id": "local-plumber-language-validation",
+      "title": "Local service business targeting internal jargon",
+      "user_prompt": "My plumbing company in Lyon wants to rank for 'hydraulic remediation services Lyon'. Build me the keyword plan.",
+      "expected_behaviors": [
+        "Flags 'hydraulic remediation services' as internal jargon and validates what buyers actually type (emergency plumber Lyon, water leak repair Lyon) via autocomplete, People Also Ask, and forum phrasing",
+        "Applies the local pattern: keyword plus city in title, URL, H1, meta description, first paragraph, and image alt, with a pointer to seo-local for the full local workflow",
+        "Prioritizes long-tail emergency and job-specific queries that convert quickly, while planning head terms over time",
+        "Adds local buyer prompts (best plumber in Lyon, is [brand] plumbing reliable) to a prompt panel handed to geo-tracking"
+      ],
+      "failure_modes": [
+        "Builds the plan around the jargon keyword as requested, without language validation",
+        "Omits the keyword plus city placement pattern",
+        "Targets only the broad head term 'plumber Lyon' with no long tail"
+      ]
+    }
+  ]
+}

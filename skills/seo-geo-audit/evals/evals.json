@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-geo-audit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you audit my site https://atelier-verde.com? It's a small online store selling handmade ceramics, built on Shopify. We blog sometimes but traffic has been flat for a year and we never show up when people ask ChatGPT for ceramics gift ideas. Tell me what to fix first.",
+      "expected_output": "A full audit report: script run on homepage plus key pages, findings classified OK/Fix/Blocking across the 14 categories including an explicit GEO section (AI crawler access, rendering, citability), a one-line verdict, top 3 priorities, and an ordered action plan mapping fixes to the specialized skills. No invented data: speed and backlinks marked as not verified or requested from the user.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "a prospect sent me this: 'hey, could you take a quick look at our site nordic-renov.fr and tell us why we get zero leads from google? our competitor batirenov-paris.fr is everywhere.' Can you check both sites and draft a reply email I can send him? He's a contractor, not technical at all.",
+      "expected_output": "Script run on both domains, page-versus-page benchmark, and a plain-language email (Template B) in French: no acronyms, every technical term explained in everyday words, opens with genuine positives, 3-5 prioritized findings, one paragraph on the competitor's working moves, honest verdict.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We are about to invest 2000/month in content for relai-rh.com (HR SaaS, site built with a React SPA). Before we start, give us a baseline audit focused on whether the investment makes sense right now.",
+      "expected_output": "Audit that detects the client-side rendering as a Blocking finding for both Google and AI engines, explains why content spend is premature until server rendering or prerendering is in place, verifies crawler access and indexation facts, and delivers the 'rebuild before investing' verdict with a short path to unblock.",
+      "files": []
+    }
+  ]
+}

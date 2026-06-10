@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-backlinks",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you review the backlink profile of my site, mountainpeakgear.com? I sell hiking and trekking equipment online, mostly in the US. I don't have Ahrefs, Semrush, or any paid SEO tool, and I'm not going to buy one. My organic traffic has been flat for a year and I suspect my links are the problem.",
+      "expected_output": "A complete profile review built from free sources only (Google Search Console Links report, Bing Webmaster Tools, Google brand and domain searches), with paid tools mentioned only as an optional complement. Diagnoses anchor distribution, follow/nofollow mix, topical relevance, language match with the US market, deep links versus homepage-only, velocity history, and source diversity, explaining why each signal matters. Delivers the three lists (assets to protect, gaps to fill, risks to stop feeding) and a prioritized plan matched to an e-commerce strategy mix. States that disavow is not recommended without a manual action, and separates measured claims (with URLs) from field heuristics.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I just launched a B2B SaaS for HR teams (employee onboarding software, app is live, blog has 5 articles). We have literally zero backlinks and zero budget for link building or PR agencies. Build me a link building plan I can execute myself in 30 minutes a day.",
+      "expected_output": "A 90-day ninja linking program built on the four spot families (universal profiles, directories, HR and management forums, communities plus SaaS directories and review platforms like G2, Capterra, Product Hunt), progressing from easy to hard, with forum accounts opened in week one but contributing without links first. Prescribes 2-5 links per day labeled as a field heuristic, states the 95/5 contribution rule and why link-dropping accounts get banned, includes the four-point spot verification and HR-specific search footprints, provides the tracking table template, recommends deep links over homepage-only, and adds the GEO mention layer (review platforms, best-of list inclusion requests, clean Reddit participation with the volatility caveat) with a pointer to geo-tracking for measurement.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "A vendor is offering me 10 guest posts on DA 60+ news websites for $1,500 total, links guaranteed dofollow. Is this worth it for my project management tool? Separate question: when people ask ChatGPT for the best project management tools, my competitors get named and we never do. How do I fix that?",
+      "expected_output": "An explicit warning that undisclosed paid dofollow links violate Google's spam policies (rel=sponsored required for compliance, citing the Google documentation), plus the post-March-2026 reality: sponsored guest posts on high-DA generalist news sites are devalued and bulk packages carry the seller's network footprint risk. Scores the offer against the five criteria, flags the relevance failure, presents the risk/benefit tradeoff honestly including the compliant alternative, and suggests redirecting the budget to a proprietary data play. Answers the ChatGPT question with the mentions-over-links doctrine (Ahrefs 0.664 versus 0.218 correlation), prescribes the mention workflow (third-party best-of lists, G2 and Capterra presence, consistent entity descriptions, clean community participation), and points to geo-tracking for measurement and geo-visibility for the broader strategy.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-content-collection-page",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My Shopify collection page https://example-store.com/collections/linen-dresses is just a product grid with zero text. Write the SEO content for it and tell me exactly where each block goes on the page.",
+      "expected_output": "Follows the skill's output format: a 1-2 sentence intro placed at the top directly under the H1, and a 400-800 word rich text block placed BELOW the product grid containing H2/H3 headings phrased as buyer questions (how to choose a linen dress, which weave or weight for which season, sizing, care), a comparison table of sub-types, 3-5 definitions of category terms (for example European flax, GSM, garment-washed), a 3-question FAQ with 40-80 word answers, and internal links to sub-collections plus 2-3 related blog guides. Explains why the long text goes at the bottom (a top block pushes products below the fold and costs conversions, while a bottom block feeds Google and AI assistants at no sales cost). Includes H1, title, slug, and handwritten meta description recommendations, plus CollectionPage, ItemList, and BreadcrumbList schema pointers to the seo-schema-markup skill. No em-dashes, no emojis.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Search Console shows 40,000 'Discovered, currently not indexed' URLs on my store, almost all parameter URLs like /collections/shoes?filter.v.option.color=red&size=9&sort=price. Googlebot is crawling thousands of filter combinations and new products take weeks to index. How do I fix this without losing my 'red running shoes' rankings?",
+      "expected_output": "Diagnoses faceted navigation crawl waste and applies the decision table: rel=canonical from filtered URLs to the clean collection URL as the default, meta robots noindex for filter combinations that are already indexed (kept crawlable until they drop out), and robots.txt Disallow patterns for multi-filter combinations to stop crawl waste, with the explicit warning that robots.txt blocking and noindex cannot work on the same URL at the same time because a blocked page is never fetched so its noindex is never seen (sequence: noindex first, block later). Preserves the exception: a facet like red running shoes stays indexable only if it passes the three tests (real search demand, distinct inventory, unique title/H1/content with self-canonical). Mentions that the Search Console URL Parameters tool was retired in 2022, cites Google's faceted navigation documentation, and points to references/faceted-navigation-playbook.md for the Shopify-specific parameter patterns.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My SEO plugin canonicalizes page 2 and beyond of every category to page 1 and adds rel=next/prev tags. Products that only appear on pages 3 to 6 are dropping out of Google's index. Is this setup correct?",
+      "expected_output": "States the setup is wrong and explains the mechanism: canonicalizing page 2+ to page 1 declares the paginated pages duplicates, so Google consolidates to page 1 and stops crawling deep pages, and products linked only from page 3+ lose their only crawl path and deindex, which matches the observed symptom. Prescribes the fix: self-referencing canonical on every paginated page, unique titles in the form 'Category - Page N | Brand', plain crawlable a-href pagination links (not JS-only buttons), and keeping page 2+ indexable. Notes that rel=next/prev has not been used by Google for indexing since 2019, so it is harmless but fixes nothing. Cites Google's e-commerce pagination documentation (developers.google.com).",
+      "files": []
+    }
+  ]
+}

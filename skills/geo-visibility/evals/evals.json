@@ -1,0 +1,57 @@
+{
+  "skill": "geo-visibility",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": "competitor-cited-we-are-not",
+      "title": "Competitor recommended by ChatGPT, the user is invisible",
+      "user_prompt": "When I ask ChatGPT for the best project management tools for construction teams, our competitor BuildFlow is always recommended and we (sitepilot.example) never are. We rank 6th in Google for 'construction project management software'. Fix this.",
+      "expected_behaviors": [
+        "Explains the engine mechanics: ChatGPT fans the prompt out into subqueries and samples a short source list, so a Google position does not transfer automatically, and engines must be treated as separate channels (11% domain overlap between ChatGPT and Perplexity)",
+        "Audits passage-level citability of the relevant pages: question H2s with 40-60 word direct answers, self-contained chunks, definitional sentences, comparison tables, descriptive slugs",
+        "Checks the third-party surfaces ChatGPT cites for 'best X' prompts (comparative listicles, review platforms, YouTube) and recommends pitching inclusion in existing cited listicles",
+        "Checks entity consistency: one canonical one-line description everywhere, Organization JSON-LD with sameAs, brand SERP control",
+        "Scores the key page with the 5-pillar rubric and returns a grade with pillar breakdown and top fixes",
+        "Does not recommend llms.txt, sets expectations of weeks to months, and hands measurement to geo-tracking"
+      ],
+      "failure_modes": [
+        "Treats Google rankings as the only lever for AI citations",
+        "Recommends llms.txt or keyword stuffing",
+        "Optimizes only the user's own site and ignores third-party surfaces"
+      ]
+    },
+    {
+      "id": "score-blog-post-geo-rubric",
+      "title": "Score a page with the GEO rubric",
+      "user_prompt": "Here is the HTML of our blog post about email deliverability [content provided]. Give it a GEO score and tell me exactly what to fix first.",
+      "expected_behaviors": [
+        "Applies the five pillars with the documented allocations: citability /20, E-E-A-T signals /20, structured data /20, AI accessibility /10, multi-format /10",
+        "Normalizes correctly: an editorial page is scored against the full 80, and the grade scale A 90+, B 75+, C 60+, D 40+, F below is applied to the normalized score",
+        "Justifies each pillar score with concrete findings from the HTML (for example zero question H2s, missing dateModified, no Article JSON-LD, content only in client-side JS)",
+        "Orders fixes by point gap and extraction impact, starting with answer-first restructuring when citability is the weakest pillar",
+        "Mentions the bundled audit script from the seo-geo-audit skill (scripts/seo_audit.py) for scoring at scale"
+      ],
+      "failure_modes": [
+        "Returns a score without a pillar breakdown or justification",
+        "Penalizes a non-editorial page for unreachable editorial E-E-A-T instead of normalizing against 70",
+        "Recommends churning the URL to look fresh"
+      ]
+    },
+    {
+      "id": "llms-txt-and-blocking-question",
+      "title": "User asks about llms.txt and blocking Google-Extended",
+      "user_prompt": "Our agency says we should add llms.txt to get cited by ChatGPT, and block Google-Extended so Google's AI stops using our content. Is that right?",
+      "expected_behaviors": [
+        "States plainly that no AI engine confirms reading llms.txt, citing John Mueller's statement and the near zero fetch share in log analyses, and sets expectations to zero",
+        "Explains that Google-Extended controls Gemini training, not AI Overviews, so blocking it does not remove the site from AI Overviews, which are built from normal Google indexing",
+        "Lays out the real per-crawler trade-offs (blocking OAI-SearchBot removes ChatGPT search visibility, blocking GPTBot affects training only) and refers to seo-technical for the crawler table",
+        "Redirects the effort to evidenced levers: answer-first passages, entity consistency, third-party surfaces"
+      ],
+      "failure_modes": [
+        "Endorses llms.txt as a citation tactic",
+        "Claims blocking Google-Extended removes the site from AI Overviews",
+        "Gives a blanket recommendation to block or allow all AI crawlers without goal-based trade-offs"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "skill": "geo-tracking",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": "ga4-ai-traffic-setup",
+      "title": "Set up AI traffic measurement in GA4",
+      "user_prompt": "How much traffic do we get from ChatGPT and Perplexity? We use GA4. Set this up properly.",
+      "expected_behaviors": [
+        "Explains the default AI Assistant channel group (live since May 13, 2026), what it captures (chatgpt, gemini, claude), what it misses (perplexity, copilot), and that it is not retroactive",
+        "Builds a custom channel group on Session source with the full documented regex, including perplexity.ai, copilot.microsoft.com, deepseek.com, grok.com, meta.ai, mistral.ai, and you.com",
+        "Places the AI Assistants channel above Referral and explains the top-down evaluation order",
+        "States the floor caveat: assistant apps send no referrer, part of AI traffic lands in Direct, so the measured number understates reality",
+        "Reports conversion rate next to sessions, citing the roughly 4.4x conversion multiple of AI visits versus organic with its source"
+      ],
+      "failure_modes": [
+        "Promises retroactive AI traffic data",
+        "Leaves the AI channel below Referral",
+        "Presents GA4 numbers as the complete picture of AI visibility"
+      ]
+    },
+    {
+      "id": "diy-share-of-voice-panel",
+      "title": "Monthly share of voice versus competitors, no paid tools",
+      "user_prompt": "Track how often AI assistants recommend us versus FreshBooks and Wave. We have no budget for Profound or Semrush. Give me the exact monthly process.",
+      "expected_behaviors": [
+        "Uses a frozen 50-100 buyer prompt panel (built with seo-keyword-research) replayed monthly on ChatGPT, Perplexity, Google AI Overviews, Claude, and Gemini",
+        "Specifies session hygiene: memory off, logged out or temporary chats, constant country and language, same week each month",
+        "Records the documented columns per prompt and engine: brand_mentioned, cited_with_link, position, sentiment, competitors_mentioned",
+        "Computes mention rate, citation rate, and share of voice versus the two competitors, with month-over-month trend and the over 20% drop alert",
+        "States non-determinism honestly: single runs are noise, use 2-3 runs or multi-month trends, and confirm any alert with a re-run before acting"
+      ],
+      "failure_modes": [
+        "Changes the prompt list every month",
+        "Draws conclusions from one run of one prompt",
+        "Requires a paid platform to start measuring"
+      ]
+    },
+    {
+      "id": "ai-bots-in-server-logs",
+      "title": "Interpret and verify AI bot hits in server logs",
+      "user_prompt": "Our nginx logs show hits from ChatGPT-User and PerplexityBot this week. What does that mean, and how do I know the hits are real?",
+      "expected_behaviors": [
+        "Interprets the agents correctly: ChatGPT-User means a live user conversation fetched the page right now (leading indicator), OAI-SearchBot means search index crawling, GPTBot means training data collection",
+        "Verifies authenticity by checking hit IPs against the official published ranges (openai.com/gptbot.json, openai.com/searchbot.json, claude.com/crawling/bots.json, perplexity.com/perplexitybot.json) because user agent strings are trivially spoofed",
+        "Recommends tracking which URLs the user-triggered fetchers hit and feeding those pages' structure back into geo-visibility",
+        "Points to the seo-technical skill's references/ai-crawlers.md as the canonical full crawler table"
+      ],
+      "failure_modes": [
+        "Treats user agent strings as proof of origin",
+        "Confuses training crawlers with live answer fetchers",
+        "Recommends blocking the fetchers without explaining the visibility trade-off"
+      ]
+    }
+  ]
+}

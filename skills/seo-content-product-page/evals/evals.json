@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-content-product-page",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My Shopify product page for a titanium camping stove (https://example-store.com/products/ti-stove-2) uses the manufacturer's 60-word description, has no FAQ, and the price is injected by JavaScript. Rewrite and optimize the page for Google and for ChatGPT recommendations.",
+      "expected_output": "A complete brief following the skill's output format: a scorecard; a unique benefits-first description of at least 150-200 words replacing the manufacturer text; a bottom-of-page FAQ block with at least 3 buyer questions (40-80 word answers); a definitions block with about 5 technical terms (for example titanium grade, BTU, piezo ignition); a comparison table versus 2 named alternatives; title, H1, slug and meta description recommendations; an explicit flag that the JavaScript-injected price is invisible to AI crawlers (which do not execute JavaScript) with the fix of server-rendered HTML price; a Product/Offer schema checklist with the warning that markup must mirror visible content; and a GEO checklist that mentions submitting the ChatGPT Shopping product feed (developers.openai.com spec). Prioritized next actions. No em-dashes, no emojis.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My WooCommerce store gets about 30 visitors a day. My ergonomic office chair product page converts at 1 percent. Should I spend next month A/B testing button colors and layout variants to raise conversion?",
+      "expected_output": "Applies the traffic-before-CRO threshold: below about 100 organic visitors per day, prioritize traffic volume over conversion micro-optimization, presented as a field heuristic (typical e-commerce conversion sits around 2-4 percent, so 30 visitors a day yield roughly one order a day, far too few conversions for any A/B test to reach statistical significance). Recommends one-off conversion hygiene only, not testing: reviews with stars visible at the top in the first name + situation + problem + result format, reassurance badges near the buy button, real product photos, unique 150-200+ word description. Then a traffic plan: keyword and intent mapping (pointing to seo-keyword-research), supporting blog posts that link to the PDP, collection page optimization (pointing to seo-content-collection-page), and internal linking.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We discontinued our best-selling backpack. The product page has 5 years of history, solid backlinks, and still ranks number 3 for its keyword. My developer wants to delete the page and return a 404. What should we do?",
+      "expected_output": "States clearly that a product URL with rankings, traffic, or backlinks must never return a 404, because that discards years of accumulated signals and link equity and recovery takes months. Recommends one of two paths: keep the page live in HTTP 200 with a clear discontinued notice, set the Offer availability to OutOfStock or Discontinued in the schema, and present alternative products on the page; or, if a close substitute exists in the catalog, 301 redirect to that substitute. Notes that 404 or 410 is acceptable only for product URLs with zero traffic and zero backlinks. Points to the seo-schema-markup skill for the availability markup details.",
+      "files": []
+    }
+  ]
+}

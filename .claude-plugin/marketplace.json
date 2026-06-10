@@ -1,0 +1,26 @@
+{
+  "name": "sorank",
+  "owner": {
+    "name": "Sorank",
+    "url": "https://sorank.com"
+  },
+  "metadata": {
+    "description": "SEO + GEO skills for Claude Code, by Sorank",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "claude-seo-geo",
+      "source": "./",
+      "description": "13 SEO + GEO skills: full site audit, technical SEO, content for every page type (blog, product, service, collection), internal linking, schema, link building, local SEO, AI visibility and AI traffic tracking.",
+      "category": "marketing",
+      "keywords": [
+        "seo",
+        "geo",
+        "ai-search",
+        "llm-seo",
+        "link-building"
+      ]
+    }
+  ]
+}

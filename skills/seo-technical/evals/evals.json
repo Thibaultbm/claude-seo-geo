@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-technical",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We rebuilt our marketing site and docs as a React single-page app three months ago. Google still ranks us fine, but ChatGPT and Perplexity stopped citing our docs entirely and our AI referral traffic went to zero. The dev team says everything looks perfect in the browser. What is going on and how do we fix it?",
+      "expected_output": "A diagnosis of client-side rendering as the cause: no AI crawler executes JavaScript, only Googlebot renders, which is exactly why Google rankings held while ChatGPT and Perplexity citations died. The answer cites the Vercel/MERJ measurement (500M+ fetches; GPTBot and ClaudeBot sometimes download JS files, 11.5 and 23.8 percent of fetches respectively, but execute none) rather than asserting it as opinion, and gives the one-minute verification: curl or view-source the raw HTML and search for a sentence that should be on the page, zero matches meaning AI engines see an empty shell. The fix is SSR, SSG, or prerendering for every page that must be cited, with client-side rendering reserved for logged-in surfaces, and the answer points to references/ai-crawlers.md as the canonical crawler reference. It must NOT propose llms.txt, robots.txt changes, or schema markup as the fix for a rendering problem, and must not claim Google is also blind to the content.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My client's 12 new service pages went live 6 weeks ago on Webflow and still do not appear on Google at all. The homepage ranks fine. Walk me through finding the cause and getting them indexed.",
+      "expected_output": "A stepwise investigation that starts by confirming Google Search Console access (and GA4, field finding that many audited sites have neither) and reading the indexed versus submitted ratio before proposing any fix. It then checks the blockers in order: meta robots noindex left from staging, robots.txt Disallow, canonical pointing elsewhere, absence from the sitemap, orphan status (deferring link architecture to the seo-internal-linking skill), and a raw-HTML rendering check. It explains the noindex versus Disallow distinction, including why combining both keeps a page indexed because Google never sees the noindex. Remediation: fix the cause, then URL Inspection with Request Indexing on the 12 priority pages while noting the roughly 10-12 daily quota, verify the sitemap is declared in robots.txt with honest lastmod, and add IndexNow plus Bing Webmaster Tools for the Bing-to-ChatGPT path. It must NOT recommend pinging Google's sitemap endpoint (deprecated since June 2023, returns 404), must not jump to Core Web Vitals before crawl and index controls, and must not read a post-September-2025 GSC impressions drop as a penalty without checking clicks (num=100 artifact).",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I run a B2B SaaS marketing site. Should I block GPTBot and the other AI bots in robots.txt? I keep reading that they steal content. Give me the exact robots.txt I should use.",
+      "expected_output": "An answer that first separates the three bot roles from references/ai-crawlers.md (training crawlers, search-index crawlers, user-fetch agents) and the different cost of blocking each: blocking training bots removes the brand from future model weights, blocking search bots removes live citations within days, and user-fetch agents like ChatGPT-User and Perplexity-User mostly ignore robots.txt because they act on a user's explicit request. For a B2B SaaS that wants to be recommended, it advises Strategy 1 (allow everything, including GPTBot and ClaudeBot, because presence in training data means the model knows the brand even when no web search runs) and provides the paste-ready block, while presenting the defensive publisher configuration (allow OAI-SearchBot, Claude-SearchBot, PerplexityBot, Bingbot, Googlebot; block GPTBot, ClaudeBot, CCBot, Google-Extended) as the legitimate alternative for content businesses. It explains the Google-Extended trap: blocking it does not remove the site from AI Overviews, which run on regular Googlebot, and the real opt-outs (nosnippet, max-snippet, noindex) also cost classic search snippets. It also warns that user-agent strings are spoofed and IPs must be verified against the published JSON ranges before trusting logs. It must NOT prescribe a blanket block of all AI bots for a brand that wants AI visibility, and must not present llms.txt as the mechanism that controls crawler access.",
+      "files": []
+    }
+  ]
+}

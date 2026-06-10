@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-schema-markup",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Please add FAQPage schema to all 40 of our blog posts so we get those expandable FAQ rich results in Google. Our agency did this for another client in 2022 and it worked great back then.",
+      "expected_output": "A correction before any implementation: FAQ rich results were restricted to government and health sites in August 2023 and removed entirely on May 7, 2026 (sourced to searchenginejournal.com), so adding FAQPage markup to 40 posts in 2026 buys zero SERP features for anyone. The answer states that the markup itself remains valid and harmless, so existing blocks need no emergency removal, but the work must not be billed or prioritized as a lever. It redirects the effort to what actually helps: visible question-and-answer formatting in the content, which AI engines extract (the format helps, the markup does not, with content citability deferred to the geo-visibility skill), plus the schema that still pays on blog posts: Article with a real author Person, honest datePublished and dateModified, and a publisher Organization linked by stable @id values. It must NOT implement FAQPage on the 40 posts while promising rich results, and must not claim the markup itself improves AI citations.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Set up structured data for our Shopify product pages. We want the price and star ratings to show in Google. We do not have reviews on our site yet, but our products average 4.8 on Trustpilot, can we just use that number?",
+      "expected_output": "An implementation of Product plus Offer with price, priceCurrency, and availability matching the visible page (adapted from references/jsonld-templates.md with placeholders resolved), plus a clear refusal on the rating: marking up the Trustpilot average as on-page aggregateRating violates Google's review snippet rules, because ratings must come from reviews displayed on that page and values must reflect visible content (sourced to the review-snippet and sd-policies documentation), so the aggregateRating block is omitted entirely for now. The compliant path is offered: collect and display real product reviews on the page first, then add AggregateRating mirroring exactly what is shown. Validation is two-step, validator.schema.org for syntax and the Rich Results Test for Google eligibility (both free, no API key), followed by a curl of the deployed page to confirm the JSON-LD is server-rendered in the raw HTML rather than injected client-side. The answer mentions that Product markup also feeds Merchant listings. It must NOT invent ratingValue or reviewCount, import third-party stars, or treat schema.org validity as proof of Google eligibility.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We are a 15-person B2B SaaS. What structured data should we have across the site and how should the pieces connect? We blog twice a week and we care a lot about being recommended by ChatGPT.",
+      "expected_output": "A sitewide plan anchored on one entity graph rather than isolated blocks: a full Organization node with sameAs pointing to real profiles (LinkedIn, Crunchbase, G2, Wikipedia only if the page exists) as the hub at @id {{SITE_URL}}/#organization, WebSite and BreadcrumbList sitewide, Article on every post with a named author Person node and honest datePublished/dateModified, everything linked through stable @id references (author to Person, publisher to Organization). The GEO reasoning is explicit: structured data is the most machine-readable fact layer a page offers, LLM grounding pipelines parse it, and consistent sameAs profiles feed the entity cross-referencing LLMs perform, while the wider entity strategy is deferred to the geo-visibility skill and measurement to geo-tracking. The plan requires the JSON-LD to be server-rendered because AI crawlers execute no JavaScript (deferring crawler details to the seo-technical skill), skips FAQPage and HowTo for rich results with the 2023 and May 2026 dates, and ends with the two-validator routine plus a production curl check. It must NOT promise that schema alone makes ChatGPT recommend the brand, and must not produce per-page Organization variants with diverging names or logos.",
+      "files": []
+    }
+  ]
+}
