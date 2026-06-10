@@ -1,8 +1,8 @@
 # Claude SEO GEO
 
-SEO + GEO skills for Claude Code. Audit any website, fix its technical SEO, write content for every page type, build links and brand mentions, and get cited by ChatGPT, Perplexity and Google AI Overviews. Then measure it, without paid tools.
+**SEO & GEO skills for Claude Code, built with Claude Mythos 5.** Rank in Google AND in LLMs like ChatGPT, Perplexity, and Gemini. Technical audits, backlink strategy, AI-optimized content, local visibility, and social amplification: everything you need to own search as it evolves. What took weeks now happens in hours. The future of Search is here, for free.
 
-13 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
+14 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
 
 ## Why SEO and GEO in one toolkit?
 
@@ -49,6 +49,7 @@ The skills are plain markdown following the open Agent Skills format, so they al
 | [seo-schema-markup](skills/seo-schema-markup/SKILL.md) | The structured data that still matters in 2026, with ready JSON-LD templates (and the markup that died) |
 | [seo-backlinks](skills/seo-backlinks/SKILL.md) | Link building strategy, ninja linking with a spot catalog, digital PR, unlinked brand mentions |
 | [seo-local](skills/seo-local/SKILL.md) | Google Business Profile, reviews, NAP citations, local pages |
+| [social-amplification](skills/social-amplification/SKILL.md) | Repurpose and distribute content across YouTube, Reddit, LinkedIn and X to drive branded search and feed the surfaces AI engines cite |
 | [geo-visibility](skills/geo-visibility/SKILL.md) | How each AI engine picks sources, passage-level citability, the 5-pillar GEO score, entity consistency |
 | [geo-tracking](skills/geo-tracking/SKILL.md) | GA4 AI channel setup, monthly prompt panels, server log signals, share of voice reporting |
 
@@ -71,7 +72,7 @@ The right skill triggers on its own. For a full review, start with `seo-geo-audi
 1. Field-tested, not theoretical. The audit checklist and thresholds were distilled from 115+ real agency audit calls: the 200 KB image rule, the word ladder, the one-intent-one-page doctrine, the collection page bottom text. Where a rule is a field heuristic rather than a measured fact, it says so.
 2. Every skill has a GEO layer. Other skill packs treat AI search as one skill among many. Here, product pages, collections, schema, backlinks and local each explain how they affect ChatGPT, Perplexity and AI Overviews, with the canonical crawler and citability references shared across skills.
 3. Sourced and honest. Claims carry their study or official documentation. Dead tactics are called dead: FAQ rich results are gone, llms.txt has no confirmed reader, blocking Google-Extended does not remove a site from AI Overviews, PBNs get footprint-detected. No skill here will sell you a placebo.
-4. Covers what others skip. Operational link acquisition (not just profile analysis), e-commerce collection pages, AI prompt research, and a share-of-voice tracking protocol that costs nothing.
+4. Covers what others skip. Operational link acquisition (not just profile analysis), e-commerce collection pages, AI prompt research, social content repurposing, and a share-of-voice tracking protocol that costs nothing.
 5. Zero dependencies. One optional Python script, standard library only. No API keys, no venv, no paid tool required to get value. Paid tools are mentioned where they help, as options.
 
 ## FAQ
@@ -109,7 +110,7 @@ The checklist is the distilled output of real audit calls conducted by the maint
 ```
 claude-seo-geo/
   .claude-plugin/          plugin.json + marketplace.json
-  skills/                  13 skills (SKILL.md + references/ + evals/)
+  skills/                  14 skills (SKILL.md + references/ + evals/)
     seo-geo-audit/
       scripts/seo_audit.py zero-dependency on-page fact collector
   scripts/                 validate_skills.py (CI format + style checks)

@@ -40,5 +40,6 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 | seo-schema-markup | Structured data that still matters in 2026 |
 | seo-backlinks | Link building, ninja linking, brand mentions |
 | seo-local | Google Business Profile, reviews, local pages |
+| social-amplification | Repurpose and distribute content to drive branded search and feed AI citation surfaces |
 | geo-visibility | Getting cited by ChatGPT, Perplexity, AI Overviews |
 | geo-tracking | Measuring AI traffic, citations and share of voice |

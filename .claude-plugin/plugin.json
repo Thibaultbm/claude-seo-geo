@@ -1,6 +1,6 @@
 {
   "name": "claude-seo-geo",
-  "description": "SEO + GEO skills for Claude Code: audit any site, fix technical SEO, write content that ranks on Google and gets cited by ChatGPT, Perplexity and AI Overviews, build links and brand mentions, and track AI visibility without paid tools.",
+  "description": "SEO + GEO skills for Claude Code: audit any site, fix technical SEO, write content that ranks on Google and gets cited by ChatGPT, Perplexity and AI Overviews, build links and brand mentions, amplify on social, and track AI visibility without paid tools.",
   "version": "1.0.0",
   "author": {
     "name": "Thibault Besson-Magdelain",
@@ -19,6 +19,7 @@
     "ai-overviews",
     "link-building",
     "ecommerce-seo",
+    "social-media-marketing",
     "claude-code",
     "claude-skills"
   ],
