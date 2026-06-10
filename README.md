@@ -130,7 +130,7 @@ The checklist is the distilled output of real audit calls conducted by the maint
 
 <p align="center"><img src="assets/case-study.jpg" alt="Search Console growth and sales log for monrobotlavevitre.fr, with an order sourced from ChatGPT" width="100%"></p>
 
-monrobotlavevitre.fr, a French e-commerce store for window-cleaning robots, went from near zero to 6.26K clicks and 162K impressions over the period shown (about nine months), at an average position of 7.4 (left, Google Search Console). The sales log on the right shows where the orders came from: Organic Google, Direct, Google Shopping, and an order sourced from ChatGPT, for 25 payments and 2042.80 EUR total. That ChatGPT line is the point of pairing SEO with GEO: the same method that climbs Google now also turns AI answers into revenue.
+monrobotlavevitre.fr, a French e-commerce store for window-cleaning robots, stayed flat until it started the method at the end of February 2026, then climbed steeply over the following months (the takeoff on the right of the chart). Its Search Console totals now read 6.26K clicks and 162K impressions at an average position of 7.4, almost all of it earned after that start, not over the full timeline shown. The sales log shows orders from Organic Google, Direct, Google Shopping, and ChatGPT: 25 payments, 2042.80 EUR total. That ChatGPT line is the point of pairing SEO with GEO: the same method that climbs Google now also turns AI answers into revenue.
 
 ## Prefer the done-for-you version?
 
