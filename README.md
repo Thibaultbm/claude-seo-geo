@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/banner.svg" alt="Claude SEO GEO: SEO and GEO skills for Claude Code, by Sorank" width="100%"></p>
+<p align="center"><img src="assets/banner.jpg" alt="Claude SEO GEO: SEO and GEO skills for Claude Code, built with Claude Mythos 5 and Obsidian" width="100%"></p>
 
 # Claude SEO GEO
 
