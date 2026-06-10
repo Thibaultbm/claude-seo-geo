@@ -126,6 +126,12 @@ No. Everything runs on free surfaces: the bundled script, Google Search Console,
 
 The checklist is the distilled output of real audit calls conducted by the maintainer's team between 2025 and 2026 across e-commerce, SaaS, local and service businesses. The heuristics that come from this corpus are explicitly labeled (field) in the references, separate from (measured) claims that carry public sources.
 
+## Case study: a client on this method
+
+<p align="center"><img src="assets/case-study.jpg" alt="Search Console growth and sales log for monrobotlavevitre.fr, with an order sourced from ChatGPT" width="100%"></p>
+
+monrobotlavevitre.fr, a French e-commerce store for window-cleaning robots, went from near zero to 6.26K clicks and 162K impressions over the period shown (about nine months), at an average position of 7.4 (left, Google Search Console). The sales log on the right shows where the orders came from: Organic Google, Direct, Google Shopping, and a 149.90 EUR order sourced from ChatGPT. That last line is the point of pairing SEO with GEO: the same method that climbs Google now also turns AI answers into revenue.
+
 ## Prefer the done-for-you version?
 
 These skills give you full manual control, and great power comes with great responsibility: one wrong redirect or an overwritten page can cost rankings that took years to build. [Sorank](https://sorank.com) applies the same methodology on autopilot: AI-first articles published straight to your site, backlinks, and AI visibility tracking across ChatGPT, Perplexity and Gemini, with your existing rankings kept safe. Hours saved every week, the method stays the same.
