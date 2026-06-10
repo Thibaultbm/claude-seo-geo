@@ -156,6 +156,8 @@ Publication cadence (field heuristics):
 
 Volume versus cadence: the topic-volume estimate tells you how big the opportunity is and how long it will take to cover; the monthly cadence is the sustainable pace. Size the niche once, then pace against it. The daily cap governs hand-written articles; the 2000-4000 per day figures are programmatic generation, a different lane that lives or dies on per-page uniqueness, not on editorial craft (field heuristics from 115+ agency audits).
 
+Breaking-news lane: for genuinely time-sensitive topics, getting the site approved in Google News (Publisher Center) opens the Top stories and News surfaces, where a fresh article can be indexed within minutes and draw sharp traffic spikes. Pair it with a News sitemap (see seo-technical) and publish hot topics fast. Treat this as a separate lane for news-grade freshness, not a tactic for evergreen content (field heuristic from 115+ agency audits).
+
 Why rewrite-first: an existing URL has age, links, and impression history; lifting it from position 8 to position 3 outperforms a new URL starting from zero. Never republish with only a new date: Google compares content versions, and a date-only refresh is deceptive freshness. Flag this risk whenever a user asks for it.
 
 Title and answer-block patterns:

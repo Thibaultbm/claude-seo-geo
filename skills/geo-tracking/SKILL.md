@@ -86,15 +86,20 @@ Google includes AI Overviews impressions and clicks inside the regular Search pe
 
 This is the heart of the skill: a reproducible, free protocol measuring what buyers actually see in AI answers.
 
+Why a panel at all: AI engines publish no impression count and no search volume for a brand mention, so visibility inside them is a black box. The panel is how you mime ranking measurement: send the questions buyers would actually ask, record whether the brand appears, and track that rate over time. It is a sampled proxy, not a traffic metric, and that is the best signal available without paid tools (field heuristic from 115+ agency audits).
+
 #### Step 1: Freeze the panel
 
 Take the 50-100 buyer prompt panel built with seo-keyword-research (patterns: "best [category] for [use case]", "[brand] vs [competitor]", "is [brand] worth it", "how to [job to be done]"). Freeze it. Comparable months require identical prompts; edit the panel quarterly at most, append rather than replace, and version it (v1, v2) so trend charts never silently mix panels.
+
+Sizing and cadence: 50-150 prompts is the realistic working range, scaled to how broad the topic is, not bigger for its own sake. Replay monthly by default; move to weekly only for fast-moving or hotly contested topics where a month is too coarse. Daily replay rarely earns its cost in money and noise (field heuristic from 115+ agency audits).
 
 #### Step 2: Replay monthly under controlled conditions
 
 - Same week each month (for example the first business week).
 - Fresh sessions: logged out or temporary chat, memory and personalization off, no custom instructions. Why: personalized answers measure your history, not the market's visibility.
 - Note the country and language and keep them constant; answers differ materially by locale.
+- For a multilingual market, build a separate panel per language AND culture, not a translation of one panel. The reference sources an engine draws on differ between cultural groups even inside one country (Flemish versus French-speaking Belgium, for example), so run a distinct setup and a distinct report per locale, and set the engine region by country and city where the interface allows it (field heuristic from 115+ agency audits).
 - Engines: ChatGPT (search enabled), Perplexity, Google AI Overviews (run the prompt as a Google query and record the AI Overview if one appears), Claude, Gemini. Keep the engine set constant.
 
 #### Step 3: Record one row per prompt and engine

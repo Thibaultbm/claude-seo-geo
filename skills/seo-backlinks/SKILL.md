@@ -64,6 +64,8 @@ Evaluate every opportunity against all five. A link that fails on relevance or p
 | 4 | Anchor naturalness | Varied anchors: brand, URL, generic, partial match | Fifty identical exact-match anchors is the single most readable footprint of manipulation. Natural profiles are messy. |
 | 5 | Placement in content | In the body of an article, surrounded by relevant text | An in-content link beats a footer link, a sidebar link, or a slot in a 500-link resources page. Position signals editorial intent. |
 
+External anchors are the opposite of internal anchors. Internal links use keyword anchors on purpose (see seo-internal-linking); external links should default to the brand name, the bare URL, or a generic phrase ("click here", "discover"). Keep exact-match keyword anchors on inbound external links close to zero: a keyword-heavy external anchor profile is the clearest over-optimization footprint there is, and it gets worse, not better, as more links arrive. (field heuristic from 115+ agency audits)
+
 ### Follow and nofollow: take both
 
 Since 2019, Google treats nofollow as a hint, not a directive, and added rel="sponsored" and rel="ugc" (https://developers.google.com/search/blog/2019/09/evolving-nofollow-new-ways-to-identify). Practical consequences:
@@ -180,6 +182,7 @@ Review the table monthly: re-check that links are still live and indexed, log ne
 | Expert quotes (HARO-style source requests) | One good quote earns an editorial link, and quotes feed GEO directly: adding quotations measured up to +41% generative engine visibility in the Princeton GEO study. | https://arxiv.org/abs/2311.09735 |
 | Podcast and interview links | Every guest you host, and every show you appear on, is an editorial link or a badge from their site. Recurring, relevant, and they compound as the show grows. | Field heuristic from 115+ agency audits |
 | Embedded widget or tool on partner sites | A useful widget (calculator, live data, booking) placed on a partner page links back every time it renders. Serve it from your indexed root domain, not a separate app subdomain, or the link points at the wrong host. | Field heuristic from 115+ agency audits |
+| Link from a page already ranking on page one | When you place a link inside one of your own (or a partner's) articles that already ranks on page one, Google already trusts and crawls that URL, so the new link is found and weighted faster than the same link in a brand-new article that has to earn trust first. | Field heuristic from 115+ agency audits |
 
 The digital PR play has a GEO bonus worth spelling out to users: journalists cite the statistics, then LLMs cite the articles that repeat them. One proprietary number ("X% of [industry] does Y") can propagate through dozens of pages that all mention the brand as the source.
 

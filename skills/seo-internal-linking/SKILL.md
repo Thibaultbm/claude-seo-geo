@@ -69,6 +69,8 @@ For every blog article, assign the 3-5 money pages it should link to, matched on
 
 Why: articles capture informational traffic; the matrix is the mechanism that converts that traffic and authority into commercial rankings.
 
+Plan a retroactive re-linking pass. You cannot link from an article to others that do not exist yet, so a corpus built over time accumulates missing cross-links. Schedule a dedicated pass once a batch is published (and re-run it as the corpus grows) to add the article-to-article links that were impossible to place at writing time. This is a recurring maintenance task, not a one-off (field heuristic from 115+ agency audits).
+
 ### Step 4. Fix the anchors
 
 Rewrite anchors to be descriptive, varied, and natural: a mix of exact keyword, partial match, and descriptive phrases (distribution table below). Eliminate sitewide repetition of one exact-match anchor and systematic "click here".
