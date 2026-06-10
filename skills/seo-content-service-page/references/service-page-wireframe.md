@@ -92,6 +92,19 @@ Mandatory unique local substance (the anti-doorway test):
 
 Side-by-side test before publishing: open this city page next to another one. If only the city name differs, the page is a doorway page (Google spam policy risk). Add real local substance or do not publish.
 
+## Bookable service variant (e-tourism, experiences, appointments)
+
+Use when the service is a reservable offer (an activity, an experience, a slot). The 9 blocks still apply; the hero and proof shift toward booking:
+
+```
+- Breadcrumb (Home > Category > this offer)
+- Image slider of the real offer at the top, with a persistent "Book" CTA
+- Short article describing the experience (doubles as the SEO text block, block 6)
+- Options and variants (durations, dates, formats, prices in plain text)
+- Reviews from past customers (block 7)
+- Internal links to related offers
+```
+
 ## Pre-publish checklist
 
 - [ ] One service, one intent, one primary keyword

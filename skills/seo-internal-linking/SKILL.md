@@ -152,6 +152,15 @@ Hub and spoke example for a SaaS:
 
 Direction matters: the page you want to rank (the hub or the service page) must RECEIVE the links. A pillar that only links out to satellites without receiving links back concentrates nothing. Keep outbound links disciplined too: link each target once per page, at the most natural spot; dozens of internal links from a single page dilute every one of them.
 
+### Satellite site (standalone comparator)
+
+Distinct from the satellite ARTICLES of an in-site silo above: this is a second, independent website on the same theme, positioned as the reference of the niche (a Wikipedia-plus-comparator hybrid). It lists the actors and subjects of the sector, captures educational and comparison traffic, and links out to the commercial site as the cited example. Treat it as a separate property with its own internal silo, then a controlled set of editorial links pointing to the money site.
+
+- When it earns its keep: competitive niches where the brand site cannot credibly rank as a neutral authority, and where buyers search educational and "best X" comparison queries before they search the brand (field heuristic from 115+ agency audits).
+- Build: neutral domain, sector glossary and actor profiles as the hub, comparison and "best [category]" pages as the converting layer, then descriptive editorial links to the relevant money pages on the brand site (one per natural context, never a sitewide block).
+- Two sites on the same theme do NOT cannibalize each other: they are separate properties, so they occupy two distinct slots in the SERP instead of splitting one page's signals. Cannibalization is a within-site problem (two pages of the same site on the same intent), not a cross-domain one. Anti-cannibalization keyword logic: seo-keyword-research.
+- This is also an off-page lever: a controlled, topically perfect referring domain into the brand site. Plan its links as part of the link profile in seo-backlinks (anchor variation and velocity rules apply there too).
+
 ### Cannibalization test and merge
 
 Signals that two pages cannibalize:

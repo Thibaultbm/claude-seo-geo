@@ -127,7 +127,7 @@ Why: every filled field is matching surface for queries, and completeness differ
 | Negative, legitimate | Acknowledge the facts, state the fix made, move the conversation offline; factual tone, never argue, no public discounts |
 | Suspected fake | State factually that no record of this customer exists, report it through the profile; never accuse the reviewer |
 
-5. **Encourage detail naturally**: when asking, mention the service and the city ("a quick line about the bathroom renovation we did in Croix-Rousse helps others find us"). Detailed reviews mentioning service and city feed both rankings and AI answers.
+5. **Encourage detail naturally**: when asking, mention the service and the city ("a quick line about the bathroom renovation we did in Croix-Rousse helps others find us"). Detailed reviews mentioning service and city feed both rankings and AI answers. Keyword hierarchy: keywords the customer writes in their own review (service plus city) carry the real weight; putting the service and city in your reply is a smaller bonus on top. Steer the customer toward their own words, never script the review for them (field heuristic from 115+ agency audits).
 
 **Explicit Google policy risk.** Never pay, discount, or incentivize reviews, never gate (filtering happy customers to Google and unhappy ones to a private form), never review-swap, never post fake reviews. All of these violate Google's review policies and can wipe every review or suspend the profile (measured: Google policy, see Sources); fake or incentivized undisclosed reviews are also illegal in several markets, including under the US FTC rule on consumer reviews (measured: see Sources).
 
@@ -137,7 +137,7 @@ Weekly or biweekly posts (offers, completed jobs, seasonal info) keep the profil
 
 ### Step 7: Strengthen the linked website
 
-The website is the fourth pillar and the one local businesses skip most often (field heuristic). Maps ranking draws on the linked site's relevance and authority; a strong location page lifts the profile, and the profile sends behavioral signals back. Build:
+The website is the fourth pillar and the one local businesses skip most often (field heuristic). Maps ranking draws on the linked site's relevance and authority; a strong location page lifts the profile, and the profile sends behavioral signals back. Concrete case seen repeatedly: a competitor with fewer reviews but a complete linked site (online booking, real on-location photos, a proper location page) outranks a business that wins on review count alone, because the richer site gives Google more to match the query against (field heuristic from 115+ agency audits). Reviews lead, but the linked site can flip a close pack position. Build:
 
 1. One location page per establishment, linked from the matching profile. Structure, copy, and the full local keyword pattern (city in title, URL, H1, meta description, first paragraph, image alts): see the seo-content-service-page skill and references/location-page-template.md.
 2. LocalBusiness schema on each location page: name, address, phone, geo coordinates, opening hours, exactly matching the profile (implementation: seo-schema-markup skill).

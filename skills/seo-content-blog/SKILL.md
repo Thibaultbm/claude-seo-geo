@@ -146,10 +146,15 @@ Publication cadence (field heuristics):
 
 | Situation | Cadence |
 |---|---|
+| Niche topic volume | Estimate the total addressable topics first (for example 500-600 exploitable subjects around one city) to size the corpus and the runway, separate from the monthly pace |
 | Blog launch | 45-75 articles for the initial corpus, up to 100 in a content-rich niche |
 | Established site | Around 20 articles per month |
+| Hand-written daily cap | Roughly 20 pieces per day; past that, quality and information gain slip |
+| Programmatic scale | Some sites publish 2000-4000 templated pages in a single day and get them indexed, but only when each page is genuinely unique (the scaled-content indexation condition lives in seo-technical) |
 | Priority order | Rewrite existing articles that already earn impressions BEFORE creating new ones |
 | Comparative listicles | Refresh every 60-90 days with real changes, an honest dateModified, and a visible date on page |
+
+Volume versus cadence: the topic-volume estimate tells you how big the opportunity is and how long it will take to cover; the monthly cadence is the sustainable pace. Size the niche once, then pace against it. The daily cap governs hand-written articles; the 2000-4000 per day figures are programmatic generation, a different lane that lives or dies on per-page uniqueness, not on editorial craft (field heuristics from 115+ agency audits).
 
 Why rewrite-first: an existing URL has age, links, and impression history; lifting it from position 8 to position 3 outperforms a new URL starting from zero. Never republish with only a new date: Google compares content versions, and a date-only refresh is deceptive freshness. Flag this risk whenever a user asks for it.
 
@@ -179,6 +184,7 @@ Media:
 |---|---|---|
 | Video | Embed from YouTube, never upload to your own server | Page weight stays low and the video earns a second surface (YouTube search) plus a multi-channel signal |
 | Images | 3 per article, alt text on all, WebP, 200 KB max | Speed, image SERPs, and machine-readable descriptions |
+| Substack or Medium mirror | Set the syndicated copy to no-index; rank the canonical version on the owned site (a WordPress or similar) | The owned site carries the SEO; the mirror serves the email or follower audience. A crawlable duplicate splits signals and can outrank the original, so de-index the copy (field heuristic from 115+ agency audits) |
 
 ## GEO layer
 

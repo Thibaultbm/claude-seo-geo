@@ -103,6 +103,8 @@ Write answers so the first sentence stands alone as a fact (passage construction
 
 Why unique titles matter here specifically: collection templates generate titles mechanically, so stores routinely ship dozens of near-identical titles, and Google then rewrites them unpredictably (https://developers.google.com/search/docs/appearance/title-link). Why descriptive slugs: in an Ahrefs analysis of pages cited by ChatGPT, 89.78 percent of cited pages had descriptive slugs versus 81.11 percent in the comparison set (measured, correlational: https://ahrefs.com/blog/why-chatgpt-cites-pages/). /collections/linen-dresses earns citations that /collections/c-118 does not.
 
+Competitive nuance on the slug: look at the URL segment the leaders already ranking for the query use, and match that pattern rather than inventing your own. If the pages winning "photovoltaic label" all sit on a slug like /etiquette-photovoltaique, mirror that exact wording; Google has confirmed the term matches buyer intent on that query, so reusing the proven motif is safer than a synonym (field heuristic from 115+ agency audits).
+
 ### 4. Faceted navigation: control the URL explosion
 
 Faceted navigation is the largest crawl trap in e-commerce: 200 collections times a handful of filters, values, and sort orders generate millions of parameter URLs (?color=red&size=m&sort=price) that are near-duplicates of each other. Google documents this as the canonical crawl waste scenario (https://developers.google.com/search/docs/crawling-indexing/crawling-managing-faceted-navigation). Symptoms: "Discovered, currently not indexed" inflation in Search Console, crawl stats dominated by parameter URLs, fresh products taking weeks to index.
@@ -154,6 +156,8 @@ Infinite scroll and "load more" need a paginated URL fallback with real <a href>
 
 Why this matters at the site level: dozens of indexable empty collections dilute the quality profile Google evaluates sitewide, and they waste the crawl budget the real collections need (field heuristic from 115+ agency audits).
 
+Mono-product case, the "real catalogue" tactic: a business selling essentially one product has no collection to fill, so the collection page looks empty and barely exists to Google. Split the single product into genuine variants (packaging, color, format, size, quantity bundle) so the collection lists several real, separately purchasable items and reads as a true category rather than a one-item shell (field heuristic from 115+ agency audits). The variants must be honestly distinct purchasable options, not the same item cloned under different URLs, which would be the doorway and near-duplicate problem from section 4.
+
 ### 7. Internal linking: collections are the money pages
 
 In most audited stores, collections, not PDPs, win the category-level queries that drive revenue (field observation from 115+ agency audits). Link them accordingly:
@@ -193,6 +197,14 @@ Beyond the Ahrefs citation correlation (section 3), assistants cite and revisit 
 ### Server-rendered HTML only
 
 Many storefront themes render the product grid, filters, and even the text block client-side. Major AI crawlers fetch but do not execute JavaScript (measured by Vercel across GPTBot, ClaudeBot, and others: https://vercel.com/blog/the-rise-of-the-ai-crawler), so a JS-rendered collection page is an empty page to ChatGPT, Claude, and Perplexity. Test with curl: the H1, the bottom block, and at least the first grid of product links must appear in the raw HTML. Rendering fixes: seo-technical skill.
+
+### Source the text from Google Maps reviews
+
+For a directory or listing page that profiles a real venue (a marketplace entry, a local annuaire, a curated collection of places), the venue's own Google Maps reviews are a source of fresh, specific copy. With the Google Place ID, pull the recent reviews and condense them into a short, current passage on the listing: the atmosphere, what customers consistently mention, the felt experience, in plain factual language and attributed as customer feedback rather than presented as your own claims (field heuristic from 115+ agency audits). This gives the page concrete, up-to-date detail that a templated description lacks, exactly the kind of specific material assistants quote.
+
+### Position 2 on navigational brand queries
+
+On navigational queries shaped "brand + reviews" or "brand + alternative", position 1 is the brand's own official property and is not realistically contestable. The opening is position 2: a comparative or directory page that lists the brand alongside its alternatives, or aggregates independent reviews of it (field heuristic from 115+ agency audits). This is a recurring play for marketplaces and directories, the page does not need to outrank the brand, only to own the second slot that captures the searcher looking for outside opinion. Stay accurate about every brand named; invented comparison facts are a liability.
 
 ### Measure
 

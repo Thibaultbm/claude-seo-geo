@@ -54,6 +54,8 @@ The single most common audit finding (field heuristic): a brochure site with one
 4. Plan one URL per service, plus a parent "Services" hub page that links to all of them.
 5. If splitting an existing page, 301-redirect nothing that ranks; build the new pages first, then re-point internal links.
 
+Competitor-benchmark page mapping (field heuristic): to surface missing service and sector pages fast, paste the sitemap or page list of the 10 largest competitors into an AI model and ask it to list the page types they have that the audited site lacks. This exposes one-page sites and absent service, sector, and use-case pages in one pass, before manual SERP testing. Cross-check each suggested page against real buyer demand (Step 2) before committing it.
+
 Why: Google ranks pages, not sites, for transactional queries. A page about everything has diluted relevance for each thing. Splitting also gives each service its own title, H1, FAQ, and proof, which a combined page cannot do.
 
 ### Step 2: Pick the target keyword and read the SERP
@@ -130,8 +132,9 @@ Block details and the reasoning behind each:
 |---|---|
 | Agency, consultant | Case results with numbers in blocks 2-3, portfolio links, team credentials |
 | Trade (plumber, electrician, roofer) | Click-to-call as the primary CTA, emergency hours in the hero, service-area list, photos of real jobs |
+| Solo professional (physio, coach, doctor, lawyer) | Block 5 (founder bio) is the page's lead sales argument, not a footnote: the buyer is choosing a person, so the named-and-photographed practitioner is the differentiator. Make the bio prominent, with credentials, registrations, and a real story (field heuristic) |
 | Clinic, lawyer, regulated profession | Practitioner credentials and registrations in block 5, claims reviewed for regulatory compliance, consultation-booking CTA |
-| SaaS or productized service | Demo or trial CTA, integration logos, security and compliance proof, transparent pricing table |
+| SaaS or productized service | Demo or trial CTA, integration logos, security and compliance proof, transparent pricing table. Extend one service = one page into one target sector = one page (a dedicated page per vertical, e.g. "for construction firms"), one persona = one page, and one feature = one page: tighter specialization wins more long tail and converts better (field heuristic) |
 
 ### Step 5: Apply the metadata pattern
 

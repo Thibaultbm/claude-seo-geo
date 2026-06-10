@@ -20,6 +20,7 @@ If the working environment contains an Obsidian vault or any local knowledge bas
 1. Facts before judgment. Every claim in the final report must trace back to something measured (by the bundled script, a browser check, or data the owner provided). Never guess a title length or assume a sitemap exists.
 2. Competitors over abstract thresholds. "Your page has 400 words" means nothing alone. "The three sites outranking you average 1200 words on this query" is a finding. When competitors are known, benchmark page versus page.
 3. Two search worlds at once. Every category is checked twice: does it help Google rankings, and does it help the site get retrieved and cited by ChatGPT, Perplexity and Google AI Overviews. These overlap but do not coincide (AI Mode answers show only about 32 percent URL overlap with the top 10 organic results).
+4. The audit is a pricing tool for agencies. The counted error volume doubles as a quote: "500 errors on this site, that is roughly 3000 euros of work" scopes the project the prospect is buying. The score is a ratio of errors to pages, so one template-level error repeats across every page using that template and a single fix corrects it everywhere, which is why a low score is rarely a catastrophe. Frame both up front so the owner reads the report as a plan, not a verdict (field heuristic from 115+ agency audits).
 
 ## When to use
 
@@ -105,6 +106,8 @@ Read `references/output-templates.md` and pick the format:
 - Template B, plain-language email: for non-technical owners; no acronyms, every term explained in everyday words, progress acknowledged, honest verdict.
 
 Rules for both: write in the language of the site, open with what is genuinely good (credibility, and most sites do several things right), keep the verdict honest even when it is "rebuild before investing in content", and state explicitly what was not verified and why.
+
+Reassure before you criticize: lead with honest numbered reference points ("this is already better than 90 percent of the sites I see", "I am very demanding on the score, above 80 percent is very good") so the owner trusts the findings instead of bracing for them. Explain the score as a ratio of errors to pages, where a template-level error repeats across all pages built on that template and one fix corrects it everywhere, so a low number does not warrant panic or a misread comparison against another tool (field heuristic from 115+ agency audits).
 
 ## Handoffs after the audit
 

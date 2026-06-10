@@ -97,6 +97,8 @@ Guideline note: do not add FAQPage markup expecting rich results. Google removed
 
 Use real photographs of the actual product: multiple angles, one scale or in-use shot. Never use AI-generated product images on a PDP, even photorealistic ones. Two reasons: buyers detect synthetic imagery at the exact moment they decide to pay, and Google Merchant Center requires images that accurately represent the product, so misrepresentation risks disapproval of the listing (https://support.google.com/merchants/answer/6324350). AI imagery is tolerable in blog illustrations when photorealistic, never on product pages (field rule from 115+ agency audits).
 
+Copycat and dropshipping case: photos taken straight from the supplier or manufacturer, the ones every other reseller of the same item also uses, are the duplicate-image equivalent of the duplicate description (section 1). Merchant Center expects images that represent your own listing rather than reused stock, so identical supplier photos get the listing disapproved, and a page carrying the same images as fifty competitors gives Google and AI assistants nothing to distinguish it. Shoot the product yourself: own photos are the only fix (field heuristic from 115+ agency audits).
+
 Write alt text as product name plus the distinguishing attribute shown. Image weight and loading belong to the seo-technical skill.
 
 ### 4. Reviews: visible at the top, story format
@@ -164,6 +166,10 @@ Minimum viable markup for a PDP:
 | Review | Only for reviews actually displayed |
 
 Guideline risk to flag every time: structured data must mirror the visible page content. Markup that contradicts the page (a rating with no reviews shown, a price that differs from the displayed one) can trigger a structured data manual action (https://developers.google.com/search/docs/appearance/structured-data/sd-policies). Validate with the Rich Results Test. Full JSON-LD patterns, merchant listing fields (shipping, returns), and validation workflow: seo-schema-markup skill.
+
+### 11. Marketplace listings: Amazon and FBA
+
+Amazon is a search engine and a separate market with its own ranking, not a copy of Google. The same on-page audit transposes to an Amazon listing: study the keywords and descriptions the competing listings rank for on Amazon itself, then optimize the listing title, bullets, and product description as you would a web PDP, around the terms buyers type on that marketplace (field heuristic from 115+ agency audits). Keep the channel distinct: an Amazon listing and the store's own PDP serve different surfaces and rarely compete with each other. The reusable parts of this skill are the unique benefit-led copy, the buyer-question coverage, and the real-photos rule (sections 1, 2, 3); the platform-specific mechanics (A9 ranking, FBA fulfillment) live outside the scope here.
 
 ## GEO layer
 

@@ -9,6 +9,9 @@ Provenance markers: (field) = recurring finding across 115+ real agency audit ca
 - 1.3 One site, full focus. Splitting effort across two domains divides results by more than two: authority, content cadence and links all dilute. Recommend consolidation unless there is a hard business reason. (field)
 - 1.4 SEO is an asset. Rankings persist and appreciate like digital real estate; paid traffic stops the day spend stops. Useful framing for prioritization decisions in the report. (field)
 - 1.5 Quantify everything. "523 errors, of which 178 are images without alt text" turns an opinion into a scoped project. Count what the script lets you count. (field)
+- 1.6 The error count is a quote. For agency audits, the volume of errors prices the job: "500 errors on this site, that is roughly 3000 euros of work" turns the audit into a scoped estimate the prospect can say yes to. This is the business angle of the audit for the "agency" audience. (field heuristic from 115+ agency audits)
+- 1.7 Frame the score as a ratio, not a grade. The score is errors over pages: one error baked into a page template repeats on every page using that template, so fixing it once fixes it everywhere. A low score is therefore not a catastrophe, it is often a handful of template fixes multiplied across the site. Explain this so the owner does not panic when a number looks worse than some other tool's. (field heuristic from 115+ agency audits)
+- 1.8 Reassure before you criticize. Open with honest, numbered reference points so the owner trusts the verdict instead of bracing for it: "this is already better than 90 percent of the sites I see", "I am very demanding on the score, anything above 80 percent is very good". State the bar, then the findings. (field heuristic from 115+ agency audits)
 
 ## 2. Tags
 

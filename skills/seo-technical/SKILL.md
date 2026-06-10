@@ -62,6 +62,8 @@ In GSC, open Indexing > Pages and compute the ratio of indexed to submitted page
 Then act on the gaps:
 
 - Priority pages not indexed: inspect each with the URL Inspection tool, fix the reported cause, then click Request Indexing. The quota is roughly 10 to 12 requests per day per property, so spend it on money pages, not the archive.
+- Bulk indexation, not page by page: ignore the "index 10 URLs per day" ritual some platforms (Wix and others) push. Manual one-by-one submission scales to nothing. Submit the full sitemap in GSC once and let Google discover every URL from it; reserve manual Request Indexing for a handful of priority pages (field heuristic from 115+ agency audits).
+- Scaled and programmatic pages, the indexation condition: thousands of generated pages (one per city, per combination) only get indexed when each page carries genuinely unique content. The same block copied across all of them is the classic non-indexation cause: Google treats near-duplicate templates as one page and drops the rest. Uniqueness per page is the price of admission for scaled content, not an optimization (field heuristic from 115+ agency audits).
 - 404s with history: any URL that previously earned traffic or backlinks and now returns 404 gets a 301 to the closest equivalent page. Never blanket-redirect everything to the homepage: Google treats irrelevant mass redirects as soft 404s.
 - Orphan pages: target zero. Detection and fixes belong to the seo-internal-linking skill.
 
@@ -81,6 +83,8 @@ Sitemap.xml:
 - Keep lastmod honest: update it only when content meaningfully changes. Google states it ignores lastmod when it is uniformly fresh or inaccurate.
 - Do not ping Google's sitemap endpoint: deprecated in June 2023, it returns 404. Submit through GSC and the robots.txt Sitemap: line (https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping).
 - Set up IndexNow for Bing: instant push of new and updated URLs, built into many CMS plugins and Cloudflare. Bing is a primary gateway into ChatGPT search, which makes Bing Webmaster Tools standard equipment in 2026 (https://yoast.com/chatgpt-search/).
+
+Discovery for ultra-fresh topics: when the site publishes time-sensitive news, add a dedicated News sitemap plus an RSS or Atom feed so Google can pick up items within minutes; an RSS feed is also the fastest way to source breaking topics worth covering. This channel only fits genuinely fresh, newsworthy content, not the evergreen archive.
 
 Meta robots versus robots.txt, the distinction behind most "why is this still indexed" tickets:
 
@@ -129,6 +133,8 @@ Stack verdicts:
 | React, Vue, Angular client-side SPA | No | Invisible to every AI engine; prerender or rebuild |
 | Framer, Lovable, and similar recent builders | Mixed | Field experience: unstable for SEO at scale (rendering, redirects, sitemap control); audit before committing a content operation to them |
 
+Inside a stable CMS, the theme still decides the technical floor. Pick a lean, SEO-oriented e-commerce theme (clean markup, no JavaScript bloat, content in raw HTML, fast Core Web Vitals out of the box) over a heavy multi-purpose one: on Shopify, for example, the gap between a performance-focused theme and a bloated one shows up directly in LCP. Choose the domain on the same logic: for a French local business, a .fr signals geography to Google and tends to earn a better local click-through than a .com (field heuristic from 115+ agency audits). Settle the domain before launch, since changing it later means a full migration (Step 7).
+
 ### Step 4: Speed and Core Web Vitals
 
 Judge mobile first: mobile carries 80 to 90 percent of traffic on typical lead-gen and e-commerce sites (field range). Measure with the free PageSpeed Insights web interface at https://pagespeed.web.dev: no API key, no account, and it returns both field data (CrUX, what real users experienced over 28 days) and lab data. Field data wins arguments; lab data locates causes.
@@ -156,6 +162,7 @@ Canonicals (the e-commerce deduplication tool):
 - Faceted navigation, sort parameters, and session IDs multiply URLs. Point every variant at the clean URL with rel=canonical.
 - A canonical is a hint, not a directive: Google ignores canonicals contradicted by stronger signals (internal links and sitemaps pointing at variants). Align all signals on the clean URL.
 - Every page self-canonicalizes. It costs nothing and absorbs parameter pollution.
+- Quick win, the homepage canonical: many sites set canonicals on every inner page but leave the homepage without one, even though it is the most linked URL and the one that collects the most parameter and tracking variants. Add a self-referencing canonical on the home page; it is a two-minute fix with outsized cleanup value (field heuristic from 115+ agency audits).
 
 hreflang (international versions):
 
@@ -168,6 +175,7 @@ hreflang (international versions):
 
 - HTTPS everywhere: every HTTP URL 301s to HTTPS in one hop, no mixed content, valid certificate.
 - Hack detection: search the raw HTML (hacks often cloak, so not just the rendered page) for injected casino, pharma, and replica anchors. Check GSC Security Issues and run a site: search for pages you do not recognize. On WordPress: clean the injection, update core and plugins, install Wordfence, rotate all credentials.
+- Unintentional geo-blocking: a firewall rule or a country block (often shipped by a WAF, a CDN security preset, or a hosting default) can make the site unreachable from entire regions, so a slice of human visitors, search bots, and AI crawlers, and your own audit, see nothing. Symptoms: timeouts or 403s from one country but not another, missing impressions from a market that should convert. Test by fetching the site through a different-country exit (a VPN, or curl from a server in the target region) and compare the status code against your local result. Whitelist Googlebot, Bingbot, and the AI crawler ranges (references/ai-crawlers.md), and lift any country block that overlaps a real audience.
 - Domain age is an asset: an old domain carries link history and trust. Never let a legacy domain expire; renew it and 301 it. Field rule: domains are cheap, history is not replaceable.
 
 ### Step 7: Migrations (when applicable)

@@ -60,6 +60,8 @@ Validate every candidate keyword against at least two independent evidence sourc
 
 If a keyword appears in none of these sources, treat it as jargon and find the variant that does appear.
 
+Granularity matters: a keyword is a short expression people actually type, not the full article title. "how to invoice a client in germany" is a keyword; "the complete 2026 guide to invoicing your first international client in germany" is a headline that matches a query with zero volume. Title the page around the keyword, do not promote the title to a keyword.
+
 ### 2. One keyword, one intent, one page
 
 Google ranks one page per intent per site in most cases, and a page built for two intents serves neither. Every keyword in the map points to exactly one URL, and every URL targets exactly one primary intent. Secondary keywords are allowed only when they share the primary intent (verified by the cannibalization test in step 6).
@@ -97,6 +99,8 @@ Why first: GSC is the only free source showing queries where Google already cons
 
 Also filter GSC queries containing "how", "what", "why", "vs", "best": they seed both blog topics and the prompt panel.
 
+Prioritize by commercial value, not raw impressions. A high-volume informational query that ranks well but sends visitors who never buy is worth little; a lower-volume query with a strong click-through rate and buyer intent is worth more. Weight the quick win list toward queries that bring customers, not toward the biggest impression counts.
+
 ### Step 2: Validate the real query language
 
 Why: this step kills the jargon problem from principle 1 and it costs nothing. Examples of the gap it closes:
@@ -114,6 +118,7 @@ Method per source:
 - Related searches: bottom of the results page, usually intent variants of the seed.
 - Reddit and forums: search "site:reddit.com" plus the topic, copy exact thread titles and complaint phrasings, sort by recent for fresh vocabulary.
 - Customer words: pull the last 50 support tickets and sales call notes, extract the nouns and verbs prospects use before buying. These phrases are simultaneously keywords, prompt phrasings, and ad copy.
+- Google Trends (free): a separate validation, not a phrasing source. Before committing to a niche or market, check that interest in the theme is rising rather than declining over 12 to 24 months, and compare relative interest between candidate terms and regions. Use it to confirm demand direction; autocomplete and People Also Ask confirm the exact words people type.
 
 ### Step 3: Reverse-engineer competitor coverage
 
@@ -162,6 +167,8 @@ Why: two pages targeting the same intent split internal links and ranking signal
 4. Clearly different results: different intents, two pages are justified.
 
 Typical symptom that triggers this test: rankings for one query flip-flopping between two URLs week over week.
+
+Cannibalization is a within-site problem: two pages of the SAME site competing for one intent. Two separate properties on the same theme (for example a brand site plus a standalone comparator) do not cannibalize each other; they occupy two distinct SERP slots and can both rank. The standalone comparator site strategy: seo-internal-linking.
 
 ### Step 7: Build the placement matrix
 
