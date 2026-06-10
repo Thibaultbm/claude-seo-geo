@@ -21,6 +21,10 @@ Run all three. GA4 alone undercounts structurally, panels alone miss revenue pro
 
 This skill is the canonical measurement reference in this repo. Build the prompt panel with seo-keyword-research; act on the gaps with geo-visibility.
 
+## Company knowledge first (Obsidian)
+
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before acting: brand and product facts, target keywords, competitors, and the SEO action log of what was already tried. Ground every recommendation in that context instead of asking the user for facts the vault already holds. At the end of the session, append the actions taken to the vault's SEO action log so the next session starts informed. Vault structure, read-first and write-back protocols: the obsidian-brain skill.
+
 ## When to use this skill
 
 Use this skill when the user:

@@ -13,6 +13,10 @@ Technical SEO decides whether content can be fetched, parsed, indexed, and trust
 
 Work in this order: indexation, rendering, speed. A fast page that is not indexed earns nothing. An indexed page whose content only appears after client-side JavaScript runs is invisible to every AI engine except Google's. Every threshold below is labeled either official or measured (with a source URL) or field heuristic from 115+ agency audits.
 
+## Company knowledge first (Obsidian)
+
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before acting: brand and product facts, target keywords, competitors, and the SEO action log of what was already tried. Ground every recommendation in that context instead of asking the user for facts the vault already holds. At the end of the session, append the actions taken to the vault's SEO action log so the next session starts informed. Vault structure, read-first and write-back protocols: the obsidian-brain skill.
+
 ## When to use this skill
 
 Use it for:

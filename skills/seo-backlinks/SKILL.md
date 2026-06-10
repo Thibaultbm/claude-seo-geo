@@ -18,6 +18,10 @@ It operates on a dual objective that defines off-page SEO in 2026:
 
 Every action this skill recommends should serve at least one of those two objectives, and the best actions serve both: a profile on a well-known platform is a link for Google and a citation surface for ChatGPT.
 
+## Company knowledge first (Obsidian)
+
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before acting: brand and product facts, target keywords, competitors, and the SEO action log of what was already tried. Ground every recommendation in that context instead of asking the user for facts the vault already holds. At the end of the session, append the actions taken to the vault's SEO action log so the next session starts informed. Vault structure, read-first and write-back protocols: the obsidian-brain skill.
+
 ## When to use this skill
 
 Use it when the user wants to:

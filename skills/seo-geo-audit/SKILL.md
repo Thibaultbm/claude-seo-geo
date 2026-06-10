@@ -11,6 +11,10 @@ metadata:
 
 Audit a website the way a senior practitioner does: collect verifiable facts first, judge them against a field-tested checklist, benchmark against the competitors that actually rank, and deliver a short list of fixes ordered by impact. The methodology was distilled from 115+ real agency audit calls and updated with sourced 2025-2026 evidence on AI search.
 
+## Company knowledge first (Obsidian)
+
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before acting: brand and product facts, target keywords, competitors, and the SEO action log of what was already tried. Ground every recommendation in that context instead of asking the user for facts the vault already holds. At the end of the session, append the actions taken to the vault's SEO action log so the next session starts informed. Vault structure, read-first and write-back protocols: the obsidian-brain skill.
+
 ## Why this audit is different
 
 1. Facts before judgment. Every claim in the final report must trace back to something measured (by the bundled script, a browser check, or data the owner provided). Never guess a title length or assume a sitemap exists.

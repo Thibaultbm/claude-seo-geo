@@ -12,7 +12,7 @@
     {
       "name": "claude-seo-geo",
       "source": "./",
-      "description": "14 SEO + GEO skills: full site audit, technical SEO, content for every page type (blog, product, service, collection), internal linking, schema, link building, local SEO, social amplification, AI visibility and AI traffic tracking.",
+      "description": "15 SEO + GEO skills: full site audit, technical SEO, content for every page type (blog, product, service, collection), internal linking, schema, link building, local SEO, social amplification, AI visibility and AI traffic tracking, plus an Obsidian company-knowledge layer that grounds every skill.",
       "category": "marketing",
       "keywords": [
         "seo",

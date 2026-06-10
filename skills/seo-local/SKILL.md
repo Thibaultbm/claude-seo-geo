@@ -16,6 +16,10 @@ The methodology combines two evidence levels, labeled throughout:
 - **Field heuristic**: rules derived from 115+ real agency audits of local and service businesses (2024-2026). Consistently observed, not lab-measured.
 - **Measured**: claims backed by a published study, an industry survey, or official documentation, with the source.
 
+## Company knowledge first (Obsidian)
+
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before acting: brand and product facts, target keywords, competitors, and the SEO action log of what was already tried. Ground every recommendation in that context instead of asking the user for facts the vault already holds. At the end of the session, append the actions taken to the vault's SEO action log so the next session starts informed. Vault structure, read-first and write-back protocols: the obsidian-brain skill.
+
 ## When to use this skill
 
 Use it to diagnose why a business is invisible in the local pack, set up or complete a Google Business Profile, build a review generation engine, write review replies, plan location pages, structure a multi-city or service-area business, or recover a suspended listing.

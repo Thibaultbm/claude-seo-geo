@@ -13,6 +13,10 @@ Generative Engine Optimization (GEO) is the work of becoming a source AI engines
 
 One framing governs everything below: AI engines do not rank 1000 pages, they sample a short list of sources per subquery and quote passages from them. That changes the job from "rank the page" to "make every passage quotable and make the brand legible everywhere models look". GEO sits on top of SEO, never instead of it: a page that is not indexed cannot be retrieved, and a page that is not retrieved cannot be cited.
 
+## Company knowledge first (Obsidian)
+
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before acting: brand and product facts, target keywords, competitors, and the SEO action log of what was already tried. Ground every recommendation in that context instead of asking the user for facts the vault already holds. At the end of the session, append the actions taken to the vault's SEO action log so the next session starts informed. Vault structure, read-first and write-back protocols: the obsidian-brain skill.
+
 ## Definitions
 
 - GEO (Generative Engine Optimization): the practice of earning citations and recommendations inside AI-generated answers.

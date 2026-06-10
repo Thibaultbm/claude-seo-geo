@@ -29,6 +29,7 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 
 | Skill | Use it for |
 |---|---|
+| obsidian-brain | The company knowledge vault every skill reads first and logs to after |
 | seo-geo-audit | Full site audit (SEO + AI visibility), prioritized action plan |
 | seo-technical | Crawlability, indexation, speed, JS rendering, AI crawler access |
 | seo-keyword-research | Keywords, search intent, AI prompt research |

@@ -16,6 +16,10 @@ The methodology combines two evidence levels, labeled throughout:
 - **Field heuristic**: rules derived from 115+ real agency audits of service-business websites (2024-2026). Consistently observed, not lab-measured.
 - **Measured**: claims backed by a published study or official documentation, with the source.
 
+## Company knowledge first (Obsidian)
+
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before acting: brand and product facts, target keywords, competitors, and the SEO action log of what was already tried. Ground every recommendation in that context instead of asking the user for facts the vault already holds. At the end of the session, append the actions taken to the vault's SEO action log so the next session starts informed. Vault structure, read-first and write-back protocols: the obsidian-brain skill.
+
 ## When to use this skill
 
 Use it to create a new service page, rewrite an underperforming one, split a one-page site into service pages, plan city or region pages for a multi-area business, or audit an existing money page against the wireframe below.

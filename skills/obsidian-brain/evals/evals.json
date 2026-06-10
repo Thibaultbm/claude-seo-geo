@@ -1,0 +1,23 @@
+{
+  "skill_name": "obsidian-brain",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a 6-person agency and our knowledge is everywhere: 30+ PDFs (proposals, audits), a folder of sales call transcripts from tl;dv, two pitch decks, and a pricing spreadsheet. I want Claude to actually know our business when it does SEO work for us. Set up an Obsidian vault for this and tell me how to dump everything in.",
+      "expected_output": "Scaffolds the full vault tree (00-INDEX, company/, market/, content/, seo/ with action-log.md in the documented format, sources/), drafts the company and market notes with TODO markers where facts are missing, and delivers a batched dump plan (10-20 documents per batch, prioritized: identity and product docs first, then call transcripts for customer language, then past SEO work). Explains the routing rule (a dump is done when its facts are findable from the INDEX, not when the file is converted), the one-fact-one-note rule, and the no-secrets rule.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I already have an Obsidian vault at ~/Documents/acme-vault with notes about our product and customers. Now write me a blog post about industrial label printers. Why do you keep asking me questions about our company?",
+      "expected_output": "Applies the read-first protocol: reads 00-INDEX.md then the relevant notes (identity, product, customers, keywords map, action log) before writing anything, grounds the article brief in the vault's facts and customer language instead of asking the user, checks the action log and published.md to avoid duplicating an existing article, then hands the actual writing to the seo-content-blog skill with the vault context attached, and ends by appending a dated entry to seo/action-log.md.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "ok we just finished fixing the titles and meta descriptions on 12 collection pages and added the schema. anything else before I close this?",
+      "expected_output": "Applies the write-back protocol: appends one dated entry to seo/action-log.md in the exact documented format (skill used, action, pages touched, expected effect, check-on date), quotes the entry back to the user, updates content/published.md or the relevant notes if pages changed, and suggests the check-back date for verifying impact (rankings and AI citations via geo-tracking). Refuses to end the session without logging.",
+      "files": []
+    }
+  ]
+}

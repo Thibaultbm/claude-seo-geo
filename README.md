@@ -1,8 +1,14 @@
+<p align="center"><img src="assets/banner.svg" alt="Claude SEO GEO: SEO and GEO skills for Claude Code, by Sorank" width="100%"></p>
+
 # Claude SEO GEO
 
 **SEO & GEO skills for Claude Code, built with Claude Mythos 5.** Rank in Google AND in LLMs like ChatGPT, Perplexity, and Gemini. Technical audits, backlink strategy, AI-optimized content, local visibility, and social amplification: everything you need to own search as it evolves. What took weeks now happens in hours. The future of Search is here, for free.
 
-14 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
+15 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
+
+## Run it on your company's second brain
+
+Claude is the uranium: raw reasoning power, in unlimited supply. Your company's knowledge is what that power runs on. A local [Obsidian](https://obsidian.md) vault is the power plant: the infrastructure that turns the two into compounding output. Dump everything your business knows into plain markdown notes (PDFs, pitch decks, call and video transcripts, exports: every format Claude reads), and every skill in this kit will pull that context before acting, then log its actions back to the vault. Each session starts where the last one ended, smarter. Setup in minutes with the [obsidian-brain](skills/obsidian-brain/SKILL.md) skill.
 
 ## Why SEO and GEO in one toolkit?
 
@@ -38,6 +44,7 @@ The skills are plain markdown following the open Agent Skills format, so they al
 
 | Skill | What it does |
 |---|---|
+| [obsidian-brain](skills/obsidian-brain/SKILL.md) | The knowledge layer: an Obsidian vault holding all company data, read by every skill before acting, updated with an SEO action log after |
 | [seo-geo-audit](skills/seo-geo-audit/SKILL.md) | Full site audit: 14 categories, facts collected by a bundled zero-dependency script, prioritized action plan or plain-language email |
 | [seo-technical](skills/seo-technical/SKILL.md) | Crawlability, indexation, Core Web Vitals, JavaScript rendering, AI crawler access (the canonical crawler table), migrations |
 | [seo-keyword-research](skills/seo-keyword-research/SKILL.md) | Real queries over jargon, intent mapping, cannibalization, and AI prompt research (the keyword research of answer engines) |
@@ -93,6 +100,10 @@ No. None of them render JavaScript; only Googlebot does (which feeds Gemini and 
 
 It costs ten minutes and does no harm, but no major engine confirms reading it (it shows up in roughly 0.1 percent of AI bot hits in published log studies). Generate one if you like; never prioritize it over indexation, rendering or content. Anyone selling llms.txt as a ranking lever is selling a placebo.
 
+### Why connect an Obsidian vault?
+
+Because generic context produces generic SEO. A local vault of plain markdown notes holds your brand facts, customer language, keyword map and the log of every SEO action already taken. The skills read it before acting (so they stop asking you for facts you already wrote down) and append their actions after (so the next session starts informed). Your data stays local, in files you own.
+
 ### Will this work for my non-English site?
 
 Yes. The methodology is language-agnostic and the audit skill writes its deliverable in the language of the site. Language matching is itself part of the method (links and content in the market's language).
@@ -105,12 +116,16 @@ No. Everything runs on free surfaces: the bundled script, Google Search Console,
 
 The checklist is the distilled output of real audit calls conducted by the maintainer's team between 2025 and 2026 across e-commerce, SaaS, local and service businesses. The heuristics that come from this corpus are explicitly labeled (field) in the references, separate from (measured) claims that carry public sources.
 
+## Prefer the done-for-you version?
+
+These skills give you full manual control, and great power comes with great responsibility: one wrong redirect or an overwritten page can cost rankings that took years to build. [Sorank](https://sorank.com) applies the same methodology on autopilot: AI-first articles published straight to your site, backlinks, and AI visibility tracking across ChatGPT, Perplexity and Gemini, with your existing rankings kept safe. Hours saved every week, the method stays the same.
+
 ## Repository structure
 
 ```
 claude-seo-geo/
   .claude-plugin/          plugin.json + marketplace.json
-  skills/                  14 skills (SKILL.md + references/ + evals/)
+  skills/                  15 skills (SKILL.md + references/ + evals/)
     seo-geo-audit/
       scripts/seo_audit.py zero-dependency on-page fact collector
   scripts/                 validate_skills.py (CI format + style checks)
@@ -123,6 +138,6 @@ Issues and pull requests are welcome: new evidence with sources, threshold corre
 
 ## About
 
-Built and maintained by the team behind [Sorank](https://sorank.com), an AI visibility and content platform. The methodology in these skills is the same one used in production: the audit checklist, the GEO scoring rubric and the prompt panel protocol all come from shipped tooling and real client work.
+Built and maintained by [Thibault Besson-Magdelain](https://thibaultbessonmagdelain.com), founder of [Sorank](https://sorank.com), an AI visibility and content platform. The methodology in these skills is the same one used in production: the audit checklist, the GEO scoring rubric and the prompt panel protocol all come from shipped tooling and real client work. Follow the work on [LinkedIn](https://www.linkedin.com/in/thibaultbessonmagdelain/) and [X](https://x.com/thibaultbessonm).
 
 License: MIT.
