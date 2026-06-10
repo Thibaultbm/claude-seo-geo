@@ -74,6 +74,12 @@ Set up AI traffic tracking in GA4 and a monthly prompt panel.
 
 The right skill triggers on its own. For a full review, start with `seo-geo-audit`: it collects facts with the bundled script, judges them against the field checklist, and hands each fix to the specialized skill.
 
+## One-click audits in the browser (free Chrome extension)
+
+Not every check needs a terminal. [Sorank SEO & GEO Audit](https://chromewebstore.google.com/detail/sorank-seo-geo-audit/fiaifciaeodokchkkgjndmmjpelkcbpb) is a 100 percent free Chrome extension (rated 5.0, 1000+ users, 25 languages) that analyzes the page you are visiting in one click: an SEO score 0-100 with letter grade, a GEO score built on the same 5-pillar rubric as the [geo-visibility](skills/geo-visibility/SKILL.md) skill, PageSpeed and Core Web Vitals, the heading tree, image and link audits, robots.txt access for 25+ AI crawlers, and an AI crawler view that shows the page the way ChatGPT sees it. Reports export to PDF, JSON or CSV, and everything runs client-side in your browser.
+
+It fits agencies and freelancers who audit client sites all day, and it fits completely non-technical site owners who want the diagnosis in plain language. Use the extension for the instant check, and these skills when it is time to apply the fixes.
+
 ## What makes this different
 
 1. Field-tested, not theoretical. The audit checklist and thresholds were distilled from 115+ real agency audit calls: the 200 KB image rule, the word ladder, the one-intent-one-page doctrine, the collection page bottom text. Where a rule is a field heuristic rather than a measured fact, it says so.
