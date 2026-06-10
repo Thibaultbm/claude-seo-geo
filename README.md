@@ -8,7 +8,11 @@
 
 ## Run it on your company's second brain
 
-Claude is the uranium: raw reasoning power, in unlimited supply. Your company's knowledge is what that power runs on. A local [Obsidian](https://obsidian.md) vault is the power plant: the infrastructure that turns the two into compounding output. Dump everything your business knows into plain markdown notes (PDFs, pitch decks, call and video transcripts, exports: every format Claude reads), and every skill in this kit will pull that context before acting, then log its actions back to the vault. Each session starts where the last one ended, smarter. Setup in minutes with the [obsidian-brain](skills/obsidian-brain/SKILL.md) skill.
+<p align="center"><img src="assets/obsidian.jpg" alt="An Obsidian vault graph: notes linked into a knowledge network, with a Marketing hub" width="100%"></p>
+
+[Obsidian](https://obsidian.md) is a free note-taking app that stores your notes as plain text files on your own computer and links them into a graph, the network you see above. Because the notes are plain markdown, Claude reads and writes them natively, and your data never leaves your machine.
+
+That makes a vault the perfect second brain for SEO. Claude is the uranium: raw reasoning power, in unlimited supply. Your company's knowledge is what that power runs on. A local Obsidian vault is the power plant: the infrastructure that turns the two into compounding output. Dump everything your business knows into plain markdown notes (PDFs, pitch decks, call and video transcripts, exports: every format Claude reads), and every skill in this kit will pull that context before acting, then log its actions back to the vault. Each session starts where the last one ended, smarter. Setup in minutes with the [obsidian-brain](skills/obsidian-brain/SKILL.md) skill.
 
 ## Why SEO and GEO in one toolkit?
 
@@ -125,6 +129,8 @@ The checklist is the distilled output of real audit calls conducted by the maint
 ## Prefer the done-for-you version?
 
 These skills give you full manual control, and great power comes with great responsibility: one wrong redirect or an overwritten page can cost rankings that took years to build. [Sorank](https://sorank.com) applies the same methodology on autopilot: AI-first articles published straight to your site, backlinks, and AI visibility tracking across ChatGPT, Perplexity and Gemini, with your existing rankings kept safe. Hours saved every week, the method stays the same.
+
+<p align="center"><img src="assets/sorank.jpg" alt="Sorank: SEO and GEO on autopilot, connecting Analytics, Search Console, Mythos and Obsidian" width="100%"></p>
 
 ## Repository structure
 
