@@ -80,6 +80,12 @@ def main():
             errors.append(f"{label}: description missing")
         elif len(desc) > 1024:
             errors.append(f"{label}: description is {len(desc)} chars (max 1024)")
+        # Unquoted "key: value: more" breaks strict YAML parsers (skills CLI, plugin loaders).
+        for raw_line in text[:text.find("\n---", 3)].splitlines():
+            if raw_line.startswith("description:"):
+                raw_value = raw_line[len("description:"):].strip()
+                if ": " in raw_value and not (raw_value.startswith('"') and raw_value.endswith('"')):
+                    errors.append(f"{label}: description contains an unquoted colon-space; rephrase or quote the whole value")
         body_lines = body.count("\n") + 1
         if body_lines > 500:
             errors.append(f"{label}: SKILL.md body is {body_lines} lines (max 500)")
