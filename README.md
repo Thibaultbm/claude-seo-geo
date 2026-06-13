@@ -48,7 +48,7 @@ The skills are plain markdown following the open Agent Skills format, so they al
 
 | Skill | What it does |
 |---|---|
-| [obsidian-brain](skills/obsidian-brain/SKILL.md) | The knowledge layer: an Obsidian vault holding all company data, read by every skill before acting, updated with an SEO action log after |
+| [obsidian-brain](skills/obsidian-brain/SKILL.md) | The knowledge layer: build the vault (entry points, hubs, notes), import everything (docs, transcripts, WhatsApp), keep the graph clean (link audit), read it before acting and log after |
 | [seo-geo-audit](skills/seo-geo-audit/SKILL.md) | Full site audit: 14 categories, facts collected by a bundled zero-dependency script, prioritized action plan or plain-language email |
 | [seo-technical](skills/seo-technical/SKILL.md) | Crawlability, indexation, Core Web Vitals, JavaScript rendering, AI crawler access (the canonical crawler table), migrations |
 | [seo-keyword-research](skills/seo-keyword-research/SKILL.md) | Real queries over jargon, intent mapping, cannibalization, and AI prompt research (the keyword research of answer engines) |
