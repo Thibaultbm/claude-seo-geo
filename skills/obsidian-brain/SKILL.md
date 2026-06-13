@@ -1,53 +1,83 @@
 ---
 name: obsidian-brain
-description: Sets up and maintains a local Obsidian vault as the company's second brain, so every SEO and GEO skill in this kit works from real company knowledge instead of guesses. Covers the vault structure for a business (identity, product, customers, competitors, keywords), the dump workflow that converts PDFs, decks, transcripts and docs into linked markdown notes, the read-first protocol (Claude pulls context from the vault before acting), and the SEO action log updated at the end of every session. Use this skill whenever the user mentions Obsidian, a vault, a knowledge base, a second brain, connecting Claude to company data or docs, dumping company files for AI, centralizing business knowledge, or asks how to give Claude context about their company, or why Claude keeps asking for facts they already wrote down. Also use it at the start of any SEO engagement to scaffold the vault, and at the end of sessions to log actions. For the SEO work itself, hand off to the other skills in this kit.
+description: Build and maintain a local Obsidian vault as the company and founder second brain, the knowledge layer every other skill in this kit reads before acting and writes back to. Covers the architecture (entry points for business and personal, domain hubs, maps of content, atomic notes), the read-first, write-back and capture protocols, importing everything the user has (PDFs, decks, transcripts, email, WhatsApp chats) with multi-agent fan-out for large backlogs, the linking rules that keep the graph navigable (no orphans, bidirectional links, one fact one note, single source of truth for numbers), and a link-graph audit. Use whenever the user mentions Obsidian, a vault, a knowledge base, a second brain, connecting Claude to their data, importing or dumping documents, transcripts or WhatsApp exports, structuring notes and links, or asks how to give Claude context once instead of repeating it every conversation. For the SEO and GEO work itself, hand off to the other skills in this kit.
 license: MIT
 metadata:
   author: "Sorank (https://sorank.com)"
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Obsidian Brain: the Company Knowledge Layer
 
-Build and maintain a local Obsidian vault that holds everything the business knows, so that every other skill in this kit reads real company context before acting and writes its actions back when done.
+Build and maintain a local Obsidian vault that holds everything the business (and the founder behind it) knows, so every other skill reads real context before acting and writes its work back when done.
 
-The framing: Claude is the uranium, raw reasoning power in unlimited supply. Company knowledge is what that power runs on. The Obsidian vault is the power plant, the infrastructure that turns the two into compounding output. Uranium without a plant produces nothing usable; a model without your company's facts produces generic SEO advice. The vault is what makes the output specific, consistent across sessions, and smarter every week.
+The framing: Claude is the uranium, raw reasoning power in unlimited supply. The company's knowledge is what that power runs on. The Obsidian vault is the power plant, the infrastructure that turns the two into compounding output. A model without your facts produces generic advice; the same model on a well-built vault produces output that is specific, consistent across sessions, and smarter every week.
 
-Why Obsidian specifically: it stores plain markdown files on the user's own disk. Markdown is the format Claude reads and writes natively, local files mean the company's data stays private and portable (no export lock-in), and Obsidian's wiki links turn scattered notes into the entity graph of the business. Any folder of markdown notes works the same way; Obsidian (https://obsidian.md) is simply the best free tool to browse and edit it.
+Why Obsidian: it stores plain markdown files on the user's own disk. Markdown is what Claude reads and writes natively, local files keep the data private and portable (no export lock-in), and wiki links turn scattered notes into the entity graph of the business. Any folder of markdown works the same way; Obsidian (https://obsidian.md) is simply the best free tool to browse and edit it.
+
+This skill is the foundation of the kit. The other skills do the SEO and GEO work; this one defines where knowledge lives, how it gets in, and how it stays navigable. Three reference files hold the depth, load them when the matching section says so:
+
+- `references/vault-architecture.md`: the full layered structure, frontmatter conventions per note type, hub and MOC patterns, naming and macOS pitfalls.
+- `references/import-workflows.md`: step-by-step import for documents, WhatsApp, email and transcripts, plus the multi-agent fan-out for large backlogs.
+- `references/link-audit.md`: how to run and read the two bundled scripts that find broken links, orphans, unreachable notes and duplicate people.
 
 ## When to use
 
-- Setting up a knowledge vault for a business from scratch (or restructuring a messy one).
-- Dumping company files into the vault: PDFs, pitch decks, sales call transcripts, podcast and video transcripts, support ticket exports, analytics exports, old audits.
-- Connecting Claude to existing company knowledge before SEO work starts.
+- Scaffolding a vault from scratch, or restructuring a messy one into a navigable graph.
+- Importing the user's pile into the vault: PDFs, decks, sales and podcast transcripts, support and analytics exports, email, WhatsApp chats.
+- Connecting Claude to existing knowledge before any real work starts.
+- Capturing a durable fact the moment the user states it, so it is never asked for twice.
+- Auditing the graph: broken links, orphan notes, notes unreachable from the index, duplicate person notes.
 - Logging completed SEO actions at the end of a session (every skill in this kit points here).
-- Answering "how do I give Claude the context about my company once, instead of repeating it every conversation".
 
 Boundaries: this skill builds and maintains the knowledge layer. The SEO and GEO work itself belongs to the other skills (seo-geo-audit to diagnose, content skills to produce, geo-tracking to measure). They read from the vault and write to its log; this skill defines how.
 
-## The two protocols every skill follows
+## Architecture: entry points, hubs, then notes
+
+A vault is navigable when an agent can land at the top and reach any fact in one or two link hops, never a full-text search. That requires a strict shape (full detail and an example tree in `references/vault-architecture.md`):
+
+1. **One or two entry points.** A company uses one: `00-INDEX.md`. A founder whose personal life and business are entangled uses two: `00-INDEX.md` (business) and a personal index that links to it. Each entry point holds identity, the canonical numbers (or a link to them), the hard rules, and a map of the vault. Anything else lives one hop away.
+2. **Domain hubs.** One hub per domain (admin, finance, product, marketing, content, people, health, and so on). The hub is a pure table of contents for its domain, linked from the entry point.
+3. **Maps of content (MOC).** Only for large bases (a CRM, a competitor set, a content-idea swipe file). A MOC is a hub for a folder of many same-shaped notes.
+4. **Atomic notes.** One subject per note. Reached from a hub or a MOC, never floating.
+
+Why this shape and not flat folders: token economy. The entry point is the only thing an agent must read in full every session; from there it follows links to the two or three notes a task needs. Flat folders and orphan notes force the agent to grep or read everything, which is slow, expensive, and misses files. The graph is the index.
+
+## The three protocols
 
 ### Read first
 
-At the start of any task, detect the vault: look for a folder of .md notes, typically with a .obsidian directory, in or near the working directory, or ask the user where their vault lives (then remember it in the vault itself). If a vault exists:
+At the start of any task, locate the vault (a folder of .md notes, usually with a `.obsidian` directory; if unknown, ask once and record the path in the vault). Then:
 
-1. Read `00-INDEX.md` first: it maps the vault.
-2. Read the notes relevant to the task: brand identity before writing copy, keywords map before choosing targets, action log before recommending anything already tried.
+1. Read the entry point (`00-INDEX.md`, plus the personal index if the task is personal). It maps everything.
+2. Follow links to the notes the task needs: identity before writing copy, the numbers note before quoting a figure, the action log before recommending anything.
 3. Ground every output in those facts. When the vault answers a question, do not ask the user.
 
-Why: the difference between generic advice and a usable deliverable is context. A vault that holds the canonical brand description, the real customer language from call transcripts, and the history of what was already attempted removes the three biggest sources of wasted sessions: wrong facts, wrong voice, repeated work.
+The difference between generic advice and a usable deliverable is context: the right facts, the real voice, and the history of what was already tried. Reading first removes the three biggest sources of wasted sessions: wrong facts, wrong voice, repeated work.
+
+### Capture (write things down as they are said)
+
+When the user states a durable fact, a decision, a number, a contact, a rule, a status change, record it immediately. This is what stops the vault from going stale and stops Claude from asking twice.
+
+1. **Is it durable?** Capture facts that will matter next week, not conversation-only asides. If asked to remember something the code or git history already records, capture instead what was non-obvious about it (the why, the constraint).
+2. **Smallest correct home.** Does a note already own this subject? Append a dated line. New subject? Create one atomic note in the right domain. Never open a second note on a subject that already has one.
+3. **Concise format.** Frontmatter (`title`, `type`, `updated`, `related`) then the fact in one to three lines. For a decision or a piece of feedback, add a `why` and how to apply it. No prose padding; the vault is read by machines too.
+4. **Link on the way in.** Give the note at least one outbound link and make sure at least one note links back to it (add it to its domain hub). A note that nothing points to is invisible.
+5. **Numbers have one home.** Live figures (revenue, counts, prices) live in exactly one note. Everywhere else, link to it; never recopy a number, copies drift and the model later quotes the stale one.
+6. **Additive and dated.** Append and date changes; never silently rewrite history. If a new fact contradicts an old one, note both with dates and flag it.
 
 ### Write back
 
-At the end of any session that changed something (content published, tags fixed, links built, settings changed), append one entry to `seo/action-log.md` using the exact format below. Never skip this: the log is what makes session N+1 start where session N ended, and it is the dataset that later correlates actions with ranking and AI citation changes.
+At the end of any session that changed something (content published, tags fixed, links built, a decision made), append one dated entry to `seo/action-log.md` in the exact format below. The log is what makes session N+1 start where session N ended, and it is the dataset that later correlates actions with ranking and AI-citation changes.
 
 ## Vault structure
 
-Scaffold this tree (adapt names to the company's language; keep the shape):
+Scaffold this tree for an SEO and GEO engagement (the SEO-specific filenames below are fixed anchors the rest of the kit reads; the surrounding shape generalizes to any domain per `references/vault-architecture.md`):
 
 ```
 company-vault/
-  00-INDEX.md            The map: what lives where, one line per note
+  00-INDEX.md            Business entry point: identity, numbers, rules, map of the vault
+  _INDEX-perso.md        Optional second entry point for personal life, links back to 00-INDEX
   company/
     identity.md          Canonical one-line description, mission, tone, founding facts
     product.md           Offers, features, pricing, differentiators
@@ -64,6 +94,8 @@ company-vault/
     action-log.md        Dated log of every SEO action taken (format below)
     audits/              One note per audit (seo-geo-audit output lands here)
     experiments.md       Hypotheses being tested, with check-back dates
+  people/
+    ...                  One note per person (client, lead, partner); merge chat + CRM here
   sources/
     ...                  Converted dumps: one note per source document
 ```
@@ -73,22 +105,38 @@ Rules that keep the vault useful:
 | Rule | Why |
 |---|---|
 | One fact lives in one note; link with [[wikilinks]] elsewhere | Duplicated facts drift apart; links keep one source of truth |
-| Every note gets frontmatter: source, date, type | Provenance makes facts trustable and updatable |
-| Plain language, short notes, descriptive titles | The vault is read by humans and machines; clever titles defeat both |
-| Additive updates: append and date, never silently rewrite history | The vault is also the company memory; destroyed context never comes back |
-| No secrets: passwords, API keys, tokens never enter the vault | Notes get synced, shared, and pasted into prompts; treat the vault as shareable |
+| Every note gets frontmatter: title, type, updated, related | Provenance and relations make facts trustable, updatable, navigable |
+| No orphans: every note has at least one inbound and one outbound link | An unlinked note is invisible to navigation and to the agent |
+| Bidirectional: if A links B, B (or its hub) links back | One-way links hide half the graph |
+| One person, one note: merge the WhatsApp chat and the CRM card | The same human in two files means two half-truths |
+| Numbers live in one note; everyone else links to it | Recopied figures drift; the model quotes the stale one |
+| Additive updates: append and date, never silently rewrite history | The vault is the company memory; destroyed context never returns |
+| No secrets: passwords, API keys, tokens, recovery codes never enter the vault | Notes get synced, shared, pasted into prompts; treat the vault as shareable |
 
-## The dump workflow
+## Importing everything (the dump)
 
-Goal: move everything the company knows into linked markdown, in one pass per batch of files.
+Goal: move everything the company knows into linked markdown. Full procedures, including the WhatsApp path and the parallel fan-out, are in `references/import-workflows.md`; the essentials:
 
-1. Collect the pile: PDFs, slide decks, Word and Excel files, sales call transcripts, podcast and video transcripts, support exports, analytics exports, old audits and reports. Claude reads all of these formats directly.
-2. For each document, create one note in `sources/` with frontmatter (`source`, `date`, `type`) and the extracted content: full text for short documents, a faithful structured summary plus key quotes and numbers for long ones. Keep customer phrasing verbatim where it appears: real language is raw material for keywords and copy.
-3. Route the facts: update the relevant `company/` or `market/` note with what the source revealed, linking back to the source note. The dump is not done when the file is converted; it is done when its facts are findable from the INDEX.
-4. Update `00-INDEX.md` with one line per new note.
-5. Flag conflicts instead of overwriting: if a new deck contradicts `identity.md`, note both versions with dates and ask the user which is current.
+1. **Collect the pile.** PDFs, decks, Word and Excel files, sales and podcast transcripts, support and analytics exports, email, WhatsApp chats, old audits. Claude reads all these formats directly.
+2. **One note per source** in `sources/` with frontmatter (`source`, `date`, `type`) and the content: full text for short documents, a faithful structured summary with key quotes and numbers for long ones. Keep customer phrasing verbatim, it is raw material for keywords and copy.
+3. **Route the facts.** Update the relevant `company/`, `market/` or `people/` note with what the source revealed, linking back to the source. A dump is done when its facts are findable from the entry point, not when the file is converted.
+4. **Update the index** with one line per new note, under the right hub.
+5. **Flag conflicts** instead of overwriting: if a new deck contradicts `identity.md`, note both versions with dates and ask which is current.
 
-Batch sizing: 10-20 documents per session keeps quality high. For a large backlog, prioritize in this order: identity and product docs, sales call transcripts (customer language), past SEO work, everything else.
+**WhatsApp** is the highest-value and most-overlooked source: install WhatsApp Desktop on the computer so the chats are readable locally, export conversations, and write one note per contact, then merge each into that person's existing CRM note so there is a single note per human. Exact steps in `references/import-workflows.md`.
+
+**Large backlogs** (hundreds of files or chats): fan out. Run one sub-agent per batch or per domain in parallel, each converting and routing its slice, then reconcile and update the index once. The fan-out pattern and batch sizing (10-20 documents, or one domain per agent) are in the reference.
+
+Priority order for a big pile: identity and product docs first, then sales transcripts and chats (customer language), then past SEO work, then everything else.
+
+## Maintaining the graph (link audit)
+
+A vault decays: renamed notes leave broken links, imports land orphans, duplicates creep in. Run the audit periodically (after any big import, and on request). Two bundled standard-library scripts, detailed in `references/link-audit.md`:
+
+- `scripts/link_graph.py <vault>`: lists broken wikilinks, orphan notes (no inbound link), notes unreachable from the entry point, and duplicate basenames. A healthy vault returns zero of the first three.
+- `scripts/person_matches.py <vault>`: finds the same person across folders (chat vs CRM vs contacts) so duplicates can be merged into one note.
+
+The fix playbook (repair broken links, link orphans into their hub, merge duplicate people, normalize relative links) is in the reference. Record the audit as an entry in the action log.
 
 ## The SEO action log (exact format)
 
@@ -112,18 +160,15 @@ The vault is not just operational memory; it directly serves AI visibility:
 - The canonical one-line description in `company/identity.md` is the single string reused verbatim on the site, LinkedIn, review platforms and directories. Entity consistency is what lets models state facts about the brand with confidence (the why and the workflow live in geo-visibility).
 - `market/prompt-panel.md` holds the buyer prompts whose answers are tracked monthly (geo-tracking). Keeping the panel in the vault makes the measurement reproducible across sessions and people.
 - The action log plus monthly tracking results form the only dataset that can answer "did our GEO work move citations": actions dated on one side, mention rates dated on the other.
-- Customer language captured from transcripts feeds the question-form headings and FAQ answers that AI engines extract (seo-content-blog, geo-visibility).
+- Customer language captured from transcripts and chats feeds the question-form headings and FAQ answers that AI engines extract (seo-content-blog, geo-visibility).
 
 ## Output format
 
-When scaffolding a vault, deliver:
+When scaffolding a vault, deliver: the created tree (folders and notes actually written, index filled in), each `company/` and `market/` note drafted from available sources with explicit `TODO` markers where facts are missing, a batched dump plan for the user's pile, and the empty `seo/action-log.md` with its format at the top.
 
-1. The created tree (folders and notes actually written, with the INDEX filled in).
-2. For each `company/` and `market/` note: the content drafted from available sources, with explicit `TODO` markers where facts are missing and the user must fill in.
-3. A dump plan for the user's file pile: batches, priority order, where each batch will land.
-4. The empty `seo/action-log.md` with the format documented at the top.
+When dumping files, deliver: the notes created in `sources/`, the notes updated, conflicts flagged, and the index diff.
 
-When dumping files, deliver: the list of notes created in `sources/`, the `company/` and `market/` notes updated, conflicts flagged, and the INDEX diff.
+When auditing, deliver: the script output, the list of fixes applied, and a log entry.
 
 When logging a session, deliver: the exact log entry appended, quoted back to the user.
 
@@ -131,13 +176,14 @@ When logging a session, deliver: the exact log entry appended, quoted back to th
 
 | Mistake | Why it hurts | Fix |
 |---|---|---|
-| Dumping files without routing the facts | A folder of summaries nobody reads is storage, not a brain | Step 3 of the dump workflow: route facts to company/ and market/ notes |
-| Duplicating facts across notes | Versions drift; the model quotes the stale one | One fact, one note, links everywhere else |
-| Treating the vault as write-only | Context exists but never grounds the work | The read-first protocol, every session |
+| Dumping files without routing the facts | A folder of summaries nobody reads is storage, not a brain | Route facts to the company/, market/ and people/ notes |
+| Duplicating facts (especially numbers) across notes | Versions drift; the model quotes the stale one | One fact, one note, link everywhere else |
+| Leaving imported notes as orphans | Unreachable from the index, invisible to the agent | Link every note into its hub on the way in |
+| The same person in a chat note and a CRM card | Two half-records of one human | Merge into one note per person (person_matches.py finds them) |
+| Treating the vault as write-only | Context exists but never grounds the work | Read-first, every session |
 | Skipping the action log | Next session re-recommends what was already done | One entry per action, every time |
 | Storing credentials in notes | Vaults get synced and pasted into prompts | Secrets live in a password manager, never in markdown |
-| Rewriting history during updates | The company memory loses its memory | Append and date; flag conflicts instead of overwriting |
-| One giant note for everything | Retrieval pulls the whole blob or nothing | Short notes, descriptive titles, linked from the INDEX |
+| One giant note for everything | Retrieval pulls the whole blob or nothing | Short notes, descriptive titles, linked from a hub |
 
 ## Cross-references
 
@@ -150,4 +196,4 @@ When logging a session, deliver: the exact log entry appended, quoted back to th
 ## Sources
 
 - Obsidian: https://obsidian.md (free for personal and commercial use, local markdown files)
-- The read-first and write-back protocols, vault shape, and batch sizes are field practice from running AI-assisted SEO engagements on local knowledge bases (2024-2026), labeled as practice, not measured studies.
+- The architecture, protocols, import workflows, linking rules and audit are field practice from building and maintaining AI-assisted knowledge vaults (2024-2026), labeled as practice, not measured studies.
