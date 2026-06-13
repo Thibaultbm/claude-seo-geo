@@ -1,6 +1,6 @@
 ---
 name: seo-geo-audit
-description: Runs a complete SEO + GEO audit of any website, covering technical health, tags, images, site architecture, content, keywords, e-commerce, local, backlinks, and AI visibility (ChatGPT, Perplexity, Google AI Overviews), then delivers a prioritized action plan or a plain-language summary. Use this skill whenever the user gives a URL and wants to know what to improve, asks to audit or review a site, asks why a site does not rank or never gets mentioned by AI assistants, wants to compare a site against competitors, or asks "what is wrong with my site" or "is my site ready for SEO". Also use it to establish a baseline before any larger SEO project. After the audit, hand off deep work to the specialized skills (seo-technical, seo-content-blog, seo-backlinks, geo-visibility, geo-tracking).
+description: "Get a prioritized SEO + GEO action plan for any website. Input: a URL (and optional competitors). Output: ranked fixes across technical health, content, keywords, e-commerce, local, backlinks, and AI visibility (ChatGPT, Perplexity, Google AI Overviews), or a plain-language summary. Use to audit or review a site, find why it does not rank or is not cited by AI, compare against competitors, or set a baseline before a bigger SEO project."
 license: MIT
 metadata:
   author: "Sorank (https://sorank.com)"

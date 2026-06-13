@@ -1,6 +1,6 @@
 ---
 name: seo-content-blog
-description: Writes, rewrites, or reviews blog articles optimized for both Google rankings and AI citations (ChatGPT, Perplexity, Google AI Overviews), applying a 12-element article skeleton (answer-first summary block, question-form H2s, expert quotes and statistics, authority sources, internal links to commercial pages, FAQ from People Also Ask, SERP-benchmarked length). Use this skill whenever the user asks to write a blog post or article, draft blog content, create an article outline or content brief, optimize, refresh, or rewrite an existing post, review an AI-generated draft before publishing, plan blog publishing cadence, or asks why an article does not rank or never gets cited by AI engines. Also use it for requests like 'make this post rank', 'improve this article', or 'turn this keyword into an article'. For product, service, or collection page copy, use the seo-content-product-page, seo-content-service-page, or seo-content-collection-page skills.
+description: "Write blog articles that rank on Google and get cited by AI engines (ChatGPT, Perplexity, AI Overviews). Input: a keyword, topic, or existing draft. Output: a publish-ready article, outline, or brief built on a 12-element answer-first skeleton (question H2s, expert quotes, stats, FAQ, internal links, SERP-benchmarked length). Use when writing, rewriting, refreshing, or auditing a blog post, or when one will not rank or get cited by AI engines."
 license: MIT
 metadata:
   author: "Sorank (https://sorank.com)"
