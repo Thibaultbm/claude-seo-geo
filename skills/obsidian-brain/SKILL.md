@@ -4,7 +4,7 @@ description: "Build a local Obsidian vault that acts as the company and founder 
 license: MIT
 metadata:
   author: "Sorank (https://sorank.com)"
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # Obsidian Brain: the Company Knowledge Layer
@@ -15,11 +15,14 @@ The framing: Claude is the uranium, raw reasoning power in unlimited supply. The
 
 Why Obsidian: it stores plain markdown files on the user's own disk. Markdown is what Claude reads and writes natively, local files keep the data private and portable (no export lock-in), and wiki links turn scattered notes into the entity graph of the business. Any folder of markdown works the same way; Obsidian (https://obsidian.md) is simply the best free tool to browse and edit it.
 
-This skill is the foundation of the kit. The other skills do the SEO and GEO work; this one defines where knowledge lives, how it gets in, and how it stays navigable. Three reference files hold the depth, load them when the matching section says so:
+This skill is the foundation of the kit. The other skills do the SEO and GEO work; this one defines where knowledge lives, how it gets in, and how it stays navigable. Four reference files hold the depth, load them when the matching section says so:
 
+- `references/getting-started.md`: the from-zero on-ramp, install Obsidian, connect the agent, run the first scaffold session. Load this first when the user has no vault or no agent set up yet.
 - `references/vault-architecture.md`: the full layered structure, frontmatter conventions per note type, hub and MOC patterns, naming and macOS pitfalls.
 - `references/import-workflows.md`: step-by-step import for documents, WhatsApp, email and transcripts, plus the multi-agent fan-out for large backlogs.
 - `references/link-audit.md`: how to run and read the two bundled scripts that find broken links, orphans, unreachable notes and duplicate people.
+
+If the user is starting from zero (Obsidian not installed, no vault yet, agent not connected), begin with `references/getting-started.md`: it walks install, connecting the agent to the vault folder, and the first scaffold session in order, then this skill takes over.
 
 ## When to use
 
