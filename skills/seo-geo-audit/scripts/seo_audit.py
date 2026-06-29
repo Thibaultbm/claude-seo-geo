@@ -78,6 +78,47 @@ def head_size(url):
         return None
 
 
+def weight_url(img):
+    """Pick the file a browser is most likely to actually download, and a note.
+
+    Responsive images (Webflow especially) put the FULL-RESOLUTION original in
+    `src` and the resized, actually-served files in `srcset`. Measuring `src`
+    therefore over-reports weight for any image displayed small -- a 30px icon
+    whose original is 3000px wide gets flagged as "too heavy" even though the
+    browser never downloads it. That is the main false positive in the weight
+    check.
+
+    Heuristic: when `srcset` carries width descriptors AND `sizes` pins a fixed
+    pixel width, measure the variant that width would select (x2 for retina)
+    instead of the original. When `sizes` is viewport-relative (e.g. 100vw) or
+    absent we keep `src`, because such images really can ship a near-full-size
+    variant -- so a heavy result there is a real finding, not a false positive.
+    Returns (url, note)."""
+    src = img.get("src") or ""
+    cands = []
+    for part in (img.get("srcset") or "").split(","):
+        bits = part.strip().split()
+        if len(bits) >= 2 and bits[-1].endswith("w"):
+            try:
+                cands.append((int(bits[-1][:-1]), bits[0]))
+            except ValueError:
+                pass
+    if not cands:
+        return src, ""
+    cands.sort()
+    # Keep only the slot lengths, not the "(max-width: NNNpx)" media conditions.
+    slots = re.sub(r"\([^)]*\)", "", img.get("sizes") or "")
+    px = [int(n) for n in re.findall(r"(\d+)px", slots)]
+    if not px:
+        return src, "full-res src measured (sizes is viewport-based, so a large variant ships)"
+    target = max(px) * 2  # assume retina display
+    for w, url in cands:
+        if w >= target:
+            return url, "{}w variant (src is the {}w original)".format(w, cands[-1][0])
+    w, url = cands[-1]
+    return url, "{}w variant (largest available)".format(w)
+
+
 class Page(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -107,6 +148,12 @@ class Page(HTMLParser):
                 self._in_jsonld = True
                 self._jsonld_buf = []
             return
+        # Anything inside script/style/noscript/template is not rendered: a
+        # <noscript> fallback copy or a hidden <template> must not inflate the
+        # image / link / heading counts (a common source of phantom "lazy"
+        # images, since lazy-load libraries stash a duplicate <img> there).
+        if self._skip:
+            return
         if tag == "title":
             self._in_title = True
         elif tag == "meta":
@@ -129,6 +176,8 @@ class Page(HTMLParser):
         elif tag == "img":
             self.images.append({
                 "src": a.get("src") or a.get("data-src") or "",
+                "srcset": a.get("srcset") or a.get("data-srcset") or "",
+                "sizes": a.get("sizes") or "",
                 "alt": a.get("alt"),
                 "loading": (a.get("loading") or "").lower(),
             })
@@ -237,13 +286,13 @@ def analyse_page(url, do_images=True):
         for img in p.images:
             if checked >= MAX_IMG_CHECK:
                 break
-            src = img["src"]
-            if not src or src.startswith("data:"):
+            url, note = weight_url(img)
+            if not url or url.startswith("data:"):
                 continue
-            kb = head_size(urljoin(final, src))
+            kb = head_size(urljoin(final, url))
             checked += 1
             if kb and kb > IMG_WEIGHT_KB:
-                heavy.append({"src": src[:120], "kb": kb})
+                heavy.append({"src": url[:120], "kb": kb, "note": note})
         out["images"]["checked"] = checked
         out["images"]["over_200kb"] = heavy
 
@@ -404,9 +453,11 @@ def fmt(report):
         line("  IMAGES total={} | missing alt={} | empty alt={} | lazy={}".format(
             im["total"], im["missing_alt"], im["empty_alt"], im["lazy"]))
         if im.get("over_200kb"):
-            sizes = ["{}KB".format(x["kb"]) for x in im["over_200kb"]]
-            line("     over 200KB ({}/{} checked): {}".format(
-                len(im["over_200kb"]), im.get("checked"), sizes))
+            line("     over 200KB ({}/{} checked):".format(
+                len(im["over_200kb"]), im.get("checked")))
+            for x in im["over_200kb"]:
+                note = " -- {}".format(x["note"]) if x.get("note") else ""
+                line("       {}KB  {}{}".format(x["kb"], x["src"], note))
         line("  WORDS (visible text): {}".format(pg["word_count"]))
         line("  LINKS internal={} | external={}".format(
             pg["links"]["internal"], pg["links"]["external"]))
