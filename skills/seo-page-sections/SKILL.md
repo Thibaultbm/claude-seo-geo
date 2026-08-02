@@ -1,6 +1,6 @@
 ---
 name: seo-page-sections
-description: "Find the sections and elements missing from a web page, then write them. Input: a page URL (or pasted HTML) and its page type. Output: a section-by-section gap report (present, missing, thin) against the reference blueprint for that page type, plus the ready-to-paste content for each missing block: FAQ with real buyer questions, breadcrumb, definitions, comparison table, spec table, reviews, trust badges, CTA, cross-links. Covers product, service, collection, location, comparison and alternatives, audience and segment, blog, homepage, pricing, about and contact pages. Use when a page ranks poorly despite being technically clean, when someone asks what is missing on their site or on a specific page, when building a page from scratch and needing the required block list, or when producing a client-facing checklist of what to add."
+description: "Find the pages and the on-page sections a site is missing, then write them. Input: a URL (or pasted HTML) and the site archetype. Output: the page types the site should have and does not, then a block-by-block gap report (present, below bar, missing) for each page, plus ready-to-paste content for every gap: FAQ with real buyer questions, breadcrumb, definitions, comparison table, spec table, reviews, trust badges, CTA, cross-links. Covers Shopify, Webflow or WordPress and marketplace archetypes, and 20 page types: product, collection, service, location, comparison, segment, article, blog hub, homepage, pricing, about, contact, call, author, free tool, wall of love, affiliate, 404, listing, top 10, plus header and footer rules. Use when a page is technically clean and still underperforms, when someone asks what is missing on their site, when building pages or templates from scratch, or to produce a client-facing checklist of what to add."
 license: MIT
 metadata:
   author: "Sorank (https://sorank.com)"
@@ -25,23 +25,37 @@ If the working environment contains an Obsidian vault or any local knowledge bas
 - A client-facing checklist is needed: "here is what to add, block by block".
 - A template is being designed (Figma, theme, page builder) and the block list must be decided before the design.
 
-## Phase 1: identify the page type
+## Phase 1: identify the archetype, then the page types
 
-Everything downstream depends on this. A missing comparison table is a serious gap on a comparison page, irrelevant on a contact page.
+Do this in two steps, because the most expensive gap is not a missing block, it is a page type that does not exist at all. That gap is invisible when auditing only the pages that already exist.
+
+**Step 1, the archetype.** Read `references/site-archetypes.md` now. It gives the three archetypes (Shopify store, Webflow or WordPress site, marketplace), the page inventory each one needs, block lists for the archetype-specific page types, and the header, footer and persuasion rules that apply site-wide. Report the page types the site should have and does not before auditing anything else.
+
+**Step 2, the page type.** Everything downstream depends on this. A missing comparison table is a serious gap on a comparison page and irrelevant on a contact page.
 
 | Type | Recognize it by | Blueprint owner |
 |---|---|---|
 | product | One sellable item, buy box, SKU, Product schema | seo-content-product-page |
-| collection | A list of products, filters, category URL | seo-content-collection-page |
+| collection | A list of products or listings, filters, category URL | seo-content-collection-page |
 | service | One service sold to one audience, quote or booking CTA | seo-content-service-page |
 | location | One physical establishment, NAP, map | seo-local |
 | comparison | "X vs Y", "alternatives to X", "best X for Y" | seo-content-comparison-page |
 | audience | "for agencies", "for freelancers", one segment, same product | seo-content-comparison-page (segment section) |
-| blog | Editorial article, author, date | seo-content-blog |
-| homepage | Root URL, whole-offer overview | this skill, references/transverse-pages.md |
-| pricing | Plans, prices, plan comparison | this skill, references/transverse-pages.md |
-| about | Company story, team, proof | this skill, references/transverse-pages.md |
-| contact | Form, coordinates, hours | this skill, references/transverse-pages.md |
+| article | Single editorial post, author, date | seo-content-blog |
+| homepage | Root URL, whole-offer overview | references/transverse-pages.md |
+| pricing | Plans, prices, plan comparison | references/transverse-pages.md |
+| about | Company story, team, proof | references/transverse-pages.md |
+| contact | Form, coordinates, hours | references/transverse-pages.md |
+| blog hub | Index of articles, categories, pagination | references/site-archetypes.md |
+| call | Booking widget, slot selection | references/site-archetypes.md |
+| author | One person, bio, list of their posts | references/site-archetypes.md |
+| free tool | Calculator, generator, checker | references/site-archetypes.md |
+| wall of love | Aggregated testimonial wall | references/site-archetypes.md |
+| affiliate | Program terms, commission, signup | references/site-archetypes.md |
+| 404 | Error page | references/site-archetypes.md |
+| listing | One marketplace entry | references/site-archetypes.md |
+| top 10 | Ranked list of options | references/site-archetypes.md |
+| login | Authentication, and it should be noindex | references/site-archetypes.md |
 
 If a page mixes two types (a service page that also lists products, a homepage that doubles as a pricing page), audit it against both block lists and say so: a merged page usually needs splitting, which is an architecture finding, not a section finding. One intent equals one page.
 
@@ -101,6 +115,11 @@ Pick the format by audience.
 **Format A, build brief (practitioner).** For each block: state, reason, and the drafted content. Order by the priority ranking from phase 3. Open with the verdict line: how many required blocks are missing and what that costs.
 
 ```
+SITE: example-store.com   ARCHETYPE: Shopify store
+MISSING PAGE TYPES: no author page, no 404 (soft 404 returning HTTP 200)
+GLOBAL: header has no contact link; footer links no pillar pages and the social
+        links lack nofollow noreferrer noopener
+
 PAGE: /products/ti-stove-2   TYPE: product
 VERDICT: 4 of 13 required blocks missing. The two that cost the most are the FAQ
          (no long-tail capture, nothing for assistants to quote) and the price,

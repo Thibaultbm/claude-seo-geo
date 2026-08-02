@@ -2,6 +2,8 @@
 
 The block list for every page type, in page order, with a level. Companion to SKILL.md phase 3.
 
+Which page types a given site needs, the archetype-specific types (blog hub, call, author, free tool, wall of love, affiliate, 404, marketplace listing, top 10, login), and the site-wide header and footer rules live in `site-archetypes.md`. Read that first when auditing a whole site; read this file when auditing a page.
+
 Levels:
 
 - **R (required)**: a page of this type without it is incomplete. Its absence goes in the report as a gap every time.
