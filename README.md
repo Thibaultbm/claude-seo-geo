@@ -4,7 +4,7 @@
 
 **SEO & GEO skills for Claude Code, built with Claude Mythos 5.** Rank in Google AND in LLMs like ChatGPT, Perplexity, and Gemini. Technical audits, backlink strategy, AI-optimized content, local visibility, and social amplification: everything you need to own search as it evolves. What took weeks now happens in hours. The future of Search is here, for free.
 
-15 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
+17 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
 
 ## Run it on your company's second brain
 
@@ -56,6 +56,8 @@ The skills are plain markdown following the open Agent Skills format, so they al
 | [seo-content-product-page](skills/seo-content-product-page/SKILL.md) | Product pages that rank and get recommended by AI assistants, plus the ChatGPT Shopping feed |
 | [seo-content-service-page](skills/seo-content-service-page/SKILL.md) | The proven service page wireframe, city pages, E-E-A-T signals |
 | [seo-content-collection-page](skills/seo-content-collection-page/SKILL.md) | Category and collection pages: the 400-800 word bottom text, faceted navigation, pagination |
+| [seo-content-comparison-page](skills/seo-content-comparison-page/SKILL.md) | Bottom-funnel decision pages: X vs Y, alternatives, best-for lists, and customer segment pages, with the honesty rules that make them citable |
+| [seo-page-sections](skills/seo-page-sections/SKILL.md) | What is missing on a page: the required block list for 11 page types, a bundled detector, and the drafted content for every gap (FAQ, breadcrumb, definitions, comparison table) |
 | [seo-internal-linking](skills/seo-internal-linking/SKILL.md) | Money-page-first linking, silos, orphan pages, anchors |
 | [seo-schema-markup](skills/seo-schema-markup/SKILL.md) | The structured data that still matters in 2026, with ready JSON-LD templates (and the markup that died) |
 | [seo-backlinks](skills/seo-backlinks/SKILL.md) | Link building strategy, ninja linking with a spot catalog, digital PR, unlinked brand mentions |
@@ -143,9 +145,11 @@ These skills give you full manual control, and great power comes with great resp
 ```
 claude-seo-geo/
   .claude-plugin/          plugin.json + marketplace.json
-  skills/                  15 skills (SKILL.md + references/ + evals/)
+  skills/                  17 skills (SKILL.md + references/ + evals/)
     seo-geo-audit/
       scripts/seo_audit.py zero-dependency on-page fact collector
+    seo-page-sections/
+      scripts/section_audit.py zero-dependency page block detector
   scripts/                 validate_skills.py (CI format + style checks)
   AGENTS.md                using the skills outside Claude Code
 ```

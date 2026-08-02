@@ -86,6 +86,7 @@ While analyzing:
 
 - Classify each finding as OK, Fix, or Blocking. A Blocking finding (noindex on the whole site, client-rendered content, hacked pages) invalidates work on everything downstream; say so plainly.
 - Count what can be counted ("23 of 31 images have no alt text"), because numbers make the report credible and actionable.
+- Separate the two altitudes. This audit judges site health (crawl, speed, indexation, tags, schema). When a page is technically clean and still underperforms, the gap is usually a missing block rather than a broken attribute: hand that page to seo-page-sections for a block-by-block audit instead of stretching this checklist to cover it.
 - Identify the 3 highest-impact fixes. Resist listing 40 equal-weight items: the owner will do nothing with that. The philosophy is that SEO compounds many small gains (roughly "1 percent per action", a field heuristic), but the report must still rank them.
 
 ## Phase 3: the GEO layer
@@ -119,6 +120,8 @@ Reassure before you criticize: lead with honest numbered reference points ("this
 | Product page issues | seo-content-product-page |
 | Service pages missing or merged | seo-content-service-page |
 | Category pages with no content | seo-content-collection-page |
+| Whole blocks absent from a page (no FAQ, no breadcrumb, no price in text) | seo-page-sections |
+| No comparison or alternatives pages, so competitors own those queries | seo-content-comparison-page |
 | Orphan pages, weak internal links | seo-internal-linking |
 | Missing or invalid structured data | seo-schema-markup |
 | Weak link profile, no brand mentions | seo-backlinks |

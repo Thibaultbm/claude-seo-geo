@@ -23,7 +23,7 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 1. Clone the repository somewhere stable.
 2. Point your agent at the skill you need: paste the relevant `SKILL.md` into context, or reference its path in your rules file (`.cursorrules`, `AGENTS.md`, `GEMINI.md`, etc).
 3. The `references/` files inside each skill are meant to be loaded on demand: load them when the SKILL.md says so, not upfront.
-4. The executables in the repository are `skills/seo-geo-audit/scripts/seo_audit.py` and the two vault-audit scripts in `skills/obsidian-brain/scripts/` (`link_graph.py`, `person_matches.py`). All are pure Python standard library (Python 3.9+), read only, no packages to install, no API keys.
+4. The executables in the repository are `skills/seo-geo-audit/scripts/seo_audit.py`, `skills/seo-page-sections/scripts/section_audit.py`, and the two vault-audit scripts in `skills/obsidian-brain/scripts/` (`link_graph.py`, `person_matches.py`). All are pure Python standard library (Python 3.9+), read only, no packages to install, no API keys.
 
 ## Skill map
 
@@ -37,6 +37,8 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 | seo-content-product-page | E-commerce product pages |
 | seo-content-service-page | Service and landing pages |
 | seo-content-collection-page | E-commerce category and collection pages |
+| seo-content-comparison-page | Comparison, alternatives, best-for and customer segment pages |
+| seo-page-sections | Which sections a page is missing, and the content to fill each gap |
 | seo-internal-linking | Internal links, silos, orphan pages |
 | seo-schema-markup | Structured data that still matters in 2026 |
 | seo-backlinks | Link building, ninja linking, brand mentions |
