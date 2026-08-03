@@ -65,9 +65,9 @@ Deep spec: `seo-content-collection-page/`.
 | 3 | Intro text above the grid, 2 to 4 sentences | R | Tells both audiences what this category contains before the grid |
 | 4 | Product grid with real photos, names, prices as text | R | The reason the page exists |
 | 5 | Filters and sorting, with crawl control on the parameter URLs | R | Usability, and uncontrolled facets explode the crawl budget |
-| 6 | Buying guide block below the grid, 300+ words | R | The only real ranking surface a grid page has |
+| 6 | Buying guide block below the grid, 400-800 words (spec: seo-content-collection-page) | R | The only real ranking surface a grid page has |
 | 7 | Sub-category links | R | Distributes authority down the silo |
-| 8 | FAQ about the category, 3+ questions | W | Captures the informational half of category intent |
+| 8 | FAQ about the category, 3+ questions | R | Captures the informational half of category intent (spec: seo-content-collection-page) |
 | 9 | Definitions of category-specific terms | W | Topical depth on a page that is otherwise mostly product tiles |
 | 10 | Cross-links to related categories and to the guides | R | Silo cohesion |
 | 11 | Pagination handled so page 2+ stays crawlable | R | Deep products go orphan otherwise |
@@ -149,7 +149,7 @@ Same product, one customer type ("for agencies", "for freelancers", "for e-comme
 | 5 | Proof from the same segment: logos, reviews, case study | R | Social proof only works from a recognizable peer |
 | 6 | Pricing or plan relevant to this segment | W | Segments differ on what they can spend and on what unit |
 | 7 | Objections specific to this segment, answered | R | Each segment has its own blocker, and it is rarely price |
-| 8 | FAQ in the segment's vocabulary | W | Long tail, and it keeps the page distinct from its siblings |
+| 8 | FAQ in the segment's vocabulary | R | Long tail, and it keeps the page distinct from its siblings (spec: seo-content-comparison-page) |
 | 9 | Integrations or constraints that matter to this segment only | O | The detail that closes a technical buyer |
 | 10 | CTA phrased for this segment | R | "Book a team demo" and "start free" are different asks |
 | 11 | Cross-links to sibling segment pages and the main product page | R | Lets a mis-routed visitor self-correct, and prevents cannibalization |
@@ -172,7 +172,7 @@ Deep spec: `seo-content-blog/`.
 | 8 | Original material: data, screenshots, photos, examples | R | The only durable defense against being outranked by the same rewrite |
 | 9 | Author block with real credentials | R | E-E-A-T |
 | 10 | Published and updated dates, visible | R | Freshness assessment for readers and assistants |
-| 11 | FAQ at the end | W | Captures related long-tail queries on the same URL |
+| 11 | FAQ at the end | R | Captures related long-tail queries on the same URL (spec: seo-content-blog, skeleton element 11) |
 | 12 | Cross-links to the money pages the article supports | R | An article that links to nothing commercial earns nothing |
 | 13 | Definitions of jargon used | O | Widens the audience beyond experts |
 

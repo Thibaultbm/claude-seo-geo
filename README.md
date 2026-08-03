@@ -57,7 +57,7 @@ The skills are plain markdown following the open Agent Skills format, so they al
 | [seo-content-service-page](skills/seo-content-service-page/SKILL.md) | The proven service page wireframe, city pages, E-E-A-T signals |
 | [seo-content-collection-page](skills/seo-content-collection-page/SKILL.md) | Category and collection pages: the 400-800 word bottom text, faceted navigation, pagination |
 | [seo-content-comparison-page](skills/seo-content-comparison-page/SKILL.md) | Bottom-funnel decision pages: X vs Y, alternatives, best-for lists, and customer segment pages, with the honesty rules that make them citable |
-| [seo-page-sections](skills/seo-page-sections/SKILL.md) | What is missing on a page: the required block list for 11 page types, a bundled detector, and the drafted content for every gap (FAQ, breadcrumb, definitions, comparison table) |
+| [seo-page-sections](skills/seo-page-sections/SKILL.md) | What is missing on a page: the required block list for 11 core page types (plus 10 archetype-specific ones), a bundled detector, and the drafted content for every gap (FAQ, breadcrumb, definitions, comparison table) |
 | [seo-internal-linking](skills/seo-internal-linking/SKILL.md) | Money-page-first linking, silos, orphan pages, anchors |
 | [seo-schema-markup](skills/seo-schema-markup/SKILL.md) | The structured data that still matters in 2026, with ready JSON-LD templates (and the markup that died) |
 | [seo-backlinks](skills/seo-backlinks/SKILL.md) | Link building strategy, ninja linking with a spot catalog, digital PR, unlinked brand mentions |

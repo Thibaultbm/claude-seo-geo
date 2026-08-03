@@ -1,6 +1,6 @@
 ---
 name: seo-page-sections
-description: "Find the pages and the on-page sections a site is missing, then write them. Input: a URL (or pasted HTML) and the site archetype. Output: the page types the site should have and does not, then a block-by-block gap report (present, below bar, missing) for each page, plus ready-to-paste content for every gap: FAQ with real buyer questions, breadcrumb, definitions, comparison table, spec table, reviews, trust badges, CTA, cross-links. Covers Shopify, Webflow or WordPress and marketplace archetypes, and 20 page types: product, collection, service, location, comparison, segment, article, blog hub, homepage, pricing, about, contact, call, author, free tool, wall of love, affiliate, 404, listing, top 10, plus header and footer rules. Use when a page is technically clean and still underperforms, when someone asks what is missing on their site, when building pages or templates from scratch, or to produce a client-facing checklist of what to add."
+description: "Find the pages and the on-page sections a site is missing, then write them. Input: a URL (or pasted HTML) and the site archetype. Output: the page types the site should have and does not, then a block-by-block gap report (present, below bar, missing) for each page, plus ready-to-paste content for every gap: FAQ with real buyer questions, breadcrumb, definitions, comparison table, spec table, reviews, trust badges, CTA, cross-links. Covers Shopify, Webflow or WordPress and marketplace archetypes, and 21 page types: product, collection, service, location, comparison, segment, article, blog hub, homepage, pricing, about, contact, call, author, free tool, wall of love, affiliate, 404, listing, login, top 10, plus header and footer rules. Use when a page is technically clean and still underperforms, when someone asks what is missing on their site, when building pages or templates from scratch, or to produce a client-facing checklist of what to add."
 license: MIT
 metadata:
   author: "Sorank (https://sorank.com)"
@@ -121,7 +121,7 @@ GLOBAL: header has no contact link; footer links no pillar pages and the social
         links lack nofollow noreferrer noopener
 
 PAGE: /products/ti-stove-2   TYPE: product
-VERDICT: 4 of 13 required blocks missing. The two that cost the most are the FAQ
+VERDICT: 4 of 11 required blocks missing. The two that cost the most are the FAQ
          (no long-tail capture, nothing for assistants to quote) and the price,
          which is injected by JavaScript and therefore invisible to AI crawlers.
 

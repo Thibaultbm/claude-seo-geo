@@ -37,7 +37,7 @@ Two rules apply to every block in this file. Never assert a fact that is not in 
 5. Cover a different intent per question. Five phrasings of the same question is one question.
 6. Link out from an answer when a page answers it in depth; the FAQ doubles as an internal linking surface.
 
-**Schema.** `FAQPage` with `Question` and `acceptedAnswer`, mirroring the visible text. Note that Google's rich result for FAQ is restricted to a narrow set of authoritative sites, so build the block for the answer itself, not for the star treatment.
+**Schema.** `FAQPage` with `Question` and `acceptedAnswer`, mirroring the visible text. Note that Google removed FAQ rich results entirely in May 2026, so build the block for the answer itself and for AI extraction, not for any SERP treatment.
 
 **Fails when.** Questions are invented, generic ("What are your opening hours" on a page with no store), or all marketing softballs; answers are one line or three paragraphs; the block is a JavaScript accordion invisible to crawlers; the markup does not match the visible text.
 
