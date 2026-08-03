@@ -55,6 +55,9 @@ def main():
     skills_dir = root / "skills"
     errors, warnings = [], []
 
+    if not skills_dir.is_dir():
+        print(f"ERROR skills/ not found under {root}")
+        return 1
     skill_dirs = sorted(d for d in skills_dir.iterdir() if d.is_dir())
     if not skill_dirs:
         errors.append("no skill directories found under skills/")
@@ -84,9 +87,12 @@ def main():
         for raw_line in text[:text.find("\n---", 3)].splitlines():
             if raw_line.startswith("description:"):
                 raw_value = raw_line[len("description:"):].strip()
-                if ": " in raw_value and not (raw_value.startswith('"') and raw_value.endswith('"')):
+                quoted = (raw_value.startswith('"') and raw_value.endswith('"')) or (
+                    raw_value.startswith("'") and raw_value.endswith("'")
+                )
+                if ": " in raw_value and not quoted:
                     errors.append(f"{label}: description contains an unquoted colon-space; rephrase or quote the whole value")
-        body_lines = body.count("\n") + 1
+        body_lines = len(body.lstrip("\n").splitlines())
         if body_lines > 500:
             errors.append(f"{label}: SKILL.md body is {body_lines} lines (max 500)")
         elif body_lines > 460:

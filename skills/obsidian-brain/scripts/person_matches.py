@@ -4,8 +4,8 @@
 The same human often ends up in several folders: a WhatsApp chat note, a CRM
 card, a contacts export, an industry-figures list. This script normalizes every
 note's basename (drops parenthetical suffixes, emoji, accents and case) and
-reports basenames that appear in more than one folder, so they can be merged
-into one note per person.
+reports basenames that resolve to the same person, in the same folder or across
+folders, so they can be merged into one note per person.
 
 Two confidence tiers:
   - STRONG: names with two or more words (first + last). Safe to merge after a look.
@@ -66,8 +66,10 @@ def main():
 
     strong, weak = [], []
     for name, byfolder in groups.items():
-        if len(byfolder) < 2:
-            continue  # same name in one folder only is not a cross-folder duplicate
+        # Two notes normalizing to the same name are a duplicate whether they sit
+        # in two folders or in one ("Emilie.md" + "Emilie (WhatsApp).md" side by side).
+        if sum(len(v) for v in byfolder.values()) < 2:
+            continue
         paths = []
         for folder, names in sorted(byfolder.items()):
             for fn in names:
@@ -79,7 +81,7 @@ def main():
     weak.sort()
 
     print("vault:", vault)
-    print("likely duplicate people (same name, different folders):",
+    print("likely duplicate people (same normalized name, any folder):",
           len(strong) + len(weak))
     print()
     print("STRONG (multi-word names, safe to merge after a look):", len(strong))

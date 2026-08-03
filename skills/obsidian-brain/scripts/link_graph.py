@@ -101,10 +101,12 @@ def resolve(raw, src, idx):
             return ("ambiguous", suffix[0])
         base = tl.split("/")[-1]
         if base in by_base_ext:
-            return ("ok", by_base_ext[base][0])
+            lst = by_base_ext[base]
+            return ("ok" if len(lst) == 1 else "ambiguous", lst[0])
         base_noext = base[:-3] if base.endswith(".md") else base
         if base_noext in by_base_md:
-            return ("ok", by_base_md[base_noext][0])
+            lst = by_base_md[base_noext]
+            return ("ok" if len(lst) == 1 else "ambiguous", lst[0])
         return ("broken", None)
     if tl in by_base_ext:                        # bare name with extension (image.png, data.csv)
         lst = by_base_ext[tl]
@@ -116,11 +118,13 @@ def resolve(raw, src, idx):
 
 
 def main():
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    argv = sys.argv[1:]
     out_dir = None
-    if "--out" in sys.argv:
-        i = sys.argv.index("--out")
-        out_dir = sys.argv[i + 1] if i + 1 < len(sys.argv) else "."
+    if "--out" in argv:
+        i = argv.index("--out")
+        out_dir = argv[i + 1] if i + 1 < len(argv) else "."
+        del argv[i:i + 2]
+    args = argv
     if not args:
         print("usage: python3 link_graph.py <vault_dir> [entry_point.md] [--out <dir>]")
         return 2
@@ -132,7 +136,8 @@ def main():
     md_set = set(md_files)
     idx = build_indexes(all_files, md_files)
 
-    entry = args[1] if len(args) > 1 else None
+    # NFC-normalize: macOS tab-completion hands over NFD, the index is NFC.
+    entry = nfc(args[1]) if len(args) > 1 else None
     if entry is None:
         for cand in ENTRY_CANDIDATES:
             if cand in md_set:
@@ -155,7 +160,7 @@ def main():
         targets = set(m.group(2) for m in WIKILINK.finditer(text))
         for m in MDLINK.finditer(text):
             url = m.group(1)
-            if re.match(r"^[a-z][a-z0-9+.-]*:", url) or url.startswith("#"):
+            if re.match(r"^[a-z][a-z0-9+.-]*:", url, re.I) or url.startswith("#"):
                 continue
             targets.add(urllib.parse.unquote(url))
         for raw in targets:

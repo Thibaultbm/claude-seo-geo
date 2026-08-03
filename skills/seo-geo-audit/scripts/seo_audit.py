@@ -144,7 +144,7 @@ class Page(HTMLParser):
         a = dict(attrs)
         if tag in ("script", "style", "noscript", "template"):
             self._skip += 1
-            if tag == "script" and a.get("type") == "application/ld+json":
+            if tag == "script" and "ld+json" in (a.get("type") or "").lower():
                 self._in_jsonld = True
                 self._jsonld_buf = []
             return
@@ -191,10 +191,7 @@ class Page(HTMLParser):
                 self._in_jsonld = False
                 try:
                     data = json.loads("".join(self._jsonld_buf))
-                    for node in (data if isinstance(data, list) else [data]):
-                        if isinstance(node, dict) and node.get("@type"):
-                            t = node["@type"]
-                            self.jsonld_types.extend(t if isinstance(t, list) else [t])
+                    self._walk_jsonld(data)
                 except Exception:
                     pass
             return
@@ -203,6 +200,21 @@ class Page(HTMLParser):
         elif tag in ("h1", "h2", "h3", "h4", "h5", "h6") and self._cur_h:
             self.headings.append((self._cur_h, " ".join("".join(self._cur_h_text).split())))
             self._cur_h = None
+
+    def _walk_jsonld(self, node):
+        # Recursive: WordPress/Yoast, RankMath and most CMS wrap everything in
+        # {"@graph": [...]}, and types can nest arbitrarily deep.
+        if isinstance(node, dict):
+            t = node.get("@type")
+            if isinstance(t, str):
+                self.jsonld_types.append(t)
+            elif isinstance(t, list):
+                self.jsonld_types.extend(x for x in t if isinstance(x, str))
+            for v in node.values():
+                self._walk_jsonld(v)
+        elif isinstance(node, list):
+            for v in node:
+                self._walk_jsonld(v)
 
     def handle_data(self, data):
         if self._in_jsonld:
@@ -227,7 +239,16 @@ def analyse_page(url, do_images=True):
         out["error"] = "{}: {}".format(type(e).__name__, e)
         return out
 
-    html = body.decode("utf-8", errors="replace")
+    # Honor the declared charset (ISO-8859-1 and windows-1252 sites otherwise
+    # come out as mojibake in title, meta description and headings).
+    charset = "utf-8"
+    m = re.search(r"charset=([\w-]+)", headers.get("Content-Type", ""), re.I)
+    if m:
+        charset = m.group(1)
+    try:
+        html = body.decode(charset, errors="replace")
+    except LookupError:
+        html = body.decode("utf-8", errors="replace")
     p = Page()
     p.feed(html)
 
@@ -301,7 +322,7 @@ def analyse_page(url, do_images=True):
     internal = external = 0
     for l in p.links:
         h = l["href"]
-        if h.startswith("#") or h.startswith("mailto:") or h.startswith("tel:"):
+        if h.startswith(("#", "mailto:", "tel:", "javascript:")):
             continue
         netloc = urlparse(urljoin(final, h)).netloc
         if netloc == host:
@@ -335,17 +356,25 @@ def analyse_robots(base):
         out["has_user_agent_rules"] = "user-agent" in txt.lower()
         out["sitemap_declared"] = bool(re.search(r"(?im)^\s*sitemap:", txt))
         out["sitemaps"] = re.findall(r"(?im)^\s*sitemap:\s*(\S+)", txt)
+        # Parse robots.txt by group: one or more consecutive User-agent lines
+        # share the rule block that follows them, and "*" applies to every bot.
         blocked_search, blocked_training = [], []
-        for bot in AI_BOTS:
-            # "User-agent: <bot>" group followed (before the next User-agent) by "Disallow: /"
-            m = re.search(r"(?is)user-agent:\s*{}\s*(.*?)(?=user-agent:|\Z)".format(re.escape(bot)), txt)
-            if m and re.search(r"(?im)^\s*disallow:\s*/\s*$", m.group(1)):
-                if bot in AI_SEARCH_BOTS:
-                    blocked_search.append(bot)
-                else:
-                    blocked_training.append(bot)
-        out["ai_search_bots_blocked"] = blocked_search
-        out["ai_training_bots_blocked"] = blocked_training
+        all_bots_blocked = False
+        blocks = re.findall(
+            r"(?im)((?:^\s*user-agent:[^\n]*\n)+)((?:^(?!\s*user-agent:)[^\n]*\n?)*)", txt)
+        for agents_raw, rules in blocks:
+            agents = {a.strip().lower() for a in
+                      re.findall(r"(?im)^\s*user-agent:\s*([^\n#]+)", agents_raw)}
+            if re.search(r"(?im)^\s*disallow:\s*/\s*$", rules):
+                if "*" in agents:
+                    all_bots_blocked = True
+                for bot in AI_BOTS:
+                    if bot.lower() in agents or "*" in agents:
+                        (blocked_search if bot in AI_SEARCH_BOTS
+                         else blocked_training).append(bot)
+        out["ai_search_bots_blocked"] = sorted(set(blocked_search))
+        out["ai_training_bots_blocked"] = sorted(set(blocked_training))
+        out["all_bots_blocked_via_wildcard"] = all_bots_blocked
         out["raw_excerpt"] = txt[:600]
     except Exception as e:
         out["error"] = "{}: {}".format(type(e).__name__, e)
@@ -419,8 +448,12 @@ def fmt(report):
         bt = r.get("ai_training_bots_blocked")
         line("  AI SEARCH bots blocked     : {}".format(bs if bs else "none (good for AI visibility)"))
         line("  AI training bots blocked   : {}".format(bt if bt else "none"))
+        if r.get("all_bots_blocked_via_wildcard"):
+            line("  WARNING: 'User-agent: *' with 'Disallow: /' blocks EVERY crawler, AI and Google alike.")
     s = report.get("sitemap", {})
-    if s:
+    if s.get("error"):
+        line("  sitemap                    : {} (error: {})".format(s.get("url"), s["error"]))
+    elif s:
         cnt = s.get("url_count") or s.get("url_count_estimate")
         line("  sitemap                    : {} ({}, ~{} URLs)".format(
             s.get("url"), s.get("type"), cnt))
@@ -493,6 +526,7 @@ def main():
     report = {"base": base, "robots": robots, "sitemap": sitemap,
               "llms_txt": llms, "pages": pages}
     print(fmt(report))
+    return 1 if all(p.get("error") for p in pages) else 0
 
 
 if __name__ == "__main__":

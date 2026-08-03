@@ -96,7 +96,10 @@ CURRENCY_RE = re.compile(
     r"|(?<![a-zA-Z])\d[\d\s.,]*\s?(?:€|EUR|USD|GBP|CHF|CAD)(?![a-zA-Z]))")
 TEL_RE = re.compile(r"tel:\+?[\d\s().-]{6,}")
 MAILTO_RE = re.compile(r"mailto:[^\"'\s>]+@")
-POSTAL_RE = re.compile(r"\b\d{4,5}\b\s+[A-ZÀ-Ü][a-zà-ü-]{2,}")
+# Years ("2026 Google") are the main false positive, so 19xx/20xx are excluded;
+# the cost is missing genuine 19xxx/20xxx postal codes (rare in FR/EU).
+POSTAL_RE = re.compile(r"\b(?!(?:19|20)\d{2}\b)\d{4,5}\b\s+[A-ZÀ-Ü][a-zà-ü-]{2,}")
+PHONE_TXT_RE = re.compile(r"\+\d{1,3}[\s.\-()]?(?:\d[\s.\-()]?){6,12}\d")
 VIDEO_RE = re.compile(r"(youtube\.com/embed|youtu\.be/|player\.vimeo|wistia|loom\.com/embed|<video[\s>])", re.I)
 YEAR_RE = re.compile(r"\b(20\d{2})\b")
 
@@ -133,7 +136,11 @@ def fetch(url):
         m = re.search(r"charset=([\w-]+)", ctype, re.I)
         if m:
             charset = m.group(1)
-        return resp.geturl(), resp.status, dict(resp.headers), raw.decode(charset, "replace")
+        try:
+            text = raw.decode(charset, "replace")
+        except LookupError:
+            text = raw.decode("utf-8", "replace")
+        return resp.geturl(), resp.status, dict(resp.headers), text
 
 
 class Page(HTMLParser):
@@ -148,6 +155,7 @@ class Page(HTMLParser):
         self.headings = []          # (level, text)
         self._heading = None
         self._buf = []
+        self._jbuf = []
         self.text_parts = []
         self._skip_depth = 0
         self.jsonld_raw = []
@@ -193,9 +201,9 @@ class Page(HTMLParser):
         elif tag in ("h1", "h2", "h3", "h4", "h5", "h6"):
             self._heading = int(tag[1])
             self._buf = []
-        elif tag == "script" and d.get("type", "").lower() == "application/ld+json":
+        elif tag == "script" and "ld+json" in (d.get("type") or "").lower():
             self._in_jsonld = True
-            self._buf = []
+            self._jbuf = []
         elif tag == "table":
             self.tables += 1
             self._table_stack.append(0)
@@ -244,9 +252,9 @@ class Page(HTMLParser):
             self._heading = None
             self._buf = []
         elif tag == "script" and self._in_jsonld:
-            self.jsonld_raw.append("".join(self._buf))
+            self.jsonld_raw.append("".join(self._jbuf))
             self._in_jsonld = False
-            self._buf = []
+            self._jbuf = []
         elif tag == "table" and self._table_stack:
             self.table_rows.append(self._table_stack.pop())
         elif tag == "a" and self._link_href is not None:
@@ -257,8 +265,11 @@ class Page(HTMLParser):
     def handle_data(self, data):
         if self._in_title:
             self.title = (self.title or "") + data
-        if self._heading or self._in_jsonld:
+            return  # the <title> is not page copy: it must not feed keyword checks
+        if self._heading:
             self._buf.append(data)
+        if self._in_jsonld:
+            self._jbuf.append(data)
         if self._link_href is not None:
             self._link_buf.append(data)
         if not self._skip_depth:
@@ -502,8 +513,6 @@ def detect(url, page, status):
 
     # Media
     ev = []
-    if VIDEO_RE.search(" ".join(page.iframes) + " " + str(page.images)):
-        ev.append("video embed in iframe")
     for src in page.iframes:
         if VIDEO_RE.search(src):
             ev.append("video iframe: %s" % src[:80])
@@ -519,8 +528,10 @@ def detect(url, page, status):
 
     # NAP / contact
     ev = []
-    if TEL_RE.search(str(page.links) + text):
-        ev.append("tel: link or phone number present")
+    if TEL_RE.search(str(page.links)):
+        ev.append("tel: link present")
+    elif PHONE_TXT_RE.search(text):
+        ev.append("phone number in page text")
     if MAILTO_RE.search(str(page.links)):
         ev.append("mailto: link present")
     if POSTAL_RE.search(text):
@@ -647,9 +658,13 @@ def main():
             final_url, status, _, html = fetch(url)
         except HTTPError as e:
             results.append({"url": url, "error": "HTTP %s" % e.code})
+            if not args.json_only:
+                print("ERROR %s: HTTP %s\n" % (url, e.code))
             continue
         except (URLError, OSError, ValueError) as e:
             results.append({"url": url, "error": str(e)})
+            if not args.json_only:
+                print("ERROR %s: %s\n" % (url, e))
             continue
         page = Page()
         try:
@@ -666,7 +681,7 @@ def main():
 
     print("--- JSON ---")
     print(json.dumps(results, indent=2, ensure_ascii=False))
-    return 0
+    return 1 if all(r.get("error") for r in results) else 0
 
 
 if __name__ == "__main__":
