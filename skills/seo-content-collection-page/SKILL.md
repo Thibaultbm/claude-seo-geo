@@ -46,7 +46,7 @@ Hand off neighboring cases:
 1. Identify the target query for the collection (the category keyword) and confirm it is commercial: check what page types rank. Validate facet-level demand with the seo-keyword-research skill before creating any facet landing page.
 2. Fetch the raw server HTML with curl and compare with the rendered page. A product grid or text block that only appears after JavaScript runs is invisible to AI assistants and unreliable for Google. For an automated full check, run the bundled audit script from the seo-geo-audit skill (scripts/seo_audit.py).
 3. Map the URL surface: list the filter, sort, and pagination parameters the template can emit, and check Search Console page indexing reports for parameter URL inflation.
-4. Write the two text zones: a 1-2 sentence intro at the top, a 400-800 word block at the bottom (structure below).
+4. Write the two text zones: a 1-2 sentence intro at the top, a 400-800 word block at the bottom (structure below). Before writing, mine Google Search Console for the page's own keyword demand (section 0 below) and weave the high-impression secondary keywords into the block in the searchers' exact wording. Open the body with the primary keyword as the very first word (never an em-dash, a dash, or filler), and bold the primary keyword plus the most important secondary keywords.
 5. Fix the metadata: H1, title, slug, meta description.
 6. Set the faceted navigation and pagination directives (decision tables below).
 7. Evaluate thin or empty collections and merge or noindex them.
@@ -69,6 +69,18 @@ Hand off neighboring cases:
 | Pagination | Page 2+ self-canonical, never canonical to page 1 | Standard practice (Google pagination doc) |
 | Thin collections | 0-2 products: merge or noindex | Field heuristic from 115+ agency audits |
 | FAQ in bottom block | 3 questions minimum | Field heuristic from 115+ agency audits |
+
+### 0. Mine Search Console for the page's real demand (do this first)
+
+Before writing a single sentence, pull the collection URL's own performance from Google Search Console (Sorank GSC connector, or the GSC API): the queries the page already receives impressions on. The data tells you which keywords to write toward instead of guessing. Prioritise three buckets and place their terms into the intro, the H2/H3 questions, and the body of the block:
+
+| Bucket | Signal | What to do |
+|---|---|---|
+| High impressions, low or zero clicks | The page is shown but the snippet does not earn the click, or the term is absent from the copy | Name the term explicitly, in the searcher's exact wording, in the H1-adjacent intro and a body passage |
+| Real impressions, position 8-30 | One page off the clickable zone | Add a focused passage on the term so a single rank gain converts to traffic |
+| Ranks for a term absent from title, H1 and body | A pure content gap | Close it verbatim: the demand already exists, the page just never says the words |
+
+Mechanics: query GSC filtered to the exact collection URL (dimension = query) over a 90-180 day window, sorted by impressions. Capture the whole cluster of related terms, not just the head term, and reuse the searchers' phrasing, their exact words are the proven match for intent. This GSC pass is what supplies the secondary-keyword list for the bottom block; the seo-keyword-research skill stays the tool for validating brand-new facet pages that have no Search Console history yet.
 
 ### 1. Text placement: almost everything goes at the bottom
 
