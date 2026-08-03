@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-page-sections",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here is my product page: https://example-store.com/products/ergonomic-chair. It is indexed, loads fast, the title and meta description are fine, and it still does not rank or get recommended by ChatGPT. What is missing on it?",
+      "expected_output": "Identifies the page type as product and audits it block by block against the product blueprint rather than re-auditing tags and speed, which the user already reported as fine. Runs or describes running scripts/section_audit.py, and reads the evidence rather than trusting bare booleans. Produces a gap report with four states (present, below bar, missing, not applicable) and explicitly warns that if the raw HTML is under 200 words the cause must be distinguished between client-side rendering and genuinely thin content before any other finding is reported. Ranks the gaps into roughly three priorities plus a backlog rather than an undifferentiated list, ordered by purchase-decision blocks first, then AI-quotable blocks, then crawl blocks. Delivers the actual drafted content for the missing blocks, not just their names: at minimum a FAQ of 3+ questions with 40-80 word answers, and a definitions block of about 5 terms. Flags any fact it cannot source as a marked placeholder and lists those placeholders as questions for the owner instead of inventing prices, materials or reviews. No em-dashes, no emojis.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I am rebuilding our site templates in Figma. Give me the checklist of mandatory sections for our page types so the designer builds them right the first time. We have product pages, a pricing page, a homepage and a contact page. The staging site is noindex so you cannot crawl it.",
+      "expected_output": "Recognizes that the site cannot be crawled and therefore skips the detection and grading phases, delivering the blank checklist format (Format B) rather than claiming to have audited anything. Provides, per requested page type, the ordered block list from the page type matrix with the required, recommended and optional levels preserved and the reason each block exists, covering the universal baseline once plus product, pricing, homepage and contact specifically. Written for someone who will implement it themselves: plain language, no unexplained acronyms. Notes the design-relevant ordering rule that decision blocks belong above the fold and extraction blocks below it. Flags the pricing-page requirement that prices must be HTML text rather than images or JavaScript, since AI crawlers do not execute JavaScript, which is a decision the designer would otherwise make wrongly. Does not invent findings about a site it could not access.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our SaaS pricing page has plan cards, a comparison table and testimonials. Our developer says it is complete. Anything missing?",
+      "expected_output": "Audits against the pricing page block list rather than accepting the developer's assessment, and checks the named blocks for quality rather than mere presence. Surfaces the pricing-specific blocks that such pages typically lack: total cost clarity (setup fees, overage, minimum term, taxes), an FAQ covering billing, cancellation, upgrade and refund, a guarantee or trial with its conditions, a marked recommended plan with who it is for, a contact route for non-standard cases, and exclusions shown in the comparison table rather than inclusions only. Verifies that prices are HTML text by checking the raw HTML, warning that a JavaScript-injected price is invisible to AI crawlers. Notes that Offer or PriceSpecification schema must match the visible prices exactly. States that the testimonials must be real and server-rendered to count, and that a third-party review widget loaded by JavaScript does not. Delivers drafted FAQ questions and answers rather than only naming the gap. Prioritizes rather than listing everything as equally urgent.",
+      "files": []
+    }
+  ]
+}

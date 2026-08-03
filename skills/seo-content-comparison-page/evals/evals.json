@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-content-comparison-page",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We sell a video editing SaaS. Our three competitors are much bigger than us. Which comparison pages should we build, and write the first one.",
+      "expected_output": "Maps the page families to demand before building anything, and states the challenger heuristic that '{competitor} alternatives' pages outperform '{you} vs {competitor}' pages because the searcher has already decided to leave, while also insisting on owning '{our brand} alternatives' rather than leaving it to a review site. Warns against one page per competitor regardless of search demand, and against building both 'X vs Y' and 'Y vs X'. Points to seo-keyword-research to verify demand. Then writes one full page with: a verdict in the first 100 words naming who each option suits, a real HTML comparison table with 6-12 criteria chosen from buyer decision factors before scoring, at least one row where a competitor genuinely wins stated without hedging, an explicit block of the author's own limitations, prices as HTML text with a verification date, best-for verdicts per use case, a methodology block covering what was compared and when, and an FAQ including the uncomfortable questions such as migration and why a competitor is cheaper. Marks any competitor fact it cannot verify as a placeholder to check rather than inventing it. Mentions the comparative advertising conditions (compare like with like, verifiable and relevant features, no denigration). No em-dashes, no emojis.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I want a landing page for each of our customer types: agencies, freelancers, e-commerce brands and startups. Can I take our main product page and swap the audience name in the headline for each one?",
+      "expected_output": "Rejects the find-and-replace approach directly, explaining that near-duplicate segment pages compete with each other so none of them ranks, and gives the concrete test: could a reader from one segment tell within the first paragraph that another segment's page was not written for them. Lists the four qualifying conditions before a segment earns its own page (distinct vocabulary, a distinct primary problem, distinct proof available, real search demand) and says that segments failing them become a section on the main page instead. Provides the segment page structure: the segment's problem in its own vocabulary in the first 100 words, benefits in the segment's own units, the workflow block that makes the page non-duplicable, proof from the same segment because proof from a different segment does not transfer, the objection specific to that segment (noting it is rarely price), segment-appropriate pricing, an FAQ in their vocabulary, a CTA phrased for that segment, and cross-links to sibling segment pages. Notes that the workflow and proof blocks require talking to real customers rather than imagining them.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We published a page comparing us to our main competitor 18 months ago. It ranks number 2 and drives good demo bookings. Should I touch it?",
+      "expected_output": "Treats the age as the finding: comparison pages decay faster than any other page type because they depend on facts the author does not control, and an 18-month-old page almost certainly misstates the competitor's current pricing and feature set. Notes concretely that a page claiming a competitor lacks a feature they have since shipped is worse than no page, since it is what a competitor's sales team screenshots. Recommends re-verifying every price and feature row against the competitor's own public pages, updating the visible verification date, and checking whether the author's own pricing changed and therefore whether other comparison pages need the same pass. Prescribes a quarterly re-verification cycle plus event triggers (competitor ships a major feature, own pricing changes), and retiring with a redirect rather than leaving a page stale if it can no longer be maintained. Explicitly warns against changing the URL or rebuilding the page from scratch given it ranks number 2 and has accumulated signals, so the update should preserve the URL. Suggests tracking the page in geo-tracking since comparison pages are where AI citation share moves first.",
+      "files": []
+    }
+  ]
+}

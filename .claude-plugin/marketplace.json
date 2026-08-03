@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "SEO + GEO skills for Claude Code, by Sorank",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "claude-seo-geo",
       "source": "./",
-      "description": "15 SEO + GEO skills: full site audit, technical SEO, content for every page type (blog, product, service, collection), internal linking, schema, link building, local SEO, social amplification, AI visibility and AI traffic tracking, plus an Obsidian company-knowledge layer that grounds every skill.",
+      "description": "17 SEO + GEO skills: full site audit, technical SEO, content for every page type (blog, product, service, collection, comparison and alternatives, customer segment), a page-section audit that finds the blocks missing from a page and writes them, internal linking, schema, link building, local SEO, social amplification, AI visibility and AI traffic tracking, plus an Obsidian company-knowledge layer that grounds every skill.",
       "category": "marketing",
       "keywords": [
         "seo",
@@ -20,7 +20,9 @@
         "ai-search",
         "llm-seo",
         "link-building",
-        "social-media-marketing"
+        "social-media-marketing",
+        "comparison-pages",
+        "content-audit"
       ]
     }
   ]
