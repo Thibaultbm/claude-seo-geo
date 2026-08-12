@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-ai-site-builders",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I built my company site with Lovable and connected our domain. It has been live for 4 months, Google only indexed the homepage, and when I ask ChatGPT about us it says it cannot access the site. What is going on and how do I fix it?",
+      "expected_output": "Does not answer from Lovable's reputation as a client-side builder. Establishes the facts first: which builder, where it is hosted (Lovable hosting with a custom domain, versus an exported repo elsewhere), and whether the code has been exported. Runs or describes running scripts/render_check.py on several URLs, not just the homepage, and reports the actual word count in the raw HTML as evidence. Knows that Lovable shipped SSR for apps created from May 2026 and automatic prerendering for older Vite apps while hosted on Lovable, so the diagnosis depends on the project's age and hosting rather than on the platform name. Explains the consequence correctly: Googlebot renders JavaScript on a delay, AI crawlers do not render it at all, which is why ChatGPT sees nothing. Recommends one route with a reason (native rendering if hosted on Lovable and available, build-time prerendering or a framework migration otherwise) instead of listing every option. Also checks the non-rendering causes that produce the same symptom: a leftover noindex from the preview environment, the .lovable.app preview subdomain competing with the custom domain, and a 200 SPA fallback turning unknown routes into soft 404s. Sets a realistic recovery expectation of weeks, not days. No em-dashes, no emojis.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Our app is on Base44 and we cannot export the code. An agency quoted us for a prerendering service at 90 dollars a month so Google can see the site. Worth it?",
+      "expected_output": "Verifies the current state before pricing anything, since Base44 started serving prerendered snapshots to crawlers in mid-2026, which may make the paid service redundant. Runs the check on several URLs including an entity-driven detail route, because the platform snapshot is most likely to miss those. Explains clearly that a prerendering service is dynamic rendering, that Google calls it a workaround rather than a long-term solution, and that it requires monitoring because it fails silently. Insists that any prerender layer must cover the AI crawlers (OAI-SearchBot, PerplexityBot, ClaudeBot, Claude-SearchBot) and not only Googlebot, otherwise it does not fix the ChatGPT problem at all. Gives a concrete recommendation rather than a neutral summary, including the alternative of rebuilding just the public marketing pages on a static stack when they number a dozen or so, with the honest arithmetic against a recurring subscription. Does not claim the platform is broken without evidence from a fetched page.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We are starting a new content site, about 200 articles planned. Bolt or Lovable? And we want to self-host on Cloudflare Pages to keep costs down.",
+      "expected_output": "Answers the builder question through the rendering lens, since the site is a content site whose pages must rank and be cited. Notes that Bolt defaults to a Vite single page app unless the prompt explicitly asks for a framework, so the cheapest intervention is instructing the generator to produce a server-rendering or static-generation framework from the start. Flags the specific trap in the question: Lovable's platform-side rendering is a hosting feature, so moving an exported project to Cloudflare Pages as a static bundle loses it, and the site returns to serving empty shells. Recommends a framework with build-time or server rendering (Astro or a similar static generator suits 200 articles well, and ships the least JavaScript) rather than retrofitting later. Makes the timing argument concretely: rendering costs nothing to decide at the start and is expensive to retrofit after 200 articles are published against the wrong routing model. Covers the routing decisions that go with a static host: no catch-all 200 rewrite, a real 404 status, path routing rather than hash routing, one canonical host, and a sitemap generated from the same route list that drives the build.",
+      "files": []
+    }
+  ]
+}

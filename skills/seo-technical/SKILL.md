@@ -33,6 +33,7 @@ Use it for:
 
 Hand off neighboring problems:
 
+- Converting a client-rendered site built by an AI generator (Lovable, Base44, Bolt, and similar) into served HTML: use the seo-ai-site-builders skill
 - Orphan pages and link architecture: use the seo-internal-linking skill
 - JSON-LD and structured data: use the seo-schema-markup skill
 - Writing content so AI engines quote it: use the geo-visibility skill
@@ -131,7 +132,7 @@ Stack verdicts:
 | WordPress, Shopify, Webflow | Yes | Hold up at volume (field experience, 115+ audits) |
 | Next.js, Nuxt, Astro, SvelteKit with SSR/SSG enabled | Yes | Fine, but verify template by template: hybrid apps regress silently |
 | React, Vue, Angular client-side SPA | No | Invisible to every AI engine; prerender or rebuild |
-| Framer, Lovable, and similar recent builders | Mixed | Field experience: unstable for SEO at scale (rendering, redirects, sitemap control); audit before committing a content operation to them |
+| Framer, Lovable, Base44, Bolt, and similar AI builders | Mixed and moving | Field experience: unstable for SEO at scale (rendering, redirects, sitemap control), and the platforms change their rendering defaults between releases; fetch the HTML before judging, then use the seo-ai-site-builders skill for the conversion |
 
 Inside a stable CMS, the theme still decides the technical floor. Pick a lean, SEO-oriented e-commerce theme (clean markup, no JavaScript bloat, content in raw HTML, fast Core Web Vitals out of the box) over a heavy multi-purpose one: on Shopify, for example, the gap between a performance-focused theme and a bloated one shows up directly in LCP. Choose the domain on the same logic: for a French local business, a .fr signals geography to Google and tends to earn a better local click-through than a .com (field heuristic from 115+ agency audits). Settle the domain before launch, since changing it later means a full migration (Step 7).
 

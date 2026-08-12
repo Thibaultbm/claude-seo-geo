@@ -4,7 +4,7 @@
 
 **SEO & GEO skills for Claude Code, built with Claude Mythos 5.** Rank in Google AND in LLMs like ChatGPT, Perplexity, and Gemini. Technical audits, backlink strategy, AI-optimized content, local visibility, and social amplification: everything you need to own search as it evolves. What took weeks now happens in hours. The future of Search is here, for free.
 
-17 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
+18 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
 
 ## Run it on your company's second brain
 
@@ -58,6 +58,7 @@ The skills are plain markdown following the open Agent Skills format, so they al
 | [seo-content-collection-page](skills/seo-content-collection-page/SKILL.md) | Category and collection pages: the 400-800 word bottom text, faceted navigation, pagination |
 | [seo-content-comparison-page](skills/seo-content-comparison-page/SKILL.md) | Bottom-funnel decision pages: X vs Y, alternatives, best-for lists, and customer segment pages, with the honesty rules that make them citable |
 | [seo-page-sections](skills/seo-page-sections/SKILL.md) | What is missing on a page: the required block list for 11 core page types (plus 10 archetype-specific ones), a bundled detector, and the drafted content for every gap (FAQ, breadcrumb, definitions, comparison table) |
+| [seo-ai-site-builders](skills/seo-ai-site-builders/SKILL.md) | Sites built by AI generators (Lovable, Base44, Bolt, v0, Replit, Bubble, Softr and the rest): prove what crawlers actually receive with a bundled script, then convert the JavaScript app into served HTML (native SSR, build-time prerendering, framework migration, or crawler-only prerendering as a last resort) |
 | [seo-internal-linking](skills/seo-internal-linking/SKILL.md) | Money-page-first linking, silos, orphan pages, anchors |
 | [seo-schema-markup](skills/seo-schema-markup/SKILL.md) | The structured data that still matters in 2026, with ready JSON-LD templates (and the markup that died) |
 | [seo-backlinks](skills/seo-backlinks/SKILL.md) | Link building strategy, ninja linking with a spot catalog, digital PR, unlinked brand mentions |
@@ -73,6 +74,7 @@ Ask Claude things like:
 ```
 Audit https://example.com and tell me what to fix first.
 Why does my site never get mentioned by ChatGPT?
+My site was built with Lovable and only the homepage is indexed. Fix it.
 Write the collection page text for our "linen dresses" category.
 Build a link acquisition plan for a B2B SaaS in the HR space.
 Set up AI traffic tracking in GA4 and a monthly prompt panel.
@@ -145,11 +147,13 @@ These skills give you full manual control, and great power comes with great resp
 ```
 claude-seo-geo/
   .claude-plugin/          plugin.json + marketplace.json
-  skills/                  17 skills (SKILL.md + references/ + evals/)
+  skills/                  18 skills (SKILL.md + references/ + evals/)
     seo-geo-audit/
       scripts/seo_audit.py zero-dependency on-page fact collector
     seo-page-sections/
       scripts/section_audit.py zero-dependency page block detector
+    seo-ai-site-builders/
+      scripts/render_check.py zero-dependency JavaScript rendering checker
   scripts/                 validate_skills.py (CI format + style checks)
   AGENTS.md                using the skills outside Claude Code
 ```
