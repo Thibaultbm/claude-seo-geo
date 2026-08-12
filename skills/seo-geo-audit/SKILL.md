@@ -25,7 +25,8 @@ If the working environment contains an Obsidian vault or any local knowledge bas
 ## When to use
 
 - The user provides a URL and wants improvement points, an audit, a review, or a "check".
-- A site does not rank, lost traffic, or is invisible in AI assistant answers.
+- A site does not rank, never gained traction, or is invisible in AI assistant answers.
+- Not for a sudden loss: when traffic or rankings fell from a known level, use the seo-traffic-drop skill first. An audit lists everything imperfect on a site, which is the wrong instrument for finding the one thing that changed.
 - The user wants a comparison against one or more competitors.
 - A baseline is needed before content production, a migration, or a redesign.
 
@@ -114,6 +115,7 @@ Reassure before you criticize: lead with honest numbered reference points ("this
 
 | Finding | Skill to apply the fix |
 |---|---|
+| A dated loss of traffic or rankings, rather than a site that never performed | seo-traffic-drop |
 | Crawl, speed, indexation, JS rendering, AI bot access | seo-technical |
 | Wrong or missing keywords, cannibalization | seo-keyword-research |
 | Weak or thin articles | seo-content-blog |
