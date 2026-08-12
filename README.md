@@ -4,7 +4,7 @@
 
 **SEO & GEO skills for Claude Code, built with Claude Mythos 5.** Rank in Google AND in LLMs like ChatGPT, Perplexity, and Gemini. Technical audits, backlink strategy, AI-optimized content, local visibility, and social amplification: everything you need to own search as it evolves. What took weeks now happens in hours. The future of Search is here, for free.
 
-18 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
+19 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
 
 ## Run it on your company's second brain
 
@@ -49,6 +49,7 @@ The skills are plain markdown following the open Agent Skills format, so they al
 | Skill | What it does |
 |---|---|
 | [obsidian-brain](skills/obsidian-brain/SKILL.md) | The knowledge layer: build the vault (entry points, hubs, notes), import everything (docs, transcripts, WhatsApp), keep the graph clean (link audit), read it before acting and log after |
+| [seo-traffic-drop](skills/seo-traffic-drop/SKILL.md) | Traffic or rankings fell: rule out reporting artifacts, date the drop (cliff or slope) and shape it with a bundled Search Console differ, then run the differential diagnosis until one cause survives its confirming test |
 | [seo-geo-audit](skills/seo-geo-audit/SKILL.md) | Full site audit: 14 categories, facts collected by a bundled zero-dependency script, prioritized action plan or plain-language email |
 | [seo-technical](skills/seo-technical/SKILL.md) | Crawlability, indexation, Core Web Vitals, JavaScript rendering, AI crawler access (the canonical crawler table), migrations |
 | [seo-keyword-research](skills/seo-keyword-research/SKILL.md) | Real queries over jargon, intent mapping, cannibalization, and AI prompt research (the keyword research of answer engines) |
@@ -73,6 +74,7 @@ Ask Claude things like:
 
 ```
 Audit https://example.com and tell me what to fix first.
+Our traffic dropped 40% last month. What happened?
 Why does my site never get mentioned by ChatGPT?
 My site was built with Lovable and only the homepage is indexed. Fix it.
 Write the collection page text for our "linen dresses" category.
@@ -147,13 +149,15 @@ These skills give you full manual control, and great power comes with great resp
 ```
 claude-seo-geo/
   .claude-plugin/          plugin.json + marketplace.json
-  skills/                  18 skills (SKILL.md + references/ + evals/)
+  skills/                  19 skills (SKILL.md + references/ + evals/)
     seo-geo-audit/
       scripts/seo_audit.py zero-dependency on-page fact collector
     seo-page-sections/
       scripts/section_audit.py zero-dependency page block detector
     seo-ai-site-builders/
       scripts/render_check.py zero-dependency JavaScript rendering checker
+    seo-traffic-drop/
+      scripts/gsc_diff.py  zero-dependency Search Console drop locator
   scripts/                 validate_skills.py (CI format + style checks)
   AGENTS.md                using the skills outside Claude Code
 ```

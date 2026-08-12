@@ -1,7 +1,7 @@
 {
   "name": "claude-seo-geo",
-  "description": "SEO + GEO skills for Claude Code: audit any site, fix technical SEO, write content that ranks on Google and gets cited by ChatGPT, Perplexity and AI Overviews, build links and brand mentions, amplify on social, and track AI visibility without paid tools. Runs on your company's Obsidian knowledge vault.",
-  "version": "1.3.0",
+  "description": "SEO + GEO skills for Claude Code: audit any site, diagnose a traffic drop, fix technical SEO, write content that ranks on Google and gets cited by ChatGPT, Perplexity and AI Overviews, build links and brand mentions, amplify on social, and track AI visibility without paid tools. Runs on your company's Obsidian knowledge vault.",
+  "version": "1.4.0",
   "author": {
     "name": "Thibault Besson-Magdelain",
     "url": "https://sorank.com"
@@ -25,6 +25,7 @@
     "comparison-pages",
     "page-templates",
     "javascript-seo",
+    "traffic-drop-diagnosis",
     "ai-website-builders",
     "content-audit"
   ],

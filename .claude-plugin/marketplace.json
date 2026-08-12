@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "SEO + GEO skills for Claude Code, by Sorank",
-    "version": "1.3.0"
+    "version": "1.4.0"
   },
   "plugins": [
     {
       "name": "claude-seo-geo",
       "source": "./",
-      "description": "18 SEO + GEO skills: full site audit, technical SEO, content for every page type (blog, product, service, collection, comparison and alternatives, customer segment), a page-section audit that finds the blocks missing from a page and writes them, a rendering fix for sites built by AI generators like Lovable and Base44, internal linking, schema, link building, local SEO, social amplification, AI visibility and AI traffic tracking, plus an Obsidian company-knowledge layer that grounds every skill.",
+      "description": "19 SEO + GEO skills: traffic drop diagnosis, full site audit, technical SEO, content for every page type (blog, product, service, collection, comparison and alternatives, customer segment), a page-section audit that finds the blocks missing from a page and writes them, a rendering fix for sites built by AI generators like Lovable and Base44, internal linking, schema, link building, local SEO, social amplification, AI visibility and AI traffic tracking, plus an Obsidian company-knowledge layer that grounds every skill.",
       "category": "marketing",
       "keywords": [
         "seo",
@@ -23,6 +23,7 @@
         "social-media-marketing",
         "comparison-pages",
         "ai-site-builders",
+        "traffic-drop",
         "javascript-seo",
         "content-audit"
       ]

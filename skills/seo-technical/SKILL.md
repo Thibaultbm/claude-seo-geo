@@ -33,6 +33,7 @@ Use it for:
 
 Hand off neighboring problems:
 
+- Diagnosing a dated traffic or ranking loss before fixing anything: use the seo-traffic-drop skill
 - Converting a client-rendered site built by an AI generator (Lovable, Base44, Bolt, and similar) into served HTML: use the seo-ai-site-builders skill
 - Orphan pages and link architecture: use the seo-internal-linking skill
 - JSON-LD and structured data: use the seo-schema-markup skill

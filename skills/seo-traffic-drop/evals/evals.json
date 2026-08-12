@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-traffic-drop",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our organic traffic is down 40 percent since the beginning of last month. There was a Google core update around that time. Can you confirm it was the update and tell us how to recover?",
+      "expected_output": "Refuses to confirm the update from the date alone and says why: correlation with a public update date is the most over-attributed cause in the field. Asks for or works from Search Console exports for equal-length healthy and damaged periods, same property, same filters, plus the release log for the six weeks before. Checks the cheap binary things first: Manual Actions, Security Issues, robots.txt and meta robots. Dates the drop before shaping it, using the day-level export, and distinguishes a cliff (a site event on one date) from a slope (a rollout or competition), because that distinction changes the entire investigation. States the four conditions that make an update attribution defensible: the drop starts inside the published window rather than before it, the loss is not concentrated in one section, competitors moved too, and nothing shipped in the same window. Points to the Google Search Status Dashboard for the confirmed window rather than a blog post. If the update is confirmed, sets an honest recovery expectation (no penalty to lift, broad recoveries typically arrive with later updates) instead of promising a date. Does not recommend rewriting content before the cause is confirmed, and explicitly tells the user to freeze site changes during the diagnosis so evidence is not destroyed. No em-dashes, no emojis.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Search Console shows our impressions down 55 percent since late April but clicks are basically flat. Traffic looks fine in GA4. What happened and how bad is it?",
+      "expected_output": "Recognizes this as the signature of a reporting artifact rather than a traffic loss, and leads with the rule that clicks are the metric that pays. Identifies the specific documented event: the Search Console impression logging error that ran from 13 May 2025 until the fix rolled out on 27 April 2026, which affected impressions, CTR and average position but not clicks, and for which Google did not reconstruct historical data. Points the user to the official Data Anomalies page to verify the period. Explains the practical consequence for reporting: any before-and-after comparison spanning 27 April 2026 compares inflated impressions against corrected ones, so impressions, CTR and average position are not comparable across that boundary while clicks are. Also mentions the other known artifact, the num=100 removal of September 2025, as a candidate if the period is different from the one described. Concludes plainly that there is likely no traffic loss to fix, warns against reporting this to stakeholders as a decline, and advises rebasing any dashboard or KPI that used impressions as its baseline. Does not invent a site problem to explain flat clicks.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Traffic fell off a cliff on May 14. We did a site redesign that week. Here are the Search Console exports for the 60 days before and the 45 days after.",
+      "expected_output": "Flags immediately that the two periods are unequal (60 days against 45), so the comparison measures the calendar as much as the site, and asks for equal-length exports or normalizes before drawing conclusions. Runs the bundled gsc_diff.py in both modes: timeline mode to confirm the onset date lands on May 14, and comparison mode on pages with section grouping to locate the loss. Treats a cliff coinciding with a redesign as a site event rather than an algorithmic one, and prioritizes the migration failure modes accordingly: redirects missing or chained, URLs changed without mapping, canonicals pointing elsewhere, a noindex shipped in a template, content blocks dropped from the new design, internal links removed, and a switch to client-side rendering. Names the confirming test for each rather than asserting a cause: verify every old URL resolves in one hop to a relevant page, read the canonical and meta robots as served rather than as authored, and check whether the content is present in the raw HTML. Reads the disappeared-entirely rows as an indexation signal and the gainers against the losers to catch internal redistribution. Hands the confirmed fixes to seo-technical, and to seo-ai-site-builders if the redesign moved the site to a JavaScript-rendered stack. Sets recovery expectations in weeks after recrawl, and asks for the incident to be recorded with what was ruled out.",
+      "files": []
+    }
+  ]
+}
