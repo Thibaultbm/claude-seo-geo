@@ -63,6 +63,7 @@ Provenance markers: (field) = recurring finding across 115+ real agency audit ca
 - 6.1 Word ladder (field): 180 words very insufficient; 300 standard minimum; 500+ when the query is competitive; 750 very good; homepage 1500-1800. Master rule: benchmark the top 3-5 ranking pages for the target query and close the gap. Never replace a longer ranking text with a shorter one.
 - 6.2 First bolded words of the intro = the main keyword; secondary keywords bolded through the body. Bold is a cheap, visible relevance and scannability signal. (field)
 - 6.3 No lorem ipsum (it happens more than expected), no unbroken walls of text: paragraphs of 10-80 words, one idea each. Short self-contained paragraphs are also what AI engines extract. (field + measured)
+- 6.4 No em dashes (U+2014) and no en dashes (U+2013) in the copy, titles or meta descriptions. They are the most recognizable tell of AI-written text, so leaving them on the page tells every visitor the content was generated. Fix: find-and-replace to commas, with a colon, a period or parentheses where a comma loses the sense. Grep the raw HTML, not only the rendered text. (field)
 
 ## 7. Keywords and intent
 

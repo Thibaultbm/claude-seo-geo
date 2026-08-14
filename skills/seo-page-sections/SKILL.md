@@ -101,12 +101,13 @@ Read `references/section-library.md` now. Every block has a spec: what it is, wh
 
 Do not just name the gap. Deliver the block, written and ready to paste, in the language of the site. "Add a FAQ" is worthless; three real questions with 40 to 80 word answers is the deliverable.
 
-Four rules that override everything in the library:
+Five rules that override everything in the library:
 
 1. Never invent a fact. Prices, delivery times, certifications, materials, client names, review text and comparison data must come from the vault, the site, or the owner. If a fact is needed and unavailable, write the block with a clearly marked `{placeholder}` and list the placeholders at the end of the deliverable as questions for the owner.
 2. Never fabricate social proof. Reviews, ratings, logos and case studies must be real and already earned. Marking up a rating that is not displayed, or displaying a review that was never written, is a policy violation and a trust failure.
 3. Comparison claims must be checkable. Every row of a competitor comparison must be verifiable on the competitor's own public page on the day it is written, and dated for that reason.
 4. The visible page is the source of truth. Schema mirrors what a human can see; feeds export what the page says. A block that exists only in markup is a liability (seo-schema-markup).
+5. Never leave an em dash (U+2014) or an en dash (U+2013) in a drafted block. Replace every one with a comma; use a colon, a period or parentheses when a comma loses the sense. The em dash is the single most recognizable tell of AI-written text, and one is enough for a reader, or the client, to file the page as machine output. This covers headings, FAQ answers, definitions, table cells, CTA labels and every string you hand over for pasting. Sweep the deliverable for both characters before sending it. Hyphens in compound words and ranges written with "to" are untouched.
 
 ## Phase 5: deliver
 

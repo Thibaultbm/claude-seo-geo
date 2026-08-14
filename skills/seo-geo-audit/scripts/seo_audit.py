@@ -339,6 +339,22 @@ def analyse_page(url, do_images=True):
     out["lang"] = bool(re.search(r"<html[^>]*\blang=", html, re.I))
     out["word_count"] = p.word_count()
     out["meta_robots"] = p.meta_robots
+    # AI-writing tell: em dashes and en dashes in the copy the visitor reads.
+    # Characters are written as escapes so this file passes the repo dash sweep.
+    dash_re = re.compile("[\\u2014\\u2013]")
+    body_text = re.sub(r"\s+", " ", " ".join(p._text))
+    samples = []
+    for m in list(dash_re.finditer(body_text))[:5]:
+        samples.append(body_text[max(0, m.start() - 40):m.end() + 40].strip())
+    # The parser routes <title> text into _text too, so discount it from the body figure.
+    title_dashes = len(dash_re.findall(title))
+    out["em_dashes"] = {
+        "body": max(0, len(dash_re.findall(body_text)) - title_dashes),
+        "title": title_dashes,
+        "meta_description": len(dash_re.findall(md or "")),
+        "headings": sum(len(dash_re.findall(t)) for _, t in p.headings),
+        "samples": samples,
+    }
     # JS rendering hint: very little text + client-side framework means the raw
     # HTML is probably incomplete. AI crawlers do not execute JavaScript, so
     # whatever is missing here is invisible to ChatGPT, Claude and Perplexity.
@@ -492,6 +508,14 @@ def fmt(report):
                 note = " -- {}".format(x["note"]) if x.get("note") else ""
                 line("       {}KB  {}{}".format(x["kb"], x["src"], note))
         line("  WORDS (visible text): {}".format(pg["word_count"]))
+        ed = pg.get("em_dashes") or {}
+        total_ed = ed.get("body", 0) + ed.get("title", 0) + ed.get("meta_description", 0)
+        if total_ed:
+            line("  EM/EN DASHES: {} in body, {} in title, {} in meta description"
+                 " [AI-writing tell, replace with commas]".format(
+                     ed.get("body", 0), ed.get("title", 0), ed.get("meta_description", 0)))
+            for s in ed.get("samples", [])[:3]:
+                line("       ...{}...".format(s[:110]))
         line("  LINKS internal={} | external={}".format(
             pg["links"]["internal"], pg["links"]["external"]))
         og = pg["open_graph"]

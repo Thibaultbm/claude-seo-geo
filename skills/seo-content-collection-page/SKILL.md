@@ -69,6 +69,9 @@ Hand off neighboring cases:
 | Pagination | Page 2+ self-canonical, never canonical to page 1 | Standard practice (Google pagination doc) |
 | Thin collections | 0-2 products: merge or noindex | Field heuristic from 115+ agency audits |
 | FAQ in bottom block | 3 questions minimum | Field heuristic from 115+ agency audits |
+| Punctuation | Zero em dashes and zero en dashes, replaced by commas | House rule, most recognizable AI-writing tell |
+
+Punctuation, non-negotiable: never leave an em dash (U+2014) or an en dash (U+2013) in copy that goes live on a client site. Replace every one with a comma; use a colon, a period or parentheses when a comma loses the sense. The em dash is the single most recognizable tell of AI-written text, and one is enough for a shopper, or the client, to file the page as machine output. The rule covers every field you deliver: top intro, bottom block, FAQ answers, title tag, H1, meta description, alt text, facet labels, schema strings. Sweep the finished draft for both characters before handing it over. Hyphens in compound words and ranges written with "to" are untouched.
 
 ### 0. Mine Search Console for the page's real demand (do this first)
 

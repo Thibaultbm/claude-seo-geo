@@ -310,6 +310,8 @@ Adapt the deliverable to the request:
 
 Always state which claims are measured (with the source URL) and which are field heuristics. Never present a heuristic as a measurement.
 
+Punctuation, non-negotiable: never leave an em dash (U+2014) or an en dash (U+2013) in text published under the client's name or sent to a third party. Replace every one with a comma; use a colon, a period or parentheses when a comma loses the sense. The em dash is the single most recognizable tell of AI-written text, and here it costs placements: an outreach email or a guest paragraph that reads as machine output gets deleted by the editor who was supposed to give the link. The rule covers outreach emails, guest post drafts, forum and comment contributions, profile and directory descriptions, and the blurbs you supply to list owners. Sweep for both characters before sending. Hyphens in compound words and ranges written with "to" are untouched.
+
 ## Common mistakes
 
 | Mistake | Why it hurts | Do instead |
