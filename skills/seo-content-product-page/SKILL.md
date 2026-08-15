@@ -67,6 +67,9 @@ Hand off neighboring cases:
 | Meta description | Handwritten, about 150-160 characters | Field heuristic from 115+ agency audits |
 | Out of stock | HTTP 200 + availability markup + alternatives, never 404 | Standard practice |
 | CRO threshold | Below about 100 organic visitors/day, build traffic before conversion tweaks | Field heuristic from 115+ agency audits |
+| Punctuation | Zero em dashes and zero en dashes, replaced by commas | House rule, most recognizable AI-writing tell |
+
+Punctuation, non-negotiable: never leave an em dash (U+2014) or an en dash (U+2013) in copy that goes live on a client site. Replace every one with a comma; use a colon, a period or parentheses when a comma loses the sense. The em dash is the single most recognizable tell of AI-written text, and one is enough for a shopper, or the client, to file the page as machine output. The rule covers every field you deliver: description, FAQ answers, definitions block, title tag, H1, meta description, alt text, comparison table cells, schema strings. Sweep the finished draft for both characters before handing it over. Hyphens in compound words and ranges written with "to" are untouched.
 
 ### 1. Description: 150-200 words minimum, unique, benefits first
 

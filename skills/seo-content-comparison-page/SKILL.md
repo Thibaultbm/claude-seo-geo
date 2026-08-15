@@ -80,6 +80,7 @@ The block list, levels and page order live in `seo-page-sections/references/page
 7. **Best-for verdicts per use case.** One page then answers many query variants: "best for solo", "best for teams", "best on a budget".
 8. **Methodology and date.** What was compared, how, when, by whom. Provenance is what separates a quotable comparison from a promotional one.
 9. **FAQ including the uncomfortable questions**: "is X actually better", "can I migrate", "why is X cheaper", "what is the catch".
+10. **Zero em dashes.** Never leave an em dash (U+2014) or an en dash (U+2013) in copy that goes live on a client site. Replace every one with a comma; use a colon, a period or parentheses when a comma loses the sense. The em dash is the single most recognizable tell of AI-written text, and on a page whose whole value is being trusted over a competitor's marketing, reading as machine output is the one thing it cannot afford. The rule covers the verdict, the table cells, the FAQ, the methodology block, the metadata and the schema strings. Sweep for both characters before delivery. Hyphens in compound words and ranges written with "to" are untouched.
 
 ## Phase 4: stay legal and stay honest
 

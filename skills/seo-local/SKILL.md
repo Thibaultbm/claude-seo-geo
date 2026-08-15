@@ -193,6 +193,9 @@ A suspension removes the profile from Maps and Search. Follow references/gbp-rei
 | Listings | One profile per real location; service-area businesses hide the address | Google guidelines (measured) |
 | Location pages | One per establishment, LocalBusiness schema, embedded map, local keyword pattern | Field heuristic |
 | Suspended profile | Appeal once with complete evidence; never duplicate | Google guidelines (measured) |
+| Punctuation | Zero em dashes and zero en dashes, replaced by commas | House rule, most recognizable AI-writing tell |
+
+Punctuation, non-negotiable: never leave an em dash (U+2014) or an en dash (U+2013) in anything published under the client's name. Replace every one with a comma; use a colon, a period or parentheses when a comma loses the sense. The em dash is the single most recognizable tell of AI-written text, and it does the most damage exactly here, where the copy is supposed to sound like a local owner: profile description, services and products, Google Posts, Q&A answers, review replies, location page copy and metadata. Sweep for both characters before publishing. Hyphens in compound words and ranges written with "to" are untouched.
 
 ## GEO layer
 

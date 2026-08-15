@@ -200,6 +200,9 @@ Run the bundled audit script from the seo-geo-audit skill (scripts/seo_audit.py)
 | Pricing | Price or range in plain HTML text | Field heuristic |
 | City pages | Unique local substance per page, never find-and-replace | Google spam policies (measured) |
 | Related articles | 2-3 supporting posts linked at the bottom, linking back | Field heuristic |
+| Punctuation | Zero em dashes and zero en dashes, replaced by commas | House rule, most recognizable AI-writing tell |
+
+Punctuation, non-negotiable: never leave an em dash (U+2014) or an en dash (U+2013) in copy that goes live on a client site. Replace every one with a comma; use a colon, a period or parentheses when a comma loses the sense. The em dash is the single most recognizable tell of AI-written text, and one is enough for a prospect, or the client, to file the page as machine output. The rule covers every field you deliver: page copy, H1 and H2s, FAQ answers, testimonials you format, title tag, meta description, alt text, CTA labels, schema strings. Sweep the finished draft for both characters before handing it over. Hyphens in compound words and ranges written with "to" are untouched.
 
 ## GEO layer
 

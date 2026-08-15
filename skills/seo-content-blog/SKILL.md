@@ -180,6 +180,10 @@ AI-assisted drafting:
 | Risk to flag | Generating articles that restate what already ranks, at scale, is what the scaled content abuse spam policy targets |
 | What wins | Information gain beats word count: original data, tested experience, expert input |
 
+Punctuation, non-negotiable: never ship an em dash.
+
+Client-facing copy carries zero em dashes (U+2014) and zero en dashes (U+2013). Replace every one with a comma; use a colon, a period or parentheses when a comma loses the sense. The em dash is the single most recognizable tell of AI-written text: one is enough for a reader, or the client, to file the whole page as machine output, and the trust cost lands on the site, not on the draft. The rule covers every character you deliver: body copy, H1 and H2s, title tag, meta description, FAQ answers, alt text, CTAs, schema strings, image captions. Sweep the finished draft for both characters before handing it over. Hyphens in compound words and ranges written with "to" are untouched.
+
 Media:
 
 | Element | Rule | Why |
@@ -265,6 +269,7 @@ Pre-publish checklist (verify every line, report failures to the user):
 - [ ] 3 images, all with alt text, WebP, 200 KB max
 - [ ] Length at or above the SERP benchmark
 - [ ] Information gain named and actually present in the text
+- [ ] Zero em dashes and zero en dashes anywhere in the deliverable, commas instead
 
 ## Common mistakes
 
@@ -280,6 +285,7 @@ Pre-publish checklist (verify every line, report failures to the user):
 - **Self-hosted video.** Page weight up, and the YouTube surface is lost. Embed instead.
 - **Zero internal links to money pages.** The article ranks and sells nothing; informational traffic dies on the page.
 - **Heavy images.** A 1.2 MB cover image hurts Core Web Vitals on every visit. Compress to WebP under 200 KB.
+- **Em dashes left in the copy.** Reads as AI output to readers and to the client. Replace each one with a comma before delivery.
 
 ## Sources
 

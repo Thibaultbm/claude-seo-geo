@@ -50,7 +50,7 @@ Run the bundled collector on the homepage plus key pages, and on each competitor
 python3 scripts/seo_audit.py https://example.com /services /blog/top-article
 ```
 
-It returns, per page: HTTP status, HTTPS, platform fingerprint, title (with generic-title flag), meta description length, full heading hierarchy with level jumps, image alt coverage and weight sample, internal versus external link counts, Open Graph, canonical, JSON-LD types, visible word count, meta robots, and a `likely_js_rendered` flag. Site-wide: robots.txt rules for AI search bots and AI training bots (separately), sitemap declaration and URL count, llms.txt presence.
+It returns, per page: HTTP status, HTTPS, platform fingerprint, title (with generic-title flag), meta description length, full heading hierarchy with level jumps, image alt coverage and weight sample, internal versus external link counts, Open Graph, canonical, JSON-LD types, visible word count, meta robots, an em dash and en dash count with samples (checklist 6.4: an AI-writing tell to find-and-replace with commas), and a `likely_js_rendered` flag. Site-wide: robots.txt rules for AI search bots and AI training bots (separately), sitemap declaration and URL count, llms.txt presence.
 
 Known limits, and what to do about each:
 
@@ -107,7 +107,7 @@ Read `references/output-templates.md` and pick the format:
 - Template A, full audit report: for practitioners; verdict line, what is good, top 3 priorities, findings by category with OK / Fix / Blocking status, ordered action plan.
 - Template B, plain-language email: for non-technical owners; no acronyms, every term explained in everyday words, progress acknowledged, honest verdict.
 
-Rules for both: write in the language of the site, open with what is genuinely good (credibility, and most sites do several things right), keep the verdict honest even when it is "rebuild before investing in content", and state explicitly what was not verified and why.
+Rules for both: no em dash (U+2014) and no en dash (U+2013) anywhere in the deliverable, commas instead (a colon, a period or parentheses when a comma loses the sense); the em dash is the most recognizable tell of AI-written text and an audit that reads as machine output loses the authority its findings need. Flag the same thing as a finding when the audited pages carry em dashes: it is a live AI-writing tell on the client's own site, and the fix is a find-and-replace to commas. Then: write in the language of the site, open with what is genuinely good (credibility, and most sites do several things right), keep the verdict honest even when it is "rebuild before investing in content", and state explicitly what was not verified and why.
 
 Reassure before you criticize: lead with honest numbered reference points ("this is already better than 90 percent of the sites I see", "I am very demanding on the score, above 80 percent is very good") so the owner trusts the findings instead of bracing for them. Explain the score as a ratio of errors to pages, where a template-level error repeats across all pages built on that template and one fix corrects it everywhere, so a low number does not warrant panic or a misread comparison against another tool (field heuristic from 115+ agency audits).
 

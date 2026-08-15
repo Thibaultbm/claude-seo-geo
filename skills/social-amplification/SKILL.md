@@ -161,6 +161,9 @@ Be honest with users: posting on every platform to "be everywhere" dilutes effor
 | Title as query | Video and post titles phrased as the buyer's search query | Drives both platform search and AI retrieval |
 | Community contribution | 95% value, 5% links, only where it fits | Link-only accounts get banned and the work is erased |
 | Astroturfing | Never | Detected, banned, reputationally toxic, and it backfires |
+| Punctuation | Zero em dashes and zero en dashes, replaced by commas | The most recognizable AI-writing tell, and social audiences call it out fastest |
+
+Punctuation, non-negotiable: never leave an em dash (U+2014) or an en dash (U+2013) in anything posted under the client's name. Replace every one with a comma; use a colon, a period or parentheses when a comma loses the sense. Social feeds are where readers are quickest to spot machine output and say so publicly, and a post read as AI-generated kills the reach the repurposing was meant to earn. The rule covers post copy, video titles and descriptions, thread text, captions and community replies. Sweep for both characters before scheduling. Hyphens in compound words and ranges written with "to" are untouched.
 
 ### Cadence (field heuristic from 115+ agency audits, not a measured optimum)
 
