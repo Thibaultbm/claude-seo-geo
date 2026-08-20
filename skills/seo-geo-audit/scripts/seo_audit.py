@@ -425,17 +425,25 @@ def analyse_sitemap(base, robots):
             out["type"] = "index"
             out["child_sitemaps"] = len(children)
             total = 0
+            oversized = []
             for child in children[:10]:
                 try:
                     _, _, _, b2 = fetch(child.strip())
-                    total += len(re.findall(r"<loc>", b2.decode("utf-8", "replace")))
+                    n = len(re.findall(r"<loc>", b2.decode("utf-8", "replace")))
+                    total += n
+                    if n > 50000:
+                        oversized.append(child.strip())
                 except Exception:
                     pass
             out["url_count_estimate"] = total
             out["note"] = "estimate from the first 10 child sitemaps" if len(children) > 10 else "total"
+            if oversized:
+                out["children_over_50k"] = oversized
         else:
             out["type"] = "urlset"
             out["url_count"] = len(re.findall(r"<loc>", xml))
+            if out["url_count"] > 50000:
+                out["over_50k"] = True
     except Exception as e:
         out["error"] = "{}: {}".format(type(e).__name__, e)
     return out
@@ -473,6 +481,8 @@ def fmt(report):
         cnt = s.get("url_count") or s.get("url_count_estimate")
         line("  sitemap                    : {} ({}, ~{} URLs)".format(
             s.get("url"), s.get("type"), cnt))
+        if s.get("over_50k") or s.get("children_over_50k"):
+            line("  WARNING: a sitemap file exceeds the 50,000 URL limit; Google rejects the whole file. Split it into child sitemaps under a sitemap index.")
     lt = report.get("llms_txt", {})
     line("  llms.txt present           : {} (informational only; no engine confirms reading it)".format(
         lt.get("present")))

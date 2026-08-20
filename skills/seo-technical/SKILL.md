@@ -81,7 +81,8 @@ robots.txt:
 
 Sitemap.xml:
 
-- Segment by content type (sitemap-pages.xml, sitemap-posts.xml, sitemap-products.xml) under one index. Why: GSC reports coverage per sitemap, so segmentation reveals which template fails to get indexed.
+- Hard size limit: 50,000 URLs and 50 MB uncompressed per sitemap file. Google rejects an oversized file entirely, not just the overflow, so every URL in it loses sitemap discovery at once. Above the limit, split into child sitemaps under a sitemap index (an index can list up to 50,000 sitemaps, and index files can be submitted per subsection on very large sites) (https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps).
+- Segment by content type (sitemap-pages.xml, sitemap-posts.xml, sitemap-products.xml) under one index. Why: GSC reports coverage per sitemap, so segmentation reveals which template fails to get indexed. Segmentation also keeps each file safely under the 50,000 URL cap.
 - Keep lastmod honest: update it only when content meaningfully changes. Google states it ignores lastmod when it is uniformly fresh or inaccurate.
 - Do not ping Google's sitemap endpoint: deprecated in June 2023, it returns 404. Submit through GSC and the robots.txt Sitemap: line (https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping).
 - Set up IndexNow for Bing: instant push of new and updated URLs, built into many CMS plugins and Cloudflare. Bing is a primary gateway into ChatGPT search, which makes Bing Webmaster Tools standard equipment in 2026 (https://yoast.com/chatgpt-search/).
@@ -223,6 +224,7 @@ For anything beyond spot checks, run the bundled audit script from the seo-geo-a
 | Request Indexing quota | Reserve the ~10-12 daily inspections for money pages | Field rule |
 | 404s with traffic or links | 301 to closest equivalent, never blanket to home | Official guidance plus field rule |
 | Sitemap | Declared in robots.txt, segmented by type, honest lastmod, no Google ping (dead since 2023) | Official |
+| Sitemap size | Max 50,000 URLs and 50 MB uncompressed per file; above that, child sitemaps under a sitemap index, or Google rejects the whole file | Official |
 | IndexNow | Implemented (Bing is a gateway to ChatGPT search) | Sourced (yoast.com/chatgpt-search/) |
 | noindex plus Disallow on one URL | Never | Official crawler logic |
 | LCP, INP, CLS | Under 2.5 s, under 200 ms, under 0.1 at p75 | Official (web.dev) |
