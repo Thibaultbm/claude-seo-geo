@@ -131,6 +131,8 @@ Pick the mechanism by goal, never stack them blindly:
 | Consolidate signals from filtered URLs | rel=canonical pointing to the clean collection URL | A hint, not a directive; Google can ignore it when the filtered page differs substantially |
 | Stop crawl waste on filter combinations | robots.txt Disallow on parameter patterns | Does not deindex: blocked URLs can stay indexed without content if linked; Google also can no longer see any noindex on them |
 | Remove filter URLs already indexed | meta robots noindex (or X-Robots-Tag) | The URL must remain crawlable until it drops out; only block it in robots.txt afterwards, if ever |
+
+Google's own faceted-navigation doc adds a position worth knowing: it calls rel=canonical and nofollow "generally less effective in the long term" for facet control and states a preference for preventing the crawl outright (robots.txt, or URL fragments) when facet URLs are not meant for search (https://developers.google.com/search/docs/crawling-indexing/crawling-managing-faceted-navigation). The table above is standard practitioner practice; on large catalogs where crawl budget is the binding constraint, lead with crawl prevention.
 | Keep one facet as a landing page | Self-canonical + unique title, H1, and text | Only with proven demand and distinct inventory (below) |
 
 The interaction that burns teams: robots.txt blocking and noindex are mutually exclusive on the same URL at the same time, because a blocked page is never fetched, so its noindex is never seen (https://developers.google.com/search/docs/crawling-indexing/robots/intro). Sequence them: noindex first, block later if needed. Note that Search Console's URL Parameters tool was retired in 2022; these on-site mechanisms are all you have (https://developers.google.com/search/blog/2022/03/url-parameters-tool-deprecated).
@@ -199,7 +201,7 @@ Do not attach full Product + Offer markup to every grid item: Google's Product s
 
 ### Collection pages get cited in "best X" and "where to buy Y" answers
 
-AI assistants favor list-format content: an analysis of AI citations in commerce contexts found listicles taking the largest share of citations, with product pages at about 13.7 percent (https://almcorp.com/blog/ai-citations-listicles-articles-product-pages/). A collection page with a buying-guide block, a comparison table, and an FAQ presents the same extractable structure as a listicle, with live inventory attached. A bare product grid offers an assistant nothing to quote; the bottom block is what makes the page citable.
+AI assistants favor list-format content: an analysis of AI citations in commerce contexts found listicles taking the largest share of citations, with product pages at about 13.7 percent (single-source study, not independently replicated: https://almcorp.com/blog/ai-citations-listicles-articles-product-pages/). A collection page with a buying-guide block, a comparison table, and an FAQ presents the same extractable structure as a listicle, with live inventory attached. A bare product grid offers an assistant nothing to quote; the bottom block is what makes the page citable.
 
 ### Write the bottom block as extraction material
 
@@ -215,7 +217,7 @@ Many storefront themes render the product grid, filters, and even the text block
 
 ### Source the text from Google Maps reviews
 
-For a directory or listing page that profiles a real venue (a marketplace entry, a local annuaire, a curated collection of places), the venue's own Google Maps reviews are a source of fresh, specific copy. With the Google Place ID, pull the recent reviews and condense them into a short, current passage on the listing: the atmosphere, what customers consistently mention, the felt experience, in plain factual language and attributed as customer feedback rather than presented as your own claims (field heuristic from 115+ agency audits). This gives the page concrete, up-to-date detail that a templated description lacks, exactly the kind of specific material assistants quote.
+For a directory or listing page that profiles a real venue (a marketplace entry, a local annuaire, a curated collection of places), the venue's own Google Maps reviews are a source of fresh, specific themes. Use them as research, not as text: read the recent reviews and write, in your own words, a short current passage about what customers consistently mention: the atmosphere, the felt experience, in plain factual language attributed as customer feedback rather than presented as your own claims (field heuristic from 115+ agency audits). Licensing caveat: Google Maps Platform terms restrict caching and repurposing Places content (reviews are meant to be displayed as-is, with attribution, via the API), and each review text remains its author's copyright, so never republish or lightly paraphrase the review texts themselves. Done this way, the page gains concrete, up-to-date detail that a templated description lacks, exactly the kind of specific material assistants quote.
 
 ### Position 2 on navigational brand queries
 

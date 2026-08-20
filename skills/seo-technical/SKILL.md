@@ -145,7 +145,7 @@ Judge mobile first: mobile carries 80 to 90 percent of traffic on typical lead-g
 | Metric | Good (at p75) | Notes |
 |---|---|---|
 | LCP | Under 2.5 s | Largest Contentful Paint |
-| INP | Under 200 ms | Replaced FID in March 2024; roughly 43 percent of sites failed INP at the switch, making it the most commonly failed vital (https://web.dev/articles/inp) |
+| INP | Under 200 ms | Replaced FID in March 2024; the most commonly failed of the three vitals (https://web.dev/articles/inp) |
 | CLS | Under 0.1 | Layout stability |
 | PageSpeed score | 75+ desktop acceptable, aim higher | Field heuristic; mobile scores run lower, judge the trend |
 
@@ -258,7 +258,7 @@ Three bot roles, three different blocking costs:
 |---|---|---|
 | Training crawlers | GPTBot, ClaudeBot, CCBot, Google-Extended, Applebot-Extended, Meta-ExternalAgent | Brand absent from future model weights; no effect on today's citations |
 | Search-index crawlers | OAI-SearchBot, Claude-SearchBot, PerplexityBot, Bingbot, Googlebot | You disappear from that engine's live answers and citations |
-| User-fetch agents | ChatGPT-User, Perplexity-User, Claude-User, MistralAI-User | Mostly cannot be blocked via robots.txt; they act on a user's explicit request |
+| User-fetch agents | ChatGPT-User, Perplexity-User, Claude-User, MistralAI-User | They act on a user's explicit request; robots.txt is not a reliable control for ChatGPT-User and Perplexity-User, while Claude-User and MistralAI-User declare they honor it (per-bot rows in references/ai-crawlers.md) |
 
 Default recommendation for brands, SaaS, lead-gen, e-commerce: allow everything, including training bots. Presence in training data means the model itself knows the brand and can recommend it even when the answer runs without web search. Defensive configuration for publishers whose content is the product: keep the search surfaces (OAI-SearchBot, Claude-SearchBot, PerplexityBot, Bingbot, Googlebot), block training (GPTBot, ClaudeBot, CCBot, Google-Extended). Both configurations are ready to paste in references/ai-crawlers.md.
 

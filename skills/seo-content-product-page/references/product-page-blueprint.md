@@ -56,7 +56,7 @@ Show 2-3 of these as text near the buy box, the full list lower. If video review
 
 ## ChatGPT Shopping feed mapping
 
-The OpenAI product feed spec (https://developers.openai.com/commerce/specs/file-upload/products) accepts JSONL, CSV, TSV, or Parquet, delivered by SFTP push or scheduled fetch, with refresh as often as every 15 minutes. Check the spec for exact field names before building; they evolve. Map feed concepts to on-page sources so the feed and the page never contradict each other:
+The OpenAI product feed spec (https://developers.openai.com/commerce/specs/file-upload/products) currently accepts UTF-8 TSV, CSV, or TXT files (gzip accepted), delivered by SFTP. Check the live spec for exact formats, delivery options, and field names before building; they evolve. Map feed concepts to on-page sources so the feed and the page never contradict each other:
 
 | Feed concept | On-page source of truth |
 |---|---|

@@ -45,8 +45,8 @@ Treat each engine as a distinct channel with its own retrieval pipeline. Only 11
 | Engine | Index and retrieval | What decides a citation | Key measured facts |
 |---|---|---|---|
 | ChatGPT search | Own index crawled by OAI-SearchBot, with Bing as a complementary gateway | Fans the prompt out into subqueries, retrieves a short list, cites roughly half of the URLs it fetches | Title and content similarity to the subquery is the top citation predictor across 1.4M prompts (https://ahrefs.com/blog/why-chatgpt-cites-pages/); OpenAI roughly tripled its crawl volume since August 2025 (https://www.botify.com/blog/openai-tripled-web-crawl) |
-| Google AI Overviews and AI Mode | Standard Googlebot index | Official query fan-out, answers assembled passage by passage from multiple sources | Only 32% of AI Mode cited URLs overlap the organic top 10 (https://www.semrush.com/blog/ai-mode-comparison-study/) |
-| Perplexity | Own index (PerplexityBot) plus real-time fetching | Retrieval-heavy, favors fresh sources and user-generated content | Overweights YouTube, Wikipedia, Reddit, and review content (https://www.tryprofound.com/blog/ai-platform-citation-patterns) |
+| Google AI Overviews and AI Mode | Standard Googlebot index | Official query fan-out, answers assembled passage by passage from multiple sources | Only 32% of AI Mode cited URLs overlap the organic top 10 (51% at domain level; links shown below responses track organic much more closely) (https://www.semrush.com/blog/ai-mode-comparison-study/) |
+| Perplexity | Own index (PerplexityBot) plus real-time fetching | Retrieval-heavy, favors fresh sources and user-generated content | Overweights YouTube, Reddit, and review content, and cites Wikipedia far less than ChatGPT does (0.6% vs 7.8% of citations, https://www.tryprofound.com/blog/ai-platform-citation-patterns) |
 | Claude | Brave Search as web search backend plus Anthropic's own fetchers | Search-grounded answers from Brave results | Brave powers Claude web search (https://techcrunch.com/2025/03/21/anthropic-appears-to-be-using-brave-to-power-web-searches-for-its-claude-chatbot/) |
 | Gemini | Google Search grounding | Same index and fan-out family as AI Overviews | Optimize through the same Googlebot index and passage rules |
 
@@ -62,7 +62,7 @@ Read the table offensively:
 | Engine | First moves |
 |---|---|
 | ChatGPT | Verify Bing indexation (Bing Webmaster Tools) and OAI-SearchBot access in robots.txt. Title and slug pages to match fan-out subqueries. A page must be fetchable first, quotable second. |
-| Google AI Overviews and AI Mode | Target subqueries, not only head terms. Restructure target pages answer-first. Top 10 ranking is not required (32% overlap), indexation and passage relevance are. |
+| Google AI Overviews and AI Mode | Target subqueries, not only head terms. Restructure target pages answer-first. Top 10 ranking is not required (32% URL overlap, 51% domain overlap), indexation and passage relevance are. |
 | Perplexity | Publish dated, recently updated content. Build YouTube and review platform presence; monitor the Reddit threads where the category is discussed. |
 | Claude | Search the target queries on Brave Search (search.brave.com); Brave has its own index, and a site invisible in Brave is invisible to Claude's web search. |
 | Gemini | Inherits the Google work; confirm AI Overviews presence first, then check Gemini separately in geo-tracking. |
@@ -71,7 +71,7 @@ Read the table offensively:
 
 ### Step 1: Verify the foundation
 
-No indexation, no citation. Before any GEO work, confirm with seo-technical: page indexed (Google and Bing), clean canonical, present in the sitemap, no accidental blocking of AI crawlers in robots.txt, and content present in raw server HTML (every AI crawler except Googlebot skips JavaScript rendering).
+No indexation, no citation. Before any GEO work, confirm with seo-technical: page indexed (Google and Bing), clean canonical, present in the sitemap, no accidental blocking of AI crawlers in robots.txt, and content present in raw server HTML (no major AI crawler executes JavaScript; Googlebot is the only reliable renderer).
 
 ### Step 2: Pick target prompts and pages
 
@@ -87,7 +87,7 @@ Score each page with the 5-pillar GEO rubric (below), manually or with the bundl
 
 ### Step 5: Check the AI crawler view
 
-Why: every AI crawler except Googlebot reads raw server HTML without executing JavaScript. Content that exists only after rendering does not exist for them.
+Why: no major AI crawler (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, PerplexityBot) executes JavaScript; only Googlebot reliably renders. Content that exists only after rendering does not exist for them.
 
 1. Fetch the raw HTML of the page (view-source or curl) and search for the page's key answers verbatim.
 2. Compare with the rendered page in a browser.
@@ -246,7 +246,7 @@ Answer these plainly when asked; wrong beliefs here waste entire quarters.
 | "Block Google-Extended to exit AI Overviews" | False | Google-Extended controls Gemini model training, not AI Overviews. AI Overviews are built from normal Google Search indexing (https://developers.google.com/search/docs/appearance/ai-features). Leaving search means leaving search. |
 | "Keyword stuffing helps LLMs" | False | It reduced visibility in the GEO benchmark (https://arxiv.org/abs/2311.09735). Models reward answers, not token repetition. |
 | "GEO replaces SEO" | False | Citation requires retrieval, retrieval requires indexation and crawlable HTML. GEO is a layer on top of working SEO. |
-| "Rank #1 in Google and AI visibility follows" | False | 32% overlap between AI Mode citations and the organic top 10 (Semrush); 11% domain overlap between ChatGPT and Perplexity (AuthorityTech). Plan per engine. |
+| "Rank #1 in Google and AI visibility follows" | False | 32% URL overlap (51% at domain level) between AI Mode citations and the organic top 10 (Semrush); 11% domain overlap between ChatGPT and Perplexity (AuthorityTech). Plan per engine. |
 | "Blocking AI crawlers is free protection" | Trade-off, not free | Blocking OAI-SearchBot removes ChatGPT search visibility; blocking GPTBot affects training only. Decide per business goal, per crawler (crawler table in seo-technical). |
 
 ## Output format
@@ -267,7 +267,7 @@ Deliver a GEO visibility plan with five blocks:
 | Treating all engines as one | Wins on one engine, invisible on others | Per-engine plan; 11% overlap is the rule, not the exception |
 | Burying answers after long intros | Model quotes a competitor's tighter passage | Answer-first blocks, 2-4 sentences within 40-60 words |
 | Pronoun chains and "as seen above" | Chunks unusable out of context | Self-contained sections, restate subjects |
-| Hiding content in tabs, accordions, JS | Invisible to every AI crawler except Googlebot | Server-rendered HTML, check raw source (seo-technical) |
+| Hiding content in tabs, accordions, JS | Invisible to the AI crawlers (none of the major ones executes JavaScript) | Server-rendered HTML, check raw source (seo-technical) |
 | Churning URLs for freshness | Resets the roughly 500-day authority curve | Update in place, keep the URL |
 | Stuffing statistics without sources | No lift, credibility damage | Every number gets a URL or a named source |
 | Betting everything on one surface | One platform shift erases visibility (Reddit precedent) | Minimum three surfaces |

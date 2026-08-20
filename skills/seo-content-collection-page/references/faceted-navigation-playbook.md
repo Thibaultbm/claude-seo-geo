@@ -16,7 +16,7 @@ Keep sort orders, view modes, and session parameters (?sort=, ?view=, ?page-size
 
 ## robots.txt patterns
 
-Adapt to the real parameter names of the store; verify with the robots.txt Tester before shipping. Examples:
+Adapt to the real parameter names of the store; verify with the Search Console robots.txt report and a live URL Inspection test before shipping (Google retired the standalone robots.txt Tester in December 2023). Examples:
 
 ```
 # Block filter combinations (two or more filters)

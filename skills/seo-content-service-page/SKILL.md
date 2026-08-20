@@ -122,7 +122,7 @@ Block details and the reasoning behind each:
 
 **7. Reviews.** Format each as: first name + situation + problem + result ("Marc, bakery owner in Lyon: bookings doubled in 3 months"). Video reviews outperform written ones (field heuristic). Never invent or embellish testimonials: fake reviews are a legal risk in many markets and a trust risk everywhere. Do not add review structured data about your own organization on your own site: Google treats self-serving review markup as ineligible (measured: Google review snippet guidelines, see Sources).
 
-**8. FAQ.** Minimum 3 questions, sourced from People Also Ask for the target keyword plus the objections sales actually hears. Answer each in 2-4 direct sentences. Why: FAQ rich results have been restricted to government and health sites since August 2023 (measured: Google, see Sources), but the content still feeds People Also Ask, AI Overviews, and assistant answers, and it closes real objections on the page.
+**8. FAQ.** Minimum 3 questions, sourced from People Also Ask for the target keyword plus the objections sales actually hears. Answer each in 2-4 direct sentences. Why: FAQ rich results were restricted to government and health sites in August 2023 and fully retired for all sites on May 7, 2026 (measured: Google, see Sources), but the content still feeds People Also Ask, AI Overviews, and assistant answers, and it closes real objections on the page.
 
 **9. Final CTA + related articles.** Repeat the CTA, then link 2-3 supporting blog posts on the same topic. Those posts must link back to the service page. Why: this builds a mini silo, concentrating topical relevance and link equity on the money page (architecture details: seo-internal-linking skill).
 
@@ -176,7 +176,7 @@ Apply every item in the GEO layer section below before publishing. Service pages
 - Link to the new page from the homepage, the services hub, relevant blog posts, and the footer if the service is core. Orphan money pages are a recurring audit finding (field heuristic).
 - Use descriptive anchor text containing the service keyword, never "click here" or "learn more" alone.
 - Add a breadcrumb (Home, then Services, then this service) so users and crawlers see the hierarchy.
-- Add Service or LocalBusiness schema, Person schema for the founder, Organization with sameAs, and FAQPage markup. Implementation details and eligibility rules: seo-schema-markup skill.
+- Add Service or LocalBusiness schema, Person schema for the founder, and Organization with sameAs. FAQPage markup is optional: harmless, but it earns no rich result since Google retired FAQ rich results in May 2026. Implementation details and eligibility rules: seo-schema-markup skill.
 
 ### Step 10: Final QA
 
@@ -264,10 +264,10 @@ Apply all of the following:
 ## Sources
 
 - GEO: Generative Engine Optimization, Aggarwal et al., Princeton et al.: arxiv.org/abs/2311.09735 (measured: +41% quotations, +32% statistics on benchmark visibility metrics)
-- Share of AI citations going to product and service pages (13.7%): almcorp.com/blog/ai-citations-listicles-articles-product-pages/ (measured)
+- Share of AI citations going to product and service pages (13.7%): almcorp.com/blog/ai-citations-listicles-articles-product-pages/ (single-source study, not independently replicated)
 - Google spam policies, doorway pages: developers.google.com/search/docs/essentials/spam-policies (official)
 - Google Search Quality Rater Guidelines, E-E-A-T: static.googleusercontent.com/media/guidelines.raterhub.com/en//searchqualityevaluatorguidelines.pdf (official)
 - Google title link documentation: developers.google.com/search/docs/appearance/title-link (official)
-- Google FAQ rich results restriction, August 2023: developers.google.com/search/blog/2023/08/howto-faq-changes (official)
+- Google FAQ rich results restriction, August 2023 (fully retired for all sites May 7, 2026): developers.google.com/search/blog/2023/08/howto-faq-changes (official)
 - Google review snippet guidelines (self-serving reviews ineligible): developers.google.com/search/docs/appearance/structured-data/review-snippet (official)
 - Field heuristics: 115+ real agency audits of service-business websites, 2024-2026 (observational, labeled as such throughout)

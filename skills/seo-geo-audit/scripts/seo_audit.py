@@ -33,14 +33,16 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 
 # AI crawlers, split by what blocking them costs you.
-# Search/assistant bots: blocking these removes you from AI answers (GEO impact).
-AI_SEARCH_BOTS = ["OAI-SearchBot", "ChatGPT-User", "Claude-SearchBot", "Claude-User",
-                  "PerplexityBot", "Perplexity-User", "DuckAssistBot", "MistralAI-User"]
+# Search-index bots: blocking these removes you from AI answers (GEO impact).
+AI_SEARCH_BOTS = ["OAI-SearchBot", "Claude-SearchBot", "PerplexityBot", "DuckAssistBot"]
+# User-fetch agents: they load a page on a user's explicit request; robots.txt is
+# not a reliable control for ChatGPT-User and Perplexity-User (see ai-crawlers.md).
+AI_USER_FETCH_BOTS = ["ChatGPT-User", "Claude-User", "Perplexity-User", "MistralAI-User"]
 # Training bots: blocking these keeps you out of future model knowledge (brand tradeoff).
 AI_TRAINING_BOTS = ["GPTBot", "ClaudeBot", "anthropic-ai", "CCBot", "Google-Extended",
                     "Applebot-Extended", "Meta-ExternalAgent", "Amazonbot",
                     "Bytespider", "cohere-ai"]
-AI_BOTS = AI_SEARCH_BOTS + AI_TRAINING_BOTS
+AI_BOTS = AI_SEARCH_BOTS + AI_USER_FETCH_BOTS + AI_TRAINING_BOTS
 
 MAX_IMG_CHECK = 15      # max number of images whose weight is verified (HEAD)
 IMG_WEIGHT_KB = 200     # field threshold: 200 KB max per image
@@ -374,7 +376,7 @@ def analyse_robots(base):
         out["sitemaps"] = re.findall(r"(?im)^\s*sitemap:\s*(\S+)", txt)
         # Parse robots.txt by group: one or more consecutive User-agent lines
         # share the rule block that follows them, and "*" applies to every bot.
-        blocked_search, blocked_training = [], []
+        blocked_search, blocked_user_fetch, blocked_training = [], [], []
         all_bots_blocked = False
         blocks = re.findall(
             r"(?im)((?:^\s*user-agent:[^\n]*\n)+)((?:^(?!\s*user-agent:)[^\n]*\n?)*)", txt)
@@ -386,9 +388,14 @@ def analyse_robots(base):
                     all_bots_blocked = True
                 for bot in AI_BOTS:
                     if bot.lower() in agents or "*" in agents:
-                        (blocked_search if bot in AI_SEARCH_BOTS
-                         else blocked_training).append(bot)
+                        if bot in AI_SEARCH_BOTS:
+                            blocked_search.append(bot)
+                        elif bot in AI_USER_FETCH_BOTS:
+                            blocked_user_fetch.append(bot)
+                        else:
+                            blocked_training.append(bot)
         out["ai_search_bots_blocked"] = sorted(set(blocked_search))
+        out["ai_user_fetch_bots_blocked"] = sorted(set(blocked_user_fetch))
         out["ai_training_bots_blocked"] = sorted(set(blocked_training))
         out["all_bots_blocked_via_wildcard"] = all_bots_blocked
         out["raw_excerpt"] = txt[:600]
@@ -471,6 +478,9 @@ def fmt(report):
         bs = r.get("ai_search_bots_blocked")
         bt = r.get("ai_training_bots_blocked")
         line("  AI SEARCH bots blocked     : {}".format(bs if bs else "none (good for AI visibility)"))
+        bu = r.get("ai_user_fetch_bots_blocked")
+        if bu:
+            line("  AI user-fetch agents ruled : {} (robots.txt is not a reliable control for ChatGPT-User and Perplexity-User)".format(bu))
         line("  AI training bots blocked   : {}".format(bt if bt else "none"))
         if r.get("all_bots_blocked_via_wildcard"):
             line("  WARNING: 'User-agent: *' with 'Disallow: /' blocks EVERY crawler, AI and Google alike.")

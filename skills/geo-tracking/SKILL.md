@@ -51,11 +51,11 @@ Do this before any GEO work starts, because every later claim of progress is jud
 
 #### Step 1: Know what the default gives you
 
-Since May 13, 2026, GA4 includes a default "AI Assistant" channel group. It captures referrers from chatgpt, gemini, and claude, but not perplexity and not copilot, and it is not retroactive: it only classifies data from its activation forward (https://www.searchenginejournal.com/google-analytics-adds-ai-assistant-as-default-channel-group/574974/). Useful as a zero-effort baseline, insufficient as the measurement.
+Since May 13, 2026, GA4 includes a default "AI Assistant" channel group. Google's documentation defines it as traffic "from sources like ChatGPT, Gemini, Deepseek, Copilot, or Grok" (https://support.google.com/analytics/answer/9756891): the list is open-ended and not user-controlled, Perplexity is notably absent from it, and it is not retroactive: it only classifies data from its activation forward (https://www.searchenginejournal.com/google-analytics-adds-ai-assistant-as-default-channel-group/574974/). Useful as a zero-effort baseline, insufficient as the measurement.
 
 #### Step 2: Build a custom channel group (the real setup)
 
-Why: full assistant coverage, and a definition you control and can extend when new assistants appear.
+Why: full assistant coverage (including Perplexity), and a definition you control and can extend when new assistants appear, instead of an open-ended default list Google edits without notice.
 
 1. In GA4: Admin, Data display, Channel groups, create a new channel group (or copy the default).
 2. Add a channel named "AI Assistants" with the condition Session source matches the regex:
@@ -74,7 +74,7 @@ Structural limit: native mobile and desktop apps frequently send no referrer, an
 
 #### Step 4: Report value, not just volume
 
-AI assistant visits convert about 4.4x better than organic search visits (Semrush study, reported at https://authoritytech.io/blog/ai-traffic-attribution-how-to-track-chatgpt-perplexity-gemini). The pattern: the assistant did the comparison work, so the visitor arrives pre-sold. Always report conversion rate and conversions next to session counts; AI traffic that looks small by sessions is often material by revenue.
+AI assistant visits convert about 4.4x better than organic search visits (Semrush study, June 2025, reported at https://ppc.land/ai-search-visitors-worth-4-4x-more-than-traditional-organic-traffic/; an Adobe Analytics analysis found the same multiple). The pattern: the assistant did the comparison work, so the visitor arrives pre-sold. Always report conversion rate and conversions next to session counts; AI traffic that looks small by sessions is often material by revenue.
 
 Also segment landing pages: in Explore, build a free-form report with Landing page as dimension and a filter on Session source matching the AI regex. The URLs receiving AI sessions are the pages engines already like; their structure is the template to replicate via geo-visibility.
 
@@ -92,7 +92,7 @@ Why a panel at all: AI engines publish no impression count and no search volume 
 
 Take the 50-100 buyer prompt panel built with seo-keyword-research (patterns: "best [category] for [use case]", "[brand] vs [competitor]", "is [brand] worth it", "how to [job to be done]"). Freeze it. Comparable months require identical prompts; edit the panel quarterly at most, append rather than replace, and version it (v1, v2) so trend charts never silently mix panels.
 
-Sizing and cadence: 50-150 prompts is the realistic working range, scaled to how broad the topic is, not bigger for its own sake. Replay monthly by default; move to weekly only for fast-moving or hotly contested topics where a month is too coarse. Daily replay rarely earns its cost in money and noise (field heuristic from 115+ agency audits).
+Sizing and cadence: 50-100 prompts is the realistic working range, scaled to how broad the topic is, not bigger for its own sake. Replay monthly by default; move to weekly only for fast-moving or hotly contested topics where a month is too coarse. Daily replay rarely earns its cost in money and noise (field heuristic from 115+ agency audits).
 
 #### Step 2: Replay monthly under controlled conditions
 
@@ -156,6 +156,7 @@ Why logs: referrer analytics only see clicks, but assistants read pages while co
 | OAI-SearchBot | OpenAI | Crawl for the ChatGPT search index (eligibility to appear) |
 | ChatGPT-User | OpenAI | A live user conversation fetched the page right now |
 | ClaudeBot | Anthropic | Training data crawl |
+| Claude-SearchBot | Anthropic | Crawl for Claude's search index (eligibility to appear) |
 | Claude-User | Anthropic | A live user conversation fetched the page right now |
 | PerplexityBot | Perplexity | Index crawl |
 | Perplexity-User | Perplexity | A live user conversation fetched the page right now |
@@ -252,7 +253,7 @@ Produce the monthly GEO report in this structure:
 - Losses: the reverse, each with a screenshot reference
 
 ## 3. Retrieval signals (server logs, IP-verified only)
-- Verified hits per agent (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-User, PerplexityBot, Perplexity-User), with trend
+- Verified hits per agent (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User), with trend
 - Top 10 URLs fetched by user-triggered fetchers
 
 ## 4. Actions for next month
@@ -270,7 +271,7 @@ Keep every monthly report in the same format: the comparability of the document 
 |---|---|---|
 | Comparing periods before and after channel group creation | Fake growth story | Channel groups are not retroactive; baseline starts at creation, annotate it |
 | Leaving the AI channel below Referral | Empty channel, false "no AI traffic" conclusion | Order the channel above Referral |
-| Trusting the default AI Assistant group as complete | Misses Perplexity and Copilot entirely | Custom group with the full regex |
+| Trusting the default AI Assistant group as complete | Misses Perplexity, and the definition is open-ended and outside your control | Custom group with the full regex |
 | Presenting GA4 AI numbers as the total | Systematic undercount presented as truth | State the floor caveat in every report |
 | Concluding from one run of one prompt | Acting on noise | Aggregate rates, 2-3 runs or multi-month trends |
 | Editing prompts every month | Trend lines compare different things | Freeze the panel, version it, revise quarterly |
@@ -289,9 +290,10 @@ Keep every monthly report in the same format: the comparability of the document 
 
 ## Sources
 
-- Search Engine Journal, GA4 adds AI Assistant default channel group (May 13, 2026; chatgpt, gemini, claude; not perplexity or copilot; not retroactive): https://www.searchenginejournal.com/google-analytics-adds-ai-assistant-as-default-channel-group/574974/
+- Search Engine Journal, GA4 adds AI Assistant default channel group (May 13, 2026; not retroactive): https://www.searchenginejournal.com/google-analytics-adds-ai-assistant-as-default-channel-group/574974/
+- Google, Default Channel Group definition of the AI Assistant channel ("from sources like ChatGPT, Gemini, Deepseek, Copilot, or Grok"): https://support.google.com/analytics/answer/9756891
 - Analytics Mania, tracking AI traffic in GA4 (custom channel group, regex, ordering above Referral): https://www.analyticsmania.com/post/ai-traffic-in-google-analytics-4/
-- AuthorityTech, AI traffic attribution guide, reporting the Semrush finding that AI visits convert about 4.4x better than organic: https://authoritytech.io/blog/ai-traffic-attribution-how-to-track-chatgpt-perplexity-gemini
+- PPC Land coverage of the Semrush study finding AI visits convert about 4.4x better than organic: https://ppc.land/ai-search-visitors-worth-4-4x-more-than-traditional-organic-traffic/
 - OpenAI published crawler IP ranges: https://openai.com/gptbot.json and https://openai.com/searchbot.json
 - Anthropic published crawler IP ranges: https://claude.com/crawling/bots.json
 - Perplexity published crawler IP ranges: https://www.perplexity.com/perplexitybot.json
