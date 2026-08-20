@@ -81,7 +81,8 @@ robots.txt:
 
 Sitemap.xml:
 
-- Segment by content type (sitemap-pages.xml, sitemap-posts.xml, sitemap-products.xml) under one index. Why: GSC reports coverage per sitemap, so segmentation reveals which template fails to get indexed.
+- Hard size limit: 50,000 URLs and 50 MB uncompressed per sitemap file. Google rejects an oversized file entirely, not just the overflow, so every URL in it loses sitemap discovery at once. Above the limit, split into child sitemaps under a sitemap index (an index can list up to 50,000 sitemaps, and index files can be submitted per subsection on very large sites) (https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps).
+- Segment by content type (sitemap-pages.xml, sitemap-posts.xml, sitemap-products.xml) under one index. Why: GSC reports coverage per sitemap, so segmentation reveals which template fails to get indexed. Segmentation also keeps each file safely under the 50,000 URL cap.
 - Keep lastmod honest: update it only when content meaningfully changes. Google states it ignores lastmod when it is uniformly fresh or inaccurate.
 - Do not ping Google's sitemap endpoint: deprecated in June 2023, it returns 404. Submit through GSC and the robots.txt Sitemap: line (https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping).
 - Set up IndexNow for Bing: instant push of new and updated URLs, built into many CMS plugins and Cloudflare. Bing is a primary gateway into ChatGPT search, which makes Bing Webmaster Tools standard equipment in 2026 (https://yoast.com/chatgpt-search/).
@@ -144,7 +145,7 @@ Judge mobile first: mobile carries 80 to 90 percent of traffic on typical lead-g
 | Metric | Good (at p75) | Notes |
 |---|---|---|
 | LCP | Under 2.5 s | Largest Contentful Paint |
-| INP | Under 200 ms | Replaced FID in March 2024; roughly 43 percent of sites failed INP at the switch, making it the most commonly failed vital (https://web.dev/articles/inp) |
+| INP | Under 200 ms | Replaced FID in March 2024; the most commonly failed of the three vitals (https://web.dev/articles/inp) |
 | CLS | Under 0.1 | Layout stability |
 | PageSpeed score | 75+ desktop acceptable, aim higher | Field heuristic; mobile scores run lower, judge the trend |
 
@@ -223,6 +224,7 @@ For anything beyond spot checks, run the bundled audit script from the seo-geo-a
 | Request Indexing quota | Reserve the ~10-12 daily inspections for money pages | Field rule |
 | 404s with traffic or links | 301 to closest equivalent, never blanket to home | Official guidance plus field rule |
 | Sitemap | Declared in robots.txt, segmented by type, honest lastmod, no Google ping (dead since 2023) | Official |
+| Sitemap size | Max 50,000 URLs and 50 MB uncompressed per file; above that, child sitemaps under a sitemap index, or Google rejects the whole file | Official |
 | IndexNow | Implemented (Bing is a gateway to ChatGPT search) | Sourced (yoast.com/chatgpt-search/) |
 | noindex plus Disallow on one URL | Never | Official crawler logic |
 | LCP, INP, CLS | Under 2.5 s, under 200 ms, under 0.1 at p75 | Official (web.dev) |
@@ -256,7 +258,7 @@ Three bot roles, three different blocking costs:
 |---|---|---|
 | Training crawlers | GPTBot, ClaudeBot, CCBot, Google-Extended, Applebot-Extended, Meta-ExternalAgent | Brand absent from future model weights; no effect on today's citations |
 | Search-index crawlers | OAI-SearchBot, Claude-SearchBot, PerplexityBot, Bingbot, Googlebot | You disappear from that engine's live answers and citations |
-| User-fetch agents | ChatGPT-User, Perplexity-User, Claude-User, MistralAI-User | Mostly cannot be blocked via robots.txt; they act on a user's explicit request |
+| User-fetch agents | ChatGPT-User, Perplexity-User, Claude-User, MistralAI-User | They act on a user's explicit request; robots.txt is not a reliable control for ChatGPT-User and Perplexity-User, while Claude-User and MistralAI-User declare they honor it (per-bot rows in references/ai-crawlers.md) |
 
 Default recommendation for brands, SaaS, lead-gen, e-commerce: allow everything, including training bots. Presence in training data means the model itself knows the brand and can recommend it even when the answer runs without web search. Defensive configuration for publishers whose content is the product: keep the search surfaces (OAI-SearchBot, Claude-SearchBot, PerplexityBot, Bingbot, Googlebot), block training (GPTBot, ClaudeBot, CCBot, Google-Extended). Both configurations are ready to paste in references/ai-crawlers.md.
 

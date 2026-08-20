@@ -9,7 +9,7 @@ Title:            {service keyword} in {city, if local} | {brand}        (50-60 
 Slug:             /{service-keyword}-{city}/
 Meta description: {outcome promise}. {proof number}. {call to action}.   (max 160 chars)
 Primary keyword:  {exact buyer phrase}
-Schema:           Service or LocalBusiness, Person (founder), Organization + sameAs, FAQPage
+Schema:           Service or LocalBusiness, Person (founder), Organization + sameAs, FAQPage (optional; no rich result since May 2026)
 ```
 
 ## Page skeleton

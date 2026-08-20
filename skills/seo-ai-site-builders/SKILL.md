@@ -268,7 +268,7 @@ Every verdict carries its evidence: the URL fetched and the word count observed.
 - AI search and JavaScript rendering: https://www.gsqi.com/marketing-blog/ai-search-javascript-rendering/
 - Google on dynamic rendering as a workaround, not a long-term solution: https://developers.google.com/search/docs/crawling-indexing/javascript/dynamic-rendering
 - Google no longer recommends dynamic rendering: https://searchengineland.com/google-no-longer-recommends-using-dynamic-rendering-for-google-search-387054
-- Lovable rendering and SSR status: https://lovable.dev/faq/deployment/rendering and https://lovable.dev/seo-aeo
+- Lovable rendering and SSR status: https://docs.lovable.dev/features/upgrade-to-tanstack-start and https://lovable.dev/seo-aeo
 - Base44 product changelog (SEO and crawler snapshots): https://docs.base44.com/changelog/product
 - Base44 SSR and SSG feature requests, platform status in the open: https://feedback.base44.com/p/add-ssr-server-side-rendering-support
 - Static generation for Vite React apps: https://github.com/Daydreamer-riri/vite-react-ssg

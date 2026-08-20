@@ -79,7 +79,7 @@ Two facts, presented honestly:
 - Adding the trade and the city to the profile name ("Plumber Smith Lyon" instead of "Smith") measurably improves local rankings; keywords in the business name have ranked among the strongest local pack factors in industry surveys for years (measured: Whitespark Local Search Ranking Factors).
 - Google's guidelines require the exact real-world business name, nothing added. A keyword-stuffed name violates GBP guidelines and exposes the profile to suspension at any time, including after years of working fine (measured: Google Business Profile guidelines, see Sources).
 
-**Explicit Google guidelines risk.** Present both facts to the user and let them make an informed choice. Recommend compliance: a suspension costs weeks of visibility (see the reinstatement reference), and competitors can report a stuffed name. If the legal name genuinely contains the trade ("Lyon Plumbing SARL"), using it is fully compliant.
+**Explicit Google guidelines risk.** Present both facts to the user, recommend compliance, and do not implement a stuffed name: it is a documented guidelines violation, not a neutral option. A suspension costs weeks of visibility (see the reinstatement reference), and competitors can report a stuffed name at any time. If the legal name genuinely contains the trade ("Lyon Plumbing SARL"), using it is fully compliant.
 
 ### Step 3: Fix categories
 

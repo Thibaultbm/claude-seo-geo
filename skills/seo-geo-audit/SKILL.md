@@ -50,7 +50,7 @@ Run the bundled collector on the homepage plus key pages, and on each competitor
 python3 scripts/seo_audit.py https://example.com /services /blog/top-article
 ```
 
-It returns, per page: HTTP status, HTTPS, platform fingerprint, title (with generic-title flag), meta description length, full heading hierarchy with level jumps, image alt coverage and weight sample, internal versus external link counts, Open Graph, canonical, JSON-LD types, visible word count, meta robots, an em dash and en dash count with samples (checklist 6.4: an AI-writing tell to find-and-replace with commas), and a `likely_js_rendered` flag. Site-wide: robots.txt rules for AI search bots and AI training bots (separately), sitemap declaration and URL count, llms.txt presence.
+It returns, per page: HTTP status, HTTPS, platform fingerprint, title (with generic-title flag), meta description length, full heading hierarchy with level jumps, image alt coverage and weight sample, internal versus external link counts, Open Graph, canonical, JSON-LD types, visible word count, meta robots, an em dash and en dash count with samples (checklist 6.4: an AI-writing tell to find-and-replace with commas), and a `likely_js_rendered` flag. Site-wide: robots.txt rules for AI search bots, AI user-fetch agents, and AI training bots (three separate groups), sitemap declaration and URL count, llms.txt presence.
 
 Known limits, and what to do about each:
 

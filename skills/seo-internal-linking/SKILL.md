@@ -268,6 +268,6 @@ Every recommendation must name the exact source page, target page, and anchor te
 - Google spam policies (link spam): https://developers.google.com/search/docs/essentials/spam-policies
 - Google, breadcrumb structured data: https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
 - Google SEO starter guide, site organization: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
-- Google patent US 8,051,071 (reasonable surfer, link weighting by click probability): https://patents.google.com/patent/US8051071B1/en
+- Google patent US 7,716,225 (reasonable surfer, link weighting by click probability; updated by US 9,305,099): https://patents.google.com/patent/US7716225B1/en
 - Ahrefs, median age of pages cited by ChatGPT (~500 days): https://ahrefs.com/blog/why-chatgpt-cites-pages/
 - Link counts per article, subfolder preference, anchor distribution, silo sizing, click depth, menu rules: field heuristics from 115+ agency audits, not Google statements. Google's public position is that subdomains and subfolders are both acceptable.

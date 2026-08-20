@@ -94,11 +94,11 @@ Add two blocks below the main description (field pattern observed on premium e-c
 
 Source the questions from pre-sales emails, support tickets, Google's People Also Ask, and review content. Each question targets a long-tail query too small to deserve its own page ("does X fit Y", "is X machine washable") and removes a purchase objection right where the decision happens. Write the first sentence of each answer as a standalone fact; the geo-visibility skill covers passage formatting in depth.
 
-Guideline note: do not add FAQPage markup expecting rich results. Google removed FAQ rich results for most sites in August 2023 (https://developers.google.com/search/blog/2023/08/howto-faq-changes). The value is the on-page content itself; the markup is optional.
+Guideline note: do not add FAQPage markup expecting rich results. Google restricted FAQ rich results to government and health sites in August 2023 (https://developers.google.com/search/blog/2023/08/howto-faq-changes) and retired them for all sites on May 7, 2026. The value is the on-page content itself; the markup is harmless but earns nothing.
 
 ### 3. Images: real product photos only
 
-Use real photographs of the actual product: multiple angles, one scale or in-use shot. Never use AI-generated product images on a PDP, even photorealistic ones. Two reasons: buyers detect synthetic imagery at the exact moment they decide to pay, and Google Merchant Center requires images that accurately represent the product, so misrepresentation risks disapproval of the listing (https://support.google.com/merchants/answer/6324350). AI imagery is tolerable in blog illustrations when photorealistic, never on product pages (field rule from 115+ agency audits).
+Use real photographs of the actual product: multiple angles, one scale or in-use shot. Avoid AI-generated product images on a PDP, even photorealistic ones: buyers detect synthetic imagery at the exact moment they decide to pay (field rule from 115+ agency audits). Compliance note for accuracy: Merchant Center explicitly permits AI-generated images as long as they accurately represent the product and keep the IPTC DigitalSourceType metadata intact (stripping it can trigger disapproval; https://support.google.com/merchants/answer/6324350), and Google ships its own generator (Product Studio). The recommendation against them here is a trust and conversion call, not a Google policy requirement.
 
 Copycat and dropshipping case: photos taken straight from the supplier or manufacturer, the ones every other reseller of the same item also uses, are the duplicate-image equivalent of the duplicate description (section 1). Merchant Center expects images that represent your own listing rather than reused stock, so identical supplier photos get the listing disapproved, and a page carrying the same images as fifty competitors gives Google and AI assistants nothing to distinguish it. Shoot the product yourself: own photos are the only fix (field heuristic from 115+ agency audits).
 
@@ -149,7 +149,7 @@ Check the live results page before assigning a query: if it shows guides and lis
 
 Never return a 404 on a product URL that has rankings, traffic, or backlinks: you discard signals that took years to accumulate, and recovery after reinstating the page takes months (field observation from 115+ agency audits).
 
-Variants: give color and size variants one canonical parent unless a specific variant has its own search demand, in which case it earns an indexable URL with unique content (Google's guidance: https://developers.google.com/search/docs/specialty/ecommerce/product-variants).
+Variants: give color and size variants one canonical parent unless a specific variant has its own search demand, in which case it earns an indexable URL with unique content (Google's guidance: https://developers.google.com/search/docs/appearance/structured-data/product-variants).
 
 ### 9. Traffic before conversion micro-optimization
 
@@ -178,7 +178,7 @@ Amazon is a search engine and a separate market with its own ranking, not a copy
 
 ### AI assistants recommend product pages directly
 
-This is the structural difference from classic SEO, where blog content captured most organic entry points. Assistant answers to "best X for Y" and "where can I buy X" now link PDPs directly: one 2025 analysis of AI citations in commerce contexts measured product pages at about 13.7 percent of citations, with listicle-format content taking the largest share (https://almcorp.com/blog/ai-citations-listicles-articles-product-pages/). Two consequences: the PDP is now a citation target in its own right, and it must stand alone, because the assistant quotes one page, not your whole site.
+This is the structural difference from classic SEO, where blog content captured most organic entry points. Assistant answers to "best X for Y" and "where can I buy X" now link PDPs directly: one 2025 analysis of AI citations in commerce contexts measured product pages at about 13.7 percent of citations, with listicle-format content taking the largest share (single-source study, not independently replicated: https://almcorp.com/blog/ai-citations-listicles-articles-product-pages/). Two consequences: the PDP is now a citation target in its own right, and it must stand alone, because the assistant quotes one page, not your whole site.
 
 ### Make the PDP self-sufficient
 
@@ -195,7 +195,7 @@ If a fact is missing from the page, the assistant either omits the product or fi
 
 ### Submit the ChatGPT Shopping product feed
 
-OpenAI publishes a product feed specification for ChatGPT Shopping and agentic checkout: JSONL, CSV, TSV, or Parquet formats, delivery by SFTP push or scheduled fetch, refresh as often as every 15 minutes, with fields covering price, availability, reviews, Q&A, and video (https://developers.openai.com/commerce/specs/file-upload/products). Merchants enroll at https://chatgpt.com/merchants. For an e-commerce site, submitting and maintaining this feed is the first GEO action to take: it replaces crawling guesswork with declared, refreshed data. No API key is needed to follow this skill; enrollment is the merchant's own action. Field mapping table: references/product-page-blueprint.md.
+OpenAI publishes a product feed specification for ChatGPT Shopping and agentic checkout (https://developers.openai.com/commerce/specs/file-upload/products). As of this writing the spec documents UTF-8 TSV, CSV, or TXT files (gzip accepted) delivered by SFTP, with fields covering price, availability, reviews, Q&A, and video; formats and delivery options evolve, so read the live spec before building. Merchants enroll at https://chatgpt.com/merchants. For an e-commerce site, submitting and maintaining this feed is the first GEO action to take: it replaces crawling guesswork with declared, refreshed data. No API key is needed to follow this skill; enrollment is the merchant's own action. Field mapping table: references/product-page-blueprint.md.
 
 ### Keep every fact in server-rendered HTML
 
@@ -277,7 +277,7 @@ Date: {date}
 | Mistake | Why it hurts | Fix |
 |---|---|---|
 | Pasting the manufacturer description | Duplicated across every retailer; the page competes on domain strength alone | Rewrite unique, benefits first |
-| AI-generated product images | Breaks trust at payment; Merchant Center disapproval risk | Real photos, multiple angles |
+| AI-generated product images | Breaks trust at payment (allowed by Merchant Center only with IPTC AI metadata intact) | Real photos, multiple angles |
 | Schema price or rating differing from the page | Structured data manual action risk | Markup mirrors visible content |
 | 404 on a discontinued product with history | Discards years of signals and backlinks | Keep 200 with alternatives, or 301 to substitute |
 | Targeting informational queries with a PDP | Intent mismatch; the page type cannot rank there | Blog post that links to the PDP |
@@ -285,7 +285,7 @@ Date: {date}
 | A/B testing at 30 visitors/day | No statistical power; near-zero revenue upside | Build traffic volume first |
 | Price rendered by JavaScript or inside an image | Assistants cannot quote the offer | Price as HTML text |
 | Mass-generating descriptions with no review pass | Scaled content abuse policy exposure | Human review per page |
-| Adding FAQPage markup for rich results | FAQ rich results removed for most sites in 2023 | Keep the FAQ content; treat markup as optional |
+| Adding FAQPage markup for rich results | FAQ rich results restricted in 2023, fully retired May 2026 | Keep the FAQ content; treat markup as optional |
 
 ## Sources
 
@@ -299,7 +299,7 @@ Date: {date}
 - https://developers.google.com/search/docs/essentials/spam-policies (scaled content abuse)
 - https://developers.google.com/search/blog/2023/08/howto-faq-changes (FAQ rich results removal)
 - https://support.google.com/merchants/answer/6324350 (Merchant Center image requirements)
-- https://developers.google.com/search/docs/specialty/ecommerce/product-variants (variant URL handling)
+- https://developers.google.com/search/docs/appearance/structured-data/product-variants (variant URL handling)
 - https://developers.google.com/search/docs/appearance/title-link (title rewriting behavior)
 
 All thresholds labeled "field heuristic from 115+ agency audits" come from recurring patterns in real audit work, not from controlled studies. Treat them as strong defaults to adapt, not as guarantees.

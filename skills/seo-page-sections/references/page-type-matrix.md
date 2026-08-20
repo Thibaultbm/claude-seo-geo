@@ -62,7 +62,7 @@ Deep spec: `seo-content-collection-page/`.
 |---|---|---|---|
 | 1 | Breadcrumb | R | Hierarchy for users and bots |
 | 2 | H1 naming the category as buyers name it | R | The head term of the page |
-| 3 | Intro text above the grid, 2 to 4 sentences | R | Tells both audiences what this category contains before the grid |
+| 3 | Intro text above the grid, 1 to 2 sentences (spec: seo-content-collection-page) | R | Tells both audiences what this category contains before the grid |
 | 4 | Product grid with real photos, names, prices as text | R | The reason the page exists |
 | 5 | Filters and sorting, with crawl control on the parameter URLs | R | Usability, and uncontrolled facets explode the crawl budget |
 | 6 | Buying guide block below the grid, 400-800 words (spec: seo-content-collection-page) | R | The only real ranking surface a grid page has |

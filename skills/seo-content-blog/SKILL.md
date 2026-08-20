@@ -70,7 +70,7 @@ Name at least one element the current top 5 do not have:
 - A comparison table no competitor built.
 - A fresher statistic, with its source linked.
 
-Why: Google models information gain (patent US 11,157,557); a page that restates the SERP gives the index no reason to rank it and gives AI engines no reason to cite it. This step is also what makes AI-assisted drafting safe (rules below).
+Why: Google holds a patent on scoring pages by information gain (US 11,354,342, "Contextual estimation of link information gain"; a patent signals research direction, not confirmed production use); a page that restates the SERP gives the index no reason to rank it and gives AI engines no reason to cite it. This step is also what makes AI-assisted drafting safe (rules below).
 
 ### Step 5. Draft on the 12-element skeleton
 
@@ -150,13 +150,15 @@ Publication cadence (field heuristics):
 | Blog launch | 45-75 articles for the initial corpus, up to 100 in a content-rich niche |
 | Established site | Around 20 articles per month |
 | Hand-written daily cap | Roughly 20 pieces per day; past that, quality and information gain slip |
-| Programmatic scale | Some sites publish 2000-4000 templated pages in a single day and get them indexed, but only when each page is genuinely unique (the scaled-content indexation condition lives in seo-technical) |
+| Programmatic scale | Some sites publish 2000-4000 templated pages in a single day and get them indexed, but this is exactly the pattern Google's scaled content abuse policy targets: each page must add real value for users, not merely be unique (policy and indexation conditions in seo-technical) |
 | Priority order | Rewrite existing articles that already earn impressions BEFORE creating new ones |
 | Comparative listicles | Refresh every 60-90 days with real changes, an honest dateModified, and a visible date on page |
 
 Volume versus cadence: the topic-volume estimate tells you how big the opportunity is and how long it will take to cover; the monthly cadence is the sustainable pace. Size the niche once, then pace against it. The daily cap governs hand-written articles; the 2000-4000 per day figures are programmatic generation, a different lane that lives or dies on per-page uniqueness, not on editorial craft (field heuristics from 115+ agency audits).
 
-Breaking-news lane: for genuinely time-sensitive topics, getting the site approved in Google News (Publisher Center) opens the Top stories and News surfaces, where a fresh article can be indexed within minutes and draw sharp traffic spikes. Pair it with a News sitemap (see seo-technical) and publish hot topics fast. Treat this as a separate lane for news-grade freshness, not a tactic for evergreen content (field heuristic from 115+ agency audits).
+Breaking-news lane: for genuinely time-sensitive topics, the Top stories and News surfaces can index a fresh article within minutes and draw sharp traffic spikes. There is no approval step anymore: Google News inclusion has been automatic for policy-compliant sites since Publisher Center stopped accepting publication submissions in April 2024, and Top stories has not required Google News inclusion since 2019. What earns the surface is news-grade freshness plus a News sitemap and an RSS or Atom feed (see seo-technical). Treat this as a separate lane, not a tactic for evergreen content (field heuristic from 115+ agency audits).
+
+Google Discover lane: for most publishers Discover is a bigger organic surface than Google News. It cannot be targeted with keywords; it rewards the same fundamentals plus its documented specifics: large images (1200px+, enabled via max-image-preview:large), honest non-clickbait titles, E-E-A-T, and topical entity clarity (https://developers.google.com/search/docs/appearance/google-discover). Discover traffic is volatile by design; report it separately and never build a forecast on it.
 
 Why rewrite-first: an existing URL has age, links, and impression history; lifting it from position 8 to position 3 outperforms a new URL starting from zero. Never republish with only a new date: Google compares content versions, and a date-only refresh is deceptive freshness. Flag this risk whenever a user asks for it.
 
@@ -291,9 +293,9 @@ Pre-publish checklist (verify every line, report failures to the user):
 
 - Princeton GEO study, "GEO: Generative Engine Optimization" (KDD 2024): https://arxiv.org/abs/2311.09735
 - Ahrefs, analysis of 1.4M ChatGPT prompts and citation patterns: https://ahrefs.com/blog/why-chatgpt-cites-pages/
-- ALM Corp, listicle share of AI citations: https://almcorp.com/blog/ai-citations-listicles-articles-product-pages/
+- ALM Corp, listicle share of AI citations (single-source study, not independently replicated): https://almcorp.com/blog/ai-citations-listicles-articles-product-pages/
 - Search Engine Land, query fan-out optimization guide: https://searchengineland.com/guide/how-to-optimize-for-query-fan-out
-- Google patent US 11,157,557 (information gain scoring): https://patents.google.com/patent/US11157557B2/en
+- Google patent US 11,354,342 (contextual estimation of link information gain): https://patents.google.com/patent/US11354342B2/en
 - Google Search Central, guidance on AI-generated content: https://developers.google.com/search/blog/2023/02/google-search-and-ai-content
 - Google spam policies (scaled content abuse): https://developers.google.com/search/docs/essentials/spam-policies
 - Google, FAQ and HowTo rich result deprecation: https://developers.google.com/search/blog/2023/08/howto-faq-changes
