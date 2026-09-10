@@ -50,7 +50,17 @@ Run the bundled collector on the homepage plus key pages, and on each competitor
 python3 scripts/seo_audit.py https://example.com /services /blog/top-article
 ```
 
-It returns, per page: HTTP status, HTTPS, platform fingerprint, title (with generic-title flag), meta description length, full heading hierarchy with level jumps, image alt coverage and weight sample, internal versus external link counts, Open Graph, canonical, JSON-LD types, visible word count, meta robots, an em dash and en dash count with samples (checklist 6.4: an AI-writing tell to find-and-replace with commas), and a `likely_js_rendered` flag. Site-wide: robots.txt rules for AI search bots, AI user-fetch agents, and AI training bots (three separate groups), sitemap declaration and URL count, llms.txt presence.
+It returns, per page: HTTP status, HTTPS, platform fingerprint, title (with generic-title flag), meta description length, full heading hierarchy with level jumps, image alt coverage and weight sample, internal versus external link counts, Open Graph, canonical, JSON-LD types, visible word count, meta robots, an em dash and en dash count with samples (checklist 6.4: an AI-writing tell to find-and-replace with commas), the measurement tags (GA4, GTM, other analytics, Search Console verification meta), and a `likely_js_rendered` flag. Site-wide: robots.txt rules for AI search bots, AI user-fetch agents, and AI training bots (three separate groups), sitemap declaration and URL count, llms.txt presence, and a measurement coverage summary that names the pages where the GA4 tag is missing.
+
+Measurement is collected on EVERY page, not once for the domain: the usual failure is a tag pasted into one template and never into the others, which no site-wide check can see. Three outcomes, and they are not the same finding:
+
+| Report says | What it means | What to do |
+|---|---|---|
+| `GA4: G-XXXXXXXX` | the tag is in the raw HTML | nothing |
+| `GA4: unknown (a GTM container can load it)` | GTM is there, no G- id in the HTML | open the container or the browser Tag Assistant before writing anything; a GTM-loaded GA4 leaves no trace in the source |
+| `NO MEASUREMENT AT ALL` | no GA4, no GTM, no other analytics | real finding, and it blocks every later recommendation |
+
+The Search Console line reads the `google-site-verification` meta tag only. Its absence proves nothing: DNS records, an HTML file, GA4 and GTM verify a property just as well and leave nothing in the page. Ask the owner instead of declaring the property unverified.
 
 Known limits, and what to do about each:
 
@@ -61,6 +71,7 @@ Known limits, and what to do about each:
 | Real-world speed | Ask the user to run https://pagespeed.web.dev (free, no key) on mobile and desktop and share scores |
 | Backlink profile | Use GSC Links report or Bing Webmaster Tools if available; paid indexes (Ahrefs, Semrush, Moz) only as an option |
 | GSC indexation ratio, Google Business Profile | Ask the owner; never invent these numbers |
+| Tags injected by a consent manager or a server-side container | Invisible in raw HTML; confirm in the browser before reporting a missing GA4 |
 
 ## Phase 2: analyze against the checklist
 

@@ -137,6 +137,8 @@ class Page(HTMLParser):
         self.images = []            # {src, alt, loading}
         self.links = []             # {href, rel}
         self.jsonld_types = []
+        # Site-verification meta tags (Search Console and friends), kept by name.
+        self.verifications = {}
         self._skip = 0              # depth inside script/style/noscript
         self._text = []
         self._in_jsonld = False
@@ -170,6 +172,9 @@ class Page(HTMLParser):
                 self.viewport = content
             elif prop.startswith("og:"):
                 self.og[prop] = content
+            elif name in ("google-site-verification", "msvalidate.01", "yandex-verification",
+                          "naver-site-verification", "facebook-domain-verification"):
+                self.verifications[name] = content
         elif tag == "link" and (a.get("rel") or "").lower() == "canonical":
             self.canonical = a.get("href")
         elif tag in ("h1", "h2", "h3", "h4", "h5", "h6"):
@@ -356,6 +361,62 @@ def analyse_page(url, do_images=True):
         "meta_description": len(dash_re.findall(md or "")),
         "headings": sum(len(dash_re.findall(t)) for _, t in p.headings),
         "samples": samples,
+    }
+    # ---- Measurement tags: GA4 and Search Console, page by page ----
+    # Field finding from 115+ agency audits: a large share of sites have no
+    # analytics at all, or have it on the homepage only, because the tag was
+    # pasted into one template and never into the others. A site that cannot
+    # measure cannot be optimized, so the fact is collected on EVERY page
+    # audited, not once for the domain.
+    #
+    # Read on the RAW HTML, including inside <script>, which the parser skips
+    # for text: the GA4 loader and the GTM snippet are script content.
+    ga4_ids = sorted(set(re.findall(r"\bG-[A-Z0-9]{6,12}\b", html)))
+    gtm_ids = sorted(set(re.findall(r"\bGTM-[A-Z0-9]{4,10}\b", html)))
+    ua_ids = sorted(set(re.findall(r"\bUA-\d{4,10}-\d{1,4}\b", html)))
+    loaders = {
+        "gtag_js": "googletagmanager.com/gtag/js" in sig,
+        "gtm_js": "googletagmanager.com/gtm.js" in sig or "googletagmanager.com/ns.html" in sig,
+    }
+    # Other analytics, so the report never claims "no measurement" on a site
+    # that simply chose a privacy-first tool.
+    autres = [n for n, pat in [
+        ("Plausible", "plausible.io/js"), ("Fathom", "usefathom.com/script"),
+        ("Matomo", "matomo.js"), ("Piwik PRO", "piwik.pro"), ("Umami", "umami"),
+        ("Simple Analytics", "simpleanalyticscdn"), ("Microsoft Clarity", "clarity.ms"),
+        ("Hotjar", "static.hotjar.com"), ("PostHog", "posthog"),
+        ("Vercel Analytics", "/_vercel/insights"), ("Cloudflare Web Analytics", "static.cloudflareinsights.com"),
+    ] if pat in sig]
+    gtm_present = bool(gtm_ids) or loaders["gtm_js"]
+    ga4_present = bool(ga4_ids) and (loaders["gtag_js"] or loaders["gtm_js"] or gtm_present)
+    # Four states, and the middle one matters: a GTM container LOADS GA4 without
+    # ever writing a G- id in the HTML. Calling that page "no analytics" is the
+    # false alarm that discredits a whole audit, so it is reported as unknown
+    # and sent to the browser check.
+    if ga4_present:
+        statut = "ga4"
+    elif gtm_present:
+        statut = "gtm_only_unknown"
+    elif autres:
+        statut = "other_tool"
+    else:
+        statut = "none"
+    out["measurement"] = {
+        "ga4_ids": ga4_ids,
+        "gtm_ids": gtm_ids,
+        "ga4_present": ga4_present,
+        "status": statut,
+        "gtm_present": gtm_present,
+        "universal_analytics_legacy": ua_ids,     # UA stopped collecting in July 2024
+        "loaders": loaders,
+        "other_analytics": autres,
+        # Search Console ownership. The meta tag is ONE of five methods: DNS
+        # record, HTML file, GA4 and GTM verify just as well and leave nothing
+        # in the HTML. Its absence is therefore NOT proof that the property is
+        # unverified, only that this method is not the one in use.
+        "gsc_meta_verification": p.verifications.get("google-site-verification"),
+        "other_verifications": {k: v for k, v in p.verifications.items()
+                                if k != "google-site-verification"},
     }
     # JS rendering hint: very little text + client-side framework means the raw
     # HTML is probably incomplete. AI crawlers do not execute JavaScript, so
@@ -545,6 +606,58 @@ def fmt(report):
         line("  viewport: {} | html lang: {} | meta robots: {}".format(
             "yes" if pg["viewport"] else "NO", "yes" if pg["lang"] else "NO",
             pg["meta_robots"] or "-"))
+        ms = pg.get("measurement") or {}
+        ga = ", ".join(ms.get("ga4_ids") or []) or {
+            "gtm_only_unknown": "unknown (a GTM container can load it)",
+            "other_tool": "no",
+        }.get(ms.get("status"), "NO")
+        gtm = ", ".join(ms.get("gtm_ids") or []) or ("yes" if ms.get("gtm_present") else "no")
+        line("  GA4: {} | GTM: {} | other analytics: {}".format(
+            ga, gtm, ", ".join(ms.get("other_analytics") or []) or "none"))
+        if ms.get("universal_analytics_legacy"):
+            line("     WARNING: Universal Analytics tag still on the page ({}); UA stopped"
+                 " collecting in July 2024, it measures nothing.".format(
+                     ", ".join(ms["universal_analytics_legacy"])))
+        gsc = ms.get("gsc_meta_verification")
+        line("  Search Console meta tag: {}".format(
+            "yes ({}...)".format(gsc[:12]) if gsc
+            else "not on this page (DNS, HTML file, GA4 or GTM verification leaves no tag)"))
+
+    # ---- Measurement coverage across the audited pages ----
+    # The point of the summary: a tag on the homepage only is the usual failure
+    # mode, and it is invisible page by page.
+    lues = [x for x in report["pages"] if not x.get("error")]
+    if lues:
+        etat = lambda x: (x.get("measurement") or {}).get("status")
+        avec_ga = [x for x in lues if etat(x) == "ga4"]
+        via_gtm = [x for x in lues if etat(x) == "gtm_only_unknown"]
+        autre = [x for x in lues if etat(x) == "other_tool"]
+        rien = [x for x in lues if etat(x) == "none"]
+        line("\n" + "-" * 70)
+        line("## Measurement coverage ({} page(s) read)".format(len(lues)))
+        line("  GA4 tag found on {} of {} page(s)".format(len(avec_ga), len(lues)))
+        if via_gtm:
+            line("  {} page(s) carry GTM without a visible GA4 id: open the container (or the"
+                 " browser Tag Assistant) to confirm GA4 fires there.".format(len(via_gtm)))
+            for x in via_gtm:
+                line("     TO CONFIRM: {}".format(x["url"]))
+        if autre:
+            line("  {} page(s) measure with another tool: {}".format(
+                len(autre), ", ".join(sorted({t for x in autre
+                    for t in ((x.get("measurement") or {}).get("other_analytics") or [])}))))
+        for x in rien:
+            line("     NO MEASUREMENT AT ALL: {}".format(x["url"]))
+        ids = sorted({i for x in lues for i in ((x.get("measurement") or {}).get("ga4_ids") or [])})
+        if len(ids) > 1:
+            line("  WARNING: {} different GA4 IDs across the pages ({}). Two properties collecting"
+                 " the same site split every report in half.".format(len(ids), ", ".join(ids)))
+        verifs = {(x.get("measurement") or {}).get("gsc_meta_verification") for x in lues}
+        verifs.discard(None)
+        line("  Search Console meta tag: {}".format(
+            "present" if verifs else "absent from every page read"))
+        line("  Reminder: raw HTML only. A tag injected by a client-side script, a consent"
+             " manager, or a server-side container does not show here; confirm in the browser"
+             " (view-source or the Tag Assistant) before telling a client the tag is missing.")
 
     line("\n" + "=" * 70)
     line("JSON (machine summary):")

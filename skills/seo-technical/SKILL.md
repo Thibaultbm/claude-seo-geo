@@ -52,7 +52,22 @@ Before any recommendation, confirm both:
 
 Field finding from 115+ agency audits: a large share of audited sites had neither installed, or had them installed with nobody able to access the accounts. Without GSC you cannot see coverage, queries, or manual actions, and every later step degrades into guessing. Set both up first, then add Bing Webmaster Tools: it imports GSC properties in a few clicks and matters in 2026 because Bing's index feeds ChatGPT search (https://yoast.com/chatgpt-search/).
 
-For a fast automated first pass, run the bundled audit script from the seo-geo-audit skill (scripts/seo_audit.py), which checks robots.txt AI bot rules, sitemap, and on-page basics. Use its output to direct the manual work below.
+**Check the tags PAGE BY PAGE, not once on the homepage.** "Analytics is installed" is a site-wide claim that is wrong more often than not: the tag goes into one template and never into the others, so the blog measures nothing while the homepage does. The bundled collector reports it per page and names the gaps:
+
+```
+python3 scripts/seo_audit.py https://example.com /services /blog /pricing /contact
+```
+
+Read the `Measurement coverage` block at the end of the report:
+
+- `GA4 tag found on N of M page(s)`, with the missing URLs listed. Any page that a visitor can land on and that carries no tag is a hole in the funnel: it is the pages that convert (pricing, contact, checkout) that get forgotten most often.
+- `GA4: unknown (a GTM container can load it)` is NOT a missing tag. A GTM container loads GA4 without ever writing a `G-` id in the HTML. Open the container, or the browser Tag Assistant, before writing anything in a report. Calling that "no analytics" in front of a client who does have it discredits the whole audit.
+- `Universal Analytics tag still on the page`: UA stopped collecting in July 2024. It is dead weight and it hides the fact that no live property exists.
+- Two different `G-` ids across the pages: two properties collecting the same site, and every report split in half.
+
+Search Console ownership: the collector reads the `google-site-verification` meta tag. **Its absence proves nothing**, because four of the five verification methods (DNS record, HTML file, GA4, GTM) leave no trace in the page. Ask the owner to open the property rather than declaring it unverified. What you do verify from the outside: that the tag, when present, is on the homepage, because removing it later un-verifies the property.
+
+For a fast automated first pass, the same script checks robots.txt AI bot rules, sitemap, and on-page basics. Use its output to direct the manual work below.
 
 ### Step 1: Read the indexation state
 
