@@ -110,7 +110,7 @@ Apply every element. Each one exists because its absence showed up as a recurrin
 
 **2. Cover image + single H1 + breadcrumb.** Exactly one H1, containing the primary keyword. A visible breadcrumb trail (markup details: seo-schema-markup). Why: multiple H1s blur the topical focus of the page; the breadcrumb tells crawlers and AI engines where the page sits in the site hierarchy.
 
-**3. Visible author + reading time.** Real name, photo, role, linked to an author page. Why: E-E-A-T accountability. Anonymous content is easier for quality systems and AI engines to discount, especially on money or health adjacent topics. Reading time sets expectations and reduces pogo-sticking.
+**3. Visible author card + reading time.** Real name, photo, role, one line of credentials, linked to an author page and to a profile that corroborates it (LinkedIn or equivalent). Show a short byline under the H1 and the full author card in the side column next to the article, sticky on desktop, alongside the table of contents. A byline that reads as the company name ("By Brand.com") does not count. Why: E-E-A-T accountability. Anonymous content is easier for quality systems and AI engines to discount, especially on money or health adjacent topics. A card that stays in view while the reader scrolls keeps the expertise visible at every depth, not only on the first screen. Reading time sets expectations and reduces pogo-sticking.
 
 **4. Table of contents.** Anchor links to every H2, placed near the top. Why: orients readers on long pages, can produce jump links in Google results, and hands machine readers the subtopic map in one block.
 
@@ -124,7 +124,7 @@ Apply every element. Each one exists because its absence showed up as a recurrin
 
 **9. Internal links: 3-5 to pages that sell.** Target products, services, collections, pricing. Visible style: underlined plus a distinct color. Why: articles capture informational traffic; internal links are the mechanism that converts that traffic and authority into commercial rankings (articles lift commercial pages). An invisible link gets no clicks, and internal click-through is a usage signal. Site-wide routing: seo-internal-linking.
 
-**10. Conclusion with bold + CTA.** Restate the answer, bold the takeaway, end on one call to action pointing at the most relevant commercial page. Why: the conclusion is the second-most-read block for skimmers; an article without a next step wastes the traffic it earns.
+**10. Conclusion CTA + side-column CTAs.** Restate the answer, bold the takeaway, end on one call to action pointing at the most relevant commercial page. Then use the side columns: on desktop, the reading column is 700-800 px wide and leaves two empty margins on a 1440 px screen. Put a sticky call to action in them, left and right of the article (for example the author card and table of contents on one side, a CTA card to the money page on the other). On mobile, where the side columns collapse, place one CTA block right after the answer-first summary and one mid-article. Why: the conclusion is the second-most-read block for skimmers, but most readers never reach it; an article without a next step wastes the traffic it earns. Field heuristic from agency audits: a sticky side CTA is in view at every scroll depth, while the conclusion CTA only reaches the readers who finish.
 
 **11. FAQ: 3 questions from People Also Ask.** Pull real PAA questions for the keyword and answer each in 2-4 sentences. Why: FAQ rich results are gone (deprecated for most sites by Google in August 2023, fully retired by May 2026), but the question-answer format remains one of the most extracted structures in AI answers: each pair is an autonomous chunk that matches a real sub-query.
 
@@ -261,7 +261,8 @@ Pre-publish checklist (verify every line, report failures to the user):
 - [ ] Title 30-60 characters, keyword near the front
 - [ ] Meta description 120-160 characters, hand-written
 - [ ] One H1 containing the keyword; breadcrumb present
-- [ ] Author and reading time visible
+- [ ] Author card visible (real name, photo, role, link to author page), not the company name; reading time visible
+- [ ] CTA in the side columns, left and right of the article, sticky on desktop; on mobile, a CTA block after the summary and one mid-article
 - [ ] Answer-first block within the first screen
 - [ ] Primary keyword bolded in the first sentence
 - [ ] First external source linked in the intro; 3-5 total; gov, media, or study only; followed; zero competitors
@@ -286,6 +287,8 @@ Pre-publish checklist (verify every line, report failures to the user):
 - **Keyword stuffing.** Measured to reduce generative visibility (Princeton study) on top of the classic over-optimization risk.
 - **Self-hosted video.** Page weight up, and the YouTube surface is lost. Embed instead.
 - **Zero internal links to money pages.** The article ranks and sells nothing; informational traffic dies on the page.
+- **Empty side columns.** A narrow reading column with blank margins and a single CTA at the very bottom: the readers who leave halfway never see a next step. Fill the margins with the author card and a sticky CTA.
+- **Anonymous byline.** "By Brand.com" or no author at all. Put a real person, with photo and credentials, next to the article.
 - **Heavy images.** A 1.2 MB cover image hurts Core Web Vitals on every visit. Compress to WebP under 200 KB.
 - **Em dashes left in the copy.** Reads as AI output to readers and to the client. Replace each one with a comma before delivery.
 

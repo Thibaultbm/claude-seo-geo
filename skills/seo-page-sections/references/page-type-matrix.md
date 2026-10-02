@@ -170,11 +170,12 @@ Deep spec: `seo-content-blog/`.
 | 6 | At least one quotation from a named expert or practitioner | W | Same mechanism as the statistic |
 | 7 | Table or comparison of the options discussed | W | The most extractable format in a body of prose |
 | 8 | Original material: data, screenshots, photos, examples | R | The only durable defense against being outranked by the same rewrite |
-| 9 | Author block with real credentials | R | E-E-A-T |
+| 9 | Author card with real credentials: photo, name, role, link to author page, kept in view in the side column | R | E-E-A-T; a company-name byline does not count |
 | 10 | Published and updated dates, visible | R | Freshness assessment for readers and assistants |
 | 11 | FAQ at the end | R | Captures related long-tail queries on the same URL (spec: seo-content-blog, skeleton element 11) |
 | 12 | Cross-links to the money pages the article supports | R | An article that links to nothing commercial earns nothing |
 | 13 | Definitions of jargon used | O | Widens the audience beyond experts |
+| 14 | Calls to action in the side columns, left and right of the reading column, sticky on desktop (spec: seo-content-blog, skeleton element 10) | R | Most readers never reach the conclusion CTA; a sticky side CTA is in view at every scroll depth |
 
 ## 8. Homepage
 
