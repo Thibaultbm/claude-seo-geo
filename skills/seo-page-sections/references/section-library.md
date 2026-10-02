@@ -170,7 +170,9 @@ H3: {Term}
 
 **How to write.** Use the verb of the actual next step, in the visitor's words: "Get a quote", "Book a slot", "Add to cart", "Start free". Add the risk-reducer next to it where one exists ("no card required", "answer within 24 h"). Offer a secondary, lower-commitment action for the visitor who is not ready.
 
-**Fails when.** Every button is equally weighted; the label is "Submit"; the only CTA sits at the very bottom.
+**On articles.** Use the side columns: a sticky CTA left and right of the reading column on desktop, and a CTA block after the summary on mobile (spec: seo-content-blog, skeleton element 10).
+
+**Fails when.** Every button is equally weighted; the label is "Submit"; the only CTA sits at the very bottom. On a blog article, the side columns are left empty.
 
 ## Process or how it works
 

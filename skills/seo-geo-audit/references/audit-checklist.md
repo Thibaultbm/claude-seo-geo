@@ -77,7 +77,8 @@ Provenance markers: (field) = recurring finding across 115+ real agency audit ca
 
 ## 8. Blog and articles
 
-- 8.1 The 12-element article skeleton (title and meta, cover and H1 and breadcrumb, author and reading time, table of contents, answer-first summary, keyword-bolded intro with the first source, structured body, 3-5 external sources, 3-5 internal links, conclusion, CTA, FAQ): full detail in seo-content-blog.
+- 8.1 The 12-element article skeleton (title and meta, cover and H1 and breadcrumb, author card and reading time, table of contents, answer-first summary, keyword-bolded intro with the first source, structured body, 3-5 external sources, 3-5 internal links, conclusion and side-column CTAs, FAQ): full detail in seo-content-blog.
+- 8.1b On every article template: a real author card (photo, name, role, link to an author page) kept in view in the side column, and a sticky CTA left and right of the reading column on desktop. Flag a company-name byline and empty side margins with a single CTA at the very bottom. (field)
 - 8.2 Three images per article: one cover, two in the body, all alt-tagged and compressed. (field)
 - 8.3 Sources: government or institutional, major media, scientific studies. Never a competitor. Follow links. The first source appears in the intro: it signals research from the first screen. (field)
 - 8.4 AI-written content is not penalized; lazy content is. Read the top 5 ranking pages first, then add information gain (original data, first-hand experience, a sharper angle). (field + measured)
