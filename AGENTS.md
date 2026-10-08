@@ -34,8 +34,9 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 | seo-geo-audit | Full site audit (SEO + AI visibility), prioritized action plan |
 | seo-technical | Crawlability, indexation, speed, JS rendering, AI crawler access |
 | seo-keyword-research | Keywords, search intent, AI prompt research |
-| seo-content-blog | Blog articles that rank and get cited |
+| seo-content-blog | Blog articles that rank and get cited, plus the article and blog hub templates |
 | seo-content-product-page | E-commerce product pages |
+| seo-content-homepage | Homepage and flagship offer (sales) page |
 | seo-content-service-page | Service and landing pages |
 | seo-content-collection-page | E-commerce category and collection pages |
 | seo-content-comparison-page | Comparison, alternatives, best-for and customer segment pages |

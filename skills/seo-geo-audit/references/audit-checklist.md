@@ -1,4 +1,4 @@
-# SEO + GEO audit checklist (14 categories)
+# SEO + GEO audit checklist (15 categories)
 
 Provenance markers: (field) = recurring finding across 115+ real agency audit calls, treat as a strong heuristic, not a law. (measured) = published study or official documentation, sources listed in SKILL.md. Where competitors are known, their measured values override every abstract threshold below: the gap is the finding.
 
@@ -144,3 +144,40 @@ Provenance markers: (field) = recurring finding across 115+ real agency audit ca
 - 14.4 CMS reality check: WordPress, Shopify and Webflow hold up at content scale; trendy client-rendered site builders are fragile for large SEO sites (rendering, speed, URL control). (field)
 - 14.5 Content ownership: confirm an export path exists before committing to any platform. (field)
 - 14.6 Deduplicate mirrors: the same articles published on a second platform (newsletter mirrors, Medium copies) need canonicals or noindex on the copy. (field)
+
+## 15. Measured page checks (script findings)
+
+`scripts/seo_audit.py` now turns its facts into a ranked FINDINGS list and two scores per page, using the same thresholds and weights as the Sorank SEO Analyzer extension so the script and the extension agree on the same page. Score = 100 minus the sum of the findings of that pillar: critical 12.5, high 6, medium 3, low 1.5 (SEO and GEO scored separately, grade A 90+, B 80+, C 70+, D 60+). Read the score as a ratio of fixable items, not a verdict: one template-level finding repeats on every page built on that template and one fix clears it everywhere. Codes and thresholds:
+
+| Code | Rule | Severity | Why |
+|---|---|---|---|
+| title_short / title_long | Title under 30 or over 60 characters | medium | Truncation above about 60; too short wastes the strongest relevance signal |
+| meta_missing / meta_long / meta_short | Missing; over 160; under 120 | high / medium / low | The snippet is the first conversion surface |
+| h1_missing / h1_multiple / heading_jumps / heading_empty | 0 H1; more than 1; skipped levels; empty headings | high / medium | The heading tree is the outline machines read |
+| thin_content / article_short | Under 300 words; article under 800 | high / medium | Word ladder 6.1; benchmark the SERP |
+| no_bold | 250+ words and zero `strong`/`b` | medium | 6.2: the main keyword bolded in the intro, key facts bolded in the body |
+| keyword_stuffing | One term over 2.5% of content words (alert), over 7% (stuffing) | medium / high | Over-optimization; stuffing measurably lowers generative visibility. Brand names inflate density: judge before rewriting |
+| kw_not_in_intro / kw_not_bold / kw_placement_low | Title and H1 terms absent from the first 100 words of the paragraphs; never bolded; under 40% coverage of the 8 placement zones (title, H1, H2-H6, meta, URL, intro, bold, image alt) | medium / low / medium | Placement matrix 2.5, measured |
+| readability | Readability under 60 / 100 (100 minus 0.5 x % sentences over 20 words minus 1.5 x % over 30), with a Flesch score (Kandel-Moles in French) | low | Long sentences lose readers and extract poorly |
+| long_paragraphs | Paragraph over 150 words | low (GEO) | 6.3: blocks of 40-80 words are what AI engines lift |
+| alt_missing / alt_quality | `alt` attribute absent (alt="" is decorative and correct); generic or 125+ character alts | high / low | 3.1 |
+| lcp_lazy / image_weight / image_format / image_dimensions | First image lazy; over 200 KB; 2+ JPG/PNG/GIF; 3+ without width and height | medium / medium / low / low | 3.2, 3.3, 3.5 |
+| internal_nofollow / nofollow_share | Any internal nofollow; over 50% of links nofollow | high / medium | Internal nofollow throws away your own link equity |
+| empty_anchor / generic_anchor | Links with no text or label; "click here", "en savoir plus", "lire la suite" | medium | Anchors tell engines what the target is about |
+| social_placeholder / social_missing | Social icon pointing to a network homepage (`instagram.com/`) instead of a profile; no social profile at all on homepage or article | medium / low (GEO) | Entity consistency: the same profiles must appear on the site and in `sameAs` |
+| viewport_missing / lang_missing / charset_missing / favicon_missing | Head basics | high / medium / low / low | Mobile-first indexing, language targeting, rendering, the icon shown beside mobile results |
+| canonical_missing / canonical_other | No canonical; canonical to another URL | medium | Duplicate control; a canonical elsewhere asks Google not to index this URL |
+| og_missing / og_image_missing / twitter_missing | Open Graph title or description missing; no og:image; no twitter:card | medium / low / low | Link previews in chat apps and social, where shares happen |
+| meta_refresh / noindex / snippet_capped | Meta refresh redirect; noindex; nosnippet or max-snippet under 50 | medium / critical / high (GEO) | A snippet cap keeps the page out of AI Overviews and featured snippets |
+| mixed_content / hreflang / url_hygiene | HTTP resources on HTTPS; hreflang without x-default, self-reference, valid codes; URL over 100 characters, uppercase, underscores | high / medium / low | 4.9, 4.14 |
+| text_ratio / dom_size / html_size | Text under 10% of HTML; over 1500 DOM elements; HTML over 1.5 MB | low / low / medium | Code bloat slows rendering and crawling |
+| jsonld_invalid / schema_none / schema_entity / schema_article / schema_fields | JSON-LD that fails to parse; no JSON-LD; homepage without Organization or Person; article without Article or BlogPosting; required property missing or empty (FAQ questions with empty `name`, Organization without `url`, Course without `provider`) | high / high / medium / medium / medium | Entity graph for AI engines and the remaining rich results (seo-schema-markup) |
+| toc_missing / author_missing / author_page_link / date_missing / no_cta_money / breadcrumb_missing / few_sources / no_stats / no_question_h2 / no_table | Article template blocks (blog-templates.md in seo-content-blog) | medium / high / medium / high / medium / low / medium / low / low / low | E-E-A-T, freshness and conversion blocks every post must ship |
+| hub_no_covers | Blog hub lists 3+ posts with linked images on fewer than half | medium | A text-only hub looks abandoned and loses clicks |
+| home_no_money_links / home_no_structure | Homepage links to no offer page; no list or table | medium / low | The homepage routes authority to what is sold |
+| ai_bots_blocked | AI search bots disallowed in robots.txt | high (GEO) | Removes the site from AI answers |
+| em_dashes | 4+ em or en dashes in the copy | medium (GEO) | 6.4 |
+
+The script also prints, per page: the top terms with density and the top two-word phrases (the page's real topic as a machine reads it), the placement matrix (x = term present in the zone), readability buckets, citability counts (statistics, definitions, quotes, question headings, snippable paragraphs), template detection (table of contents, author block, author page links, dates, breadcrumb, commercial links in the body), social profiles found, and the JSON-LD properties missing per type.
+
+What the script cannot judge, and stays the auditor's call: whether the dense term is the brand (fine) or a stuffed keyword (fix), whether the CTA target is the right offer, whether the author bio is credible, and anything that needs the competitor benchmark.

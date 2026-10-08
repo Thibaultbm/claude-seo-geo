@@ -4,7 +4,7 @@
 
 **SEO & GEO skills for Claude Code, built with Claude Mythos 5.** Rank in Google AND in LLMs like ChatGPT, Perplexity, and Gemini. Technical audits, backlink strategy, AI-optimized content, local visibility, and social amplification: everything you need to own search as it evolves. What took weeks now happens in hours. The future of Search is here, for free.
 
-19 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
+20 skills. Zero dependencies. Every claim sourced. Built from 115+ real agency audit calls and the 2026 evidence on AI search.
 
 ## Run it on your company's second brain
 
@@ -50,11 +50,12 @@ The skills are plain markdown following the open Agent Skills format, so they al
 |---|---|
 | [obsidian-brain](skills/obsidian-brain/SKILL.md) | The knowledge layer: build the vault (entry points, hubs, notes), import everything (docs, transcripts, WhatsApp), keep the graph clean (link audit), read it before acting and log after |
 | [seo-traffic-drop](skills/seo-traffic-drop/SKILL.md) | Traffic or rankings fell: rule out reporting artifacts, date the drop (cliff or slope) and shape it with a bundled Search Console differ, then run the differential diagnosis until one cause survives its confirming test |
-| [seo-geo-audit](skills/seo-geo-audit/SKILL.md) | Full site audit: 14 categories, facts collected by a bundled zero-dependency script, prioritized action plan or plain-language email |
+| [seo-geo-audit](skills/seo-geo-audit/SKILL.md) | Full site audit: 15 categories, SEO and GEO scores, facts collected by a bundled zero-dependency script, prioritized action plan or plain-language email |
 | [seo-technical](skills/seo-technical/SKILL.md) | Crawlability, indexation, Core Web Vitals, JavaScript rendering, AI crawler access (the canonical crawler table), migrations |
 | [seo-keyword-research](skills/seo-keyword-research/SKILL.md) | Real queries over jargon, intent mapping, cannibalization, and AI prompt research (the keyword research of answer engines) |
-| [seo-content-blog](skills/seo-content-blog/SKILL.md) | The 12-element article skeleton: answer-first summary, sources, FAQ, internal links, citable passages |
+| [seo-content-blog](skills/seo-content-blog/SKILL.md) | The 12-element article skeleton (answer-first summary, sources, FAQ, internal links, citable passages) and the page templates: sticky table of contents, author box with photo and social profiles, CTA blocks, blog hub cards with covers |
 | [seo-content-product-page](skills/seo-content-product-page/SKILL.md) | Product pages that rank and get recommended by AI assistants, plus the ChatGPT Shopping feed |
+| [seo-content-homepage](skills/seo-content-homepage/SKILL.md) | Homepage and flagship offer (sales) page for experts, coaches, trainers, agencies and SaaS: competitor block benchmark, 16-block order, semantic bolding, proof with numbers, objection FAQ, Organization, Person and Course schema |
 | [seo-content-service-page](skills/seo-content-service-page/SKILL.md) | The proven service page wireframe, city pages, E-E-A-T signals |
 | [seo-content-collection-page](skills/seo-content-collection-page/SKILL.md) | Category and collection pages: the 400-800 word bottom text, faceted navigation, pagination |
 | [seo-content-comparison-page](skills/seo-content-comparison-page/SKILL.md) | Bottom-funnel decision pages: X vs Y, alternatives, best-for lists, and customer segment pages, with the honesty rules that make them citable |
@@ -149,9 +150,9 @@ These skills give you full manual control, and great power comes with great resp
 ```
 claude-seo-geo/
   .claude-plugin/          plugin.json + marketplace.json
-  skills/                  19 skills (SKILL.md + references/ + evals/)
+  skills/                  20 skills (SKILL.md + references/ + evals/)
     seo-geo-audit/
-      scripts/seo_audit.py zero-dependency on-page fact collector
+      scripts/seo_audit.py zero-dependency on-page collector, findings and SEO/GEO scores
     seo-page-sections/
       scripts/section_audit.py zero-dependency page block detector
     seo-ai-site-builders/

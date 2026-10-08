@@ -50,7 +50,7 @@ Run the bundled collector on the homepage plus key pages, and on each competitor
 python3 scripts/seo_audit.py https://example.com /services /blog/top-article
 ```
 
-It returns, per page: HTTP status, HTTPS, platform fingerprint, title (with generic-title flag), meta description length, full heading hierarchy with level jumps, image alt coverage and weight sample, internal versus external link counts, Open Graph, canonical, JSON-LD types, visible word count, meta robots, an em dash and en dash count with samples (checklist 6.4: an AI-writing tell to find-and-replace with commas), and a `likely_js_rendered` flag. Site-wide: robots.txt rules for AI search bots, AI user-fetch agents, and AI training bots (three separate groups), sitemap declaration and URL count, llms.txt presence.
+It returns, per page: a page kind (homepage, article, blog hub, product, page), an SEO score and a GEO score out of 100 with a ranked FINDINGS list (same thresholds and weights as the Sorank SEO Analyzer extension, codes explained in checklist section 15), and the facts behind them: HTTP status, HTTPS, platform fingerprint, title (with generic-title flag), meta description length, full heading hierarchy with level jumps, image alt coverage and weight sample, internal versus external link counts, Open Graph, canonical, JSON-LD types, visible word count, meta robots, an em dash and en dash count with samples (checklist 6.4: an AI-writing tell to find-and-replace with commas), a `likely_js_rendered` flag, bold count and samples, top terms with density and two-word phrases, the keyword placement matrix (title and H1 terms across title, H1, H2-H6, meta, URL, intro, bold, alt), readability (sentence-length buckets, Flesch), citability counts (statistics, definitions, quotes, question headings, snippable paragraphs), link quality (nofollow, sponsored, ugc, empty and generic anchors), social profiles and placeholder links, head tags (charset, favicon, Twitter card, Open Graph keys, meta refresh, hreflang validation), URL hygiene, mixed content, text-to-HTML ratio, DOM size, image format, dimensions and LCP lazy-loading, JSON-LD parse errors and missing or empty required properties per type, and template detection (table of contents, author block and author page link, dates, breadcrumb, commercial links in the body, blog hub card images). Site-wide: robots.txt rules for AI search bots, AI user-fetch agents, and AI training bots (three separate groups), sitemap declaration and URL count, llms.txt presence.
 
 Known limits, and what to do about each:
 
@@ -64,7 +64,7 @@ Known limits, and what to do about each:
 
 ## Phase 2: analyze against the checklist
 
-Read `references/audit-checklist.md` now. It contains the full 14-category checklist with thresholds, detection methods, and the reason behind each rule. Work through it in this order, skipping categories that do not apply to the site type:
+Read `references/audit-checklist.md` now. It contains the full 15-category checklist with thresholds, detection methods, and the reason behind each rule. Work through it in this order, skipping categories that do not apply to the site type:
 
 | # | Category | Applies to |
 |---|---|---|
@@ -82,6 +82,7 @@ Read `references/audit-checklist.md` now. It contains the full 14-category check
 | 12 | Backlinks and mentions | all |
 | 13 | Local (Google Business Profile) | local businesses |
 | 14 | Migration risks | sites about to change domain, CMS or structure |
+| 15 | Measured page checks (the script's FINDINGS codes and scores) | all |
 
 While analyzing:
 
@@ -120,6 +121,8 @@ Reassure before you criticize: lead with honest numbered reference points ("this
 | Wrong or missing keywords, cannibalization | seo-keyword-research |
 | Weak or thin articles | seo-content-blog |
 | Product page issues | seo-content-product-page |
+| Thin homepage or sales page (no bold, no proof numbers, generic FAQ, no Organization or Course schema) | seo-content-homepage |
+| Article template gaps (no table of contents, author box, dates, CTA) or a blog hub without cover images | seo-content-blog (references/blog-templates.md) |
 | Service pages missing or merged | seo-content-service-page |
 | Category pages with no content | seo-content-collection-page |
 | Whole blocks absent from a page (no FAQ, no breadcrumb, no price in text) | seo-page-sections |

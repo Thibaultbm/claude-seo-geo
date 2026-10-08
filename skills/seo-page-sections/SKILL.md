@@ -42,7 +42,7 @@ Do this in two steps, because the most expensive gap is not a missing block, it 
 | comparison | "X vs Y", "alternatives to X", "best X for Y" | seo-content-comparison-page |
 | audience | "for agencies", "for freelancers", one segment, same product | seo-content-comparison-page (segment section) |
 | article | Single editorial post, author, date | seo-content-blog |
-| homepage | Root URL, whole-offer overview | references/transverse-pages.md |
+| homepage | Root URL, whole-offer overview | seo-content-homepage (copy and block order), references/transverse-pages.md (wireframe) |
 | pricing | Plans, prices, plan comparison | references/transverse-pages.md |
 | about | Company story, team, proof | references/transverse-pages.md |
 | contact | Form, coordinates, hours | references/transverse-pages.md |

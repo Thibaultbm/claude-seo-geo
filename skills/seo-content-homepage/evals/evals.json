@@ -1,0 +1,17 @@
+{
+  "skill_name": "seo-content-homepage",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here is my coaching homepage: hero with a slogan, three icons, a video, a FAQ with 'What is poker?' and 'What is a range?'. About 850 words, no bold, no structured data. Rewrite it so it ranks on 'coaching poker' and converts.",
+      "expected_output": "Starts by asking for or flagging the missing facts (real results with names and timeframes, founder credentials, price or range, guarantee, real social profile URLs) and marks unknowns as {to confirm} instead of inventing them. Recommends benchmarking 3-5 ranking competitors with section_audit.py and seo_audit.py and producing a block x competitor table. Delivers the block list in order (hero with category term in the H1 and one proof number, proof strip, problem, named method, offer routing cards, results with numbers, testimonials, founder with credentials and link to the about page, comparison table, for / not for, guarantee, lead magnet, latest articles with covers, FAQ of 8-12 real objections replacing the definition questions, a 300+ word descriptive block, final CTA, footer with real social profiles). The copy targets 1500-1800 words, bolds the category term in the first paragraph and one fact or benefit every 100-150 words, puts a number in every block, phrases at least 3 H2s as buyer questions, adds a results disclaimer plus 18+ and responsible-gambling mentions because the topic is gambling and income. Provides Organization + WebSite + Person JSON-LD with sameAs. Ends with the verification pass using seo_audit.py (no high finding, bold present, placement 60%+, no schema findings, no social placeholder). No em dashes.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Write the sales page for my 6-month online trading mentorship. Price 2000 euros, application call required.",
+      "expected_output": "Follows the offer-page sequence: hero with offer name and outcome plus founder or sales video, proof strip, problem, named method, program contents by module with lesson and hour counts, format and workload, results with named clients and timeframes, testimonials, coach block, comparison table versus alternatives, price shown as HTML text with payment options, exact guarantee terms or none stated, real bonuses only, 3-4 step process to join with the application call, for / not for, 10-15 objection FAQ, final CTA. Flags trading as a money topic: results stated as observed outcomes of named clients, a risk and results disclaimer near claims and in the footer, no guaranteed returns. Provides Course JSON-LD (name, description, provider, offers with price 2000 EUR, hasCourseInstance) and notes that only what the page shows can be marked up. Placeholders for unconfirmed facts. No em dashes.",
+      "files": []
+    }
+  ]
+}

@@ -67,7 +67,8 @@ Record per page type: which schema types exist, whether they validate, and wheth
 | Product page | Product, Offer, AggregateRating and Review when real reviews are displayed | Invented ratings |
 | Service page | Service or WebPage, Organization reference | Self-serving review stars |
 | Location page | LocalBusiness, most specific subtype available (pair with the seo-local skill) | LocalBusiness on a business with no physical premises |
-| Author page | Person or ProfilePage | |
+| Author page | ProfilePage with mainEntity Person (same @id as every article byline, sameAs to the real profiles) | |
+| Training, coaching or course program page | Course (name, description, provider, offers when the price is public, hasCourseInstance with courseMode and courseWorkload); or Service when it is one-to-one coaching with no syllabus | Self-collected review stars on the program |
 | Video page | VideoObject | |
 | Event page | Event | |
 | SaaS pricing page | Product or Service with Offer when prices are public | "From" prices not shown on the page |
@@ -186,6 +187,7 @@ The fields that most often make the difference between valid markup and an actua
 | LocalBusiness | name, address | telephone, geo, openingHoursSpecification, priceRange, specific subtype |
 | BreadcrumbList | itemListElement with position and name; item URL on all but the last element | |
 | VideoObject | name, thumbnailUrl, uploadDate | duration, contentUrl, description |
+| Course | name, description, provider | offers (price, priceCurrency, category), hasCourseInstance (courseMode, courseWorkload or courseSchedule), inLanguage, educationalLevel |
 
 When in doubt, the Rich Results Test reports exactly which required field is missing for the targeted surface; trust it over memory.
 
@@ -197,6 +199,7 @@ When in doubt, the Rich Results Test reports exactly which required field is mis
 | Invalid object type for field "author" | author set to a plain string | Use a Person object, ideally an @id reference to the author node |
 | Either "ratingCount" or "reviewCount" should be specified | AggregateRating missing its count | Add the real displayed count |
 | Date not in ISO 8601 | Locale-formatted dates from the CMS | Output YYYY-MM-DD (or full ISO timestamps) |
+| Empty `name` on Question or empty `text` on Answer | Template outputs FAQ or Q&A markup before the CMS fields are filled | Render the node only when the field has content; `seo_audit.py` flags it as `schema_fields` |
 | Duplicate field or duplicate type on the page | Plugin @graph plus a manually pasted block | One source of truth per page (Step 3) |
 | Parsing error: missing comma, unclosed brace | Hand-edited JSON | Generate from references/jsonld-templates.md; lint before deploy |
 

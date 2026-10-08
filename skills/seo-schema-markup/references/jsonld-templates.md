@@ -174,6 +174,37 @@ The last item carries no "item" URL: it is the current page.
       ]
     }
 
+## Course (training, mentoring or coaching program)
+
+For a program with a curriculum (modules, sessions, a defined workload). One-to-one coaching with no syllabus is a Service instead. Show the price on the page if it is in the markup.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "@id": "https://example.com/program/#course",
+  "name": "Program name",
+  "description": "What the learner will be able to do at the end, in one or two sentences.",
+  "provider": { "@id": "https://example.com/#organization" },
+  "inLanguage": "fr",
+  "educationalLevel": "Beginner to intermediate",
+  "offers": {
+    "@type": "Offer",
+    "category": "Paid",
+    "price": "997",
+    "priceCurrency": "EUR",
+    "url": "https://example.com/program/"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "Online",
+    "courseWorkload": "PT30H"
+  }
+}
+```
+
+`courseWorkload` is the total estimated time to complete the program as an ISO 8601 duration (PT30H = 30 hours); for a recurring rhythm (1 hour a day) use `courseSchedule` with `repeatFrequency` and `duration` instead. Never mark up a price, a rating or a session that the page does not show.
+
 ## Wiring it together: one graph
 
 A blog post page declaring Article, its author, and the publisher in a single @graph. The Organization and Person nodes can be short references because the full nodes live on the homepage and the author page under the same @id values.
