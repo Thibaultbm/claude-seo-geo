@@ -53,7 +53,7 @@ Ask for, or pull from the vault, before writing a line. Missing facts become vis
 
 ### 1.2 Homepage requirements (HOME)
 
-Common requirements C-01 to C-26: skills/seo-geo-audit/references/common-page-spec.md. They apply to all three pages and are not repeated here. Thresholds are field heuristics from 115+ agency audits unless marked measured; "14 sites" counts come from the October 2026 coaching benchmark in `references/block-library.md` section 5. Block details (minimum spec per block) live in `references/block-library.md` section 1, same numbering.
+Common requirements C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md. They apply to all three pages and are not repeated here. Thresholds are field heuristics from 115+ agency audits unless marked measured; "14 sites" counts come from the October 2026 coaching benchmark in `references/block-library.md` section 5. Block details (minimum spec per block) live in `references/block-library.md` section 1, same numbering.
 
 | ID | Requirement | Threshold | Verified by | Why |
 |---|---|---|---|---|
@@ -271,7 +271,7 @@ The full table is in `references/block-library.md` section 5 (14 poker coaching 
 ```markdown
 ## 1. Spec scorecard
 | ID | Requirement | Status (Pass / Fail / Not verifiable) | Evidence |
-(C-01 to C-26, HOME-01 to HOME-33, OFFER-01 to OFFER-20, ABOUT blocks)
+(C-01 to C-27, HOME-01 to HOME-33, OFFER-01 to OFFER-20, ABOUT blocks)
 
 ## 2. Audit findings
 (seo_audit.py SEO and GEO scores per page and high or medium findings; section_audit.py blocks for home, offer and about; or "new page")

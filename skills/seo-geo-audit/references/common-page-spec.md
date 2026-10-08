@@ -15,7 +15,7 @@ The requirements every indexable page must meet, whatever its type. Each page sk
 | C-05 | Self-referencing canonical | present, absolute | canonical_missing, canonical_other | Duplicate control |
 | C-06 | Open Graph and Twitter card | og:title, og:description, og:image, og:url, twitter:card | og_missing, og_image_missing, twitter_missing | Link previews where shares happen |
 | C-07 | Head basics | viewport, html lang, charset, favicon | viewport_missing, lang_missing, charset_missing, favicon_missing | Mobile-first indexing, language targeting, result icon |
-| C-08 | Length at or above the competitor median for the query | page-type floor in the page skill | thin_content, page_benchmark.py "words" | Coverage the SERP already rewards |
+| C-08 | Length at or above the competitor median for the query, and the subtopics competitors cover | page-type floor in the page skill; no relevant term from the vocabulary gap left uncovered | thin_content, page_benchmark.py "words" and VOCABULARY GAP | Coverage the SERP already rewards |
 | C-09 | Semantic bolding | target keyword bold once in the first paragraph; one bold phrase on a fact or benefit every 100-150 words; never whole sentences | no_bold, kw_not_bold | Visible relevance and scannability; skimmers read bold and headings |
 | C-10 | Keyword placement | title and H1 terms in 60%+ of the zones (title, H1, H2-H6, meta, URL, first 100 words, bold, image alt) | kw_placement_low, kw_not_in_intro | The placement matrix |
 | C-11 | No over-optimization | no term above 2.5% of content words (brand names aside), never above 7% | keyword_stuffing | Stuffing lowers rankings and generative visibility |
@@ -34,6 +34,7 @@ The requirements every indexable page must meet, whatever its type. Each page sk
 | C-24 | Claims are honest | results and income promises carry a "not guaranteed" disclaimer; superlatives ("n°1", "best") carry a source; regulated topics (gambling, finance, health) carry the legal notices | claim_no_disclaimer, superlative_claim, gambling_notice_missing | Your Money or Your Life scrutiny and advertising law |
 | C-25 | No em dashes or en dashes | 0 | em_dashes | The most recognizable AI-writing tell |
 | C-26 | Speed and weight | HTML under 1.5 MB, DOM under 1500 elements, no mixed content; Core Web Vitals from PageSpeed when available | html_size, dom_size, mixed_content (manual for Core Web Vitals) | Ranking and crawl factor |
+| C-27 | Reachable and unique in the site | 3+ inbound internal links, within 3 clicks of the homepage, no internal link pointing to a redirect, no other page with the same title, H1 or target terms | site_crawl.py (weak inbound, depth, links to redirects, duplicates, cannibalization) | Discovery, authority flow, and one page per intent |
 
 ## How a page skill uses this file
 

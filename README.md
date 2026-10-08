@@ -4,7 +4,7 @@
 
 **SEO and GEO skills that work like a specification: they audit a page, compare it with the competitors that rank, and build the fix.** Rank in Google and get cited by ChatGPT, Perplexity, Gemini and Google AI Overviews.
 
-20 skills, 7 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
+20 skills, 9 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
 
 ## How a page skill works
 
@@ -12,7 +12,7 @@ Every skill that owns a page type (homepage and sales page, service, product, co
 
 | Phase | Question | What runs | Output |
 |---|---|---|---|
-| 1. Spec | What must a page of this type contain? | The skill's specification table (stable IDs such as SVC-07) plus the 26 common requirements every page shares | The checklist |
+| 1. Spec | What must a page of this type contain? | The skill's specification table (stable IDs such as SVC-07) plus the 27 common requirements every page shares | The checklist |
 | 2. Audit | What does the page contain today? | `seo_audit.py` (scores and findings) and `section_audit.py` (blocks present) | Every requirement marked Pass, Fail or Not verifiable |
 | 3. Benchmark | What do the pages that rank, and that AI assistants cite, contain? | `page_benchmark.py` on your page and 3-5 competitor pages | Block x competitor table, the blocks most competitors have and you do not, the metrics where you sit below the median |
 | 4. Build | What do we write, and when is it done? | The skill's wireframe, copy rules and JSON-LD templates | The page, then the scripts re-run as the acceptance test |
@@ -38,6 +38,15 @@ CLIENT BELOW THE COMPETITOR MEDIAN:
   - words: client 847 vs median 2187
   - bold: client 0 vs median 6
 ```
+
+### Site level: crawl and decay
+
+```
+python3 skills/seo-internal-linking/scripts/site_crawl.py https://your-site.com --out crawl.json
+python3 skills/seo-traffic-drop/scripts/content_decay.py --current last3m.csv --previous prev3m.csv --last-year ly3m.csv --crawl crawl.json
+```
+
+The crawl finds what no single-page audit can see (orphans, internal links pointing to redirects, cannibalization, pages buried deeper than 3 clicks). The decay finder turns three Search Console exports into a refresh queue: which pages lose traffic, why, and what to do.
 
 ### What the audit measures
 
@@ -96,7 +105,9 @@ All standard-library Python 3.9+, read only, no API key, no install.
 | Script | What it does |
 |---|---|
 | `skills/seo-geo-audit/scripts/seo_audit.py` | Per page: SEO and GEO scores, ranked findings, every fact listed above; site-level robots, sitemap, llms.txt |
-| `skills/seo-geo-audit/scripts/page_benchmark.py` | Your page against 3-5 competitor pages: one table, block gaps, schema gaps, metrics below the median |
+| `skills/seo-geo-audit/scripts/page_benchmark.py` | Your page against 3-5 competitor pages: one table, block gaps, schema gaps, metrics below the median, and the vocabulary gap (terms and phrases half the competitors use and you never do, with the headings that carry them) |
+| `skills/seo-internal-linking/scripts/site_crawl.py` | Crawls the whole site from the homepage: orphans, click depth, weak inbound links, broken links and redirects, duplicate titles, meta and H1, thin pages, cannibalization candidates, generic anchors, stale pages, sitemap entries that should not be there |
+| `skills/seo-traffic-drop/scripts/content_decay.py` | From Search Console exports: the pages slowly losing clicks, classified as ranking loss, CTR loss, demand loss or seasonal, stale pages first, with the action for each |
 | `skills/seo-page-sections/scripts/section_audit.py` | Which blocks a page has (FAQ, breadcrumb, comparison table, reviews, guarantee, process, author...) |
 | `skills/seo-ai-site-builders/scripts/render_check.py` | What crawlers receive from a JavaScript site, by user agent, plus a soft-404 probe |
 | `skills/seo-traffic-drop/scripts/gsc_diff.py` | Locates a traffic drop in Search Console exports |
@@ -198,7 +209,7 @@ claude-seo-geo/
   AGENTS.md              using the skills outside Claude Code
 ```
 
-The 26 requirements shared by every page type live in `skills/seo-geo-audit/references/common-page-spec.md`; each finding code is explained in section 15 of `skills/seo-geo-audit/references/audit-checklist.md`.
+The 27 requirements shared by every page type live in `skills/seo-geo-audit/references/common-page-spec.md`; each finding code is explained in section 15 of `skills/seo-geo-audit/references/audit-checklist.md`.
 
 ## Contributing
 

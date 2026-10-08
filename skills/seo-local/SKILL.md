@@ -41,7 +41,7 @@ Stay in scope. Hand adjacent work to the right skill:
 
 ## Phase 1. The spec
 
-Four tables: the location page (LOC), the Google Business Profile (GBP), the review program (REV), and NAP and citations (CIT). Common requirements C-01 to C-26: skills/seo-geo-audit/references/common-page-spec.md. They apply to the location page in full (title, meta, H1, canonical, images, breadcrumb, structured data validity, server HTML, em dashes); the LOC rows below only add what is specific to a local page. "Verified by" is a `seo_audit.py` finding code, a `section_audit.py` block, or "manual".
+Four tables: the location page (LOC), the Google Business Profile (GBP), the review program (REV), and NAP and citations (CIT). Common requirements C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md. They apply to the location page in full (title, meta, H1, canonical, images, breadcrumb, structured data validity, server HTML, em dashes); the LOC rows below only add what is specific to a local page. "Verified by" is a `seo_audit.py` finding code, a `section_audit.py` block, or "manual".
 
 ### Location page (LOC)
 
@@ -127,7 +127,7 @@ Map the output to the spec, then mark every row Pass, Fail or Not verifiable wit
 
 | Script output | Spec rows |
 |---|---|
-| seo_audit.py findings (title_short, meta_missing, h1_missing, canonical_missing, alt_missing, em_dashes...) | C-01 to C-26 |
+| seo_audit.py findings (title_short, meta_missing, h1_missing, canonical_missing, alt_missing, em_dashes...) | C-01 to C-27 |
 | kw_placement_low, kw_not_in_intro (and the placement matrix: is the city in each zone?) | LOC-01, C-10 |
 | schema_none, schema_fields, jsonld_invalid, JSON-LD properties missing per type | LOC-13, C-18 |
 | thin_content, word count | LOC-19, C-08 |
@@ -360,7 +360,7 @@ Apply all of the following (the five checks of the GEO pass in the deliverable):
 ```markdown
 ## 1. Spec scorecard
 | ID | Requirement | Status (Pass / Fail / Not verifiable) | Evidence |
-(C-01 to C-26 and LOC rows for the location page; GBP, REV and CIT rows for the profile, reviews and citations)
+(C-01 to C-27 and LOC rows for the location page; GBP, REV and CIT rows for the profile, reviews and citations)
 
 ## 2. Audit findings
 (seo_audit.py scores and high or medium findings, section_audit.py --type location blocks; or "new page";

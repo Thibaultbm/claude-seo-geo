@@ -52,13 +52,21 @@ python3 scripts/seo_audit.py https://example.com /services /blog/top-article
 
 It returns, per page: a page kind (homepage, article, blog hub, product, page), an SEO score and a GEO score out of 100 with a ranked FINDINGS list (same thresholds and weights as the Sorank SEO Analyzer extension, codes explained in checklist section 15), and the facts behind them: HTTP status, HTTPS, platform fingerprint, title (with generic-title flag), meta description length, full heading hierarchy with level jumps, image alt coverage and weight sample, internal versus external link counts, Open Graph, canonical, JSON-LD types, visible word count, meta robots, an em dash and en dash count with samples (checklist 6.4: an AI-writing tell to find-and-replace with commas), a `likely_js_rendered` flag, bold count and samples, top terms with density and two-word phrases, the keyword placement matrix (title and H1 terms across title, H1, H2-H6, meta, URL, intro, bold, alt), readability (sentence-length buckets, Flesch), citability counts (statistics, definitions, quotes, question headings, snippable paragraphs), link quality (nofollow, sponsored, ugc, empty and generic anchors), social profiles and placeholder links, head tags (charset, favicon, Twitter card, Open Graph keys, meta refresh, hreflang validation), URL hygiene, mixed content, text-to-HTML ratio, DOM size, image format, dimensions and LCP lazy-loading, JSON-LD parse errors and missing or empty required properties per type, and template detection (table of contents, author block and author page link, dates, breadcrumb, commercial links in the body, blog hub card images). Site-wide: robots.txt rules for AI search bots, AI user-fetch agents, and AI training bots (three separate groups), sitemap declaration and URL count, llms.txt presence.
 
+For the site-level view a page audit cannot give (orphans, click depth, weak inbound links, broken links and redirects, duplicate titles and H1, cannibalization candidates, stale pages), crawl the site:
+
+```
+python3 ../seo-internal-linking/scripts/site_crawl.py https://example.com --max-pages 500 --out crawl.json
+```
+
+With Search Console exports for two consecutive periods (and the same period a year earlier), `../seo-traffic-drop/scripts/content_decay.py` lists the pages losing traffic and why (ranking, CTR, demand, seasonal), stale pages first.
+
 To compare one page with the pages that outrank it, run the benchmark on the client page and 3-5 competitor pages of the same type:
 
 ```
 python3 scripts/page_benchmark.py --type service https://example.com/service https://rival-a.com/service https://rival-b.com/service
 ```
 
-It prints one table (scores, words, bold, headings, tables, statistics, placement, schema, template blocks, social profiles, and every block `section_audit.py` detects), the blocks half or more of the competitors have and the client does not, the schema types they use, and the metrics where the client sits below the competitor median. The page skills (homepage, service, product, collection, comparison, blog, local, page sections) run it as their Phase 3; the 26 requirements every page shares are in `references/common-page-spec.md`.
+It prints one table (scores, words, bold, headings, tables, statistics, placement, schema, template blocks, social profiles, and every block `section_audit.py` detects), the blocks half or more of the competitors have and the client does not, the schema types they use, the metrics where the client sits below the competitor median, and the vocabulary gap (terms and phrases half the competitors use and the client never does, with the competitor headings that carry them). The page skills (homepage, service, product, collection, comparison, blog, local, page sections) run it as their Phase 3; the 27 requirements every page shares are in `references/common-page-spec.md`.
 
 Known limits, and what to do about each:
 

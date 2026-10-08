@@ -12,7 +12,7 @@ Levels:
 
 "Why" states the job the block does. When two audiences are named, the block earns its place with both a human buyer and an AI assistant, which is why it survives layout pressure.
 
-Every type below assumes the universal baseline is already true. Check it once per page, before the type-specific list. In the spec, the baseline rows are the common rows C-01 to C-26 (`skills/seo-geo-audit/references/common-page-spec.md`) and SEC-03, SEC-07, SEC-21 to SEC-25 (SKILL.md).
+Every type below assumes the universal baseline is already true. Check it once per page, before the type-specific list. In the spec, the baseline rows are the common rows C-01 to C-27 (`skills/seo-geo-audit/references/common-page-spec.md`) and SEC-03, SEC-07, SEC-21 to SEC-25 (SKILL.md).
 
 ## Universal baseline (all types)
 

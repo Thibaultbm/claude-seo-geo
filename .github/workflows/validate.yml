@@ -19,6 +19,10 @@ jobs:
         run: python3 -c "import ast; ast.parse(open('skills/seo-geo-audit/scripts/seo_audit.py').read())"
       - name: Smoke-test the page benchmark (offline parse only)
         run: python3 -c "import ast; ast.parse(open('skills/seo-geo-audit/scripts/page_benchmark.py').read())"
+      - name: Smoke-test the site crawler and the decay finder (offline parse only)
+        run: |
+          python3 -c "import ast; ast.parse(open('skills/seo-internal-linking/scripts/site_crawl.py').read())"
+          python3 -c "import ast; ast.parse(open('skills/seo-traffic-drop/scripts/content_decay.py').read())"
       - name: Smoke-test the rendering checker (offline parse only)
         run: python3 -c "import ast; ast.parse(open('skills/seo-ai-site-builders/scripts/render_check.py').read())"
       - name: Smoke-test the Search Console differ (offline parse only)

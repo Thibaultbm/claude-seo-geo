@@ -41,7 +41,7 @@ If the working environment contains an Obsidian vault or any local knowledge bas
 
 ## Phase 1. The spec
 
-Common requirements C-01 to C-26: skills/seo-geo-audit/references/common-page-spec.md. Every C row applies to a PDP; the rows below are the product-specific ones. "Verified by" is a `seo_audit.py` finding code, a `section_audit.py --type product` block, or "manual".
+Common requirements C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md. Every C row applies to a PDP; the rows below are the product-specific ones. "Verified by" is a `seo_audit.py` finding code, a `section_audit.py --type product` block, or "manual".
 
 | ID | Requirement | Threshold | Verified by | Why |
 |---|---|---|---|---|
@@ -391,6 +391,6 @@ the information gain chosen)
 - https://support.google.com/merchants/answer/6324350 (Merchant Center image requirements)
 - https://developers.google.com/search/docs/appearance/structured-data/product-variants (variant URL handling)
 - https://developers.google.com/search/docs/appearance/title-link (title rewriting behavior)
-- skills/seo-geo-audit/references/common-page-spec.md (common rows C-01 to C-26) and audit-checklist.md section 15 (finding codes)
+- skills/seo-geo-audit/references/common-page-spec.md (common rows C-01 to C-27) and audit-checklist.md section 15 (finding codes)
 
 All thresholds labeled "field heuristic from 115+ agency audits" come from recurring patterns in real audit work, not from controlled studies. Treat them as strong defaults to adapt, not as guarantees.

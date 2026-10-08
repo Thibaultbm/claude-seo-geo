@@ -63,7 +63,7 @@ Why: Google ranks pages, not sites, for transactional queries. A page about ever
 
 ### 1b. The service page spec
 
-Common requirements C-01 to C-26: skills/seo-geo-audit/references/common-page-spec.md. Every C row applies to a service page; the rows below add what is specific to it. "Verified by" is a `seo_audit.py` finding code, a `section_audit.py --type service` block, or manual.
+Common requirements C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md. Every C row applies to a service page; the rows below add what is specific to it. "Verified by" is a `seo_audit.py` finding code, a `section_audit.py --type service` block, or manual.
 
 | ID | Requirement | Threshold | Verified by | Why |
 |---|---|---|---|---|
