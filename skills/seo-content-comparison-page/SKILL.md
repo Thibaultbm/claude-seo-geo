@@ -40,7 +40,7 @@ If the working environment contains an Obsidian vault or any local knowledge bas
 
 ## Phase 1. The spec
 
-Common requirements C-01 to C-26: skills/seo-geo-audit/references/common-page-spec.md
+Common requirements C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md
 
 The rows below are what a comparison or segment page adds on top of them. Thresholds are field heuristics from agency audits unless marked measured. Levels follow `seo-page-sections/references/page-type-matrix.md` sections 5 and 6: every row is required unless its Threshold says "recommended" or "optional".
 
@@ -316,5 +316,5 @@ next verification date)
 - AI Mode versus top 10 organic overlap (32 percent URL overlap): https://www.semrush.com/blog/ai-mode-comparison-study/
 - Google guidance on AI features and structured data: https://developers.google.com/search/docs/appearance/ai-features
 - Google structured data policies (markup must match visible content): https://developers.google.com/search/docs/appearance/structured-data/sd-policies
-- Common page spec C-01 to C-26 and the script finding codes: skills/seo-geo-audit/references/common-page-spec.md, skills/seo-geo-audit/references/audit-checklist.md section 15.
+- Common page spec C-01 to C-27 and the script finding codes: skills/seo-geo-audit/references/common-page-spec.md, skills/seo-geo-audit/references/audit-checklist.md section 15.
 - Criteria counts, 100-word verdict, quarterly refresh, bold cadence, challenger heuristic: field heuristics from agency audits, not Google statements.

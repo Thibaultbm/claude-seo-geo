@@ -46,7 +46,7 @@ Lock the target before reading the spec:
 - The commercial pages this article must support with internal links.
 - Whether an existing article already covers this intent. If yes, rewrite it instead of creating a new one (BLOG-01).
 
-Common requirements C-01 to C-26: skills/seo-geo-audit/references/common-page-spec.md
+Common requirements C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md
 
 Every C row applies to the article, the hub and the author page. The rows below are blog-specific; "tightens C-xx" means the row sets the blog value of a common row, which still applies. Thresholds are field heuristics from 115+ agency audits unless marked measured.
 
@@ -135,7 +135,18 @@ python3 skills/seo-page-sections/scripts/section_audit.py --type blog https://ex
 
 Rows no script sees (BLOG-01, 02 pattern, 04, 06 autonomy, 09 source types, 11, 12 PAA match, 14, 17 sticky behavior, 19, 23 to 25, 28, 32 to 34, 36): read the page in a browser at desktop and mobile width. Mark every BLOG and C row Pass, Fail or Not verifiable; Not verifiable is the honest status when the page is client-rendered (C-21) or the draft is not live, in which case grade the draft text by hand. For a new article, skip the article audit but still audit one existing post and the hub: the template is shared, so its failures will repeat on the new post.
 
+**Refresh mode: which posts to rewrite first.** When the job is "refresh the blog" rather than one post, rank the posts before auditing any of them. Export Pages.csv from Search Console for the last 3 months, the 3 months before, and the same 3 months a year earlier, crawl the site, then run the decay finder:
+
+```
+python3 skills/seo-internal-linking/scripts/site_crawl.py https://example.com --out crawl.json
+python3 skills/seo-traffic-drop/scripts/content_decay.py --current last3m.csv --previous prev3m.csv --last-year ly3m.csv --crawl crawl.json
+```
+
+It returns a refresh queue: posts losing 20%+ of their clicks, classified as ranking loss (refresh the content and benchmark the pages that passed it), CTR loss (rewrite title and meta, sharpen the answer-first block, check for an AI Overview), demand loss (widen, merge or accept) or seasonal (no action), with stale posts (a past year in the title, no update for 12+ months) first. Take the queue top-down through Phases 2 to 4; this is the rewrite-first rule (Rules and thresholds) made measurable.
+
 ## Phase 3. Benchmark the competitors
+
+`page_benchmark.py` also prints the vocabulary gap: the terms and two-word phrases that half or more of the competitors use and the article never does, with the competitor H2/H3 that carry them. Treat it as the coverage checklist for the outline (a missing subtopic becomes a section), never as words to sprinkle.
 
 Read the SERP before writing a single line. Pick the top 3-5 Google results for the keyword in the target market (articles answering the same intent; if forums or videos dominate, that is a format signal to record), plus any page ChatGPT, Perplexity or AI Overviews cite when asked the query. Run:
 

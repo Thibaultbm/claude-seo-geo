@@ -47,7 +47,13 @@ Why: internal linking is authority budgeting; you cannot route equity before dec
 
 ### Step 2. Detect orphan pages
 
-Compare the full sitemap URL list against a crawl that starts from the homepage and follows links only. Any URL present in the sitemap but unreachable through links is an orphan. For the crawl and link graph collection, run the bundled audit script from the seo-geo-audit skill (scripts/seo_audit.py).
+Compare the full sitemap URL list against a crawl that starts from the homepage and follows links only. Any URL present in the sitemap but unreachable through links is an orphan. For the crawl and link graph collection, run the bundled crawler:
+
+```
+python3 scripts/site_crawl.py https://example.com --max-pages 500 --out crawl.json
+```
+
+It follows internal links from the homepage (respecting robots.txt) and reports orphans (sitemap URLs never reached by links), click depth, pages with fewer than 3 inbound internal links, broken internal links, links pointing to redirects, redirect chains, linked pages that are noindex or canonicalized away, sitemap entries that should not be there, duplicate titles, meta descriptions and H1, thin pages, cannibalization candidates (same target terms in title and H1, compared within one language), pages whose inbound anchors are mostly generic, and stale pages. If the crawl hits `--max-pages`, raise it before trusting the orphan list.
 
 Orphan causes to check explicitly:
 
@@ -93,7 +99,7 @@ Example for a plumbing company:
 
 ### Step 7. Verify
 
-Re-crawl and confirm: zero orphans, every priority money page has at least 3 inbound internal links from articles, anchors varied, links visibly styled, breadcrumbs sitewide, priority pages within 3 clicks of the homepage.
+Re-crawl with `scripts/site_crawl.py` and confirm: zero orphans, zero links pointing to redirects, every priority money page has at least 3 inbound internal links from articles, anchors varied, links visibly styled, breadcrumbs sitewide, priority pages within 3 clicks of the homepage.
 
 ## Rules and thresholds
 

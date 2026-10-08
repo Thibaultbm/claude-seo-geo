@@ -40,7 +40,7 @@ If the working environment contains an Obsidian vault or any local knowledge bas
 
 ## Phase 1. The spec
 
-Common requirements C-01 to C-26: skills/seo-geo-audit/references/common-page-spec.md. Every collection page must pass them too; the rows below only add or sharpen what is specific to a listing page. Evidence labels: "measured" (with source), "Google documentation", "standard practice", or "field heuristic from 115+ agency audits".
+Common requirements C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md. Every collection page must pass them too; the rows below only add or sharpen what is specific to a listing page. Evidence labels: "measured" (with source), "Google documentation", "standard practice", or "field heuristic from 115+ agency audits".
 
 | ID | Requirement | Threshold | Verified by | Why |
 |---|---|---|---|---|
@@ -397,6 +397,6 @@ URL: {url} | Target query: {category keyword} (intent: commercial) | Date: {date
 - https://ahrefs.com/blog/why-chatgpt-cites-pages/ (descriptive slugs, 89.78 vs 81.11 percent citation correlation)
 - https://almcorp.com/blog/ai-citations-listicles-articles-product-pages/ (listicle and product page shares of AI citations)
 - https://vercel.com/blog/the-rise-of-the-ai-crawler (AI crawlers do not execute JavaScript, measured)
-- Common page spec C-01 to C-26: skills/seo-geo-audit/references/common-page-spec.md; finding codes: skills/seo-geo-audit/references/audit-checklist.md section 15
+- Common page spec C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md; finding codes: skills/seo-geo-audit/references/audit-checklist.md section 15
 
 All thresholds labeled "field heuristic from 115+ agency audits" come from recurring patterns in real audit work, not from controlled studies. Treat them as strong defaults to adapt, not as guarantees.

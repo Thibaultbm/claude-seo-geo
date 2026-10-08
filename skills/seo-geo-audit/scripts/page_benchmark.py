@@ -9,8 +9,11 @@ bundled collectors on the client page and on each competitor page:
   - section_audit.py  (seo-page-sections/scripts): which page blocks exist
 
 and prints one comparison table, the blocks most competitors have and the
-client does not, and the metrics where the client sits below the competitor
-median. The verdict (which gaps matter for this query) stays with the model.
+client does not, the metrics where the client sits below the competitor
+median, and the vocabulary gap: the terms and two-word phrases that half or
+more of the competitors use (and 2 at least) and the client page never does,
+with the competitor headings that carry them. The verdict (which gaps matter
+for this query) stays with the model.
 
 Zero external dependencies (standard library only, Python 3.9+), read only.
 
@@ -20,8 +23,11 @@ Usage:
 """
 
 import argparse
+import importlib.util
 import json
+import math
 import os
+import re
 import statistics
 import subprocess
 import sys
@@ -32,6 +38,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SEO_AUDIT = os.path.join(HERE, "seo_audit.py")
 SECTION_AUDIT = os.path.normpath(os.path.join(HERE, "..", "..", "seo-page-sections",
                                               "scripts", "section_audit.py"))
+
+_spec = importlib.util.spec_from_file_location("seo_audit", SEO_AUDIT)
+SA = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(SA)
+
 TYPES = ["product", "service", "collection", "location", "comparison", "audience", "blog",
          "homepage", "pricing", "about", "contact"]
 
@@ -86,6 +97,8 @@ def collect(url, page_type):
     else:
         row["error"] = "seo_audit: no output"
 
+    row["terms"], row["bigrams"], row["subheads"] = vocabulary(url)
+
     cmd = [sys.executable, SECTION_AUDIT, "--json-only", url]
     if page_type:
         cmd[2:2] = ["--type", page_type]
@@ -96,6 +109,47 @@ def collect(url, page_type):
     except Exception:
         row["blocks"] = {}
     return row
+
+
+def vocabulary(url):
+    """Content-term and two-word-phrase counts of the main content, plus the
+    H2/H3 texts, read with the same parser as seo_audit.py."""
+    try:
+        final, _, headers, body = SA.fetch(url)
+        m = re.search(r"charset=([\w-]+)", headers.get("Content-Type", ""), re.I)
+        html = body.decode(m.group(1) if m else "utf-8", errors="replace")
+        p = SA.Page()
+        p.feed(html)
+    except Exception:
+        return {}, {}, []
+    terms = SA._content_terms(p.content_text())
+    uni, bi = {}, {}
+    for t in terms:
+        uni[t] = uni.get(t, 0) + 1
+    for a, b in zip(terms, terms[1:]):
+        if a != b:
+            k = a + " " + b
+            bi[k] = bi.get(k, 0) + 1
+    heads = [t for lvl, t, _ in p.headings if lvl in (2, 3) and t]
+    return uni, bi, heads
+
+
+def term_gap(client, rivals, key, min_count):
+    """Terms used by half the competitors or more (2 at least), absent from the client."""
+    if not rivals:
+        return []
+    need = max(2, math.ceil(len(rivals) / 2))
+    df, tot = {}, {}
+    for r in rivals:
+        for t, n in r.get(key, {}).items():
+            if n >= min_count:
+                df[t] = df.get(t, 0) + 1
+                tot[t] = tot.get(t, 0) + n
+    have = client.get(key, {})
+    gap = [{"term": t, "competitors": d, "avg_count": round(tot[t] / d, 1)}
+           for t, d in df.items() if d >= need and not have.get(t)]
+    gap.sort(key=lambda x: (-x["competitors"], -x["avg_count"]))
+    return gap
 
 
 def fmt_cell(v):
@@ -144,7 +198,25 @@ def main():
             if client[k] < med:
                 below.append({"metric": k, "client": client[k], "median": med, "max": max(vals)})
 
-    report = {"type": args.type, "rows": rows, "block_gaps": [{"block": b, "competitors": n} for b, n in gaps],
+    # Vocabulary gap: unigrams used twice or more per page, bigrams once or more
+    uni_gap = term_gap(client, rivals, "terms", 2)[:40]
+    bi_gap = term_gap(client, rivals, "bigrams", 1)[:25]
+    gap_terms = {g["term"] for g in uni_gap[:20]}
+    gap_phrases = [g["term"] for g in bi_gap[:15]]
+    head_gap = []
+    for r in rivals:
+        for h in r.get("subheads", []):
+            ht = SA._content_terms(h)
+            seq = " ".join(ht)
+            if set(ht) & gap_terms or any(ph in seq for ph in gap_phrases):
+                head_gap.append({"site": r["site"], "heading": h[:100]})
+    for r in rows:  # keep the JSON readable
+        r["terms_count"] = len(r.pop("terms", {}) or {})
+        r.pop("bigrams", None)
+        r["subheads"] = r.get("subheads", [])[:30]
+    report_vocab = {"term_gap": uni_gap, "phrase_gap": bi_gap, "competitor_headings_with_gap_terms": head_gap[:30]}
+
+    report = {"type": args.type, "rows": rows, "vocabulary": report_vocab, "block_gaps": [{"block": b, "competitors": n} for b, n in gaps],
               "schema_gaps": schema_gaps, "below_median": below}
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=1))
@@ -184,6 +256,15 @@ def main():
         L.append("  - {}: client {} vs median {} (best {})".format(x["metric"], x["client"], x["median"], x["max"]))
     if not below:
         L.append("  none")
+    L.append("VOCABULARY GAP (terms half or more of the competitors use, never on the client page):")
+    L.append("  terms  : " + (", ".join("{} ({}/{})".format(g["term"], g["competitors"], len(rivals)) for g in uni_gap[:30]) or "none"))
+    L.append("  phrases: " + (", ".join("{} ({}/{})".format(g["term"], g["competitors"], len(rivals)) for g in bi_gap[:20]) or "none"))
+    if head_gap:
+        L.append("  competitor H2/H3 that carry those terms (candidate sections to add):")
+        for h in head_gap[:15]:
+            L.append("    - [{}] {}".format(h["site"], h["heading"]))
+    L.append("  Read it as a coverage list, not a stuffing list: add a term only where it answers")
+    L.append("  something the searcher needs, and ignore competitor brand names and boilerplate.")
     L.append("CLIENT HIGH-SEVERITY FINDINGS:")
     for m in client.get("high_findings", []) or ["none"]:
         L.append("  - {}".format(m))

@@ -75,7 +75,7 @@ If a page mixes two types (a service page that also lists products, a homepage t
 
 **Step 3, assemble the checklist.** The spec of one page is three layers, each row with a stable ID:
 
-1. Common requirements C-01 to C-26: `skills/seo-geo-audit/references/common-page-spec.md`. They are not repeated here.
+1. Common requirements C-01 to C-27: `skills/seo-geo-audit/references/common-page-spec.md`. They are not repeated here.
 2. The block list of the page type, read from `references/page-type-matrix.md` (or `references/site-archetypes.md` for the archetype-specific types), with its R, W and O levels. Cite each block by its position: `M9.2` is matrix section 9, row 2 (pricing, prices as HTML text); `A-author.3` is the third row of the author page table in site-archetypes.md (hub, call, author, tool, wall, affiliate, 404, listing, top10, login).
 3. The SEC rows below: site level (checked once per site), header and footer (checked once per template), page level (checked on every page).
 

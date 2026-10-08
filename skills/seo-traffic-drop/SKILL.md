@@ -119,12 +119,20 @@ Match the shape to the candidates, then run the confirming test. The test matter
 | Slope over 1 to 3 weeks, sitewide, positions worse | A core or ranking system update | Confirm the window on the Search Status Dashboard; check whether losses concentrate on a content type; compare against competitors in the same SERPs |
 | Slope, positions hold, CTR falls | AI Overviews or a new SERP feature on those queries, rewritten titles, competitor snippets | Inspect the live SERP for the top losing queries; measure how many now carry an AI Overview; check whether Google rewrote the titles |
 | A handful of URLs, others gaining | Cannibalization from a page published recently, or an internal link change | Query-level export: does the losing URL's query now map to another URL of yours; check what was published in the six weeks before |
-| Gradual, oldest content first | Content decay, staleness, competitors publishing better | Compare the losing pages against what now ranks; check publication and update dates |
+| Gradual, oldest content first | Content decay, staleness, competitors publishing better | Run `scripts/content_decay.py` (below) to list the decaying pages by mechanism; compare the losing pages against what now ranks with page_benchmark.py; check publication and update dates |
 | One country or one language only | Geo-blocking by a WAF or CDN, hreflang regression, a local competitor, a market event | Fetch the site through an exit in that country; check hreflang reciprocity |
 | One device only | Mobile rendering or speed regression, an interstitial, a mobile template bug | Test the mobile page directly; compare Core Web Vitals per device |
 | Clicks fell, conversions and revenue did not | The lost traffic was low value, or the loss is in a non-commercial section | Segment by page group and by landing page revenue before treating this as an emergency |
 | Impressions fell, clicks flat | A reporting artifact, or lost long-tail visibility | Check the Data Anomalies page for the period; confirm whether the loss is in positions 20 to 100 |
 | Search Console flat, GA4 down | Tagging, consent, bot filtering, a GA4 configuration change | Compare Search Console clicks against GA4 sessions day by day; check the tag fires |
+
+**Content decay, page by page.** When the shape is a slope and no update or event explains it, the loss is usually many pages eroding at once. Export Pages.csv for the last 3 months, the 3 months before, and the same months a year earlier (and optionally crawl the site), then:
+
+```
+python3 scripts/content_decay.py --current last3m.csv --previous prev3m.csv --last-year ly3m.csv --crawl crawl.json
+```
+
+Each page that lost 20%+ of its clicks is classified: ranking loss (position worse by 1+), CTR loss (position and impressions flat, CTR down: often an AI Overview), demand loss (impressions down, position flat), seasonal (flat year over year), or vanished (absent from the latest export: check status, noindex, redirect). Stale pages (a past year in the title, no update for 12+ months, from `site_crawl.py --out crawl.json` in seo-internal-linking) are listed first. The refresh itself follows the page skill of the page type.
 
 Rules that keep this honest:
 

@@ -52,7 +52,7 @@ Before any recommendation, confirm both:
 
 Field finding from 115+ agency audits: a large share of audited sites had neither installed, or had them installed with nobody able to access the accounts. Without GSC you cannot see coverage, queries, or manual actions, and every later step degrades into guessing. Set both up first, then add Bing Webmaster Tools: it imports GSC properties in a few clicks and matters in 2026 because Bing's index feeds ChatGPT search (https://yoast.com/chatgpt-search/).
 
-For a fast automated first pass, run the bundled audit script from the seo-geo-audit skill (scripts/seo_audit.py), which checks robots.txt AI bot rules, sitemap, and on-page basics. Use its output to direct the manual work below.
+For a fast automated first pass, run the bundled audit script from the seo-geo-audit skill (scripts/seo_audit.py), which checks robots.txt AI bot rules, sitemap, and on-page basics. Use its output to direct the manual work below. For the site-wide view (status codes, broken links, redirect chains, internal links to redirects, noindex or canonicalized pages that receive links, sitemap entries that are not indexable), run the crawler from the seo-internal-linking skill: `python3 skills/seo-internal-linking/scripts/site_crawl.py https://example.com --out crawl.json`.
 
 ### Step 1: Read the indexation state
 

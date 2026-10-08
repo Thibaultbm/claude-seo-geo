@@ -422,6 +422,20 @@ leurs lui ma mais me meme mes moi mon ne nos notre nous on ou par pas pour qu qu
 ses son sont sur ta te tes toi ton tu un une vos votre vous y ete etre avoir fait plus tout
 tous toute toutes comme peut sans aussi bien tres entre alors donc car ainsi cela ceci celui
 dont quand chez sous vers deja encore faire faut avez avons sera sont ont ai as etait leur
+peu trop moins soit jusqu mieux vont certaines certains certain certaine bonnes bonne bon bons
+simple article autre autres meme memes chaque plusieurs beaucoup assez toujours jamais souvent
+aussi ainsi alors apres avant depuis pendant ici voici voila cela celle celles ceux cet ces
+etes sommes serait seraient peuvent pouvez pouvons doit doivent devez devons fois tres trop
+quoi lorsque lorsqu puis enfin donc tant non oui sinon notamment vraiment simplement surtout
+nos vos leurs mon ton son mes tes ses notre votre lequel laquelle lesquels quel quelle quels
+quelles sera seront etait etaient avait avaient fait font faites faisons dit dire voir vois
+voit prendre mettre donner aller va vais allez allons rien tout tous toute toutes chose choses
+c'est qu'il qu'elle qu'on n'est d'un d'une l'on s'il jusqu'a aujourd'hui
+also just like get got make made much many may might must need one two three first new
+even still well way use used using really very every any each other another such than then
+there here when where while what which who whom whose why how into onto over under again
+further once only same so too can will would should could shall don't it's you're we're
+they're isn't aren't doesn't didn't won't can't that's there's here's let's
 """.split())
 
 GENERIC_ANCHORS = {

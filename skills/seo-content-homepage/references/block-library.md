@@ -2,7 +2,7 @@
 
 Each block: what it contains, the minimum spec, and why it exists. Replace every `{placeholder}` in the language of the site. Facts the owner has not confirmed stay as `{to confirm}`.
 
-The IDs match the spec tables in `../SKILL.md` (Phase 1): HOME-01 to HOME-18 are the homepage blocks, OFFER-01 to OFFER-17 the sales page sequence. The cross-cutting rows (HOME-19 to HOME-33, OFFER-18 to OFFER-20) and the common rows C-01 to C-26 (`skills/seo-geo-audit/references/common-page-spec.md`) apply to every block below.
+The IDs match the spec tables in `../SKILL.md` (Phase 1): HOME-01 to HOME-18 are the homepage blocks, OFFER-01 to OFFER-17 the sales page sequence. The cross-cutting rows (HOME-19 to HOME-33, OFFER-18 to OFFER-20) and the common rows C-01 to C-27 (`skills/seo-geo-audit/references/common-page-spec.md`) apply to every block below.
 
 ## 1. Homepage
 

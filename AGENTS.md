@@ -23,7 +23,7 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 1. Clone the repository somewhere stable.
 2. Point your agent at the skill you need: paste the relevant `SKILL.md` into context, or reference its path in your rules file (`.cursorrules`, `AGENTS.md`, `GEMINI.md`, etc).
 3. The `references/` files inside each skill are meant to be loaded on demand: load them when the SKILL.md says so, not upfront.
-4. The executables in the repository are `skills/seo-geo-audit/scripts/seo_audit.py`, `skills/seo-geo-audit/scripts/page_benchmark.py`, `skills/seo-page-sections/scripts/section_audit.py`, `skills/seo-ai-site-builders/scripts/render_check.py`, `skills/seo-traffic-drop/scripts/gsc_diff.py`, and the two vault-audit scripts in `skills/obsidian-brain/scripts/` (`link_graph.py`, `person_matches.py`). All are pure Python standard library (Python 3.9+), read only, no packages to install, no API keys.
+4. The executables in the repository are `skills/seo-geo-audit/scripts/seo_audit.py`, `skills/seo-geo-audit/scripts/page_benchmark.py`, `skills/seo-page-sections/scripts/section_audit.py`, `skills/seo-internal-linking/scripts/site_crawl.py`, `skills/seo-traffic-drop/scripts/content_decay.py`, `skills/seo-ai-site-builders/scripts/render_check.py`, `skills/seo-traffic-drop/scripts/gsc_diff.py`, and the two vault-audit scripts in `skills/obsidian-brain/scripts/` (`link_graph.py`, `person_matches.py`). All are pure Python standard library (Python 3.9+), read only, no packages to install, no API keys.
 
 ## Skill map
 
