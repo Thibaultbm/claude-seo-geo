@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "Can you audit my site https://atelier-verde.com? It's a small online store selling handmade ceramics, built on Shopify. We blog sometimes but traffic has been flat for a year and we never show up when people ask ChatGPT for ceramics gift ideas. Tell me what to fix first.",
-      "expected_output": "A full audit report: script run on homepage plus key pages, findings classified OK/Fix/Blocking across the 14 categories including an explicit GEO section (AI crawler access, rendering, citability), a one-line verdict, top 3 priorities, and an ordered action plan mapping fixes to the specialized skills. No invented data: speed and backlinks marked as not verified or requested from the user.",
+      "expected_output": "A full audit report: script run on homepage plus key pages, findings classified OK/Fix/Blocking across the 15 categories including an explicit GEO section (AI crawler access, rendering, citability), a one-line verdict, top 3 priorities, and an ordered action plan mapping fixes to the specialized skills. No invented data: speed and backlinks marked as not verified or requested from the user.",
       "files": []
     },
     {

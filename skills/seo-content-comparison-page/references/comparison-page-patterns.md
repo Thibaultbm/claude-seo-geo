@@ -1,6 +1,6 @@
 # Comparison Page Patterns
 
-Fill-in wireframes per page family, the criteria-selection method, verdict formulas, and the segment page structure. Companion to SKILL.md phase 3. Replace every `{placeholder}`, in the language of the site.
+Fill-in wireframes per page family, the criteria-selection method, verdict formulas, and the segment page structure. Companion to SKILL.md Phase 4 (build); the spec IDs (CMP-xx) refer to the Phase 1 table there. Replace every `{placeholder}`, in the language of the site.
 
 ## Choosing the criteria
 
@@ -217,18 +217,24 @@ Rules: name names, use a concrete situation rather than an adjective, put a numb
 
 ## Pre-publish checklist
 
-- [ ] Verdict in the first 100 words, naming who each option suits
-- [ ] Real HTML table, 6 to 12 criteria, identical order for every option
-- [ ] Criteria chosen before scoring, from buyer decision factors
-- [ ] At least one row where a competitor genuinely wins, unhedged
-- [ ] Own limitations stated in a named block
-- [ ] Every price as HTML text, with the verification date
-- [ ] Every third-party claim traceable to a public source, linked
-- [ ] Best-for verdicts per use case
-- [ ] Methodology block: what, how, when, by whom
-- [ ] FAQ with the uncomfortable questions answered
-- [ ] Screenshots of each option, real and current
-- [ ] Author with demonstrable experience of the options compared
-- [ ] Cross-links to the hub, the product page and the pricing page
-- [ ] Comparative advertising rules of the target market checked
+The manual half of the Phase 4 acceptance test; the scripts cover the rest.
+
+- [ ] Verdict in the first 100 words, naming who each option suits (CMP-04)
+- [ ] Real HTML table, 6 to 12 criteria, identical order for every option (CMP-05)
+- [ ] Criteria chosen before scoring, from buyer decision factors (CMP-06)
+- [ ] At least one row where a competitor genuinely wins, unhedged (CMP-07)
+- [ ] Own limitations stated in a named block (CMP-08)
+- [ ] Every price as HTML text, with the verification date (CMP-09)
+- [ ] Every third-party claim traceable to a public source, linked (CMP-12)
+- [ ] Best-for verdicts per use case (CMP-10)
+- [ ] Methodology block: what, how, when, by whom (CMP-13)
+- [ ] Visible publication and verification dates, `dateModified` in the schema (CMP-14)
+- [ ] FAQ with the uncomfortable questions answered (CMP-16)
+- [ ] Screenshots of each option, real and current (CMP-18)
+- [ ] Author with demonstrable experience of the options compared, real profiles (CMP-15)
+- [ ] Comparison term bolded in the first paragraph, placement 60%+, no term above 2.5% (CMP-25)
+- [ ] Cross-links to the hub, the product page and the pricing page (CMP-20)
+- [ ] Schema per family, no empty properties, nothing the page does not show (CMP-27)
+- [ ] Comparative advertising rules of the target market checked (CMP-22)
+- [ ] Zero em dashes and en dashes in copy, metadata and schema strings (C-25)
 - [ ] Verification date recorded in the vault, refresh scheduled

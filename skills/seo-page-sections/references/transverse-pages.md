@@ -1,10 +1,12 @@
 # Transverse Pages: Homepage, Pricing, About, Contact
 
-Fill-in wireframes for the four page types that every site has and no content skill owns. Block lists and levels live in `page-type-matrix.md`; this file is the copywriting layer. Replace every `{placeholder}`, in the language of the site.
+Fill-in wireframes for the four page types that every site has. Pricing, about and contact have no dedicated content skill; the homepage has one (below). Block lists and levels live in `page-type-matrix.md`; this file is the copywriting layer. Replace every `{placeholder}`, in the language of the site.
 
 These four pages are audited last and matter first. The homepage is the strongest internal link source on the site, pricing is the most abandoned page, about is the entity anchor that validates every author byline, and contact is where a working funnel silently breaks.
 
 ## Homepage
+
+Homepage copy, block order, competitor benchmark and JSON-LD: the seo-content-homepage skill. This wireframe is the quick skeleton for a site-level audit.
 
 The failure mode is a slogan where the offer should be. A visitor who cannot say what the business does after five seconds leaves, and a model that cannot say it after parsing the HTML will not name the company when asked for a recommendation in its category.
 

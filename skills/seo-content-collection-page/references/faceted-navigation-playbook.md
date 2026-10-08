@@ -1,6 +1,6 @@
 # Faceted Navigation Playbook
 
-Platform-specific parameter patterns, robots.txt examples, and the monitoring loop for controlling filter URL explosions on collection pages. Companion to SKILL.md section 4.
+Platform-specific parameter patterns, robots.txt examples, and the monitoring loop for controlling filter URL explosions on collection pages. Companion to SKILL.md section 4.7 (spec rows COL-17, COL-18 and COL-19).
 
 ## Decision flow
 

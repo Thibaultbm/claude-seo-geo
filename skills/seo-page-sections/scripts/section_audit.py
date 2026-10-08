@@ -168,6 +168,7 @@ class Page(HTMLParser):
         self.details = 0
         self.images = 0
         self.images_no_alt = 0
+        self.images_decorative = 0
         self.links = []             # (href, anchor_text)
         self._link_href = None
         self._link_buf = []
@@ -217,8 +218,12 @@ class Page(HTMLParser):
             self.details += 1
         elif tag == "img":
             self.images += 1
-            if not (d.get("alt") or "").strip():
+            # alt="" is the correct markup for a decorative image (same rule as
+            # seo_audit.py and the Sorank extension): only a missing attribute counts.
+            if d.get("alt") is None:
                 self.images_no_alt += 1
+            elif not d.get("alt").strip():
+                self.images_decorative += 1
         elif tag == "a":
             self._link_href = d.get("href")
             self._link_buf = []
@@ -523,7 +528,8 @@ def detect(url, page, status):
 
     ev = []
     if page.images:
-        ev.append("%d <img>, %d without alt text" % (page.images, page.images_no_alt))
+        ev.append("%d <img>, %d without alt attribute, %d decorative (alt=\"\")" % (
+            page.images, page.images_no_alt, page.images_decorative))
     add("images", ev)
 
     # NAP / contact

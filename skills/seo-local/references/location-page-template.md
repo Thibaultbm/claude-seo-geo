@@ -1,8 +1,8 @@
 # Location Page Template (One Page per Establishment)
 
-Each physical location or branch gets its own page, linked from its Google Business Profile. For full copywriting structure (the 9-block wireframe) and city-page architecture, use the seo-content-service-page skill; this template covers the location-specific layer.
+Each physical location or branch gets its own page, linked from its Google Business Profile. For full copywriting structure (the 9-block wireframe) and city-page architecture, use the seo-content-service-page skill; this template covers the location-specific layer. Each item is tagged with its spec ID from the Phase 1 tables in SKILL.md.
 
-## Metadata pattern
+## Metadata pattern (LOC-01)
 
 ```
 Title:            {primary service} in {city} | {brand}            (50-60 chars)
@@ -15,20 +15,21 @@ Image alts:       describe the image, include {city} where natural
 
 ## Required on-page elements
 
-- [ ] Full NAP, byte-identical to the Google Business Profile (canonical format)
-- [ ] Embedded Google map of the location
-- [ ] Opening hours, identical to the profile
-- [ ] Services offered at this location, each with price or price range in plain HTML
-- [ ] Areas and neighborhoods served from this location
-- [ ] Real photos: storefront, team, completed local jobs
-- [ ] Reviews from customers of this location (first name + situation + problem + result)
-- [ ] Local proof: projects, partnerships, local press mentions
-- [ ] FAQ: 3+ questions buyers in this city ask
-- [ ] CTA above the fold and after each major section
-- [ ] Link to and from the matching Google Business Profile
-- [ ] Links to the parent services hub and related city pages
+- [ ] Full NAP, byte-identical to the Google Business Profile (canonical format) (LOC-03, CIT-02)
+- [ ] Embedded Google map of the location (LOC-05)
+- [ ] Opening hours, identical to the profile (LOC-04)
+- [ ] Services offered at this location, each with price or price range in plain HTML (LOC-06)
+- [ ] Areas and neighborhoods served from this location (LOC-07)
+- [ ] Real photos: storefront, team, completed local jobs (LOC-08)
+- [ ] Reviews from customers of this location (first name + situation + problem + result) (LOC-09)
+- [ ] Local proof: projects, partnerships, local press mentions (LOC-10)
+- [ ] FAQ: 3+ questions buyers in this city ask (LOC-11)
+- [ ] CTA above the fold and after each major section (LOC-12)
+- [ ] Link to and from the matching Google Business Profile (LOC-02, GBP-11)
+- [ ] Links to the parent services hub and related city pages (LOC-14)
+- [ ] Parking, access, public transport when there is a storefront (LOC-18, optional)
 
-## LocalBusiness schema skeleton
+## LocalBusiness schema skeleton (LOC-13)
 
 Adapt the type (Plumber, Dentist, Attorney, Restaurant...) to the most specific schema.org subtype available. Values must match the profile exactly. Validation and extensions: seo-schema-markup skill.
 
