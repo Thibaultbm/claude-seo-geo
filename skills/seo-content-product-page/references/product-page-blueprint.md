@@ -1,24 +1,25 @@
 # Product Page Blueprint
 
-Section-by-section anatomy of an optimized PDP, plus the description formula and the ChatGPT Shopping feed mapping. Use this as the build order when creating or rebuilding a product page.
+Section-by-section anatomy of an optimized PDP, plus the description formula and the ChatGPT Shopping feed mapping. Use this as the build order in Phase 4 of SKILL.md when creating or rebuilding a product page. Spec IDs (PDP-xx) refer to the Phase 1 table in SKILL.md; C-xx rows live in `skills/seo-geo-audit/references/common-page-spec.md`.
 
 ## Page anatomy, top to bottom
 
-| # | Section | Content | Why here |
-|---|---|---|---|
-| 1 | Breadcrumb | Home > Category > Sub-category > Product, as plain links | Orientation for users, crawl path and BreadcrumbList anchor for bots |
-| 2 | H1 + rating summary | Product name as the only H1; stars + review count right next to it | The rating is the strongest objection killer; most visitors never scroll to a bottom review section |
-| 3 | Gallery | Real photos: front, back, detail, scale or in-use shot | Trust at the decision point; Merchant Center compliance |
-| 4 | Buy box | Price as HTML text, currency, variant selector, add-to-cart | Price in HTML is quotable by AI assistants; price in an image or JS is not |
-| 5 | Reassurance badges | Payment security, delivery time and cost, returns window, as text | The three live objections at the moment of decision; machine-readable offer facts |
-| 6 | Benefit bullets | 3-5 one-line outcomes | Skimmers decide here; assistants lift these lines verbatim |
-| 7 | Description | 150-200+ words, unique, benefits first then specs in use | The ranking surface of the page (SKILL.md section 1) |
-| 8 | Spec table | All measurable attributes in an HTML table | Extraction material for assistants and comparison shopping |
-| 9 | Comparison table | This product vs the 2 closest alternatives | The passage format quoted in "best X" answers |
-| 10 | Reviews list | Full reviews, story format, server-rendered HTML | Social proof depth, long-tail vocabulary, Review markup source |
-| 11 | FAQ block | 3+ questions, H3 each, 40-80 word answers | Long-tail capture, objection handling, AI extraction |
-| 12 | Definitions block | About 5 technical terms in plain language | Qualifies non-expert buyers, adds topical depth |
-| 13 | Cross-links | Parent collection, sister products, supporting blog guide | Internal linking and crawl depth (see seo-internal-linking) |
+| # | Section | Content | Why here | Spec |
+|---|---|---|---|---|
+| 1 | Breadcrumb | Home > Category > Sub-category > Product, as plain links | Orientation for users, crawl path and BreadcrumbList anchor for bots | C-19 |
+| 2 | H1 + rating summary | Product name as the only H1; stars, average and review count right next to it, plus platform and date read for a third-party rating | The rating is the strongest objection killer; most visitors never scroll to a bottom review section | PDP-03, PDP-12 |
+| 3 | Gallery | Real photos: front, back, detail, scale or in-use shot | Trust at the decision point; Merchant Center compliance | PDP-14 |
+| 4 | Buy box | Price as HTML text, currency, variant selector, add-to-cart | Price in HTML is quotable by AI assistants; price in an image or JS is not | PDP-15, PDP-17, PDP-18 |
+| 5 | Reassurance badges | Payment security, delivery time and cost, returns window, as text | The three live objections at the moment of decision; machine-readable offer facts | PDP-16 |
+| 6 | Benefit bullets | 3-5 one-line outcomes | Skimmers decide here; assistants lift these lines verbatim | PDP-07 |
+| 7 | Description | 150-200+ words, unique, benefits first then specs in use | The ranking surface of the page (SKILL.md 4.3); product name bold in the first paragraph, one bold fact every 100-150 words | PDP-06, C-09 |
+| 8 | Spec table | All measurable attributes in an HTML table | Extraction material for assistants and comparison shopping | PDP-08 |
+| 9 | Comparison table | This product vs the 2 closest alternatives | The passage format quoted in "best X" answers; competitor facts sourced and dated | PDP-09 |
+| 10 | Reviews list | Full reviews, story format, server-rendered HTML | Social proof depth, long-tail vocabulary, Review markup source | PDP-13 |
+| 11 | FAQ block | 3+ questions, H3 each, 40-80 word answers | Long-tail capture, objection handling, AI extraction | PDP-10 |
+| 12 | Definitions block | About 5 technical terms in plain language | Qualifies non-expert buyers, adds topical depth | PDP-11 |
+| 13 | Cross-links | Parent collection, sister products, supporting blog guide | Internal linking and crawl depth (see seo-internal-linking) | PDP-21 |
+| 14 | Footer | Real social profile URLs (never a network homepage or `#`), contact, legal pages, legal notices for regulated products | Entity consistency; the same URLs go in `sameAs` | C-20, C-24 |
 
 Order matters: everything a buyer needs to decide sits in sections 1-6 above the fold; everything Google and AI assistants need to understand and quote sits in sections 7-12 below it. Neither audience is sacrificed to the other.
 
@@ -79,12 +80,17 @@ Merchant enrollment: https://chatgpt.com/merchants.
 
 - [ ] Description 150-200+ words, unique, benefits first
 - [ ] All photos real, alt text set
-- [ ] Stars + count beside the H1
+- [ ] Stars + average + count beside the H1, platform and date read when third-party
+- [ ] Visible breadcrumb + BreadcrumbList
 - [ ] Price, shipping, returns as HTML text
 - [ ] Spec table complete
 - [ ] Comparison table vs 2 alternatives, factually accurate
 - [ ] FAQ 3+ questions, definitions about 5 terms
 - [ ] Title, meta description, slug, single H1
-- [ ] Product + Offer markup mirrors the visible page (validate with Rich Results Test)
+- [ ] Product + Offer markup mirrors the visible page, AggregateRating only when reviews are displayed, no empty nodes (validate with Rich Results Test)
+- [ ] Product name bold in the first paragraph, placement 60%+, no term above 2.5%
+- [ ] Superlatives sourced, legal notices on regulated products
+- [ ] Footer social icons point to real profiles
+- [ ] Zero em dashes and en dashes in every field
 - [ ] curl shows description, price, and reviews in raw HTML
 - [ ] Feed entry consistent with the page

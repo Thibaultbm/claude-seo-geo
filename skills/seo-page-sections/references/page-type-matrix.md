@@ -1,6 +1,6 @@
 # Page Type Matrix
 
-The block list for every page type, in page order, with a level. Companion to SKILL.md phase 3.
+The block list for every page type, in page order, with a level. Companion to SKILL.md Phase 1 (the spec: cite a block as M<section>.<row>, for example M9.2) and Phase 2 (grading).
 
 Which page types a given site needs, the archetype-specific types (blog hub, call, author, free tool, wall of love, affiliate, 404, marketplace listing, top 10, login), and the site-wide header and footer rules live in `site-archetypes.md`. Read that first when auditing a whole site; read this file when auditing a page.
 
@@ -12,7 +12,7 @@ Levels:
 
 "Why" states the job the block does. When two audiences are named, the block earns its place with both a human buyer and an AI assistant, which is why it survives layout pressure.
 
-Every type below assumes the universal baseline is already true. Check it once per page, before the type-specific list.
+Every type below assumes the universal baseline is already true. Check it once per page, before the type-specific list. In the spec, the baseline rows are the common rows C-01 to C-26 (`skills/seo-geo-audit/references/common-page-spec.md`) and SEC-03, SEC-07, SEC-21 to SEC-25 (SKILL.md).
 
 ## Universal baseline (all types)
 
