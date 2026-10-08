@@ -52,7 +52,7 @@ python3 skills/seo-page-sections/scripts/section_audit.py --type homepage https:
 python3 skills/seo-geo-audit/scripts/seo_audit.py https://competitor.com/ /offer-page/
 ```
 
-Record per competitor: word count, bold count, blocks present, schema types, proof formats (numbers, video, screenshots, ratings), pricing visibility, lead magnet, free tools or resources, community. The output of this step is a table "block x competitor" plus the list of blocks present on 3+ competitors and missing on the client site: that list is the minimum, not the ceiling. Why: the SERP shows which page shape Google already rewards for this query, and the competitors' strongest proof is the bar the client's proof must clear.
+Record per competitor: word count, bold count, blocks present (the reference block library lists the elements to look for, with how often they appeared on 14 audited coaching and training sites), schema types, proof formats (numbers, video, screenshots, ratings), pricing visibility, lead magnet, free tools or resources, community. The output of this step is a table "block x competitor" plus the list of blocks present on 3+ competitors and missing on the client site: that list is the minimum, not the ceiling. Why: the SERP shows which page shape Google already rewards for this query, and the competitors' strongest proof is the bar the client's proof must clear.
 
 ### Step 3. Build the block list
 
@@ -96,8 +96,13 @@ Rules (field heuristics from 115+ agency audits unless marked measured):
 | Chunk autonomy | Each block understandable alone, 40-80 word paragraphs | AI engines lift isolated passages |
 | Internal links | Every offer page, the about page and 2-3 pillar articles linked from the body, not only the menu | The homepage's authority flows only through body links that carry descriptive anchors |
 | Punctuation | Zero em dashes and en dashes | The most recognizable AI-writing tell |
+| Price | Show the price, a range or "from", with instalments or an annual option when they exist; if the price is only given after a call, say so and why | 12 of 14 audited coaching sites show a price; hiding it sends buyers and assistants to the ones that do |
+| Ratings | Rating + platform + review count + the date it was read ("4.5/5 Trustpilot, 1253 avis, relevé le 9 août 2026") | A dated, counted rating is checkable; a bare star row is not |
+| Checkable credentials | Link the founder to third-party profiles that confirm the claims (the public results databases of the field, press, Wikipedia or Wikidata when they exist) and put the same URLs in `sameAs` | Claims an assistant can cross-check become entity facts; claims it cannot are ignored |
+| Superlatives | "n°1", "le meilleur", "leader" only with a cited source next to them, otherwise remove | The audit flags `superlative_claim`; unbacked superlatives lower trust |
+| Urgency | Countdowns and limited places only when the deadline or the limit is real | Fake urgency is a deceptive commercial practice under EU consumer law |
 
-Regulated or money promises (gambling, trading, income, health, weight loss): state results as observed outcomes of named clients, never as a guarantee; add an income or results disclaimer near the claim and in the footer; for gambling, add the age limit (18+) and a responsible-gambling mention with the national helpline. Google rates these topics "Your Money or Your Life": trust signals are judged more strictly, and advertising rules (ARPP in France, FTC endorsement guides in the US) apply to testimonials with results.
+Regulated or money promises (gambling, trading, income, health, weight loss): state results as observed outcomes of named clients, never as a guarantee; add an income or results disclaimer next to the claim and in the footer ("aucun résultat individuel n'est garanti"); for gambling, add the age limit (18+), a responsible-gambling mention and the national helpline in the site-wide footer (in France: Joueurs Info Service, 09 74 75 13 13), plus a responsible-play page. The audit flags `claim_no_disclaimer` and `gambling_notice_missing`. Editorial transparency pages (editorial policy, methodology, how results are measured) linked from the footer strengthen the same trust layer. Google rates these topics "Your Money or Your Life": trust signals are judged more strictly, and advertising rules (ARPP in France, FTC endorsement guides in the US) apply to testimonials with results.
 
 ### Step 5. Structured data
 

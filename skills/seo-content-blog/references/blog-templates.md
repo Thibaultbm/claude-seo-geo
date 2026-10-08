@@ -39,6 +39,7 @@ Desktop layout: a two-column grid, content column 680-760px, sidebar 280-320px o
 
 | Block | Minimum spec | Why |
 |---|---|---|
+| Key takeaways box | 3-5 bullets or 2-4 sentences directly under the H1 block, labeled ("En bref", "Key takeaways") | The answer-first block of the skeleton, made visible as a box |
 | Breadcrumb | Visible trail plus BreadcrumbList JSON-LD | Shows the page's place in the silo; feeds the breadcrumb displayed in results |
 | Author line under the H1 | Photo (40px, real person, alt = name), name linked to the author page, role, published date, updated date, reading time | E-E-A-T accountability at first glance; dates are a freshness signal Perplexity and AI Overviews weigh visibly |
 | Cover image | 1200px wide minimum (Discover needs 1200px+ and `max-image-preview:large`), WebP or AVIF, under 200 KB, `loading="eager"` and `fetchpriority="high"`, width and height set | It is the LCP element: lazy-loading it is the most common speed mistake on blog templates |
@@ -48,6 +49,10 @@ Desktop layout: a two-column grid, content column 680-760px, sidebar 280-320px o
 | In-content CTA block | One block after roughly 40% of the body, visually distinct (background color, button), pointing to the commercial page closest to the article intent | Most readers never reach the conclusion; the mid-article block catches them |
 | Conclusion CTA | Final paragraph plus button to the same commercial page | Second-most-read block for skimmers |
 | Author box (end of article) | Photo 96-120px, name, role, 2-4 line bio with verifiable credentials (years, results, certifications), link to the author page, social profiles | The full E-E-A-T statement, repeated where readers decide whether to trust |
+| Sources section | Before the FAQ: each source listed with what it supports in the article | Shows the work; the sourced-content signal measured in the GEO layer |
+| Hub link | "Continue on {topic}" link back to the topic hub or category page | Closes the silo loop; readers move to the next article in the path |
+| Glossary links | First mention of each defined term per article links to its glossary page (not every mention) | Internal linking at scale and definitions AI engines can cite |
+| Share buttons | Plain links (no heavy third-party script) to the networks the audience uses | Cheap distribution; 4 of 11 audited coaching blogs show them |
 | Related articles | 3 cards with cover image, title, one-line excerpt, same category first | Internal links within the silo, pages per session |
 | Final CTA banner | Full-width block before the footer: promise, social proof (client avatars, rating, number of clients), button | The last conversion surface |
 | Social profiles in the footer | Real profile URLs, never a network homepage (`https://www.instagram.com/` is a placeholder, not a profile) | Entity consistency across platforms, and the `sameAs` list must point to the same profiles |
@@ -171,6 +176,8 @@ Every article links to it; it is the page that proves the expertise. Blocks: H1 
 | Categories are real pages with an intro | Category pages rank on head terms and route authority to the posts |
 | Pagination is crawlable | A "load more" button with no URL hides older posts from crawlers |
 | Blog JSON-LD with a `blogPost` list, or ItemList | Hands the post inventory to machines in one block |
+| Topic hubs or reading paths once there are 3+ posts per theme | Groups the posts into silos that rank on the head term of each theme |
+| Search once there are about 12+ posts | Readers find the post they came for; search pages themselves stay noindex |
 
 ## 4. Pre-publish template checklist
 
@@ -183,6 +190,8 @@ Every article links to it; it is the page that proves the expertise. Blocks: H1 
 - [ ] End-of-article author box with credentials and social profiles
 - [ ] 3 related articles with covers
 - [ ] BlogPosting + Person (with sameAs) + BreadcrumbList JSON-LD, no empty FAQ nodes
+- [ ] og:type article, og:title, og:description, og:image (the cover), twitter:card, canonical
+- [ ] Key takeaways box, sources section, link back to the topic hub
 - [ ] No placeholder social link anywhere on the page
 - [ ] Hub: every card has a cover, categories are pages, pagination has URLs
 

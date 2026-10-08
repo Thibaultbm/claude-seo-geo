@@ -86,3 +86,42 @@ The entity anchor and, on a one-expert site, the author page every article links
 | Application form instead of checkout | High-ticket offer; the form qualifies and sets expectations |
 | Podcast or YouTube series | Regular video or audio exists; embed the latest episodes with text summaries |
 | Sticky mobile CTA bar | Long pages on mobile; one button always reachable |
+
+## 5. What 14 coaching and training sites actually ship (benchmark, October 2026)
+
+Raw HTML of the homepage, sales page, blog hub and one article of 10 French and 4 English poker coaching and training sites (the niche of the case study that triggered this skill). The frequencies show what a buyer in a coaching or training niche sees elsewhere; the rules are not poker-specific.
+
+| Element | Sites with it | Rule for any coaching or training site |
+|---|---|---|
+| JSON-LD graph (Organization + Person + Article + BreadcrumbList) | 11 / 14 | Mandatory; the client without it is in the bottom 3 |
+| Price shown | 12 / 14 | Show it, with instalments or annual options when they exist (5 / 14 do) |
+| Discord or community | 12 / 14 | Show the community, its size and how members interact |
+| Lead magnet (free course, video, guide) | 11 / 14 | One entry offer on every page: hero secondary CTA, mid-article block, footer |
+| Blog hub with cover images | 10 / 11 blogs | Every card has its cover |
+| Blog categories or topic hubs | 9 / 11 blogs | Each article links back to its hub ("Parcours associé") |
+| In-article CTA block | 9 / 11 blogs | Soft lead magnet mid-article, the offer at the end |
+| Visible author and date on articles | 8 / 11 blogs | Byline with photo, dates, reading time |
+| Comparison against alternatives (cost table, "versus a private coach") | 8 / 14 | A table of the real costs of each alternative |
+| Curriculum by module or week | 7 / 14 | Modules with outcomes and video or hour counts |
+| Responsible-play notice on a gambling topic | 7 / 14 | Footer notice, age limit, helpline, dedicated page |
+| Free interactive tools (calculators, charts, trainers) | 6 / 14 | One indexable page per tool, with explanatory text |
+| Discovery call or application | 5 / 14 | Numbered process, booking link, what happens on the call |
+| Rating with review count | 5 / 14 | Platform, count, date read |
+| Numbers-based proof (results ticker, winrate, results graph, named students with figures) | 4 strong / 14 | The strongest differentiator; most sites stay vague |
+| Glossary | 4 / 14 | One page per term; link the first mention of each term per article automatically |
+| Coach linked to a checkable third-party profile | 4 / 14 | Link and `sameAs` to the field's public records |
+| Money-back guarantee | 3 / 14 (all English) | A real guarantee is a differentiator in French markets |
+| Sticky table of contents in articles | 1 / 11 blogs | Rare: an easy differentiator |
+
+Tactics worth copying, seen on the best of them:
+
+- A "sources consulted" section that says what each source supports, plus an editorial transparency note.
+- A key-takeaways box under the article title (the answer-first block, labeled).
+- A footer with "editorial policy", "press" and "figures and method" pages.
+- Persona-based offer cards ("I am stuck at my level" / "I aim for the top") instead of plan names.
+- A results ticker or graph of real student results, each with a name.
+- A low-price entry product or a free short course as the first step.
+- Social-proof counters (subscribers, downloads, members) with real numbers.
+- Guest articles by named practitioners, grouped into a series.
+- A referral page for existing clients.
+- Members-only final section on some articles, with the free part complete on its own.

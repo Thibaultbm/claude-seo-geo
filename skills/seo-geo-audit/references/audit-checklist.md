@@ -177,6 +177,9 @@ Provenance markers: (field) = recurring finding across 115+ real agency audit ca
 | home_no_money_links / home_no_structure | Homepage links to no offer page; no list or table | medium / low | The homepage routes authority to what is sold |
 | ai_bots_blocked | AI search bots disallowed in robots.txt | high (GEO) | Removes the site from AI answers |
 | em_dashes | 4+ em or en dashes in the copy | medium (GEO) | 6.4 |
+| claim_no_disclaimer | Income or results promise ("5000 € par mois", "$3k per month") with no "results not guaranteed" wording on the page | medium (GEO) | Money and results claims are judged as Your Money or Your Life; advertising rules (ARPP, FTC endorsement guides) require typical-results honesty |
+| gambling_notice_missing | Gambling topic with no age limit, responsible-play mention or national helpline | medium (GEO) | Legal requirement for operators and affiliates in most markets, and a trust signal 7 of 14 audited poker coaching sites show |
+| superlative_claim | "n°1", "#1", "the best", "leader" | low (GEO) | An unbacked superlative is the first thing a reader and a quality rater discount; back it with a source or remove it |
 
 The script also prints, per page: the top terms with density and the top two-word phrases (the page's real topic as a machine reads it), the placement matrix (x = term present in the zone), readability buckets, citability counts (statistics, definitions, quotes, question headings, snippable paragraphs), template detection (table of contents, author block, author page links, dates, breadcrumb, commercial links in the body), social profiles found, and the JSON-LD properties missing per type.
 

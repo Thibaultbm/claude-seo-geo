@@ -448,6 +448,22 @@ STAT_RE = re.compile(r"\b\d+(?:[.,]\d+)?\s?(?:%|percent|pour ?cent|x\b|fois\b|�
 DEFINITION_RE = re.compile(r"\b[A-Z][\w' -]{1,40}\s(?:is|are|refers to|means|est|sont|désigne|"
                            r"signifie|correspond à)\s(?:a|an|the|un|une|le|la|les|l')\b")
 
+# Regulated promises. An income or results promise needs a "not guaranteed"
+# disclaimer near it; a gambling site needs the age limit and a helpline.
+MONEY_CLAIM_RE = re.compile(r"\b\d[\d .,]*\s?(?:€|euros?|\$|usd|k€)\s?(?:par|/|per|a|each)\s?"
+                            r"(?:mois|month|an|year|semaine|week|jour|day)\b", re.I)
+DISCLAIMER_RE = re.compile(r"(garanti|guarantee|not typical|pas typiques|results may vary|"
+                           r"resultats? (?:individuels? )?(?:ne sont pas|non) garantis|disclaimer|"
+                           r"avertissement|risque de perte|risk of loss)", re.I)
+GAMBLING_RE = re.compile(r"\b(poker|casino|paris sportifs|sports betting|betting|blackjack|roulette|"
+                         r"machines? a sous|slots?)\b", re.I)
+GAMBLING_NOTICE_RE = re.compile(r"(18\s?\+|18 ans|interdit aux mineurs|joueurs info service|"
+                                r"09 ?74 ?75 ?13 ?13|jeu responsable|jouer comporte des risques|"
+                                r"responsible gambling|gamble responsibly|begambleaware|1-800-gambler|"
+                                r"gamcare|\banj\b)", re.I)
+SUPERLATIVE_RE = re.compile(r"(n°\s?1\b|numero 1\b|numéro 1\b|#1\b|number one\b|leader du marche|"
+                            r"leader du marché|world'?s best|le meilleur\b|la meilleure\b)", re.I)
+
 # Required (and empty-string-sensitive) properties for the JSON-LD types that
 # still drive a Google feature or an AI entity graph. A property present but
 # set to "" counts as missing: CMS templates often ship empty FAQ questions.
@@ -837,6 +853,14 @@ def deep_checks(p, html, final, headers, out):
                            or re.match(r"^(img|image|dsc|screenshot)[-_ ]?\d*(\.\w+)?$", _norm(a))),
         "alt_duplicates": len(alts) - len(set(alts)),
     }
+    alltext = " ".join(p._text)
+    out["claims"] = {
+        "money_promises": [m.group(0) for m in MONEY_CLAIM_RE.finditer(alltext)][:5],
+        "disclaimer_found": bool(DISCLAIMER_RE.search(_norm(alltext))),
+        "gambling_topic": len(GAMBLING_RE.findall(_norm(alltext))) >= 3,
+        "gambling_notice_found": bool(GAMBLING_NOTICE_RE.search(_norm(alltext))),
+        "superlatives": sorted({m.group(0) for m in SUPERLATIVE_RE.finditer(alltext)})[:5],
+    }
     out["schema_problems"] = schema_checks(p.jsonld_objects)
     out["jsonld_parse_errors"] = p.jsonld_errors
     return out
@@ -976,6 +1000,15 @@ def recommendations(pg, site):
         add("medium", "seo", "html_size", "HTML {} KB.".format(pg["html_size_kb"]))
     if pg.get("em_dashes", {}).get("body", 0) >= 4:
         add("medium", "geo", "em_dashes", "{} em/en dashes in the copy (AI-writing tell).".format(pg["em_dashes"]["body"]))
+
+    # Regulated promises and unbacked superlatives
+    cl = pg["claims"]
+    if cl["money_promises"] and not cl["disclaimer_found"]:
+        add("medium", "geo", "claim_no_disclaimer", "Income or results promise ({}) with no 'results not guaranteed' disclaimer.".format(cl["money_promises"][0]))
+    if cl["gambling_topic"] and not cl["gambling_notice_found"]:
+        add("medium", "geo", "gambling_notice_missing", "Gambling topic without age limit, responsible-play mention or helpline.")
+    if cl["superlatives"]:
+        add("low", "geo", "superlative_claim", "Superlative claims to back with proof or remove: {}.".format(", ".join(cl["superlatives"])))
 
     # Structured data
     types = set(pg["schema_jsonld"])
