@@ -253,12 +253,24 @@ Re-run the Phase 2 commands on the live or staged URLs. The finish line: TEMPLAT
 - [ ] 3-5 visible internal links to commercial pages (BLOG-10)
 - [ ] Every H2 section self-contained (no "as seen above") (BLOG-06)
 - [ ] FAQ = 3 real People Also Ask questions (BLOG-12)
+- [ ] Article template carries an email capture popup firing at 30-40 seconds on page (40 s max), once per visitor, markup at the end of the body
 - [ ] 3 images, all with alt text, WebP, 200 KB max (BLOG-13, C-15)
 - [ ] Length at or above the SERP benchmark (BLOG-03)
 - [ ] Information gain named and actually present in the text (BLOG-14)
 - [ ] Zero em dashes and zero en dashes anywhere in the deliverable, commas instead (C-25)
 
 Then sweep the Common mistakes list.
+
+## Mandatory on every article page: timed email capture popup
+
+Every article page must carry an email capture popup that opens after **30 to 40 seconds on the page (40 seconds maximum)**. This is a page-template requirement, not part of the article text: build it once in the blog template so every article inherits it.
+
+- **Timing:** fire between 30 and 40 seconds of time on page, never on landing, never later than 40 seconds. Optional extra trigger: exit intent on desktop.
+- **Offer:** one concrete incentive tied to the business (catalog or price list, discount on a first order or first visit, session dates, checklist or guide). A bare "subscribe to our newsletter" converts poorly.
+- **Form:** first name + email at most (add phone only for high-ticket B2B or local services).
+- **Frequency:** once per visitor (cookie or local storage, around 30 days), easy to close, no full-screen block on mobile (use a bottom sheet or slide-in so Google does not treat it as an intrusive interstitial).
+- **Technical:** inject the popup markup at the end of the body, never at the top of the DOM, so it does not break the heading hierarchy. Track opens and submissions as conversion events (GA4).
+- **Why:** blog visitors arrive on informational intent and most are not ready to buy on the first visit; without capture they leave and never come back. The popup turns article traffic into leads that can be converted later.
 
 ## Rules and thresholds
 

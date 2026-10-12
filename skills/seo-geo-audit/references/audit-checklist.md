@@ -105,7 +105,7 @@ Provenance markers: (field) = recurring finding across 115+ real agency audit ca
 ## 10. Conversion signals
 
 - 10.1 Reviews and testimonials visible high on the page, formatted as first name + situation + problem + result; video testimonials outperform text. Anonymous five-star walls convince nobody. (field)
-- 10.2 Email capture timed to fire 10-20 seconds before the average session ends (or at 10-20 percent scroll), never on landing. Technical trap seen in audits: a popup injected at the top of the DOM can break the heading hierarchy; place it at the end of the body. (field)
+- 10.2 Email capture popup MANDATORY on every article page, firing between 30 and 40 seconds on page (40 seconds maximum), never on landing; flag its absence as a priority conversion fix. Concrete incentive offer, once per visitor, non-intrusive on mobile. Technical trap seen in audits: a popup injected at the top of the DOM can break the heading hierarchy; place it at the end of the body. (field)
 - 10.3 A clear CTA after every major section. The audit checks that a motivated reader is never more than one screen away from the next step. (field)
 
 ## 11. E-commerce
