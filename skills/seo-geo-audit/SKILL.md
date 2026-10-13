@@ -68,6 +68,18 @@ python3 scripts/page_benchmark.py --type service https://example.com/service htt
 
 It prints one table (scores, words, bold, headings, tables, statistics, placement, schema, template blocks, social profiles, and every block `section_audit.py` detects), the blocks half or more of the competitors have and the client does not, the schema types they use, the metrics where the client sits below the competitor median, and the vocabulary gap (terms and phrases half the competitors use and the client never does, with the competitor headings that carry them). The page skills (homepage, service, product, collection, comparison, blog, local, page sections) run it as their Phase 3; the 27 requirements every page shares are in `references/common-page-spec.md`.
 
+It also collects the measurement tags on every page (GA4, GTM, other analytics, Search Console verification meta) and ends with a measurement coverage summary that names the pages where the GA4 tag is missing.
+
+Measurement is collected on EVERY page, not once for the domain: the usual failure is a tag pasted into one template and never into the others, which no site-wide check can see. Three outcomes, and they are not the same finding:
+
+| Report says | What it means | What to do |
+|---|---|---|
+| `GA4: G-XXXXXXXX` | the tag is in the raw HTML | nothing |
+| `GA4: unknown (a GTM container can load it)` | GTM is there, no G- id in the HTML | open the container or the browser Tag Assistant before writing anything; a GTM-loaded GA4 leaves no trace in the source |
+| `NO MEASUREMENT AT ALL` | no GA4, no GTM, no other analytics | real finding, and it blocks every later recommendation |
+
+The Search Console line reads the `google-site-verification` meta tag only. Its absence proves nothing: DNS records, an HTML file, GA4 and GTM verify a property just as well and leave nothing in the page. Ask the owner instead of declaring the property unverified.
+
 Known limits, and what to do about each:
 
 | Limit | Fallback |
@@ -77,6 +89,7 @@ Known limits, and what to do about each:
 | Real-world speed | Ask the user to run https://pagespeed.web.dev (free, no key) on mobile and desktop and share scores |
 | Backlink profile | Use GSC Links report or Bing Webmaster Tools if available; paid indexes (Ahrefs, Semrush, Moz) only as an option |
 | GSC indexation ratio, Google Business Profile | Ask the owner; never invent these numbers |
+| Tags injected by a consent manager or a server-side container | Invisible in raw HTML; confirm in the browser before reporting a missing GA4 |
 
 ## Phase 2: analyze against the checklist
 
