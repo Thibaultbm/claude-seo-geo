@@ -91,7 +91,7 @@ That sequence catches the majority of drops that have a single, fixable cause, a
 
 ## The incident record
 
-Write this into the vault action log (obsidian-brain) when the investigation closes. It is what makes the second occurrence cheap.
+Write this into the SEO action log (in the company knowledge base, if there is one) when the investigation closes. It is what makes the second occurrence cheap.
 
     ## {date}: traffic drop on {property}
 

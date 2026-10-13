@@ -15,7 +15,7 @@ So the order is fixed. Confirm the loss is real, date it, shape it, name the can
 
 ## Company knowledge first (Obsidian)
 
-If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before acting: the SEO action log (what was shipped and when), past incidents, the site's seasonality, migrations, and known technical debt. The action log is the highest-value note in a drop investigation, because it answers "what changed" without waiting for the client. At the end of the session, append the diagnosis, the evidence and the remediation to that log so the next incident starts with a history. Vault structure and protocols: the obsidian-brain skill.
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before acting: the SEO action log (what was shipped and when), past incidents, the site's seasonality, migrations, and known technical debt. The action log is the highest-value note in a drop investigation, because it answers "what changed" without waiting for the client. At the end of the session, append the diagnosis, the evidence and the remediation to that log so the next incident starts with a history.
 
 ## When to use this skill
 

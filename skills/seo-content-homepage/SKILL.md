@@ -15,7 +15,7 @@ This skill fixes that in four phases (spec, audit, benchmark, build, see `docs/p
 
 ## Company knowledge first (Obsidian)
 
-If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before writing: offer facts, real prices, real client results, founder story and credentials, positioning, competitors, social profile URLs, and the SEO action log. Every block of a homepage asserts facts about the business, so invented numbers are the main failure mode. At the end of the session, append what was published to the vault's SEO action log. Vault structure and protocols: the obsidian-brain skill.
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before writing: offer facts, real prices, real client results, founder story and credentials, positioning, competitors, social profile URLs, and the SEO action log. Every block of a homepage asserts facts about the business, so invented numbers are the main failure mode. At the end of the session, append what was published to the vault's SEO action log.
 
 ## When to use
 

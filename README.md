@@ -4,7 +4,7 @@
 
 **SEO and GEO skills that work like a specification: they audit a page, compare it with the competitors that rank, and build the fix.** Rank in Google and get cited by ChatGPT, Perplexity, Gemini and Google AI Overviews.
 
-20 skills, 9 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
+19 skills, 7 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
 
 ## How a page skill works
 
@@ -96,7 +96,6 @@ The crawl finds what no single-page audit can see (orphans, internal links point
 | [geo-visibility](skills/geo-visibility/SKILL.md) | How each AI engine picks sources, passage citability, the GEO score, entity consistency |
 | [geo-tracking](skills/geo-tracking/SKILL.md) | AI traffic in GA4, monthly prompt panels, share of voice |
 | [social-amplification](skills/social-amplification/SKILL.md) | Repurpose content for YouTube, Reddit, LinkedIn and X to drive branded search and AI citations |
-| [obsidian-brain](skills/obsidian-brain/SKILL.md) | Optional: a local knowledge base of company facts that every skill reads before acting and logs to after |
 
 ## The scripts
 
@@ -111,7 +110,6 @@ All standard-library Python 3.9+, read only, no API key, no install.
 | `skills/seo-page-sections/scripts/section_audit.py` | Which blocks a page has (FAQ, breadcrumb, comparison table, reviews, guarantee, process, author...) |
 | `skills/seo-ai-site-builders/scripts/render_check.py` | What crawlers receive from a JavaScript site, by user agent, plus a soft-404 probe |
 | `skills/seo-traffic-drop/scripts/gsc_diff.py` | Locates a traffic drop in Search Console exports |
-| `skills/obsidian-brain/scripts/link_graph.py`, `person_matches.py` | Vault link audit |
 
 ## Install
 
@@ -202,7 +200,7 @@ One wrong redirect or an overwritten page can cost rankings that took years to b
 ```
 claude-seo-geo/
   .claude-plugin/        plugin.json + marketplace.json
-  skills/                20 skills (SKILL.md + references/ + evals/ + scripts/)
+  skills/                19 skills (SKILL.md + references/ + evals/ + scripts/)
   docs/
     page-skill-standard.md   the four-phase standard every page skill follows
   scripts/               validate_skills.py (CI format and style checks)

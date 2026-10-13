@@ -15,7 +15,7 @@ Two rules make or break the category. The comparison must be verifiably true on 
 
 ## Company knowledge first (Obsidian)
 
-If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read it before writing: the real feature set, real pricing, the competitors that actually come up in sales calls, the objections buyers raise, and the segments the business already serves. Comparison pages assert facts about third parties, so unsourced invention is both a credibility and a legal risk. Log the pages produced to the vault's SEO action log, including the date each comparison was verified, since that date drives the refresh cycle. Structure and protocols: the obsidian-brain skill.
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read it before writing: the real feature set, real pricing, the competitors that actually come up in sales calls, the objections buyers raise, and the segments the business already serves. Comparison pages assert facts about third parties, so unsourced invention is both a credibility and a legal risk. Log the pages produced to the vault's SEO action log, including the date each comparison was verified, since that date drives the refresh cycle.
 
 ## When to use
 

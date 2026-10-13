@@ -15,7 +15,7 @@ Two audits, two altitudes. `seo-geo-audit` asks "is this site healthy" (crawl, s
 
 ## Company knowledge first (Obsidian)
 
-If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before writing any block: real product facts, real prices, real client names, positioning, the competitors worth comparing against, and the SEO action log. Every block this skill generates asserts facts about the business, so unsourced invention is the main failure mode. Ground each block in the vault, and append what was added to the vault's SEO action log at the end of the session. Vault structure and protocols: the obsidian-brain skill.
+If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read the relevant notes before writing any block: real product facts, real prices, real client names, positioning, the competitors worth comparing against, and the SEO action log. Every block this skill generates asserts facts about the business, so unsourced invention is the main failure mode. Ground each block in the vault, and append what was added to the vault's SEO action log at the end of the session.
 
 ## When to use
 
