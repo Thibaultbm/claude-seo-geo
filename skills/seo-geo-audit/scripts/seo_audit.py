@@ -1339,6 +1339,58 @@ def analyse_llms_txt(base):
     return out
 
 
+LANG_SEGMENT = re.compile(r"^[a-z]{2}(?:[-_][a-z]{2,4})?$", re.I)
+
+
+def _link_attrs(tag):
+    return dict((k.lower(), v) for k, v in re.findall(r'([\w:-]+)\s*=\s*"([^"]*)"', tag))
+
+
+def language_inventory(xml_bodies):
+    """URLs per language across sitemap files, and hreflang groups missing a language.
+
+    The language of a URL is its self-referencing hreflang alternate when the sitemap carries
+    alternates, otherwise the first path segment when it looks like a language code (/fr/,
+    /pt-br/), otherwise "default". On a multilingual site every language should list the same
+    pages: a gap means pages never translated, never duplicated, or hidden in one language.
+    """
+    counts = {}
+    all_langs = set()
+    groups = {}
+    for xml in xml_bodies:
+        for block in re.findall(r"<url>(.*?)</url>", xml, re.S):
+            m = re.search(r"<loc>\s*([^<]+?)\s*</loc>", block)
+            if not m:
+                continue
+            loc = m.group(1).strip()
+            alts = {}
+            for tag in re.findall(r"<xhtml:link\b[^>]*>", block):
+                a = _link_attrs(tag)
+                if a.get("rel") == "alternate" and a.get("hreflang") and a.get("href"):
+                    alts[a["hreflang"].lower()] = a["href"].strip()
+            alts.pop("x-default", None)
+            lang = next((code for code, href in alts.items() if href.rstrip("/") == loc.rstrip("/")), None)
+            if lang is None:
+                first = urlparse(loc).path.strip("/").split("/")[0]
+                lang = first.lower() if LANG_SEGMENT.match(first) else "default"
+            counts[lang] = counts.get(lang, 0) + 1
+            if alts:
+                all_langs.update(alts)
+                groups.setdefault(frozenset(alts.items()), loc)
+    out = {"per_language": dict(sorted(counts.items()))}
+    if len(counts) > 1:
+        out["equal"] = len(set(counts.values())) == 1
+    incomplete = []
+    for group, loc in groups.items():
+        missing = sorted(all_langs - {code for code, _ in group})
+        if missing:
+            incomplete.append({"url": loc, "missing": missing})
+    if incomplete:
+        out["incomplete_hreflang_groups"] = len(incomplete)
+        out["incomplete_examples"] = incomplete[:10]
+    return out
+
+
 def analyse_sitemap(base, robots):
     out = {}
     candidates = robots.get("sitemaps") or [urljoin(base, "/sitemap.xml")]
@@ -1346,23 +1398,28 @@ def analyse_sitemap(base, robots):
     try:
         _, status, _, body = fetch(candidates[0])
         xml = body.decode("utf-8", errors="replace")
+        bodies = [xml]
         if "<sitemapindex" in xml:
             children = re.findall(r"<loc>\s*([^<]+?)\s*</loc>", xml)
             out["type"] = "index"
             out["child_sitemaps"] = len(children)
             total = 0
             oversized = []
-            for child in children[:10]:
+            bodies = []
+            # Up to 100 child sitemaps: enough to compare the languages of a multilingual site.
+            for child in children[:100]:
                 try:
                     _, _, _, b2 = fetch(child.strip())
-                    n = len(re.findall(r"<loc>", b2.decode("utf-8", "replace")))
+                    child_xml = b2.decode("utf-8", "replace")
+                    bodies.append(child_xml)
+                    n = len(re.findall(r"<loc>", child_xml))
                     total += n
                     if n > 50000:
                         oversized.append(child.strip())
                 except Exception:
                     pass
             out["url_count_estimate"] = total
-            out["note"] = "estimate from the first 10 child sitemaps" if len(children) > 10 else "total"
+            out["note"] = "estimate from the first 100 child sitemaps" if len(children) > 100 else "total"
             if oversized:
                 out["children_over_50k"] = oversized
         else:
@@ -1370,6 +1427,9 @@ def analyse_sitemap(base, robots):
             out["url_count"] = len(re.findall(r"<loc>", xml))
             if out["url_count"] > 50000:
                 out["over_50k"] = True
+        languages = language_inventory(bodies)
+        if len(languages["per_language"]) > 1:
+            out["languages"] = languages
     except Exception as e:
         out["error"] = "{}: {}".format(type(e).__name__, e)
     return out
@@ -1412,6 +1472,16 @@ def fmt(report):
             s.get("url"), s.get("type"), cnt))
         if s.get("over_50k") or s.get("children_over_50k"):
             line("  WARNING: a sitemap file exceeds the 50,000 URL limit; Google rejects the whole file. Split it into child sitemaps under a sitemap index.")
+        langs = s.get("languages")
+        if langs:
+            line("  URLs per language          : {}".format(
+                ", ".join("{} {}".format(code, n) for code, n in langs["per_language"].items())))
+            if langs.get("equal") is False:
+                line("  WARNING: the languages do not list the same number of pages. Pages were never translated or duplicated, or are hidden by a redirect or a noindex in one language: create the missing versions (seo-technical, Step 2).")
+            if langs.get("incomplete_hreflang_groups"):
+                line("  hreflang groups missing a language: {}".format(langs["incomplete_hreflang_groups"]))
+                for ex in langs.get("incomplete_examples", []):
+                    line("    {}  missing: {}".format(ex["url"], ", ".join(ex["missing"])))
     lt = report.get("llms_txt", {})
     line("  llms.txt present           : {} (informational only; no engine confirms reading it)".format(
         lt.get("present")))
