@@ -98,6 +98,7 @@ Sitemap.xml:
 
 - Hard size limit: 50,000 URLs and 50 MB uncompressed per sitemap file. Google rejects an oversized file entirely, not just the overflow, so every URL in it loses sitemap discovery at once. Above the limit, split into child sitemaps under a sitemap index (an index can list up to 50,000 sitemaps, and index files can be submitted per subsection on very large sites) (https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps).
 - Segment by content type (sitemap-pages.xml, sitemap-posts.xml, sitemap-products.xml) under one index. Why: GSC reports coverage per sitemap, so segmentation reveals which template fails to get indexed. Segmentation also keeps each file safely under the 50,000 URL cap.
+- Multilingual sites: every language lists the same pages. Count the URLs in each language's sitemap (or per hreflang language when one sitemap holds them all): the counts must be equal, and a gap always means a problem to find. Usual causes: pages created in one or two languages and never translated or duplicated into the others (common after a CMS import, or when new landing pages ship in the main languages first), an old redirect or a stray noindex hiding a page that exists in one language, a broken hreflang group. To list the missing pages, group the URLs by their hreflang alternates: every group must carry every language. Fix by creating the missing translations, never by deleting the extra pages; a page that must exist in some languages only (a local offer, a market-specific legal page) is written down as an exception. scripts/seo_audit.py prints the URL count per language and warns on any gap (field rule: a 17-language site ranged from 1596 to 1604 URLs per sitemap, 7 product pages existed in 2 languages only, one glossary entry in 11, 3 pages were hidden by redirects left over from the migration).
 - Keep lastmod honest: update it only when content meaningfully changes. Google states it ignores lastmod when it is uniformly fresh or inaccurate.
 - Do not ping Google's sitemap endpoint: deprecated in June 2023, it returns 404. Submit through GSC and the robots.txt Sitemap: line (https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping).
 - Set up IndexNow for Bing: instant push of new and updated URLs, built into many CMS plugins and Cloudflare. Bing is a primary gateway into ChatGPT search, which makes Bing Webmaster Tools standard equipment in 2026 (https://yoast.com/chatgpt-search/).
@@ -186,6 +187,7 @@ hreflang (international versions):
 
 - Every language or region page lists all alternates including itself, plus one x-default pointing at the language selector or default market page.
 - Reciprocity is mandatory: if the FR page references the EN page, the EN page must reference the FR page back, or Google discards the pair.
+- Same page inventory in every language: a page missing in one language leaves its hreflang group incomplete. Check it with the sitemap count per language (Step 2).
 - Prefer hreflang in sitemaps on large sites: one file to audit instead of tags scattered across templates.
 - hreflang routes users; it does not consolidate authority. Near-duplicate language variants (en-US versus en-GB) still need distinct value or consolidation.
 
@@ -249,6 +251,7 @@ For anything beyond spot checks, run the bundled audit script from the seo-geo-a
 | DOM size | Under ~1,500 nodes | Official (Lighthouse) |
 | Content present in raw HTML | 100% of content that must rank or be cited | Measured (Vercel/MERJ study) |
 | hreflang | Reciprocal pairs, self-reference, x-default | Official |
+| Multilingual sitemaps | Same URL count in every language; every hreflang group carries every language, exceptions written down | Field rule |
 | HTTPS | Sitewide, single 301 hop | Official |
 | Migration redirects | 100% of exported URLs mapped | Field rule |
 

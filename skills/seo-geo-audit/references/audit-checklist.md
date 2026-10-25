@@ -47,6 +47,7 @@ Provenance markers: (field) = recurring finding across 115+ real agency audit ca
 - 4.12 JavaScript rendering gate: the visible content must exist in the raw HTML. No AI crawler executes JavaScript (only Googlebot renders), so client-side content is invisible to ChatGPT, Claude and Perplexity. Test: curl the page or check the script's likely_js_rendered flag. Client-rendered money pages are a Blocking finding for GEO. (measured)
 - 4.13 Measurement artifact: Google removed the num=100 parameter in September 2025; GSC impression drops around that date are rank-tracker artifacts, not traffic losses. Do not let the owner misread the graph. (measured)
 - 4.14 hreflang with x-default for multilingual sites, bidirectional pairs, language-consistent content per locale. (measured)
+- 4.15 Same number of pages in every language sitemap of a multilingual site. A gap means pages never translated, never duplicated, or hidden by a redirect or a noindex in one language: list them by hreflang group and create the missing versions (seo-technical, Step 2; seo_audit.py prints the count per language). (field)
 
 ## 5. Architecture
 
