@@ -100,6 +100,7 @@ Every C row applies to the article, the hub and the author page. The rows below 
 | BLOG-34 | Hub layout and growth | Breadcrumb, H1 keyword + promise, 2-3 line intro, featured card, CTA after the first 6 cards; topic hubs at 3+ posts per theme; search at about 12+ posts, search pages noindex | manual | Silos rank on the head term of each theme; readers find the post they came for |
 | BLOG-35 | Publisher entity on the home | Organization node (@id #organization) on the homepage at least; footer social profiles real and identical to `sameAs` | schema_entity and social_placeholder on the home | The publisher every BlogPosting points to must exist |
 | BLOG-36 | Media hygiene | Video embedded from YouTube, never self-hosted; Substack or Medium mirrors set to noindex | manual | Page weight, a second surface, no duplicate outranking the original |
+| BLOG-37 | Year in titles computed, never typed | Any year in the title tag, H1, og:title or twitter:title is the current year rendered at build or request time from the clock (a template variable), never a hard-coded "2026"; exception: a year that belongs to a dated external source being cited ("State of SEO 2025 report") stays as written | stale-year check in the decay finder, manual | A typed year goes stale every January on every post at once; a computed year never does, and a cited source keeps its real date |
 
 ## Phase 2. Audit the existing page
 
@@ -184,7 +185,7 @@ Why: Google holds a patent on scoring pages by information gain (US 11,354,342, 
 
 Apply every element. Each one exists because its absence showed up as a recurring loss across 115+ agency audits. Write the body first; write the title and meta description last, they are sharper once the article exists.
 
-**1. Title tag + meta description (C-01, C-02, BLOG-02).** Title 30-60 characters with the primary keyword near the front, phrased as a reason to click, not a label. Meta description 120-160 characters, written by hand. Why: beyond roughly 60 characters Google truncates the title; a hand-written description controls the SERP pitch instead of letting Google assemble one from random page text, and the snippet is the first conversion surface of the article.
+**1. Title tag + meta description (C-01, C-02, BLOG-02).** Title 30-60 characters with the primary keyword near the front, phrased as a reason to click, not a label. When the title carries a year, it is computed from the current date by the template, never typed (BLOG-37). Meta description 120-160 characters, written by hand. Why: beyond roughly 60 characters Google truncates the title; a hand-written description controls the SERP pitch instead of letting Google assemble one from random page text, and the snippet is the first conversion surface of the article.
 
 **2. Cover image + single H1 + breadcrumb (C-03, C-19, BLOG-16).** Exactly one H1, containing the primary keyword. A visible breadcrumb trail (markup details: seo-schema-markup). Why: multiple H1s blur the topical focus of the page; the breadcrumb tells crawlers and AI engines where the page sits in the site hierarchy.
 
@@ -239,6 +240,7 @@ Read `references/blog-templates.md` whenever the article page or the blog hub is
 Re-run the Phase 2 commands on the live or staged URLs. The finish line: TEMPLATE, BLOG HUB and SOCIAL lines clean; BOLD above zero with the keyword among the samples; no high finding; no `toc_missing`, `author_missing`, `author_page_link`, `date_missing`, `no_cta_money`, `few_sources`, `hub_no_covers`, `schema_article` or `schema_fields`; word count at or above the Phase 3 median; then re-run `page_benchmark.py`: every block present on most competitors is now present. Any remaining Fail is fixed or recorded as a written owner decision. Then verify every line of the pre-publish checklist and report failures to the user:
 
 - [ ] Title 30-60 characters, keyword near the front (BLOG-02)
+- [ ] Any year in the title, H1 or social titles is computed, not typed; only a cited dated source keeps its own year (BLOG-37)
 - [ ] Meta description 120-160 characters, hand-written (C-02)
 - [ ] One H1 containing the keyword; breadcrumb present (C-03, C-19)
 - [ ] Author line visible: photo, name linked to the author page, role, published and updated dates, reading time (BLOG-15)
@@ -314,7 +316,7 @@ Title and answer-block patterns (BLOG-02, BLOG-04):
 |---|---|---|
 | How-to | How to <task>: <number or benefit> | Outcome, number of steps, time required, the one critical warning |
 | Definition | What Is <term>? <scope> | Term, category, differentiator, main use case, in 2-4 sentences |
-| Comparison | Best <category> for <audience> (<year>) | The winner, for whom, the runner-up, the deciding criterion |
+| Comparison | Best <category> for <audience> (<year>, computed: BLOG-37) | The winner, for whom, the runner-up, the deciding criterion |
 | Cost | <thing> Cost: <range or factors> | The realistic range first, then the 2-3 factors that move it |
 
 Why patterns instead of creativity: the top block must answer the query in the retrieval frame engines use; cleverness belongs in the development, the first screen belongs to the answer.
