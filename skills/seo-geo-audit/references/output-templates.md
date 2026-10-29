@@ -6,10 +6,11 @@ Two formats. Pick by audience: Template A for practitioners and teams, Template 
 
 1. Write in the language of the site being audited.
 2. Open with what is genuinely good. Most sites do several things right, and a report that starts with praise gets read to the end. If nothing is good, find the asset (old domain, real photos, solid reviews) and start there.
-3. The verdict comes first, in one line, and it is one of three: ready to grow (scale content now), short fix list first (1-3 weeks of corrections, then scale), or rebuild before investing (blocking problems make content spend wasteful today).
+3. The verdict comes first, in one line, and it is one of three: ready to grow (scale content now), short fix list first (corrections, then scale), or rebuild before investing (blocking problems make content spend wasteful today).
 4. Numbers over adjectives: "23 of 31 images have no alt text" beats "many images lack alt text".
 5. State what was not verified and why (no GSC access, speed not measured, backlinks not crawled). Unverified is honest; guessed is fatal.
-6. Never invent a rule to sound thorough. If a finding does not map to the checklist or to a measured source, leave it out.
+6. No dates, no delays, no schedule: never write when an action will be done or how long it takes (no "week 1", no "month 2", no When or Effort column). Fixes ship fast today, so a printed delay is false and caps the client's ambition; the numbered order of the plan is the only sequencing. The only date allowed is the date the audit was run.
+7. Never invent a rule to sound thorough. If a finding does not map to the checklist or to a measured source, leave it out.
 
 ## Template A: full audit report
 
@@ -44,13 +45,17 @@ content, keywords, blog, GEO, conversion, e-commerce, local, backlinks.}
 links, citability), what to copy and what to skip.}
 
 ## Action plan, in order
-| # | Action | Category | Effort | Skill to use |
+| # | Action | Category | Pages touched | Who | Skill to use |
 |---|---|---|---|---|
-{Ordered list. Effort: S/M/L. Map each action to the specialized skill.}
+{Ordered by impact; the order is the plan, no date or duration. Map each action to the specialized skill.}
 
 ## Not verified
 {What was out of reach and what access would unlock it.}
 ```
+
+## Template C: client PDF
+
+When the audit is sent as a PDF (attached to an email, forwarded to a developer), use the seo-audit-pdf skill: same content as Template A, in a fixed A4 layout where no block is ever split across two pages, rendered and linted by its script.
 
 ## Template B: plain-language email to the owner
 
