@@ -33,6 +33,7 @@ Usage:
 import argparse
 import datetime
 import importlib.util
+import http.client
 import json
 import os
 import re
@@ -105,7 +106,9 @@ def fetch_chain(url, max_hops=6):
                 cur = urldefrag(urljoin(cur, e.headers["Location"]))[0]
                 continue
             return chain, cur, e.code, dict(e.headers or {}), b""
-        except (URLError, ssl.SSLError, OSError, ValueError) as e:
+        except (URLError, ssl.SSLError, OSError, ValueError, http.client.HTTPException) as e:
+            # HTTPException covers InvalidURL: an unrendered template link such as
+            # /{{ l.href }} must be reported as broken, not crash the crawl
             return chain, cur, 0, {"error": str(e)}, b""
     return chain, cur, 310, {}, b""  # too many redirects
 

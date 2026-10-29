@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Audit SEO GEO example.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Page box: margins, footer with the domain and page numbers on every page.
+     Change data-domain on <body> and the footer text below for each report. */
+  @page {
+    size: A4;
+    margin: 16mm 16mm 18mm 16mm;
+    @bottom-left { content: "Audit SEO et GEO · example.com"; font: 500 7.5pt Inter, -apple-system, Arial, sans-serif; color: #8b93a1; }
+    @bottom-right { content: counter(page) " / " counter(pages); font: 600 7.5pt Inter, -apple-system, Arial, sans-serif; color: #8b93a1; }
+  }
+
+  :root {
+    --ink: #111827;
+    --ink-2: #374151;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --soft: #f5f6f8;
+    --accent: #4f46e5;
+    --accent-soft: #eef0ff;
+    --ok: #15803d;      --ok-bg: #e8f6ed;
+    --fix: #b45309;     --fix-bg: #fdf3e2;
+    --prio: #b91c1c;    --prio-bg: #fdecec;
+    --watch: #1d4ed8;   --watch-bg: #e8effd;
+    --minor: #4b5563;   --minor-bg: #eef0f3;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  body {
+    font-family: Inter, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-size: 9.4pt; line-height: 1.5; color: var(--ink);
+    font-feature-settings: "tnum" 1, "cv11" 1;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  p { margin: 0 0 6px; }
+  b, strong { font-weight: 650; }
+  code { font-family: "SF Mono", Menlo, monospace; font-size: 8.2pt; background: var(--soft); border: 1px solid var(--line); padding: 0 4px; border-radius: 4px; white-space: nowrap; }
+
+  /* ---------- Break rules: nothing is ever split across two pages ---------- */
+  h1, h2, h3, .lead { break-after: avoid; page-break-after: avoid; }
+  .cover, .verdict, .kpi, .kpis, .checklist li, .note, .prio, .finding, .plan li, .box, .cat-head {
+    break-inside: avoid; page-break-inside: avoid;
+  }
+  .cat-head + .finding, h2 + .lead, .lead + * { break-before: avoid; page-break-before: avoid; }
+  .page-break { break-before: page; page-break-before: always; }
+
+  /* ---------- Cover ---------- */
+  .cover {
+    background: linear-gradient(135deg, #111827 0%, #1f2a5a 60%, #4f46e5 140%);
+    color: #fff; border-radius: 14px; padding: 22px 24px 20px; margin-bottom: 14px;
+  }
+  .cover .eyebrow { font-size: 7.6pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #c7d2fe; }
+  .cover h1 { font-size: 25pt; line-height: 1.1; margin: 6px 0 6px; font-weight: 800; letter-spacing: -.02em; }
+  .cover .def { color: #dbe1ff; font-size: 9pt; margin-bottom: 14px; max-width: 150mm; }
+  .cover .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; border-top: 1px solid rgba(255,255,255,.18); padding-top: 11px; }
+  .cover .meta div { font-size: 8.2pt; color: #fff; }
+  .cover .meta span { display: block; font-size: 6.8pt; letter-spacing: .1em; text-transform: uppercase; color: #a5b4fc; font-weight: 700; margin-bottom: 2px; }
+
+  /* ---------- Section headings ---------- */
+  h2 { font-size: 14pt; font-weight: 800; letter-spacing: -.01em; margin: 20px 0 4px; display: flex; align-items: center; gap: 9px; }
+  h2::before { content: ""; width: 5px; height: 17px; border-radius: 3px; background: var(--accent); flex: none; }
+  .lead { color: var(--muted); margin: 0 0 10px; font-size: 9pt; }
+  h3 { font-size: 10.5pt; font-weight: 700; margin: 0 0 4px; }
+
+  /* ---------- Verdict ---------- */
+  .verdict { border-radius: 12px; padding: 13px 16px; margin: 0 0 6px; border: 1.5px solid; }
+  .verdict .label { font-size: 7pt; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .verdict .title { font-size: 12.5pt; font-weight: 750; margin: 3px 0 4px; }
+  .verdict.ok   { border-color: var(--ok);   background: var(--ok-bg); }   .verdict.ok .label   { color: var(--ok); }
+  .verdict.warn { border-color: var(--fix);  background: var(--fix-bg); }  .verdict.warn .label { color: var(--fix); }
+  .verdict.bad  { border-color: var(--prio); background: var(--prio-bg); } .verdict.bad .label  { color: var(--prio); }
+
+  /* ---------- KPI tiles ---------- */
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 2px 0 10px; }
+  .kpi { background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 10px 11px; }
+  .kpi .n { font-size: 17pt; font-weight: 800; letter-spacing: -.02em; color: var(--accent); line-height: 1.1; }
+  .kpi .t { font-size: 7.8pt; color: var(--ink-2); margin-top: 3px; line-height: 1.35; }
+
+  .checklist { list-style: none; padding: 0; margin: 0 0 8px; }
+  .checklist li { position: relative; padding: 5px 0 5px 22px; border-bottom: 1px solid var(--line); }
+  .checklist li:last-child { border-bottom: 0; }
+  .checklist li::before { content: "✓"; position: absolute; left: 2px; top: 5px; width: 15px; height: 15px; border-radius: 50%; background: var(--ok-bg); color: var(--ok); font-size: 8pt; font-weight: 800; text-align: center; line-height: 15px; }
+
+  .note { background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; padding: 9px 13px; margin: 8px 0; color: var(--ink-2); }
+
+  /* ---------- Priorities ---------- */
+  .prio { display: grid; grid-template-columns: 34px 1fr; gap: 12px; border: 1px solid var(--line); border-radius: 12px; padding: 13px 14px; margin-bottom: 9px; background: #fff; }
+  .prio .num { width: 34px; height: 34px; border-radius: 10px; background: var(--ink); color: #fff; font-weight: 800; font-size: 13pt; display: flex; align-items: center; justify-content: center; }
+  .prio h3 { font-size: 11pt; margin-bottom: 6px; }
+  .row { display: grid; grid-template-columns: 68px 1fr; gap: 8px; margin-bottom: 4px; }
+  .row .k { font-size: 6.8pt; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+  .tags { margin-top: 7px; display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag { font-size: 7.3pt; font-weight: 600; background: var(--soft); border: 1px solid var(--line); color: var(--ink-2); border-radius: 999px; padding: 1px 8px; }
+
+  /* ---------- Findings by category ---------- */
+  .cat-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--ink); padding-bottom: 4px; margin: 16px 0 8px; }
+  .cat-head h3 { font-size: 11pt; margin: 0; }
+  .cat-head .count { font-size: 7.6pt; color: var(--muted); font-weight: 600; }
+  .finding { display: grid; grid-template-columns: 1fr 74px; gap: 12px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 6px; background: #fff; }
+  .finding .what { font-weight: 700; font-size: 9.4pt; margin-bottom: 2px; }
+  .finding .fact { color: var(--ink-2); }
+  .finding .todo { margin-top: 4px; color: var(--ink); }
+  .finding .todo::before { content: "→ "; color: var(--accent); font-weight: 800; }
+  .pill { align-self: start; justify-self: end; font-size: 7pt; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; border-radius: 999px; padding: 3px 8px; white-space: nowrap; }
+  .pill.ok { color: var(--ok); background: var(--ok-bg); }
+  .pill.fix { color: var(--fix); background: var(--fix-bg); }
+  .pill.prio { color: var(--prio); background: var(--prio-bg); }
+  .pill.watch { color: var(--watch); background: var(--watch-bg); }
+  .pill.minor { color: var(--minor); background: var(--minor-bg); }
+
+  /* ---------- Action plan (no dates, no durations: the order is the plan) ---------- */
+  .plan { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+  .plan li { counter-increment: step; display: grid; grid-template-columns: 30px 1fr; gap: 10px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 6px; }
+  .plan li::before { content: counter(step) "."; font-weight: 800; font-size: 11pt; color: var(--accent); }
+  .plan .a { font-weight: 650; }
+  .plan .s { color: var(--muted); font-size: 8.4pt; margin-top: 2px; }
+
+  /* ---------- Closing boxes ---------- */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .box { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--soft); }
+  .box h3 { margin-bottom: 6px; }
+  .box ul { margin: 0; padding-left: 16px; }
+  .box li { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<!-- 1. COVER -->
+<section class="cover">
+  <div class="eyebrow">Audit SEO et GEO</div>
+  <h1>example.com</h1>
+  <div class="def">SEO : référencement dans Google. GEO : visibilité dans les réponses des IA (ChatGPT, Perplexity, Gemini, Claude).</div>
+  <div class="meta">
+    <div><span>Date de l'audit</span>01/01/2026</div>
+    <div><span>Pages analysées</span>120 sur 120</div>
+    <div><span>Vérifié dans un navigateur</span>accueil, article, service</div>
+    <div><span>Concurrents</span>aucun fourni</div>
+  </div>
+</section>
+
+<!-- 2. VERDICT: .ok ready to grow / .warn corrections first / .bad rebuild first -->
+<div class="verdict warn">
+  <div class="label">Verdict</div>
+  <div class="title">Quelques corrections d'abord, puis accélérer sur le contenu.</div>
+  <p>One or two sentences that justify the verdict with a measured fact.</p>
+</div>
+
+<!-- 3. WHAT IS ALREADY GOOD -->
+<h2>Ce qui est déjà bon</h2>
+<p class="lead">Measured strengths, before any criticism.</p>
+<div class="kpis">
+  <div class="kpi"><div class="n">98/100</div><div class="t">Vitesse de l'accueil sur mobile</div></div>
+  <div class="kpi"><div class="n">151</div><div class="t">articles de blog</div></div>
+  <div class="kpi"><div class="n">4,9/5</div><div class="t">note moyenne des avis</div></div>
+  <div class="kpi"><div class="n">0</div><div class="t">image sans texte alternatif</div></div>
+</div>
+<ul class="checklist">
+  <li>Specific, measured strength.</li>
+</ul>
+<div class="note">Honest reference point, for example: le site est déjà au-dessus de 90% des sites que nous auditons.</div>
+
+<!-- 4. PRIORITIES (3 to 6). No effort in time, only scope and who does it. -->
+<h2 class="page-break">Les priorités</h2>
+<p class="lead">What to fix first, in order of impact.</p>
+<div class="prio">
+  <div class="num">1</div>
+  <div>
+    <h3>Short title of the priority</h3>
+    <div class="row"><div class="k">Constat</div><div>Measured fact.</div></div>
+    <div class="row"><div class="k">Pourquoi</div><div>What it costs in Google and in AI answers.</div></div>
+    <div class="row"><div class="k">Action</div><div>The fix, precise enough for a developer.</div></div>
+    <div class="row"><div class="k">Effet</div><div>Expected effect.</div></div>
+    <div class="tags"><span class="tag">142 pages</span><span class="tag">Développeur</span></div>
+  </div>
+</div>
+
+<!-- 5. DETAIL BY CATEGORY: one .cat-head then .finding cards. Pills: ok, fix, prio, watch, minor -->
+<h2 class="page-break">Détail par catégorie</h2>
+<p class="lead">Every point checked, with its status.</p>
+<div class="cat-head"><h3>Structure et maillage interne</h3><span class="count">5 points</span></div>
+<div class="finding">
+  <div>
+    <div class="what">Point checked</div>
+    <div class="fact">Measured fact, with numbers.</div>
+    <div class="todo">The recommendation.</div>
+  </div>
+  <span class="pill fix">À corriger</span>
+</div>
+
+<!-- 6. ACTION PLAN: numbered by impact, no date, no duration, no effort column -->
+<h2 class="page-break">Plan d'action, dans l'ordre</h2>
+<p class="lead">L'ordre est le plan : chaque étape rend la suivante plus efficace.</p>
+<ol class="plan">
+  <li><div><div class="a">Action to take.</div><div class="s">Pages touchées · qui s'en charge</div></div></li>
+</ol>
+
+<!-- 7. NOT VERIFIED + METHOD -->
+<h2>Non vérifié, et méthode</h2>
+<div class="two-col">
+  <div class="box"><h3>Non vérifié</h3><ul><li>What was out of reach, and the access that would unlock it.</li></ul></div>
+  <div class="box"><h3>Méthode</h3><ul><li>How the data was collected.</li></ul></div>
+</div>
+
+</body>
+</html>

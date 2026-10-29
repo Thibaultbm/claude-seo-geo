@@ -4,7 +4,7 @@
 
 **SEO and GEO skills that work like a specification: they audit a page, compare it with the competitors that rank, and build the fix.** Rank in Google and get cited by ChatGPT, Perplexity, Gemini and Google AI Overviews.
 
-19 skills, 7 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
+20 skills, 8 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
 
 ## How a page skill works
 
@@ -81,6 +81,7 @@ The crawl finds what no single-page audit can see (orphans, internal links point
 | Skill | Use it for |
 |---|---|
 | [seo-geo-audit](skills/seo-geo-audit/SKILL.md) | Full site audit, 15 categories, SEO and GEO scores, a prioritized plan that hands each fix to the right skill |
+| [seo-audit-pdf](skills/seo-audit-pdf/SKILL.md) | The audit as a client-ready PDF: fixed A4 layout, nothing cut across two pages, no dates or delays, rendered and linted by one script |
 | [seo-traffic-drop](skills/seo-traffic-drop/SKILL.md) | Traffic or rankings fell: date the drop, locate it, run the differential diagnosis |
 | [seo-technical](skills/seo-technical/SKILL.md) | Crawl, indexation, Core Web Vitals, JavaScript rendering, AI crawler access, migrations |
 | [seo-ai-site-builders](skills/seo-ai-site-builders/SKILL.md) | Sites built by Lovable, Base44, Bolt, v0, Bubble and others: turn the JavaScript app into served HTML |
@@ -200,7 +201,7 @@ One wrong redirect or an overwritten page can cost rankings that took years to b
 ```
 claude-seo-geo/
   .claude-plugin/        plugin.json + marketplace.json
-  skills/                19 skills (SKILL.md + references/ + evals/ + scripts/)
+  skills/                20 skills (SKILL.md + references/ + evals/ + scripts/)
   docs/
     page-skill-standard.md   the four-phase standard every page skill follows
   scripts/               validate_skills.py (CI format and style checks)
