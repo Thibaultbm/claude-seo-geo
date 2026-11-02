@@ -4,7 +4,7 @@
 
 **SEO and GEO skills that work like a specification: they audit a page, compare it with the competitors that rank, and build the fix.** Rank in Google and get cited by ChatGPT, Perplexity, Gemini and Google AI Overviews.
 
-23 skills, 9 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
+24 skills, 10 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
 
 ## How a page skill works
 
@@ -84,6 +84,7 @@ The crawl finds what no single-page audit can see (orphans, internal links point
 | [seo-audit-pdf](skills/seo-audit-pdf/SKILL.md) | The audit as a client-ready PDF: fixed A4 layout, nothing cut across two pages, no dates or delays, rendered and linted by one script |
 | [seo-traffic-drop](skills/seo-traffic-drop/SKILL.md) | Traffic or rankings fell: date the drop, locate it, run the differential diagnosis |
 | [seo-technical](skills/seo-technical/SKILL.md) | Crawl, indexation, Core Web Vitals, JavaScript rendering, AI crawler access, migrations |
+| [seo-sitemap](skills/seo-sitemap/SKILL.md) | A sitemap readable by people as well as robots: XSL view with the polyfill that survives Chrome's XSLT removal, sitemap index by section and language, honest lastmod, HTML sitemap page |
 | [seo-ai-site-builders](skills/seo-ai-site-builders/SKILL.md) | Sites built by Lovable, Base44, Bolt, v0, Bubble and others: turn the JavaScript app into served HTML |
 | [seo-keyword-research](skills/seo-keyword-research/SKILL.md) | Real queries, intent mapping, cannibalization, AI prompt research |
 | [seo-internal-linking](skills/seo-internal-linking/SKILL.md) | Money-page-first linking, silos, orphan pages, anchors |
@@ -119,6 +120,7 @@ All standard-library Python 3.9+, read only, no API key, no install.
 | `skills/seo-page-sections/scripts/section_audit.py` | Which blocks a page has (FAQ, breadcrumb, comparison table, reviews, guarantee, process, author...) |
 | `skills/seo-ai-site-builders/scripts/render_check.py` | What crawlers receive from a JavaScript site, by user agent, plus a soft-404 probe |
 | `skills/seo-traffic-drop/scripts/gsc_diff.py` | Locates a traffic drop in Search Console exports |
+| `skills/seo-sitemap/scripts/sitemap_audit.py` | Sitemap for robots and people: stylesheet and polyfill, size, segmentation, duplicates, lastmod honesty, priority and changefreq, hreflang weight, URLs per language, HTML sitemap page |
 | `skills/youtube-description/scripts/youtube_check.py` | Before a video goes out: chapters YouTube will accept, description and title limits, forbidden characters, UTM links, thumbnail size and ratio |
 
 ## Install
@@ -210,7 +212,7 @@ One wrong redirect or an overwritten page can cost rankings that took years to b
 ```
 claude-seo-geo/
   .claude-plugin/        plugin.json + marketplace.json
-  skills/                23 skills (SKILL.md + references/ + evals/ + scripts/)
+  skills/                24 skills (SKILL.md + references/ + evals/ + scripts/)
   docs/
     page-skill-standard.md   the four-phase standard every page skill follows
   scripts/               validate_skills.py (CI format and style checks)

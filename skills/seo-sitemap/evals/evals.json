@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-sitemap",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our client opened https://example.com/sitemap.xml in Chrome and says it is broken: it is just a wall of XML that nobody can read. Search Console says the sitemap is fine. What is going on and how do we make it readable?",
+      "expected_output": "An answer that separates the two readers: the file is valid for robots (Search Console says Success) and only lacks a human view. It runs or asks for sitemap_audit.py, then installs the bundled assets/sitemap.xsl on the same origin with the xml-stylesheet instruction on the second line of every sitemap file, index included, and labels translated. It states that Chrome removes native XSLT on 17 November 2026 (Chrome 158) and that a stylesheet without the self-hosted, pinned xslt-polyfill renders as run-together text, so the polyfill script element goes in every styled file. It never proposes serving HTML at the sitemap address or switching content by user agent. It adds an HTML sitemap page linked from the footer as the durable human version, and the acceptance: audit exit 0, browser check with XSLT disabled, Search Console Success with an unchanged URL count.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Our multilingual site has a single sitemap.xml of 1.4 MB with 1,800 URLs in 5 languages, hreflang links on every URL, priority and changefreq everywhere, and 700 location pages that all show the same lastmod. Is that a problem?",
+      "expected_output": "An answer that says the file is valid (under 50,000 URLs and 50 MB) but heavy and partly dishonest: split it into a sitemap index with children by section and language so Search Console reports indexation per template; remove priority and changefreq, which Google ignores; replace the shared lastmod (a generation date) with the real content change date, since Google ignores inaccurate lastmod; keep hreflang in one place or generate the sitemap and head versions from the same table, and check the same page count per language. It points to sitemap_audit.py for the measured version and does not invent numbers it was not given.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our sitemap already has a nice XSL stylesheet but since Chrome updated there is a red banner saying the site uses XSLT which will soon be removed. Should we just delete the stylesheet?",
+      "expected_output": "An answer that explains the banner (Chrome deprecation, native XSLT off on Stable from 17 November 2026, Chrome 158) and recommends keeping the stylesheet and adding the official xslt-polyfill, self-hosted at a pinned version, as the first child of the root element of every styled sitemap file in the XHTML namespace. It notes that removing the stylesheet only brings back the raw XML tree, that keeping it without the polyfill gives run-together text once XSLT is gone, and that Google has published nothing on a script element inside a sitemap, so the first deploy is checked in Search Console (Success, same URL count) with a fallback to the HTML sitemap page.",
+      "files": []
+    }
+  ]
+}

@@ -30,7 +30,7 @@ CHROME_CANDIDATES = [
 ]
 
 FORBIDDEN = [
-    (r"[—–]", "dash character (use a comma, a colon or parentheses)"),
+    ("[\u2014\u2013]", "dash character (use a comma, a colon or parentheses)"),
     (r"\b(semaines?|mois|(?<!à )jours?|trimestres?|délais?|échéances?|échéancier|calendrier|planning|rétroplanning|deadline)\b",
      "schedule or delay word (French)"),
     (r"\b(weeks?|months?|days?|quarters?|timeline|deadline|schedule|sprints?)\b", "schedule or delay word (English)"),

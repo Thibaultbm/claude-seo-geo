@@ -148,6 +148,7 @@ Reassure before you criticize: lead with honest numbered reference points ("this
 |---|---|
 | A dated loss of traffic or rankings, rather than a site that never performed | seo-traffic-drop |
 | Crawl, speed, indexation, JS rendering, AI bot access | seo-technical |
+| Sitemap format, readable sitemap view, sitemap index, lastmod honesty | seo-sitemap |
 | Wrong or missing keywords, cannibalization | seo-keyword-research |
 | Weak or thin articles | seo-content-blog |
 | Product page issues | seo-content-product-page |
