@@ -1,0 +1,23 @@
+{
+  "skill_name": "youtube-description",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here is the timestamped transcript of my 6:40 video where I explain how homeowners can tell if their roof needs replacing or just a repair. I run a roofing company in Denver, our site is denverroofpros.com and I want people to book a free inspection. Write the YouTube description. [transcript with timestamps from 0:00 to 6:40]",
+      "expected_output": "A solo-video description: line one is a rewritten offer line with a link to denverroofpros.com carrying utm_source=youtube, utm_medium=social, a utm_campaign and a utm_content; then an 8-sentence prose summary with the main keyword (roof repair or replacement) and the promise in the first two lines, varied sentence openings, the signs and methods actually named in the transcript; then the social profiles block (only real URLs, or a request for them instead of invented ones) and a one-sentence introduction; then 'Chapters' at the end, 3 to 10 chapters starting at 0:00, each at least 10 seconds, titles of 2 to 5 words, the last ending at 6:40 if the start-and-end format is used. No em dash, no bullet points in the summary, no < or >. Runs or tells the user to run youtube_check.py with --duration 6:40 and reports the result.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Write the description for episode 14 of our podcast. Guest: Maria Lopez, founder of a chain of 12 bakeries in Madrid. She gave us her website mariasbakery.es and her Instagram. The episode lasts 58 minutes, transcript attached. Our offer: a free franchise consultation on ourfranchiseclub.com.",
+      "expected_output": "An interview-structure description: tracked offer line to ourfranchiseclub.com; a 2 to 3 sentence hook paragraph presenting Maria Lopez with role and company; a 4 to 6 sentence body opening with 'In this episode, we explore...', covering 3 to 5 themes and her strongest positions, ending with a positioning sentence; 100 to 180 words excluding links; a guest block with only the two links she gave (no invented LinkedIn); the host block; 8 to 15 chapters in mm:ss starting at 00:00, each at least 10 seconds. Prose without emoji, bullet points or em dashes.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My video description has timestamps but YouTube doesn't show chapters on the progress bar. Here it is: '1:05 Intro / 2:30 Pricing / 2:35 Demo / 9:10 Q&A'. Why?",
+      "expected_output": "Explains YouTube's chapter requirements (first timestamp at 0:00, at least 3, ascending order, each at least 10 seconds, timestamp at the start of each line) with the YouTube Help source, identifies the faults here (starts at 1:05 not 0:00, Pricing lasts only 5 seconds, all on one line separated by slashes), gives a corrected one-per-line list starting at 0:00 with the short chapter merged or extended, and suggests running youtube_check.py to verify.",
+      "files": []
+    }
+  ]
+}
