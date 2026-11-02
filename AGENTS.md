@@ -23,7 +23,7 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 1. Clone the repository somewhere stable.
 2. Point your agent at the skill you need: paste the relevant `SKILL.md` into context, or reference its path in your rules file (`.cursorrules`, `AGENTS.md`, `GEMINI.md`, etc).
 3. The `references/` files inside each skill are meant to be loaded on demand: load them when the SKILL.md says so, not upfront.
-4. The executables in the repository are `skills/seo-geo-audit/scripts/seo_audit.py`, `skills/seo-geo-audit/scripts/page_benchmark.py`, `skills/seo-page-sections/scripts/section_audit.py`, `skills/seo-internal-linking/scripts/site_crawl.py`, `skills/seo-traffic-drop/scripts/content_decay.py`, `skills/seo-ai-site-builders/scripts/render_check.py`, `skills/seo-traffic-drop/scripts/gsc_diff.py`, and `skills/seo-audit-pdf/scripts/render_pdf.py`. All are pure Python standard library (Python 3.9+), no packages to install, no API keys.
+4. The executables in the repository are `skills/seo-geo-audit/scripts/seo_audit.py`, `skills/seo-geo-audit/scripts/page_benchmark.py`, `skills/seo-page-sections/scripts/section_audit.py`, `skills/seo-internal-linking/scripts/site_crawl.py`, `skills/seo-traffic-drop/scripts/content_decay.py`, `skills/seo-ai-site-builders/scripts/render_check.py`, `skills/seo-traffic-drop/scripts/gsc_diff.py`, `skills/seo-audit-pdf/scripts/render_pdf.py`, and `skills/youtube-description/scripts/youtube_check.py`. All are pure Python standard library (Python 3.9+), no packages to install, no API keys.
 
 ## Skill map
 
@@ -47,5 +47,8 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 | seo-backlinks | Link building, ninja linking, brand mentions |
 | seo-local | Google Business Profile, reviews, local pages |
 | social-amplification | Repurpose and distribute content to drive branded search and feed AI citation surfaces |
+| youtube-title | YouTube titles that are found and clicked, paired with the thumbnail hook |
+| youtube-description | YouTube descriptions and chapters written from the transcript |
+| youtube-thumbnail | YouTube thumbnails readable at phone size, in the brand's colors |
 | geo-visibility | Getting cited by ChatGPT, Perplexity, AI Overviews |
 | geo-tracking | Measuring AI traffic, citations and share of voice |

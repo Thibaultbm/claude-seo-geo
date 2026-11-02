@@ -1,0 +1,23 @@
+{
+  "skill_name": "youtube-thumbnail",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need a thumbnail for my face-cam video where I show how my real estate agency sold a house in 9 days above asking price. Brand colors: dark green #0B3D2E and gold #D4A017. I have a photo of myself.",
+      "expected_output": "Chooses route B (AI image from the reference photo), fills the face-cam prompt template with the brand palette as hex codes declared strict, direct eye contact, a stated expression and a pointing gesture, a rim light in the brand color, 2 to 6 words of text with the number '9 DAYS' as the largest flat-colored element, and describes wanted states rather than negatives (never 'no outline'). Gives the fix-one-detail method ('Keep everything identical. Change only...') and says to correct lettering in an editor. States the specs (1280x720, under 2 MB, bottom right corner free, one per language) and the readability test at 320x180 and 168x94, plus youtube_check.py --thumbnail.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "We publish a 30-video series of short tutorials recorded on screen for our accounting software. We want consistent thumbnails without generating AI images.",
+      "expected_output": "Recommends route D (the bundled HTML template rendered in batch by a headless browser) with route A for the image: a frame extracted from each video with ffmpeg among about ten moments between 8 and 70 percent of the duration, keeping the richest frame and cropping the subtitle strip. Explains filling the placeholders (series label such as 'TUTORIAL 7/30', term, hook, brand colors, logo), the auto-fit of the term, the JPEG conversion under 2 MB, naming each file like its video, and checking every output with youtube_check.py and the small reductions.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Design the thumbnail template for our interview podcast. Guests come from many industries.",
+      "expected_output": "Chooses route C: almost black brand-dark background with no grid or pattern, a large accent-color glow behind the guest, the guest cut out very large on the right with the head in the upper third and looking at the camera, a 2 to 6 word white title in a justified block on the left with one line in an accent block, a small channel logo top left, no name by default, the template fixed across episodes. Prefers a number or result over a theme for the title words, keeps the bottom right corner free for the duration, and offers the fully generated prompt variant for comparison with a spelling check.",
+      "files": []
+    }
+  ]
+}

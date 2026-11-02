@@ -4,7 +4,7 @@
 
 **SEO and GEO skills that work like a specification: they audit a page, compare it with the competitors that rank, and build the fix.** Rank in Google and get cited by ChatGPT, Perplexity, Gemini and Google AI Overviews.
 
-20 skills, 8 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
+23 skills, 9 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
 
 ## How a page skill works
 
@@ -98,6 +98,14 @@ The crawl finds what no single-page audit can see (orphans, internal links point
 | [geo-tracking](skills/geo-tracking/SKILL.md) | AI traffic in GA4, monthly prompt panels, share of voice |
 | [social-amplification](skills/social-amplification/SKILL.md) | Repurpose content for YouTube, Reddit, LinkedIn and X to drive branded search and AI citations |
 
+### YouTube videos (any sector)
+
+| Skill | Use it for |
+|---|---|
+| [youtube-title](skills/youtube-title/SKILL.md) | Titles found in search and clicked in the feed: patterns per video type, scored candidates, the thumbnail hook that pairs with them, native titles per language |
+| [youtube-description](skills/youtube-description/SKILL.md) | Descriptions written from the transcript: tracked offer link, keyword-rich summary, guest and host blocks for interviews, valid chapters, ready-to-use prompts |
+| [youtube-thumbnail](skills/youtube-thumbnail/SKILL.md) | Thumbnails readable at phone size: four production routes (video frame, AI image from a reference photo, interview template, HTML series template), tested prompt template, size checks |
+
 ## The scripts
 
 All standard-library Python 3.9+, read only, no API key, no install.
@@ -111,6 +119,7 @@ All standard-library Python 3.9+, read only, no API key, no install.
 | `skills/seo-page-sections/scripts/section_audit.py` | Which blocks a page has (FAQ, breadcrumb, comparison table, reviews, guarantee, process, author...) |
 | `skills/seo-ai-site-builders/scripts/render_check.py` | What crawlers receive from a JavaScript site, by user agent, plus a soft-404 probe |
 | `skills/seo-traffic-drop/scripts/gsc_diff.py` | Locates a traffic drop in Search Console exports |
+| `skills/youtube-description/scripts/youtube_check.py` | Before a video goes out: chapters YouTube will accept, description and title limits, forbidden characters, UTM links, thumbnail size and ratio |
 
 ## Install
 
@@ -201,7 +210,7 @@ One wrong redirect or an overwritten page can cost rankings that took years to b
 ```
 claude-seo-geo/
   .claude-plugin/        plugin.json + marketplace.json
-  skills/                20 skills (SKILL.md + references/ + evals/ + scripts/)
+  skills/                23 skills (SKILL.md + references/ + evals/ + scripts/)
   docs/
     page-skill-standard.md   the four-phase standard every page skill follows
   scripts/               validate_skills.py (CI format and style checks)

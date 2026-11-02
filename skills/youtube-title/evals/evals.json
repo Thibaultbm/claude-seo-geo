@@ -1,0 +1,23 @@
+{
+  "skill_name": "youtube-title",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I made a 9-minute video showing how my accounting firm helped a freelance designer cut her tax bill by 4200 euros using three legal deductions. Give me a title.",
+      "expected_output": "Collects or infers the main keyword (freelance tax deductions or similar searched wording), writes 8 to 10 candidates across at least three patterns (case study with result, mistakes, how-to), scores them on keyword in the first five words, 70 characters or fewer, specific element, promise kept, distinct from the thumbnail hook, recommends one title with one alternative, proposes a 2 to 6 word thumbnail hook such as '-4200 EUR TAX' that does not repeat the title, avoids full capitals and em dashes, and checks the title with youtube_check.py --title.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Our podcast episode titles are like 'Interview with John Smith, CEO of Brightfield'. They get very few views. Help.",
+      "expected_output": "Explains that 'Interview with [name]' only works when the audience already searches the name, and proposes titles that lead with the guest's most remarkable outcome or turning point stated as a statement, under 70 characters, keyword early, the name kept only if known. Suggests reading impressions versus click-through rate in YouTube Studio to know whether the title or the visibility is the problem, testing one change at a time over one to two weeks, and reviewing the thumbnail with youtube-thumbnail.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Translate my English title 'Meal prep for busy parents: a week of dinners in 2 hours' into French, German and Spanish.",
+      "expected_output": "Writes each title natively in each language rather than word for word, with the keyword people search in that language at the start, each under 70 characters where possible and never above 100, keeping the specific elements (a week, 2 hours), and flags that each language version also needs its own thumbnail text and description.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  YouTube thumbnail template for a recurring series (route D of the youtube-thumbnail skill).
+  1280x720. Replace the placeholders, then render with a headless browser (command in SKILL.md).
+    __DARK__     brand dark color, for the term          e.g. #0E1A3A
+    __ACCENT__   brand accent color, bar, label and pill e.g. #4383F2
+    __TINT__     light tint of the accent, background    e.g. #DCE8FF
+    __LABEL__    series label                            e.g. DEFINITION 12/50
+    __TERM__     the 1 to 3 word term                    e.g. Escrow account
+    __HOOK__     the 2 to 5 word hook                    e.g. When your notary needs one
+    __IMAGE__    a frame of the video (URL, relative path or data: URI)
+    __LOGO__     the brand logo (URL, relative path or data: URI)
+  The script shrinks the term until it fits its column on two lines at most,
+  and the hook until it stays left of the image card.
+-->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:Inter,Arial,sans-serif}
+body{background:radial-gradient(circle at 18% 30%,#ffffff 0%,#fafafa 55%,__TINT__ 100%);position:relative}
+.bar{position:absolute;left:0;top:0;bottom:0;width:22px;background:__ACCENT__}
+.label{position:absolute;left:78px;top:62px;font-weight:800;font-size:26px;letter-spacing:.06em;color:__ACCENT__;
+  background:#fff;border:3px solid __ACCENT__;border-radius:999px;padding:8px 22px}
+.block{position:absolute;left:78px;top:150px;width:640px;height:420px;display:flex;flex-direction:column;justify-content:center}
+.term{font-weight:900;color:__DARK__;line-height:.95;letter-spacing:-.035em;font-size:200px;max-width:560px}
+.hook{margin-top:28px;font-weight:800;color:#fff;background:__ACCENT__;font-size:44px;white-space:nowrap;line-height:1.15;
+  padding:14px 26px;border-radius:18px;align-self:flex-start;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.card{position:absolute;right:-60px;top:120px;width:640px;height:420px;border-radius:28px;overflow:hidden;
+  transform:rotate(4deg);border:6px solid #fff;box-shadow:0 30px 70px rgba(0,0,0,.28);background:#fff}
+.card img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.logo{position:absolute;left:78px;bottom:48px;height:52px}
+</style></head><body>
+<div class="bar"></div>
+<div class="card"><img src="__IMAGE__" alt=""></div>
+<div class="label">__LABEL__</div>
+<div class="block"><div class="term">__TERM__</div><div class="hook">__HOOK__</div></div>
+<img class="logo" src="__LOGO__" alt="">
+<script>
+/* Counting letters is not enough (a long single word overflows under the card):
+   measure the rendered box and step the size down until it fits. */
+document.fonts.ready.then(() => {
+  const t = document.querySelector('.term');
+  let f = parseFloat(getComputedStyle(t).fontSize);
+  const tooBig = () => t.scrollWidth > 560 || t.getBoundingClientRect().height > f * 0.95 * 2 + 4;
+  while (tooBig() && f > 40) { f -= 4; t.style.fontSize = f + 'px'; }
+  const h = document.querySelector('.hook');
+  let g = parseFloat(getComputedStyle(h).fontSize);
+  while (h.getBoundingClientRect().right > 650 && g > 24) { g -= 2; h.style.fontSize = g + 'px'; }
+});
+</script>
+</body></html>
