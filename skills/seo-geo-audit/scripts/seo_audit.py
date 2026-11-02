@@ -1399,6 +1399,9 @@ def analyse_sitemap(base, robots):
         _, status, _, body = fetch(candidates[0])
         xml = body.decode("utf-8", errors="replace")
         bodies = [xml]
+        # Human view: an xml-stylesheet instruction, and the xslt-polyfill Chrome needs from 17 November 2026.
+        out["stylesheet"] = bool(re.search(r"<\?xml-stylesheet\b", xml[:2000]))
+        out["xslt_polyfill"] = "xslt-polyfill" in xml[:5000]
         if "<sitemapindex" in xml:
             children = re.findall(r"<loc>\s*([^<]+?)\s*</loc>", xml)
             out["type"] = "index"
@@ -1470,6 +1473,10 @@ def fmt(report):
         cnt = s.get("url_count") or s.get("url_count_estimate")
         line("  sitemap                    : {} ({}, ~{} URLs)".format(
             s.get("url"), s.get("type"), cnt))
+        if not s.get("stylesheet"):
+            line("  WARNING: no xml-stylesheet: in a browser the sitemap is a raw XML tree, unreadable for the client. Readable view: seo-sitemap skill.")
+        elif not s.get("xslt_polyfill"):
+            line("  WARNING: sitemap stylesheet without xslt-polyfill: Chrome drops native XSLT on 17 November 2026 and the sitemap then shows as run-together text (seo-sitemap skill, Build step 3).")
         if s.get("over_50k") or s.get("children_over_50k"):
             line("  WARNING: a sitemap file exceeds the 50,000 URL limit; Google rejects the whole file. Split it into child sitemaps under a sitemap index.")
         langs = s.get("languages")
