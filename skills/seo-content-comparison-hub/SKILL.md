@@ -1,6 +1,6 @@
 ---
 name: seo-content-comparison-hub
-description: "Spec, audit, competitor benchmark and build for comparison hubs and 'best X' ranking pages that list many items (10 to 60 tools, apps or providers): 'best {category} in {year}', top 10 and ranking pages, tool directories, marketplace comparisons. Runs four phases: the HUB spec on top of the common page spec and shared CMP rows; an audit with seo_audit.py, section_audit.py and the bundled hub_check.py (item count in H1, title, headings and ItemList, table rows, FAQPage, update date and disclosure near the H1); a benchmark against the review sites, directories and listicles that rank or get cited by AI, with page_benchmark.py; then the build: one database feeding hub, item pages, vs and alternatives pages and translations, a published ordering rule, quick picks computed from data, a fixed card per item, a long table usable on mobile, dated third-party ratings with review counts, disclosure when the publisher sells a competing product, ItemList, bulk re-verification. Use for a best X list or ranking hub."
+description: "The ideal structure of a comparison hub, the 'best X' ranking page that lists many items (10 to 60 tools, apps, providers or platforms): 'best {category} in {year}', top 10 and ranking pages, tool directories, marketplace comparisons. Gives the order of the sections from the head to the footer and, for each section, its role, its content and its organization: H1 with the exact count, short answer, quick picks computed from the data, disclosure and ordering rule, comparison table usable on a phone, the publisher's own offer kept apart, method, one fixed card per item, items considered, buying guide, related pages, FAQ, changelog and sources, author, and the structured data that mirrors the page. Use to plan, write, rebuild or review a best X list or ranking hub."
 license: MIT
 metadata:
   author: "Sorank (https://sorank.com)"
@@ -9,208 +9,131 @@ metadata:
 
 # Comparison hubs and "best X" ranking pages
 
-The page a buyer opens to see the whole market at once: "best {category} in {year}", "top 10 {category}", "{category} comparison", a directory of tools. It lists many items (10 to 60) and has to stay true for every one of them, so its unit is not the argument between two options but the list: the order, the card, the table and the database behind them.
+The page a buyer opens to see a whole market at once: "best {category} in {year}", "top 10 {category}", "{category} comparison", a directory of tools. It lists many items and has to stay true for every one of them, so it is built as a list (an order, a table, one card per item, all read from one database) wrapped in an article (an answer first, a method, a guide, a FAQ).
 
-It fails in predictable ways: a count that differs between the title, the H1 and the markup ("40+" in one place, 45 cards in another), cards that hold a name and nothing else, a ranking whose order nobody can explain, ratings copied once and never re-read, a "non-sponsored" claim next to an unexplained "partner" badge, and a publisher that ranks its own product first without saying it sells it.
+This skill gives that structure: the sections, in order, and for each one its role, what it contains and how it is organized. For a page comparing two options or the alternatives to one product, use seo-content-comparison-page.
 
-## Company knowledge first (Obsidian)
+Placeholders: `{count}` (number of items listed), `{year}` (current year) and `{date}` are computed when the page is rendered, never typed. A fact nobody verified stays `{to confirm}`. Every value about an item (rating, price, language, date) comes from one field of the database and is shown identically everywhere it appears.
 
-If the working environment contains an Obsidian vault or any local knowledge base (a folder of .md notes, often with a .obsidian directory), read it before writing: the items already reviewed, the data already collected per item, the commercial relationships with each item (affiliate, sponsor, none), the publisher's own competing product if any, and past verification dates. A hub asserts dozens of facts about third parties, so unsourced invention multiplies the risk by the number of items. Log the page, its item count and the date of each bulk verification to the vault's SEO action log, since that date drives the refresh cycle.
+## Section order
 
-## When to use
+| # | Section | Required |
+|---|---|---|
+| 0 | Head: title, meta description, structured data | yes |
+| 1 | Breadcrumb | yes |
+| 2 | Hero: H1, lead, trust line, call to action, visual | yes |
+| 3 | Short answer | yes |
+| 4 | Quick picks | yes |
+| 5 | How this page is made (disclosure and ordering rule) | yes |
+| 6 | Comparison table | yes |
+| 7 | Publisher's own offer | only if the publisher sells a product of the category |
+| 8 | Method: the criteria | yes |
+| 9 | The items, one card each | yes |
+| 10 | Items considered and not listed | recommended |
+| 11 | Buying guide | yes |
+| 12 | Related pages | yes |
+| 13 | FAQ | yes |
+| 14 | Changelog and sources | yes |
+| 15 | Author | yes |
 
-- Planning, auditing or writing a "best {category}", "top {n} {category}", "{category} comparison" or tool directory page with 10 or more items.
-- A list page exists but its cards are thin, its counts disagree, its order is unexplained, or it has no table.
-- Item pages, vs pages or alternatives pages exist without a parent that links them all.
-- The page is published in several languages and the numbers drift between them.
-- Review sites, directories or affiliates own "best {category}" in the SERP and in AI answers.
+Sections 3 to 15 sit in one article column with a table of contents of its H2s (sticky on a wide screen, closed at the top on a phone). Beyond about 15 items, filters and sorting (by use, price band, language or market) go above the table, each useful view with a stable URL, the other views canonical to the hub.
 
-| Need | Skill |
-|---|---|
-| "X vs Y", "{brand} alternatives", "best X for one use case" with 2-8 options, segment pages | seo-content-comparison-page |
-| Which ranking queries have demand, and in which languages | seo-keyword-research |
-| The item pages (one product or one tool) | seo-content-product-page |
-| Category pages of a store (products for sale, facets, pagination) | seo-content-collection-page |
-| Linking hub, item, vs and alternatives pages into one web | seo-internal-linking |
-| ItemList, FAQPage, BreadcrumbList templates and validators | seo-schema-markup |
-| Blocks missing on any page type | seo-page-sections |
-| Getting the hub cited on "best {category}" prompts | geo-visibility, geo-tracking |
+## 0. Head
 
-## Phase 1. The spec
+- Role: make the page found for "best {category}" and readable by machines exactly as people read it.
+- Content: title "{count} best {category} in {year}: {what is compared}" (50 to 60 characters, keyword first, brand last); meta description naming 3 criteria and "updated {date}"; JSON-LD: `ItemList` (`numberOfItems` = `{count}`, one `ListItem` per item with `position`, `name`, `url` of its own page, in the page order), `BreadcrumbList` built from the visible breadcrumb, `FAQPage` with the visible questions only, an `Article` or `CollectionPage` with author and `dateModified`.
+- Organization: every JSON-LD node built from the same sorted list as the page; nothing marked up that the page does not show; no `Review` or `AggregateRating` for ratings the publisher did not produce (a third-party rating is shown, never marked up as the publisher's own).
 
-Common requirements C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md
+## 1. Breadcrumb
 
-Shared rows from seo-content-comparison-page, applied as written there and not repeated here: CMP-09 (prices as HTML text with the date checked), CMP-12 (every third-party fact sourced, linked and dated), CMP-13 (methodology block), CMP-14 (visible publication and verification dates, `dateModified`), CMP-22 (comparative advertising conditions, commercial relationship disclosed), CMP-26 (honest claims, no unbacked superlative about yourself).
+- Role: place the hub in the site and give the trail to search engines.
+- Content: Home, the parent section if any, the hub.
+- Organization: plain links, the hub last, mirrored by the `BreadcrumbList`.
 
-The rows below are what a hub adds. Thresholds are field heuristics from agency audits and from the November 2026 benchmark of review sites, comparators and directories summarized in `references/hub-patterns.md` (observed, not Google statements) unless marked measured. Every row is required unless its Threshold says "recommended".
+## 2. Hero
 
-| ID | Requirement | Threshold | Verified by | Why |
-|---|---|---|---|---|
-| HUB-01 | One hub per category and language owns the list; item, vs and alternatives pages are its children | no second page ranking for "best {category}"; slug literal and stable (`/best-{category}/`, `/{category}-comparison/`) | manual (seo-keyword-research, Search Console), url_hygiene | Two lists on one term cannibalize; a hub with no children is a dead end |
-| HUB-02 | The exact item count and the year in the H1, and the same count everywhere | count and year computed at render from the database; identical in title, H1, intro, table title and ItemList `numberOfItems`; never "40+", "more than 40" | hub_check count_mismatch, h1_no_count, h1_count_not_exact | Two counts on one page is the first inconsistency a reader and a model notice |
-| HUB-03 | The answer in the first 3 sentences | the top item, who it suits, 2 alternatives each with its reason, before any list | section_audit "verdict_block", kw_not_in_intro, manual | The passage an assistant quotes; a hub that opens on a list gives nothing to quote |
-| HUB-04 | Trust line under the H1 | author with role linked to an author page (C-20), named reviewer recommended, "Updated {date}" | hub_check date_missing, section_audit "author_block", "freshness_signal", author_missing | Provenance in the first screen, where the decision to trust is made |
-| HUB-05 | One-line disclosure at the top, linked to the method and the revenue model; every commercial badge explained | 1 line within the first screen; each badge ("partner", "affiliate", "sponsored") defined in one visible sentence | hub_check disclosure_missing, manual | An unexplained badge on a page that claims neutrality reads as a hidden deal |
-| HUB-06 | Neutrality that can be checked | the ordering rule is stated on the page; money never changes the order; a paid link has a different label and `rel="sponsored"`; sponsored blocks sit outside the ranking, labelled | manual, hub_check "links with rel sponsored" | Readers trust a mechanism they can see, not a promise (EU ranking transparency, Sources) |
-| HUB-07 | A deterministic ordering rule computed from the data | rating, then review count, then name; or a weighted score whose criteria and weights are published; no invented score without published weights | manual (recompute the order from the database) | An order nobody can reproduce is an opinion, and the first thing a listed competitor disputes |
-| HUB-08 | The publisher's own competing product, declared | "This page is published by {brand}, which sells {product}" near the top; the product either outside the ranking in a labelled block, or ranked by the same rule with its own cons | manual | Self-ranking without saying so is the fastest way to lose the whole page's credibility |
-| HUB-09 | A "best for {use}" label on every item | 1 per item, from its data, distinct across the top 10 | manual, section_audit "verdict_block" | Makes the order defensible and answers the long tail ("best {category} for {use}") |
-| HUB-10 | Quick picks computed from the data | 3-8 picks near the top, each with its stated threshold (e.g. "best rated, 20 reviews or more"), each linking to its card anchor | manual | Hand-picked "top picks" next to a data-driven table contradict it |
-| HUB-11 | A real comparison table early on the page | `<table>` with a caption, one row per item once beyond 6 items, 4-8 decisive criteria as columns, first column = item name linked to its card, values identical to the cards | hub_check table_missing, table_rows_mismatch, section_audit "comparison_table" | The most extractable block; items as columns stop working beyond about 6 |
-| HUB-12 | The table usable on a phone | horizontal scroll container (`overflow-x: auto`, `tabindex="0"`, `role="region"` with a label) with a sticky first column, or stacked cards below a breakpoint; a visible scroll hint | manual (360 px viewport) | A clipped 45-row table is a wall of text on the device most readers use |
-| HUB-13 | The same fixed card for every item | numbered heading "{n}. {name}" (h2 or h3), best-for, rating with review count and source, key facts under fixed labels (`<dl>`), pros and cons each with a proof, price with its date, button, link to the full review | hub_check items_not_numbered, numbering_gap, item_no_link, manual | Jagged cards read as bias, and an unnumbered list cannot be checked against its count |
-| HUB-14 | Third-party ratings shown honestly | value as the source shows it, with its review count, reading date and a link to the source; "no reviews" shown as such; never rounded up, never invented; re-read at every refresh | manual (bulk re-verification log) | A rating without its count misleads: 5.0 from 1 review is not 4.6 from 3000 |
-| HUB-15 | One number, one source | each value (price, rating, count, date) read from one database field and rendered identically in quick picks, table, card, JSON-LD, item page and every language | manual (spot-check 5 items across all surfaces), hub_check count_mismatch | Mismatches between card and table were observed on large review sites; each one is a credibility loss |
-| HUB-16 | One database feeds the hub, the item pages, the vs and alternatives pages and every translation | one record per item with fixed fields (Phase 4, step 1); copy holds placeholders, never typed numbers | manual | Typed numbers drift between pages and languages at the first refresh |
-| HUB-17 | Concrete methodology, applying CMP-13 | items studied (exact number), criteria and their weights, sources per criterion, update frequency, exclusion rule, who did it | manual | A method with numbers is quotable; "we research thoroughly" is not |
-| HUB-18 | "Others considered" and "why not listed" | known names absent from the ranking, each with its reason; closed or changed items moved there with the date | manual | Covers the brands readers expect and proves the list was not cut to fit a deal |
-| HUB-19 | Dated changelog | 1 entry per update: date and what changed (items added, removed, ratings re-read, prices checked) | section_audit "freshness_signal", manual | Proves freshness more than a date alone, and records each bulk verification |
-| HUB-20 | Real work numbers, never rounded up | "{n} items reviewed, {n} data points, checked on {date}", every figure from the database or the log | manual | An inflated "500+ tested" is the claim a competitor checks first |
-| HUB-21 | A web of internal links | hub to every item page; item pages to their alternatives and vs pages; all of them back to the hub and to sibling hubs; links to guides and to the product pages that sell (C-16) | hub_check item_no_link, section_audit "internal_links", site_crawl.py | The hub distributes authority across the set and prevents orphans |
-| HUB-22 | One FAQ of real buyer questions, marked up | 5-10 questions, once per page, FAQPage questions identical to the visible ones | hub_check faqpage_missing, faq_jsonld_mismatch, faq_count_mismatch, faq_duplicate, section_audit "faq" | Two FAQs split the answers; markup that the page does not show breaks Google's policy |
-| HUB-23 | Schema of a ranking, no empty nodes (applies C-18) | ItemList (`numberOfItems`, ListItem `position`, `name`, `url` in page order) + BreadcrumbList + Article, WebPage or CollectionPage with author and `dateModified`; Review or AggregateRating only for ratings the publisher produced and shows | hub_check itemlist_missing, itemlist_no_url, itemlist_order_mismatch, breadcrumb_missing, datemodified_missing, rating_markup_check, jsonld_invalid | Machines read the list and its order; borrowed third-party ratings as your markup are a policy breach |
-| HUB-24 | External sources block | official pages and studies cited, linked, at the end | manual | Provenance a model can follow |
-| HUB-25 | Filters and sorting with stable URLs | recommended beyond about 15 items: by use, price band, language or market; one stable URL per useful view, other views canonical to the hub | manual | Long lists need narrowing; uncontrolled filter URLs create duplicates |
-| HUB-26 | Question H2s answered first (applies C-13) | 3+ H2s phrased as buyers ask AI assistants, each opened by 2 self-contained sentences | no_question_h2, page_benchmark "question_h" | The passage an assistant lifts must stand alone |
+- Role: say in one screen what is compared, how many, how fresh and on what terms.
+- Content: H1 "The {count} best {category} in {year}" or "Best {category} in {year}: {count} compared"; a lead of 1 or 2 sentences naming the criteria; a trust line (author with role, "Updated {date}", "No paid placement" or the exact commercial terms, "{count} {items} reviewed"); one call to action of the publisher; a visual: a real screenshot or an HTML mockup of the product in the page language, never a generic image.
+- Organization: text left, visual right on a wide screen, stacked on a phone with the text first; the social proof the site uses on its heroes under the button; the count in the H1 is the length of the list, the same number as in the title, the table, the card numbering and the `ItemList`.
 
-## Phase 2. Audit the existing page
+## 3. Short answer
 
-Skip this phase when no hub exists yet; Phase 3 then sets the bar.
+- Role: the passage a reader skims and an AI assistant quotes.
+- Content: 3 to 5 sentences: what the category is, how the list was built, how to choose (the 2 or 3 deciding criteria), and the first move for the reader.
+- Organization: first block of the article, in a tinted box with its label ("In short"); self-contained, no link needed to understand it.
 
-1. Inventory: every page targeting "best {category}", "top {category}", "{category} comparison" (Search Console queries, a `site:` search). Two lists on the same term fail HUB-01 before anything else.
-2. Run the three collectors:
+## 4. Quick picks
 
-```
-python3 skills/seo-geo-audit/scripts/seo_audit.py https://example.com/best-crm-software/
-python3 skills/seo-page-sections/scripts/section_audit.py --type comparison https://example.com/best-crm-software/
-python3 skills/seo-content-comparison-hub/scripts/hub_check.py https://example.com/best-crm-software/
-```
+- Role: route the reader who already knows what matters to the right item in one click.
+- Content: 3 to 8 picks, each a label stating its rule ("Best rated, 20 reviews or more", "Most languages", "Lowest entry price", "Longest track record", "With an API") and 1 to 3 items with the value that earned the pick.
+- Organization: a grid of small cards; every item links to its card anchor (`#item-{slug}`); each pick is computed from the database with its threshold written in the label, never chosen by hand; a pick with no qualifying item is not shown.
 
-`hub_check.py` also reads saved files (`hub_check.py page.html`), several pages at once, and exits 1 on a high finding. It reports the counts it found (H1, title, numbered headings, ItemList, table rows, FAQ questions) before the findings, so a mismatch is visible at a glance.
+## 5. How this page is made
 
-3. Map the output. Each finding code fails the row that lists it in "Verified by": `count_mismatch` HUB-02 and HUB-15, `date_missing` HUB-04, `disclosure_missing` HUB-05, `table_missing` and `table_rows_mismatch` HUB-11, `items_not_numbered`, `numbering_gap` and `item_no_link` HUB-13 and HUB-21, `faq_*` HUB-22, `itemlist_*`, `breadcrumb_missing`, `datemodified_missing` and `rating_markup_check` HUB-23, `em_dashes` C-25. From section_audit: `verdict_block` HUB-03, `author_block` and `freshness_signal` HUB-04 and HUB-19, `comparison_table` HUB-11, `faq` HUB-22.
-4. Manual rows. Recompute the order from the data and compare it with the page (HUB-07). Pick 5 items and read each value on every surface: quick picks, table, card, JSON-LD, item page, two other languages (HUB-15). Open the source of 5 ratings and compare value, count and date (HUB-14). Read the disclosure against the badges and buttons actually on the page (HUB-05, HUB-06, HUB-08). Narrow the browser to 360 px (HUB-12).
-5. Mark every C row, the shared CMP rows and every HUB row Pass, Fail or Not verifiable, with the evidence.
+- Role: make the neutrality checkable before the reader trusts the order.
+- Content: 3 to 5 lines: who pays and who does not ("No {item} pays to appear or to be placed higher", or the exact affiliate or partner terms); the ordering rule ("by {source} rating, then number of reviews, then name", or a weighted score whose criteria and weights are published); what each commercial badge means; where the data comes from and when it was read; the publisher's own competing product, declared ("This page is published by {brand}, which sells {product}").
+- Organization: a framed box right after the quick picks, linked from the trust line; the same rule produces the table, the cards, the `ItemList` and every language.
 
-A hub that ranks is fixed in place: keep the URL, rebuild the template around the same data.
+## 6. Comparison table
 
-## Phase 3. Benchmark the competitors
+- Role: the whole market in one extractable block.
+- Content: one row per item: number and name (linking to its card), third-party rating with its review count, then 4 to 8 criteria that decide the choice in the category, in the same order and with the same labels as the card facts; "not published" for an unknown value, "no reviews" for an item without reviews; a note under the table with the sources and reading dates.
+- Organization: a real `<table>` with `<caption>`, `<th scope="col">` headers and the name as `<th scope="row">`; on a phone, a scroll frame (`overflow-x: auto`, `role="region"` with a label, `tabindex="0"`) with the first column sticky and a visible hint ("Scroll sideways to see every column"), or rows turned into stacked blocks with the labels repeated; the page itself never scrolls sideways.
 
-1. Pick 3-5 pages from the SERP of "best {category} {year}" in the target language and from the answers ChatGPT, Perplexity and AI Overviews give to the same prompt. Mix the families that show up: review sites, comparators, software directories, a competitor with its own alternatives and vs families, a tech or consumer review site. `references/hub-patterns.md` ("Patterns observed") lists what each family typically does.
-2. Run the benchmark and the hub check on the same set:
+## 7. Publisher's own offer
 
-```
-python3 skills/seo-geo-audit/scripts/page_benchmark.py --type comparison https://example.com/best-crm-software/ https://review-site.com/best-crm/ https://directory.com/crm-software/ https://publisher.com/best-crm-tools/
-python3 skills/seo-content-comparison-hub/scripts/hub_check.py https://review-site.com/best-crm/ https://directory.com/crm-software/ https://publisher.com/best-crm-tools/
-```
+- Role: present the publisher's product without bending the ranking.
+- Content: what the product does differently from the listed items, its price model with a link to its pricing page, one call to action, and the proof the site uses (client logos, ratings with their source).
+- Organization: a block visually distinct from the list (the site's call to action style), placed after the table and labelled as the publisher's offer; the product is either outside the ranking or ranked by the same rule as the others, as section 5 says.
 
-3. Read the output: blocks half the competitors have and the client lacks (`comparison_table`, `verdict_block`, `faq`, `author_block`, `freshness_signal`), schema types they use (ItemList, FAQPage, BreadcrumbList; adopt only what the page shows), metrics below the median (`words`, `tables`, `question_h`, `statistics`). Large competitors often fail `count_mismatch` or `itemlist_missing` themselves (observed): consistency is an available gain.
-4. Read the pages yourself: the union of their table columns (candidate criteria), their card fields, how they state their order and their revenue model, whether ratings carry a count and a date, what they list as "others considered".
-5. Define the information gain in one line: candidates only the client can supply are more items covered with the same depth, fresher and dated third-party data, a reproducible order, a per-item fact that nobody else publishes, honest cons for every item including the publisher's own.
+## 8. Method: the criteria
 
-## Phase 4. Build
+- Role: explain what each column and fact measures, so the comparison can be reproduced.
+- Content: one line per criterion (name, what is measured, from which source, its weight if a score is used); the number of items studied, listed and excluded; the update frequency; what the page does not rank on and why (for example a price set per site rather than per item).
+- Organization: a short list under its H2, criteria in the order of the table columns.
 
-Read `references/hub-patterns.md` now: the wireframe top to bottom, the card template, the table spec, the disclosure and methodology templates, the quick picks and ordering rules, the JSON-LD templates and both checklists.
+## 9. The items, one card each
 
-### Step 1. The database first (HUB-15, HUB-16)
+- Role: give every item the same fair hearing, and route the reader to the full review.
+- Content, per card, always in this order: numbered heading "{n}. {name}" with its logo; "best for {use}" from its data; third-party rating as the source shows it, with its review count and a link to the source page; a 1 or 2 sentence summary; key facts under fixed labels (the table criteria); 2 or 3 pros and 2 or 3 cons when they exist, each a bold claim followed by its proof (a number, a test, a date or a source); price "from {price} ({plan}), checked {date}"; the date of the last update of its review; a link to its own page ("Read the {name} review"); an outbound button labelled by the relationship ("Visit {name}" when unpaid, "Visit {name} (partner link)" with `rel="sponsored"` when paid).
+- Organization: one `<article id="item-{slug}">` per item in the page order, inside the article body (never a bare grid of logos); facts as a `<dl>` in two columns on a phone; full cards for the first items and compact cards with the same labels beyond about 15 when the list is long.
 
-One record per item, before any copy. Fixed fields: `id`, `name`, `slug`, item page `url`, `status` (listed, considered, closed) with `reason` and date, `best_for`, the key facts under fixed keys (the table columns), `price` with `price_checked_on` and source URL, third-party `rating`, `review_count`, `rating_source_url`, `rating_read_on`, pros and cons each with its proof, `relationship` (none, affiliate, sponsored, own product), `updated_on`. Text fields carry one value per language; numbers and dates exist once and are formatted per locale at render. The hub, the item pages, the vs and alternatives pages and every translation read this database: copy holds `{count}`, `{year}`, `{date}` placeholders and never a typed number. Unknown values stay empty and render as "not published", never guessed; client facts nobody confirmed stay `{to confirm}`.
+## 10. Items considered and not listed
 
-### Step 2. Order and quick picks (HUB-07, HUB-09, HUB-10)
+- Role: answer "why is X missing?" before the reader asks.
+- Content: name, the reason (closed, no public pricing, outside the category, fewer than {n} reviews) and the date.
+- Organization: a small table after the cards; an item that closes or changes moves here with its date.
 
-Sort in code, never by hand: rating (highest first), then review count, then name; or a weighted score with weights published in the method. Read a rating together with its count: decide and state a minimum review count under which a rating does not compete for a quick pick (the threshold is yours; publish it). Quick picks are queries on the database (best rated above the threshold, widest coverage, lowest entry price, longest track record, with an API) and each line links to the card anchor. The best-for label comes from the item's data, not from a slogan.
+## 11. Buying guide
 
-### Step 3. Write the page block by block
+- Role: help the reader who is not ready to pick, and cover the questions people ask about the category.
+- Content: 4 to 6 H2s phrased as questions ("What is a {category}?", "How to choose a {category}", "How much does it cost?", "Is it risky?", "{category} or {other approach}: what is the difference?"); each opens with 2 self-contained sentences that answer it, then details, a criteria table where useful, official sources linked, and links to the guides and tools of the site.
+- Organization: after the cards, in the article body; prices given as ranges taken from the cards, dated.
 
-Follow the wireframe. Non-negotiables: count and year in the H1 (HUB-02), the answer in 3 sentences (HUB-03), trust line and disclosure in the first screen (HUB-04, HUB-05, HUB-08), quick picks (HUB-10), the table early and usable on mobile (HUB-11, HUB-12), every item in the same card (HUB-13, HUB-14), the method with real numbers (HUB-17, HUB-20), others considered (HUB-18), the buying guide with question H2s (HUB-26), one FAQ (HUB-22), changelog and sources (HUB-19, HUB-24), the link grid (HUB-21). Beyond about 15 items, show the top cards in full and the rest as compact cards with the same fixed labels, every one still numbered and linked.
+## 12. Related pages
 
-Copy rules: prices as text with their date (CMP-09); every third-party fact linked to its source (CMP-12); no superlative about your own product (CMP-26); bold on the deciding facts, never on whole rows (C-09); zero em dashes and en dashes in copy, cards, table cells, metadata and schema strings (C-25).
+- Role: spread the reader and the authority across the cluster.
+- Content: links grouped by kind: every item page (already linked from the cards), the "best {category} for {use}" child pages, the alternatives and versus pages, sibling hubs, guides and glossary entries, the publisher's feature pages, free tools.
+- Organization: a grid of 3 to 6 labelled groups of 3 to 6 links, with descriptive anchors; every target page links back to the hub.
 
-### Step 4. Neutrality and the publisher's own product (HUB-05 to HUB-08, CMP-22)
+## 13. FAQ
 
-State in one line who publishes the page, how it earns money and how the order is set, linked to the method. A paid link gets a different button label and `rel="sponsored"`; an unpaid link to the item page reads the same for every item. Sponsored placements, if any, sit in a block outside the ranking with a "Sponsored" label. If the publisher sells a competing product, say so at the top, and either keep it out of the ranking in its own labelled block or rank it by the same rule with its own cons. Check the ranking transparency rules of the target market (EU: main ranking parameters and paid placement must be disclosed, Sources).
+- Role: the real buyer questions, once.
+- Content: 5 to 10 questions ("What is the best {category}?", "How much does it cost?", "Is it allowed by {platform rules}?", "How do I check an {item} before buying?", "How can I do without it?", "Is this comparison sponsored?"), answers of 1 to 3 sentences.
+- Organization: one accordion of native `<details>` under its H2, mirrored by the `FAQPage`; never a second FAQ elsewhere on the page.
 
-### Step 5. Schema, metadata, translations (HUB-02, HUB-23)
+## 14. Changelog and sources
 
-Title: `{count} best {category} in {year}: {what is compared}` (50-60 characters), the count and year from the database. JSON-LD: ItemList in page order from the same sorted array as the table, BreadcrumbList from the visible breadcrumb, FAQPage from the visible FAQ, Article, WebPage or CollectionPage with author and `dateModified`. Templates in the reference; validation in seo-schema-markup. Translations render from the same database and the same sort, so the count, the order and every number are identical in every language; write the source language first, then translate the text fields.
+- Role: prove the freshness and the provenance.
+- Content: dated entries ("{date}: re-read {n} ratings, checked {n} prices, added {item}, moved {item} to items considered"); the external sources cited in the page (official documentation, studies), linked.
+- Organization: two short lists at the end of the article; the latest date is the "Updated {date}" of the hero and the `dateModified`.
 
-### Step 6. Acceptance test
+## 15. Author
 
-```
-python3 skills/seo-geo-audit/scripts/seo_audit.py https://example.com/best-crm-software/
-python3 skills/seo-page-sections/scripts/section_audit.py --type comparison https://example.com/best-crm-software/
-python3 skills/seo-content-comparison-hub/scripts/hub_check.py https://example.com/best-crm-software/ https://example.com/fr/meilleurs-crm/
-python3 skills/seo-geo-audit/scripts/page_benchmark.py --type comparison https://example.com/best-crm-software/ {the same competitor URLs}
-```
+- Role: name who stands behind the judgment.
+- Content: photo, name linked to an author page, role and experience of the category, real profiles.
+- Organization: a compact box at the top of the side column on a wide screen (above the article on a phone), and the author named in the trust line of the hero.
 
-Done when: `hub_check.py` exits 0 with no medium finding left unexplained, on every language version; no high or critical `seo_audit.py` finding; `comparison_table`, `verdict_block`, `faq`, `author_block` and `freshness_signal` found; no block half the competitors have still missing; the pre-publish checklist of the reference ticked; the verification date logged in the vault. A remaining Fail is fixed or a written owner decision.
+## Check before publishing
 
-## Maintain: bulk re-verification (HUB-14, HUB-19, CMP-14)
-
-A hub holds dozens of third-party facts that change without notice. Re-verify in bulk, from the database, never page by page from memory.
-
-| Trigger | Action |
-|---|---|
-| Every month (ratings) or quarter (prices, facts) | Re-read every rating and review count from its source, every price; update the reading dates; re-sort; changelog entry |
-| An item closes, merges or changes model | Move it to "others considered" with the date and reason; redirect its item page if retired |
-| A new entrant gets real demand or reviews | Add a record, apply the same rule, changelog entry |
-| Your own commercial relationships change | Update relationship fields, buttons, the disclosure |
-
-The refresh checklist in the reference lists the order of operations. Keep the URL through every refresh.
-
-## GEO layer (HUB-03, HUB-11, HUB-15, HUB-23)
-
-An assistant asked for "the best {category}" needs a short answer, a list it can trust and a reason per item. The first 3 sentences give the answer, the table and the ItemList give the list, the best-for labels give the reasons, and the consistency of every number across surfaces is what lets a model use the page without contradiction. Adding statistics, quotations and cited sources raised visibility in generative answers in a controlled study (Princeton GEO, KDD 2024, measured). All of it must be in the server HTML (C-21).
-
-## Deliverable
-
-```markdown
-## 1. Spec scorecard
-| ID | Requirement | Status (Pass / Fail / Not verifiable) | Evidence |
-(every C row, the shared CMP rows, every HUB row)
-
-## 2. Audit findings
-(inventory and cannibalization check; seo_audit.py, section_audit.py and hub_check.py
-output per language; the 5-item consistency spot-check; or "new page")
-
-## 3. Competitor benchmark
-(the pages chosen, page_benchmark.py table, hub_check.py on the competitors, criteria union,
-card fields union, the information gain chosen)
-
-## 4. Build
-(database fields, ordering rule and quick pick thresholds, then the page block by block:
-metadata, disclosure, table spec, card template filled for 2 items, method, FAQ, JSON-LD,
-internal links; {to confirm} for unverified facts)
-
-## 5. Acceptance
-(scripts re-run on every language: remaining findings, each fixed or a written owner decision;
-next bulk verification date)
-```
-
-## Common mistakes
-
-- A count that differs between the title, the H1 and the markup, or a rounded "40+".
-- Cards with a name and a badge only: a list of names compares nothing.
-- An order nobody can reproduce, or an order that follows commissions.
-- "Top picks" chosen by hand above a data-driven table.
-- A rating shown without its review count, its source or its reading date, or rounded up.
-- A "non-sponsored" claim next to an unexplained "partner" or "affiliate" badge.
-- Ranking your own product first without saying you sell it.
-- Numbers typed into the copy, so the card, the table and the translations drift apart.
-- Items as table columns on a 40-item list, or a wide table with no mobile behavior.
-- Two FAQs on one page, or FAQPage markup that the page does not show.
-- Third-party ratings marked up as your own AggregateRating.
-
-## Sources
-
-- Google, carousel and ItemList structured data (summary page with a list of item pages): https://developers.google.com/search/docs/appearance/structured-data/carousel
-- Google structured data policies (markup must match visible content): https://developers.google.com/search/docs/appearance/structured-data/sd-policies
-- Google review snippet guidelines (who may mark up a rating): https://developers.google.com/search/docs/appearance/structured-data/review-snippet
-- Google, write high quality reviews (evidence, measurements, what sets items apart): https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews
-- Google, qualify outbound links (`rel="sponsored"`): https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
-- Directive (EU) 2019/2161, ranking transparency and disclosure of paid placement in ranking results: https://eur-lex.europa.eu/eli/dir/2019/2161/oj
-- Directive 2006/114/EC on comparative advertising (via CMP-22): https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32006L0114
-- Generative Engine Optimization (KDD 2024): https://arxiv.org/abs/2311.09735
-- Benchmark of review sites, bank comparators, software directories, a SaaS with alternatives, vs and apps page families, and a tech review site, observed November 2026: `references/hub-patterns.md`, "Patterns observed".
-- Common page spec and shared CMP rows: skills/seo-geo-audit/references/common-page-spec.md, skills/seo-content-comparison-page/SKILL.md.
-- Card fields, 6-item table threshold, 15-item filter threshold, 5-10 FAQ questions, refresh cadence: field heuristics, not Google statements.
+Run `python3 skills/seo-content-comparison-hub/scripts/hub_check.py <url or file.html>` on every language version: it compares the count of the H1, the title, the numbered headings, the table rows and the `ItemList`, and checks the FAQPage, the visible date, the disclosure and the dashes. It exits 1 on a high finding.

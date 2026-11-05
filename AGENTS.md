@@ -43,7 +43,7 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 | seo-content-service-page | Service and landing pages |
 | seo-content-collection-page | E-commerce category and collection pages |
 | seo-content-comparison-page | Comparison, alternatives, best-for and customer segment pages |
-| seo-content-comparison-hub | "Best {category}" ranking hubs and tool directories with many items, fed by one database |
+| seo-content-comparison-hub | The ideal structure of a "best {category}" ranking hub, section by section |
 | seo-page-sections | Which sections a page is missing, and the content to fill each gap |
 | seo-ai-site-builders | Sites built by AI generators (Lovable, Base44, Bolt, v0, Bubble and others): turn the JavaScript app into served HTML so it can be indexed and cited |
 | seo-internal-linking | Internal links, silos, orphan pages |

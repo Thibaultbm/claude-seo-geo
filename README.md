@@ -8,7 +8,7 @@
 
 ## How a page skill works
 
-Every skill that owns a page type (homepage and sales page, service, product, collection, comparison, ranking hub, blog article, local page, and the 21 types of the page sections skill) runs the same four phases, in the same order, with the same deliverable.
+Every skill that owns a page type (homepage and sales page, service, product, collection, comparison, blog article, local page, and the 21 types of the page sections skill) runs the same four phases, in the same order, with the same deliverable.
 
 | Phase | Question | What runs | Output |
 |---|---|---|---|
@@ -72,7 +72,7 @@ The crawl finds what no single-page audit can see (orphans, internal links point
 | [seo-content-product-page](skills/seo-content-product-page/SKILL.md) | E-commerce product pages, the ChatGPT Shopping feed |
 | [seo-content-collection-page](skills/seo-content-collection-page/SKILL.md) | Category and collection pages: the text zones, facets, pagination |
 | [seo-content-comparison-page](skills/seo-content-comparison-page/SKILL.md) | X vs Y, alternatives, best-for lists, customer segment pages |
-| [seo-content-comparison-hub](skills/seo-content-comparison-hub/SKILL.md) | "Best {category}" ranking hubs and tool directories with 10 to 60 items: one database for hub, item pages and translations, a published order, data-driven quick picks, a fixed card per item, a mobile-ready table, dated third-party ratings, disclosure, ItemList |
+| [seo-content-comparison-hub](skills/seo-content-comparison-hub/SKILL.md) | "Best {category}" ranking hubs and tool directories with many items: the ideal structure, section by section (order, role, content, organization), from the H1 with the exact count to the FAQ and the ItemList |
 | [seo-content-blog](skills/seo-content-blog/SKILL.md) | Articles on the 12-element skeleton, plus the page templates: sticky table of contents, author box with photo and social profiles, CTA blocks, blog hub cards with covers |
 | [seo-local](skills/seo-local/SKILL.md) | Local pages and the Google Business Profile, reviews, citations |
 | [seo-page-sections](skills/seo-page-sections/SKILL.md) | Any other page type (21 in total) and the site-level question "which pages and blocks are missing" |
