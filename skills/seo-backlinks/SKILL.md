@@ -155,7 +155,7 @@ Match the mix to the business. Recommended starting allocations:
 | Content / media site | Expert quotes, broken link building, original studies | Universal profiles, syndication with canonical |
 | Agency / services | Industry directories (Clutch class), expert quotes, guest articles on trade publications | Local citations if geo-bound, communities |
 
-Whatever the mix, run two layers in parallel: the daily ninja linking cadence (Step 5 and methodology below) and one flagship play per quarter (a data study, a free tool, a benchmark) that earns the editorial links and press mentions.
+Whatever the mix, run two layers in parallel: the daily ninja linking cadence (Step 5 and methodology below) and one flagship play per quarter (a data study, a free tool, a benchmark) that earns the editorial links and press mentions. Building the study page itself, from anonymized proprietary data with charts and a downloadable dataset, is seo-content-data-study.
 
 ### Step 5: Execute and track
 

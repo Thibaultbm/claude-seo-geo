@@ -31,7 +31,7 @@ Use this skill when the user:
 - Asks which prompts buyers type into ChatGPT or Perplexity (prompt research, query fan-out, AI topic selection).
 - Is about to brief any new page: blog post (seo-content-blog), product page (seo-content-product-page), service page (seo-content-service-page), or collection page (seo-content-collection-page).
 
-Hand off afterwards: the prompt panel built here is the measurement input for geo-tracking, and page-level citability work belongs to geo-visibility.
+Competitor keywords and page models read from every competitor sitemap come from seo-competitor-analysis: run it first when the user asks what competitors cover, then validate its topic gap here. Hand off afterwards: the prompt panel built here is the measurement input for geo-tracking, and page-level citability work belongs to geo-visibility.
 
 ## Quick start (30 minutes)
 

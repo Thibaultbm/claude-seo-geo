@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-competitor-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My competitors keep publishing in SEO, one of them seems to put out 200 articles in 30 days. Find which pages they have that I do not on mysite.com.",
+      "expected_output": "Before running anything, the answer asks the Step 0 question: up to 5 known competitors, optional, or should it find them on its own (or both). It does not read any sitemap or make any search before the answer. Once answered, it runs competitor_sitemaps.py on the site and the competitors with --probe, reports the page-model gap (MISSING and BEHIND rows mapped to the page skills), the topic gap validated against demand through seo-keyword-research, and the publishing pace from real publication dates, stating that lastmod alone is only an upper bound and flagging any shared build date. It checks a sample of the competitor's 200 articles before recommending a pace and never recommends copying their pages.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Find my competitors yourself and tell me what content templates they use that I am missing. My site is an online furniture store in France.",
+      "expected_output": "The answer still asks the Step 0 question once (the user already chose autonomous, so it confirms and offers to add known competitors), then finds 5 direct competitors from Google results on the money queries, AI answers, review and comparison sites, keeping domains seen in at least two sources and excluding marketplaces such as Amazon and media. It shows the 5 with a reason each and the discarded candidates, runs the script, and reads the gap by page model first (category, product, buying guides, city or showroom pages, case studies or data studies), then topics, then pace, ending with a ranked build plan table and a cadence, with no dates or durations.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Run a full SEO and GEO audit of example.com.",
+      "expected_output": "Following seo-geo-audit, the first message asks for up to 5 known competitors or whether to find them autonomously, before collecting facts. The competitors then feed the page benchmark and, when competitors show page models or topics the site lacks, a hand-off to seo-competitor-analysis in the action plan.",
+      "files": []
+    }
+  ]
+}

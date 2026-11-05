@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-content-data-study",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We have the Search Console results of 400 client sites in our database. Can we turn that into a study page with charts without exposing any client?",
+      "expected_output": "An answer that exports only the needed columns read-only, runs data_study.py with the category, the metrics and the entity column, explains that identifying columns are dropped and groups under 5 entities are suppressed or merged into Other categories only when the merged group reaches the floor, and that a hidden Other row plus a total can reveal a small group. It headlines medians with quartile ranges, puts n and the period on every number, publishes the charts as inline SVG with text plus a table, adds methodology, a CSV download, embed code with a credit link, Article and Dataset JSON-LD, keeps a stable URL without the year, and hands distribution to seo-backlinks and social-amplification.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Write a case study page for our best client, their traffic tripled. They have not said we can use their name.",
+      "expected_output": "An answer that does not name the client without written consent: it proposes asking them by email with their numbers and submitting the text, or publishing anonymized as category, size band and country. It checks the result against a threshold fixed in advance for all clients, measures before and after from the same source and start point, checks seasonality and attribution (brand searches, the client's own work), and builds the page with context, problem, actions, results chart, time taken and a quote only with consent.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Make me an infographic of our stats to post on LinkedIn and put on the blog.",
+      "expected_output": "An answer that builds the infographic from the anonymized aggregates (3 to 5 key numbers, each with n, period and source, plus the URL) for social use, and states that on the site it never replaces the text version: the study page carries the findings as text, charts as inline SVG or HTML with selectable values and a table, and embed code. It hands the post itself to social-amplification.",
+      "files": []
+    }
+  ]
+}

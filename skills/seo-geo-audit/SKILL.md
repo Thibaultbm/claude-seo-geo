@@ -32,13 +32,15 @@ If the working environment contains an Obsidian vault or any local knowledge bas
 
 ## Inputs to gather
 
-Ask only for what is missing; proceed with what exists:
+Competitors first, always: before collecting anything, ask the user for up to 5 known competitors and whether you should find them on your own instead (the exact question is Step 0 of seo-competitor-analysis; ask it once, even when the vault lists competitors, and show those as a proposal). The answer feeds the benchmark here and the sitemap gap of seo-competitor-analysis.
+
+Then ask only for what is missing; proceed with what exists:
 
 | Input | Required | Note |
 |---|---|---|
 | Homepage URL | yes | The script also discovers robots.txt, sitemap, llms.txt |
 | 1-2 key pages | recommended | Top service, product or article page |
-| Competitor URLs | recommended | Enables page-versus-page benchmarking |
+| Competitors (up to 5, or "find them") | asked every time | Page-versus-page benchmarking and the sitemap gap (seo-competitor-analysis) |
 | Goals and market | helpful | Local vs national, language, business model |
 | GSC / GA4 access | optional | Indexation ratio and traffic facts; otherwise ask the owner for screenshots |
 
@@ -149,6 +151,8 @@ Reassure before you criticize: lead with honest numbered reference points ("this
 | A dated loss of traffic or rankings, rather than a site that never performed | seo-traffic-drop |
 | Crawl, speed, indexation, JS rendering, AI bot access | seo-technical |
 | Sitemap format, readable sitemap view, sitemap index, lastmod honesty | seo-sitemap |
+| Competitors publish page models or topics the site lacks, or publish much faster | seo-competitor-analysis |
+| The business holds data it never publishes; no study, statistics or case study pages | seo-content-data-study |
 | Wrong or missing keywords, cannibalization | seo-keyword-research |
 | Weak or thin articles | seo-content-blog |
 | Product page issues | seo-content-product-page |

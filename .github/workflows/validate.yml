@@ -25,5 +25,9 @@ jobs:
           python3 -c "import ast; ast.parse(open('skills/seo-traffic-drop/scripts/content_decay.py').read())"
       - name: Smoke-test the rendering checker (offline parse only)
         run: python3 -c "import ast; ast.parse(open('skills/seo-ai-site-builders/scripts/render_check.py').read())"
+      - name: Smoke-test the competitor sitemap reader and the data study builder (offline parse only)
+        run: |
+          python3 -c "import ast; ast.parse(open('skills/seo-competitor-analysis/scripts/competitor_sitemaps.py').read())"
+          python3 -c "import ast; ast.parse(open('skills/seo-content-data-study/scripts/data_study.py').read())"
       - name: Smoke-test the Search Console differ (offline parse only)
         run: python3 -c "import ast; ast.parse(open('skills/seo-traffic-drop/scripts/gsc_diff.py').read())"

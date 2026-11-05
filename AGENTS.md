@@ -23,7 +23,7 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 1. Clone the repository somewhere stable.
 2. Point your agent at the skill you need: paste the relevant `SKILL.md` into context, or reference its path in your rules file (`.cursorrules`, `AGENTS.md`, `GEMINI.md`, etc).
 3. The `references/` files inside each skill are meant to be loaded on demand: load them when the SKILL.md says so, not upfront.
-4. The executables in the repository are `skills/seo-geo-audit/scripts/seo_audit.py`, `skills/seo-geo-audit/scripts/page_benchmark.py`, `skills/seo-page-sections/scripts/section_audit.py`, `skills/seo-internal-linking/scripts/site_crawl.py`, `skills/seo-traffic-drop/scripts/content_decay.py`, `skills/seo-ai-site-builders/scripts/render_check.py`, `skills/seo-traffic-drop/scripts/gsc_diff.py`, `skills/seo-audit-pdf/scripts/render_pdf.py`, `skills/seo-sitemap/scripts/sitemap_audit.py`, and `skills/youtube-description/scripts/youtube_check.py`. All are pure Python standard library (Python 3.9+), no packages to install, no API keys.
+4. The executables in the repository are `skills/seo-geo-audit/scripts/seo_audit.py`, `skills/seo-geo-audit/scripts/page_benchmark.py`, `skills/seo-page-sections/scripts/section_audit.py`, `skills/seo-internal-linking/scripts/site_crawl.py`, `skills/seo-traffic-drop/scripts/content_decay.py`, `skills/seo-ai-site-builders/scripts/render_check.py`, `skills/seo-traffic-drop/scripts/gsc_diff.py`, `skills/seo-audit-pdf/scripts/render_pdf.py`, `skills/seo-sitemap/scripts/sitemap_audit.py`, `skills/seo-competitor-analysis/scripts/competitor_sitemaps.py`, `skills/seo-content-data-study/scripts/data_study.py`, and `skills/youtube-description/scripts/youtube_check.py`. All are pure Python standard library (Python 3.9+), no packages to install, no API keys.
 
 ## Skill map
 
@@ -34,6 +34,8 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 | seo-audit-pdf | The audit as a client-ready PDF (fixed layout, nothing cut across pages, no dates or delays) |
 | seo-technical | Crawlability, indexation, speed, JS rendering, AI crawler access |
 | seo-sitemap | Sitemaps readable by people and robots: XSL view plus polyfill, sitemap index, honest lastmod, HTML sitemap page |
+| seo-competitor-analysis | Market analysis from every competitor sitemap: page models, topics and pace you lack (asks for 5 competitors first, or finds them) |
+| seo-content-data-study | Data studies, statistics and case study pages from anonymized proprietary data, with charts |
 | seo-keyword-research | Keywords, search intent, AI prompt research |
 | seo-content-blog | Blog articles that rank and get cited, plus the article and blog hub templates |
 | seo-content-product-page | E-commerce product pages |
