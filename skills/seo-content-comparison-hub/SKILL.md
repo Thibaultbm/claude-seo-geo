@@ -77,7 +77,7 @@ Sections 3 to 15 sit in one article column with a table of contents of its H2s (
 ## 6. Comparison table
 
 - Role: the whole market in one extractable block.
-- Content: one row per item: number and name (linking to its card), third-party rating with its review count, then 4 to 8 criteria that decide the choice in the category, in the same order and with the same labels as the card facts; "not published" for an unknown value, "no reviews" for an item without reviews; a note under the table with the sources and reading dates.
+- Content: one row per item: number and name (linking to its card), third-party rating with its review count, then 4 to 8 criteria that decide the choice in the category, in the same order and with the same labels as the card facts; yes/no features in three states ("Yes", "Partial: {detail}", "No"); "not published" for an unknown value, "no reviews" for an item without reviews; a note under the table with the sources and reading dates.
 - Organization: a real `<table>` with `<caption>`, `<th scope="col">` headers and the name as `<th scope="row">`; on a phone, a scroll frame (`overflow-x: auto`, `role="region"` with a label, `tabindex="0"`) with the first column sticky and a visible hint ("Scroll sideways to see every column"), or rows turned into stacked blocks with the labels repeated; the page itself never scrolls sideways.
 
 ## 7. Publisher's own offer
@@ -108,7 +108,7 @@ Sections 3 to 15 sit in one article column with a table of contents of its H2s (
 
 - Role: help the reader who is not ready to pick, and cover the questions people ask about the category.
 - Content: 4 to 6 H2s phrased as questions ("What is a {category}?", "How to choose a {category}", "How much does it cost?", "Is it risky?", "{category} or {other approach}: what is the difference?"); each opens with 2 self-contained sentences that answer it, then details, a criteria table where useful, official sources linked, and links to the guides and tools of the site.
-- Organization: after the cards, in the article body; prices given as ranges taken from the cards, dated.
+- Organization: after the cards, in the article body; prices given as ranges taken from the cards, dated. It may close on a decision grid of 4 to 6 lines ("If you need {criterion}: {item}"), each name linking to its card and each line computed from the data like the quick picks.
 
 ## 12. Related pages
 
