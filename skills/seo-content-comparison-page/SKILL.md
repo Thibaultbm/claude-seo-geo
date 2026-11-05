@@ -28,6 +28,7 @@ If the working environment contains an Obsidian vault or any local knowledge bas
 
 | Need | Skill |
 |---|---|
+| A "best {category}" list or ranking hub with many items (10 to 60), a tool directory | seo-content-comparison-hub |
 | Which comparisons have real demand | seo-keyword-research |
 | Which blocks the page is missing, on any page type | seo-page-sections |
 | Product facts for your own side | seo-content-product-page |
@@ -148,8 +149,8 @@ Do not build one page per competitor by default. Build the pages the market actu
 | Head-to-head | "{you} vs {competitor}", "{competitor} vs {you}" | The competitor is named in sales calls, or the query has real volume | Deciding between two finalists |
 | Your alternatives | "{you} alternatives", "alternative to {you}" | You have any brand recognition | Retention: own the page where doubts are answered |
 | Their alternatives | "{competitor} alternatives", "alternative to {competitor}" | The competitor is bigger than you | Acquisition: the single highest-yield page family for a challenger |
-| Best-for | "best {category} for {use case}", "best {category} {year}" | You are credible in a niche of the category | Category-level shortlisting |
-| Comparison hub | "{category} comparison" | Three or more of the above exist | Distributes authority, prevents cannibalization |
+| Best-for | "best {category} for {use case}", "best {category} {year}" | You are credible in a niche of the category; a ranked list of 10+ items is a hub: seo-content-comparison-hub | Category-level shortlisting |
+| Comparison hub | "{category} comparison" | Three or more of the above exist; a hub that ranks many items is built with seo-content-comparison-hub | Distributes authority, prevents cannibalization |
 | Segment | "{category} for {audience}" | A segment has distinct problems, vocabulary or workflow | Recognition and qualification |
 
 Mapping rules:

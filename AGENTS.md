@@ -23,7 +23,7 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 1. Clone the repository somewhere stable.
 2. Point your agent at the skill you need: paste the relevant `SKILL.md` into context, or reference its path in your rules file (`.cursorrules`, `AGENTS.md`, `GEMINI.md`, etc).
 3. The `references/` files inside each skill are meant to be loaded on demand: load them when the SKILL.md says so, not upfront.
-4. The executables in the repository are `skills/seo-geo-audit/scripts/seo_audit.py`, `skills/seo-geo-audit/scripts/page_benchmark.py`, `skills/seo-page-sections/scripts/section_audit.py`, `skills/seo-internal-linking/scripts/site_crawl.py`, `skills/seo-traffic-drop/scripts/content_decay.py`, `skills/seo-ai-site-builders/scripts/render_check.py`, `skills/seo-traffic-drop/scripts/gsc_diff.py`, `skills/seo-audit-pdf/scripts/render_pdf.py`, `skills/seo-sitemap/scripts/sitemap_audit.py`, `skills/seo-competitor-analysis/scripts/competitor_sitemaps.py`, `skills/seo-content-data-study/scripts/data_study.py`, and `skills/youtube-description/scripts/youtube_check.py`. All are pure Python standard library (Python 3.9+), no packages to install, no API keys.
+4. The executables in the repository are `skills/seo-geo-audit/scripts/seo_audit.py`, `skills/seo-geo-audit/scripts/page_benchmark.py`, `skills/seo-page-sections/scripts/section_audit.py`, `skills/seo-internal-linking/scripts/site_crawl.py`, `skills/seo-traffic-drop/scripts/content_decay.py`, `skills/seo-ai-site-builders/scripts/render_check.py`, `skills/seo-traffic-drop/scripts/gsc_diff.py`, `skills/seo-audit-pdf/scripts/render_pdf.py`, `skills/seo-sitemap/scripts/sitemap_audit.py`, `skills/seo-competitor-analysis/scripts/competitor_sitemaps.py`, `skills/seo-content-data-study/scripts/data_study.py`, `skills/seo-content-comparison-hub/scripts/hub_check.py`, and `skills/youtube-description/scripts/youtube_check.py`. All are pure Python standard library (Python 3.9+), no packages to install, no API keys.
 
 ## Skill map
 
@@ -43,6 +43,7 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 | seo-content-service-page | Service and landing pages |
 | seo-content-collection-page | E-commerce category and collection pages |
 | seo-content-comparison-page | Comparison, alternatives, best-for and customer segment pages |
+| seo-content-comparison-hub | The ideal structure of a "best {category}" ranking hub, section by section |
 | seo-page-sections | Which sections a page is missing, and the content to fill each gap |
 | seo-ai-site-builders | Sites built by AI generators (Lovable, Base44, Bolt, v0, Bubble and others): turn the JavaScript app into served HTML so it can be indexed and cited |
 | seo-internal-linking | Internal links, silos, orphan pages |

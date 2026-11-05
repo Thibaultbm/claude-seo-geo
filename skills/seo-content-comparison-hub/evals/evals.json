@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo-content-comparison-hub",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We want a 'best email marketing software' page listing about 40 tools. Some of them pay us affiliate commissions, and we also sell our own email tool. Build the page.",
+      "expected_output": "Lays out the page in the skill's section order: head (title with the computed count and year, ItemList of the 40 tools in page order, BreadcrumbList, FAQPage of the visible questions, no borrowed rating markup), breadcrumb, hero (H1 with the exact count and year, short lead, trust line with author, update date and the commercial terms, one call to action, a real product visual), short answer, quick picks computed from the data with their thresholds and anchors, a 'How this page is made' box that states the affiliate terms, explains every badge, gives the ordering rule and declares the publisher's own email tool, the comparison table (one row per tool, rating with review count, 4-8 deciding criteria, real table with a sticky first column and a scroll hint on phones), the publisher's offer in a separate labelled block, the method, one fixed card per tool in the article body (numbered heading, best for, rating with count and source link, summary, fixed facts, pros and cons with proof, dated price, review link, outbound button labelled by relationship with rel=sponsored for paid links), items considered, buying guide with question H2s, related pages grid, one FAQ, changelog and sources, author box. Gives for each section its role, content and organization. Invents no rating, price or tool fact: unknowns are {to confirm}. No em dashes, no emoji.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Review our page https://example.com/best-project-management-tools. The title says 'more than 50 tools', the H1 says 'best project management tools', there are 47 cards with just a logo, a name and sometimes a 'Partner' badge, and two FAQ sections. The page says it is non-sponsored.",
+      "expected_output": "Compares the page with the ideal section order and names each gap by section: the H1 and title must carry the exact count (47) and the year, the same number as the cards, the table and the ItemList; a short answer, quick picks and a 'How this page is made' box are missing; the 'Partner' badge contradicts 'non-sponsored' and must be explained there with the ordering rule; a comparison table is missing; the cards must follow the fixed card (numbered heading, best for, rating with review count and source, summary, fixed facts, pros and cons, dated price, review link, button labelled by relationship); the two FAQs become one, mirrored by FAQPage; changelog, sources and author are missing. Suggests running hub_check.py on the page. No em dashes, no emoji.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Our 'best accounting software' hub has 30 tools and exists in 10 languages. Ratings were copied from review sites a year ago and the French and German versions show different prices from the English one. What should each section show so this cannot happen again?",
+      "expected_output": "Applies the skill's rule that every value about an item comes from one database field and is shown identically in the quick picks, the table, the cards, the ItemList and every language. Goes section by section: the trust line and changelog carry the reading date; the table shows each rating with its review count and a note with sources and reading dates; each card shows the rating as the source shows it with its count and a link, the price with its check date and the date of its review; the 'How this page is made' box gives the data sources and dates; the count and year are computed at render. Says the ratings must be re-read before republishing and never rounded up or invented. No em dashes, no emoji.",
+      "files": []
+    }
+  ]
+}

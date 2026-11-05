@@ -83,7 +83,7 @@ Three readings, in this order:
 
 | Model found | What it captures | Build with |
 |---|---|---|
-| comparison, alternatives, best-of list | Buyers choosing between suppliers | seo-content-comparison-page |
+| comparison, alternatives, best-of list | Buyers choosing between suppliers | seo-content-comparison-page; ranked lists of many items: seo-content-comparison-hub |
 | use case, industry, "for {segment}" | Each buyer type with its own words | seo-content-comparison-page (segment pages) |
 | glossary, "what is" | Definitions AI assistants quote | seo-content-blog (definition format) |
 | free tool, calculator, template | Links and recurring visits | seo-backlinks (linkable asset), seo-page-sections |

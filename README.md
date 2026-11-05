@@ -4,7 +4,7 @@
 
 **SEO and GEO skills that work like a specification: they audit a page, compare it with the competitors that rank, and build the fix.** Rank in Google and get cited by ChatGPT, Perplexity, Gemini and Google AI Overviews.
 
-26 skills, 12 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
+27 skills, 13 zero-dependency scripts, every threshold either measured (with its source) or labeled as a field heuristic from 115+ real agency audits. Free and open source.
 
 ## How a page skill works
 
@@ -72,6 +72,7 @@ The crawl finds what no single-page audit can see (orphans, internal links point
 | [seo-content-product-page](skills/seo-content-product-page/SKILL.md) | E-commerce product pages, the ChatGPT Shopping feed |
 | [seo-content-collection-page](skills/seo-content-collection-page/SKILL.md) | Category and collection pages: the text zones, facets, pagination |
 | [seo-content-comparison-page](skills/seo-content-comparison-page/SKILL.md) | X vs Y, alternatives, best-for lists, customer segment pages |
+| [seo-content-comparison-hub](skills/seo-content-comparison-hub/SKILL.md) | "Best {category}" ranking hubs and tool directories with many items: the ideal structure, section by section (order, role, content, organization), from the H1 with the exact count to the FAQ and the ItemList |
 | [seo-content-blog](skills/seo-content-blog/SKILL.md) | Articles on the 12-element skeleton, plus the page templates: sticky table of contents, author box with photo and social profiles, CTA blocks, blog hub cards with covers |
 | [seo-local](skills/seo-local/SKILL.md) | Local pages and the Google Business Profile, reviews, citations |
 | [seo-page-sections](skills/seo-page-sections/SKILL.md) | Any other page type (21 in total) and the site-level question "which pages and blocks are missing" |
@@ -125,6 +126,7 @@ All standard-library Python 3.9+, read only, no API key, no install.
 | `skills/seo-sitemap/scripts/sitemap_audit.py` | Sitemap for robots and people: stylesheet and polyfill, size, segmentation, duplicates, lastmod honesty, priority and changefreq, hreflang weight, URLs per language, HTML sitemap page |
 | `skills/seo-competitor-analysis/scripts/competitor_sitemaps.py` | Every sitemap of the site and up to 5 competitors: URLs sorted into page models, publishing pace with real publication dates, page-model gap, topic gap, competitor vocabulary |
 | `skills/seo-content-data-study/scripts/data_study.py` | From a raw export to publishable aggregates: identifying columns dropped, groups under 5 entities suppressed, median and quartiles per category, accessible SVG charts and HTML tables |
+| `skills/seo-content-comparison-hub/scripts/hub_check.py` | A ranking hub before it goes out: the item count in the H1, title, numbered headings and ItemList, table rows, FAQPage against the visible FAQ, update date and disclosure near the H1, a link in every card, em dashes |
 | `skills/youtube-description/scripts/youtube_check.py` | Before a video goes out: chapters YouTube will accept, description and title limits, forbidden characters, UTM links, thumbnail size and ratio |
 
 ## Install
@@ -216,7 +218,7 @@ One wrong redirect or an overwritten page can cost rankings that took years to b
 ```
 claude-seo-geo/
   .claude-plugin/        plugin.json + marketplace.json
-  skills/                26 skills (SKILL.md + references/ + evals/ + scripts/)
+  skills/                27 skills (SKILL.md + references/ + evals/ + scripts/)
   docs/
     page-skill-standard.md   the four-phase standard every page skill follows
   scripts/               validate_skills.py (CI format and style checks)
