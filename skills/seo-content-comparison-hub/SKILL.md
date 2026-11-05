@@ -113,7 +113,7 @@ Sections 3 to 15 sit in one article column with a table of contents of its H2s (
 ## 12. Related pages
 
 - Role: spread the reader and the authority across the cluster.
-- Content: links grouped by kind: every item page (already linked from the cards), the "best {category} for {use}" child pages, the alternatives and versus pages, sibling hubs, guides and glossary entries, the publisher's feature pages, free tools.
+- Content: links grouped by kind: every item page (already linked from the cards), the "best {category} for {use}" child pages, the alternatives pages (never versus pages: one "X vs Y" page per pair cannibalizes the alternatives page of X), sibling hubs, guides and glossary entries, the publisher's feature pages, free tools.
 - Organization: a grid of 3 to 6 labelled groups of 3 to 6 links, with descriptive anchors; every target page links back to the hub.
 
 ## 13. FAQ
