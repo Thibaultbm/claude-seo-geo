@@ -31,3 +31,5 @@ jobs:
           python3 -c "import ast; ast.parse(open('skills/seo-content-data-study/scripts/data_study.py').read())"
       - name: Smoke-test the Search Console differ (offline parse only)
         run: python3 -c "import ast; ast.parse(open('skills/seo-traffic-drop/scripts/gsc_diff.py').read())"
+      - name: Smoke-test the comparison hub checker (offline parse only)
+        run: python3 -c "import ast; ast.parse(open('skills/seo-content-comparison-hub/scripts/hub_check.py').read())"

@@ -162,6 +162,7 @@ Reassure before you criticize: lead with honest numbered reference points ("this
 | Category pages with no content | seo-content-collection-page |
 | Whole blocks absent from a page (no FAQ, no breadcrumb, no price in text) | seo-page-sections |
 | No comparison or alternatives pages, so competitors own those queries | seo-content-comparison-page |
+| No "best {category}" ranking page, or a list page with mismatched counts, thin cards, no method or no disclosure | seo-content-comparison-hub |
 | Orphan pages, weak internal links | seo-internal-linking |
 | Missing or invalid structured data | seo-schema-markup |
 | Weak link profile, no brand mentions | seo-backlinks |

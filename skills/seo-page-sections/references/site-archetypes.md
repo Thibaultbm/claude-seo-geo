@@ -182,7 +182,7 @@ Affiliate pages often carry outbound links at scale. Keep the link policy explic
 
 ### Top 10 or ranking page (marketplace)
 
-Treat as a comparison page. Full spec: `seo-content-comparison-page/references/comparison-page-patterns.md`, family 3.
+Treat as a comparison hub. Full spec: `seo-content-comparison-hub/` (wireframe, card, table and checklists in `references/hub-patterns.md`).
 
 | Block | Level | Why |
 |---|---|---|

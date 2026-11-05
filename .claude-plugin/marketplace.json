@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "SEO + GEO skills for Claude Code, by Sorank",
-    "version": "1.9.0"
+    "version": "1.10.0"
   },
   "plugins": [
     {
       "name": "claude-seo-geo",
       "source": "./",
-      "description": "26 SEO + GEO skills (every page skill runs spec, audit, competitor benchmark and build): traffic drop diagnosis, full site audit with SEO and GEO scores, client-ready audit PDF, technical SEO, sitemaps readable by people and robots, market analysis from every competitor sitemap (page models, topics and publishing pace you lack), content for every page type (homepage and sales page, blog and blog templates, product, service, collection, comparison and alternatives, customer segment), a page-section audit that finds the blocks missing from a page and writes them, data studies, statistics and case study pages built from anonymized proprietary data with charts, a rendering fix for sites built by AI generators like Lovable and Base44, internal linking, schema, link building, local SEO, social amplification, YouTube titles, descriptions, chapters and thumbnails, AI visibility and AI traffic tracking. Each skill reads your local company knowledge base first when one exists.",
+      "description": "27 SEO + GEO skills (every page skill runs spec, audit, competitor benchmark and build): traffic drop diagnosis, full site audit with SEO and GEO scores, client-ready audit PDF, technical SEO, sitemaps readable by people and robots, market analysis from every competitor sitemap (page models, topics and publishing pace you lack), content for every page type (homepage and sales page, blog and blog templates, product, service, collection, comparison and alternatives, best-of ranking hubs and tool directories fed by one database, customer segment), a page-section audit that finds the blocks missing from a page and writes them, data studies, statistics and case study pages built from anonymized proprietary data with charts, a rendering fix for sites built by AI generators like Lovable and Base44, internal linking, schema, link building, local SEO, social amplification, YouTube titles, descriptions, chapters and thumbnails, AI visibility and AI traffic tracking. Each skill reads your local company knowledge base first when one exists.",
       "category": "marketing",
       "keywords": [
         "seo",

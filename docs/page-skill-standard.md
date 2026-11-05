@@ -1,6 +1,6 @@
 # Page skill standard: spec, audit, benchmark, build
 
-Every skill that owns a page type (homepage, service, product, collection, comparison, blog, local, page sections) is a specification (cahier des charges) that runs in four phases. The same four phases, in the same order, with the same deliverable, in every page skill. A reader who knows one page skill knows them all.
+Every skill that owns a page type (homepage, service, product, collection, comparison, comparison hub, blog, local, page sections) is a specification (cahier des charges) that runs in four phases. The same four phases, in the same order, with the same deliverable, in every page skill. A reader who knows one page skill knows them all.
 
 | Phase | Question it answers | Tools | Output |
 |---|---|---|---|
@@ -19,7 +19,7 @@ Site-level inputs feed Phase 2 when they exist: `site_crawl.py` (seo-internal-li
 2. Title and a 2-4 line intro: what the page type is for and how it fails.
 3. Company knowledge first (Obsidian): short, unchanged pattern.
 4. When to use, and the routing table to adjacent skills.
-5. `## Phase 1. The spec`: the page-specific requirements as a table with stable IDs (prefix per skill: HOME, SVC, PDP, COL, CMP, BLOG, LOC, SEC), columns `ID | Requirement | Threshold | Verified by | Why`, plus the line "Common requirements C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md". "Verified by" is a `seo_audit.py` finding code, a `section_audit.py` block, or "manual".
+5. `## Phase 1. The spec`: the page-specific requirements as a table with stable IDs (prefix per skill: HOME, SVC, PDP, COL, CMP, HUB, BLOG, LOC, SEC), columns `ID | Requirement | Threshold | Verified by | Why`, plus the line "Common requirements C-01 to C-27: skills/seo-geo-audit/references/common-page-spec.md". "Verified by" is a `seo_audit.py` finding code, a `section_audit.py` block, or "manual".
 6. `## Phase 2. Audit the existing page`: the exact commands with the right `--type`, and how to map findings to spec IDs.
 7. `## Phase 3. Benchmark the competitors`: how to pick them for this page type (the query, the SERP, the AI answers), the `page_benchmark.py` command, what to read in its output, and the information gain to define.
 8. `## Phase 4. Build`: the wireframe or skeleton, copy rules, schema, metadata patterns, then the acceptance test (scripts re-run, finish line).

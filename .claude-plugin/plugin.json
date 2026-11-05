@@ -1,7 +1,7 @@
 {
   "name": "claude-seo-geo",
   "description": "SEO + GEO skills for Claude Code that work like a specification: every page skill audits the page, benchmarks it against the competitors that rank, and builds the fix. Audit any site, diagnose a traffic drop, fix technical SEO, write content that ranks on Google and gets cited by ChatGPT, Perplexity and AI Overviews, build links and brand mentions, amplify on social, publish YouTube videos with titles, descriptions, chapters and thumbnails that get found, and track AI visibility without paid tools.",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "author": {
     "name": "Thibault Besson-Magdelain",
     "url": "https://sorank.com"
@@ -24,6 +24,7 @@
     "claude-skills",
     "youtube-seo",
     "comparison-pages",
+    "ranking-pages",
     "page-templates",
     "javascript-seo",
     "traffic-drop-diagnosis",

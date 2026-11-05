@@ -117,7 +117,7 @@ Deep spec: `seo-local/references/location-page-template.md`.
 
 ## 5. Comparison and alternatives page
 
-Deep spec: `seo-content-comparison-page/`.
+Deep spec: `seo-content-comparison-page/`. A ranked list of many items ("best {category}", top 10, tool directory): `seo-content-comparison-hub/`.
 
 | # | Block | Level | Why |
 |---|---|---|---|
