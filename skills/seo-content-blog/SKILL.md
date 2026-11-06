@@ -257,7 +257,7 @@ Re-run the Phase 2 commands on the live or staged URLs. The finish line: TEMPLAT
 - [ ] 3-5 visible internal links to commercial pages (BLOG-10)
 - [ ] Every H2 section self-contained (no "as seen above") (BLOG-06)
 - [ ] FAQ = 3 real People Also Ask questions (BLOG-12)
-- [ ] Article template carries an email capture popup firing at 30-40 seconds on page (40 s max), once per visitor, markup at the end of the body
+- [ ] Article template carries a capture popup: 30% scroll AND 15 s of visible reading, 2 shows per 7 days, silent 7 days after a close, never after a conversion or on `utm_medium=email` visits, native `<dialog>`, analytics event, markup at the end of the body
 - [ ] 3 images, all with alt text, WebP, 200 KB max (BLOG-13, C-15)
 - [ ] Length at or above the SERP benchmark (BLOG-03)
 - [ ] Information gain named and actually present in the text (BLOG-14)
@@ -265,16 +265,17 @@ Re-run the Phase 2 commands on the live or staged URLs. The finish line: TEMPLAT
 
 Then sweep the Common mistakes list.
 
-## Mandatory on every article page: timed email capture popup
+## Mandatory on every article page: reading-triggered capture popup
 
-Every article page must carry an email capture popup that opens after **30 to 40 seconds on the page (40 seconds maximum)**. This is a page-template requirement, not part of the article text: build it once in the blog template so every article inherits it.
+Every article page must carry a capture popup that opens only once the visitor is actually reading. This is a page-template requirement, not part of the article text: build it once in the blog template so every article inherits it.
 
-- **Timing:** fire between 30 and 40 seconds of time on page, never on landing, never later than 40 seconds. Optional extra trigger: exit intent on desktop.
-- **Offer:** one concrete incentive tied to the business (catalog or price list, discount on a first order or first visit, session dates, checklist or guide). A bare "subscribe to our newsletter" converts poorly.
-- **Form:** first name + email at most (add phone only for high-ticket B2B or local services).
-- **Frequency:** once per visitor (cookie or local storage, around 30 days), easy to close, no full-screen block on mobile (use a bottom sheet or slide-in so Google does not treat it as an intrusive interstitial).
-- **Technical:** inject the popup markup at the end of the body, never at the top of the DOM, so it does not break the heading hierarchy. Track opens and submissions as conversion events (GA4).
-- **Why:** blog visitors arrive on informational intent and most are not ready to buy on the first visit; without capture they leave and never come back. The popup turns article traffic into leads that can be converted later.
+- **Trigger:** 30% scroll depth of the article AND 15 seconds of visible reading time (both, not either). Count reading time only while the tab is visible (`document.visibilityState === "visible"`), the way GA4 counts engaged time. Never on landing.
+- **Cap:** 2 shows per visitor per 7 days (at most one per visit); nothing for 7 days after a close; never again after a conversion; never on visits tagged `utm_medium=email` (the reader already is a subscriber).
+- **Offer:** one concrete incentive tied to the business (free audit or plan, tool result, catalog or price list, discount on a first order, checklist or guide). A bare "subscribe to our newsletter" converts poorly. One call to action only.
+- **Form:** one field when the offer is an audit or a tool (the site URL); first name + email otherwise (add phone only for high-ticket B2B or local services).
+- **Technical:** a native `<dialog>` opened with `showModal()`, closed by its button, Escape or a click on the backdrop; never full-screen on mobile (a card with margins that fits the screen, so Google does not treat it as an intrusive interstitial). Inject the markup at the end of the body, never at the top of the DOM, so it does not break the heading hierarchy. Keep the display state in local storage (shows, close date, conversion) and the visit flag in session storage; a blocked storage shows it at most once per page.
+- **Measure:** send an analytics event on show, close and submit with the offer, the page type and the trigger (for example `popup_view` with `offer`, `page_type`, `trigger`), no personal data.
+- **Why:** blog visitors arrive on informational intent and most are not ready to buy on the first visit; without capture they leave and never come back. Waiting for real reading (scroll and visible time) shows the offer to readers instead of bouncers, and the caps keep it from becoming a nuisance.
 
 ## Rules and thresholds
 
