@@ -33,7 +33,7 @@ cp -r claude-seo-geo/skills/* ~/.claude/skills/
 | seo-geo-audit | Full site audit (SEO + AI visibility), prioritized action plan |
 | seo-audit-pdf | The audit as a client-ready PDF (fixed layout, nothing cut across pages, no dates or delays) |
 | seo-technical | Crawlability, indexation, speed, JS rendering, AI crawler access |
-| seo-sitemap | Sitemaps readable by people and robots: XSL view plus polyfill, sitemap index, honest lastmod, HTML sitemap page |
+| seo-sitemap | Sitemaps clean for robots and elegant for people: pretty-printed raw XML (no stylesheet), sitemap index, honest lastmod |
 | seo-competitor-analysis | Market analysis from every competitor sitemap: page models, topics and pace you lack (asks for 5 competitors first, or finds them) |
 | seo-content-data-study | Data studies, statistics and case study pages from anonymized proprietary data, with charts |
 | seo-keyword-research | Keywords, search intent, AI prompt research |

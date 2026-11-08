@@ -85,7 +85,7 @@ The crawl finds what no single-page audit can see (orphans, internal links point
 | [seo-audit-pdf](skills/seo-audit-pdf/SKILL.md) | The audit as a client-ready PDF: fixed A4 layout, nothing cut across two pages, no dates or delays, rendered and linted by one script |
 | [seo-traffic-drop](skills/seo-traffic-drop/SKILL.md) | Traffic or rankings fell: date the drop, locate it, run the differential diagnosis |
 | [seo-technical](skills/seo-technical/SKILL.md) | Crawl, indexation, Core Web Vitals, JavaScript rendering, AI crawler access, migrations |
-| [seo-sitemap](skills/seo-sitemap/SKILL.md) | A sitemap readable by people as well as robots: XSL view with the polyfill that survives Chrome's XSLT removal, sitemap index by section and language, honest lastmod, HTML sitemap page |
+| [seo-sitemap](skills/seo-sitemap/SKILL.md) | A sitemap clean for robots and elegant for people: pretty-printed raw XML identical to `xmllint --format`, no stylesheet or script, sitemap index by section and language, honest lastmod |
 | [seo-ai-site-builders](skills/seo-ai-site-builders/SKILL.md) | Sites built by Lovable, Base44, Bolt, v0, Bubble and others: turn the JavaScript app into served HTML |
 | [seo-keyword-research](skills/seo-keyword-research/SKILL.md) | Real queries, intent mapping, cannibalization, AI prompt research |
 | [seo-competitor-analysis](skills/seo-competitor-analysis/SKILL.md) | Market analysis: asks for 5 competitors (or finds them), reads every competitor sitemap, shows the page models, topics and publishing pace you lack, ranked into a build plan |
@@ -123,7 +123,7 @@ All standard-library Python 3.9+, read only, no API key, no install.
 | `skills/seo-page-sections/scripts/section_audit.py` | Which blocks a page has (FAQ, breadcrumb, comparison table, reviews, guarantee, process, author...) |
 | `skills/seo-ai-site-builders/scripts/render_check.py` | What crawlers receive from a JavaScript site, by user agent, plus a soft-404 probe |
 | `skills/seo-traffic-drop/scripts/gsc_diff.py` | Locates a traffic drop in Search Console exports |
-| `skills/seo-sitemap/scripts/sitemap_audit.py` | Sitemap for robots and people: stylesheet and polyfill, size, segmentation, duplicates, lastmod honesty, priority and changefreq, hreflang weight, URLs per language, HTML sitemap page |
+| `skills/seo-sitemap/scripts/sitemap_audit.py` | Sitemap for robots and people: pretty-print check and formatter (`--format`), leftover stylesheet or script, size, segmentation, duplicates, lastmod honesty, priority and changefreq, hreflang weight, URLs per language, HTML sitemap page |
 | `skills/seo-competitor-analysis/scripts/competitor_sitemaps.py` | Every sitemap of the site and up to 5 competitors: URLs sorted into page models, publishing pace with real publication dates, page-model gap, topic gap, competitor vocabulary |
 | `skills/seo-content-data-study/scripts/data_study.py` | From a raw export to publishable aggregates: identifying columns dropped, groups under 5 entities suppressed, median and quartiles per category, accessible SVG charts and HTML tables |
 | `skills/seo-content-comparison-hub/scripts/hub_check.py` | A ranking hub before it goes out: the item count in the H1, title, numbered headings and ItemList, table rows, FAQPage against the visible FAQ, update date and disclosure near the H1, a link in every card, em dashes |

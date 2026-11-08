@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit an XML sitemap for its two readers: robots (valid, light, honest) and people (readable).
+"""Audit an XML sitemap: clean for robots (valid, light, honest) and elegant for people (pretty-printed raw XML).
 
 Follows a sitemap index into its child files and prints raw facts, then a list of findings.
 Pure standard library, Python 3.9+, read only, no API key.
@@ -8,10 +8,11 @@ Usage:
   python3 sitemap_audit.py https://example.com/sitemap.xml
   python3 sitemap_audit.py https://example.com            (reads robots.txt, falls back to /sitemap.xml)
   python3 sitemap_audit.py https://example.com/sitemap.xml --json report.json --max-children 200
+  python3 sitemap_audit.py --format public/sitemap.xml       (rewrites a local file, pretty-printed)
 
 Checks:
-  people   xml-stylesheet instruction, XSL on the same origin, reachable, right content type,
-           xslt-polyfill loaded (Chrome removes native XSLT on 17 November 2026), HTML sitemap page
+  people   pretty-printed like `xmllint --format` (one element per line, two-space indentation,
+           no blank lines, no trailing spaces), no xml-stylesheet, no script, no comment
   robots   status, content type, size and URL limits, sitemap index and segmentation,
            duplicates, other hosts, http URLs, lastmod coverage and honesty,
            priority and changefreq (ignored by Google), hreflang weight, URLs per language
@@ -28,7 +29,6 @@ import urllib.request
 from urllib.parse import urljoin, urlparse
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0 Safari/537.36 sitemap-audit"
-XSL_TYPES = ("text/xsl", "application/xslt+xml", "application/xml", "text/xml")
 HTML_SITEMAP_PATHS = ("/plan-du-site", "/plan-du-site/", "/sitemap", "/sitemap/", "/site-map", "/sitemap.html", "/html-sitemap")
 MAX_URLS = 50000
 MAX_BYTES = 50 * 1024 * 1024
@@ -69,40 +69,59 @@ def find_sitemap(start):
     return urljoin(base, "/sitemap.xml")
 
 
-def stylesheet_of(xml):
-    m = re.search(r"<\?xml-stylesheet\b([^?]*)\?>", xml[:2000])
-    if not m:
-        return None
-    attrs = dict(re.findall(r'(\w+)\s*=\s*["\']([^"\']*)["\']', m.group(1)))
-    return attrs
+TAG = re.compile(r"<[^>]+>|[^<]+")
+
+
+def pretty(xml):
+    """Canonical layout, as xmllint --format prints it. Drops xml-stylesheet, scripts and comments."""
+    decl = re.match(r"\s*(<\?xml\b[^?]*\?>)", xml)
+    body = xml[decl.end():] if decl else xml
+    body = re.sub(r"<\?xml-stylesheet\b[^?]*\?>", "", body)
+    body = re.sub(r"<!--.*?-->", "", body, flags=re.S)
+    body = re.sub(r"<script\b[^>]*?(/>|>.*?</script\s*>)", "", body, flags=re.S)
+    body = re.sub(r">\s+<", "><", body.strip())
+    toks = TAG.findall(body)
+    out, depth, i = [decl.group(1) if decl else '<?xml version="1.0" encoding="UTF-8"?>'], 0, 0
+    while i < len(toks):
+        tok = toks[i].strip()
+        if not tok:
+            i += 1
+            continue
+        if tok.startswith("</"):
+            depth -= 1
+            out.append("  " * depth + tok)
+        elif tok.startswith("<?") or tok.endswith("/>"):
+            out.append("  " * depth + tok)
+        elif tok.startswith("<"):
+            if i + 2 < len(toks) and not toks[i + 1].startswith("<") and toks[i + 2].startswith("</"):
+                out.append("  " * depth + tok + toks[i + 1].strip() + toks[i + 2])
+                i += 3
+                continue
+            out.append("  " * depth + tok)
+            depth += 1
+        else:
+            out.append("  " * depth + tok)
+        i += 1
+    return "\n".join(out) + "\n"
 
 
 def check_people(url, xml, cache):
-    """Human readability of one sitemap file."""
-    out = {"stylesheet": None}
-    attrs = stylesheet_of(xml)
-    if not attrs:
-        return out
-    href = urljoin(url, attrs.get("href", ""))
-    out["stylesheet"] = href
-    out["stylesheet_type"] = attrs.get("type", "")
-    out["stylesheet_same_origin"] = origin(href) == origin(url)
-    if href not in cache:
-        status, ctype, body, _ = fetch(href)
-        cache[href] = {"status": status, "content_type": ctype,
-                       "is_xslt": b"XSL/Transform" in body[:4000]}
-    out["stylesheet_fetch"] = cache[href]
-    m = re.search(r'<script\b[^>]*src=["\']([^"\']*xslt-polyfill[^"\']*)["\']', xml[:5000])
-    if m:
-        src = urljoin(url, m.group(1))
-        out["polyfill"] = src
-        out["polyfill_same_origin"] = origin(src) == origin(url)
-        if src not in cache:
-            status, ctype, _, _ = fetch(src)
-            cache[src] = {"status": status, "content_type": ctype}
-        out["polyfill_fetch"] = cache[src]
-    else:
-        out["polyfill"] = None
+    """Elegance of one sitemap file: pretty-printed raw XML, nothing added on top."""
+    lines = xml.split("\n")
+    out = {
+        "lines": len(lines),
+        "stylesheet": bool(re.search(r"<\?xml-stylesheet\b", xml[:3000])),
+        "script": bool(re.search(r"<script\b", xml[:10000])),
+        "comment": "<!--" in xml,
+        "pretty": xml == pretty(xml),
+        "first_bad_line": None,
+    }
+    if not out["pretty"]:
+        ref = pretty(xml).split("\n")
+        for n, (a, b) in enumerate(zip(lines, ref), 1):
+            if a != b:
+                out["first_bad_line"] = {"line": n, "found": a[:120], "expected": b[:120]}
+                break
     return out
 
 
@@ -194,36 +213,20 @@ def findings(r):
         return F
     files = [f for f in r["files"] if "urls" in f]
     total = sum(f["urls"] for f in files)
-    # People
-    styled = [p for p in r["people"] if p.get("stylesheet")]
-    if not styled:
-        add("FIX", "people", "No xml-stylesheet instruction: browsers show the raw XML tree, readable by robots only. Install assets/sitemap.xsl (Build, step 2).")
-    else:
-        if len(styled) < len(r["people"]):
-            add("FIX", "people", "{} of {} sitemap files call no stylesheet: every file, index and children, needs the instruction.".format(len(r["people"]) - len(styled), len(r["people"])))
-        seen = set()
-        for p in styled:  # one finding per distinct stylesheet or polyfill, not per file
-            fx = p.get("stylesheet_fetch", {})
-            if p["stylesheet"] not in seen:
-                seen.add(p["stylesheet"])
-                if not p["stylesheet_same_origin"]:
-                    add("FIX", "people", "Stylesheet on another origin ({}): browsers refuse it and show nothing. Serve it from the sitemap's own domain.".format(p["stylesheet"]))
-                if fx.get("status") != 200 or not fx.get("is_xslt"):
-                    add("FIX", "people", "Stylesheet {} unreachable or not XSLT (HTTP {}).".format(p["stylesheet"], fx.get("status")))
-                elif not any(t in fx.get("content_type", "") for t in XSL_TYPES):
-                    add("FIX", "people", "Stylesheet served as '{}': use text/xsl or application/xml.".format(fx.get("content_type")))
-            if p.get("polyfill") and p["polyfill"] not in seen:
-                seen.add(p["polyfill"])
-                pf = p.get("polyfill_fetch", {})
-                if pf.get("status") != 200:
-                    add("FIX", "people", "Polyfill {} unreachable (HTTP {}).".format(p["polyfill"], pf.get("status")))
-                if not p.get("polyfill_same_origin"):
-                    add("WATCH", "people", "Polyfill loaded from another origin: self-host a pinned copy so a CDN change cannot break the view.")
-        bare = [p["file"] for p in styled if not p.get("polyfill")]
-        if bare:
-            add("PRIORITY", "people", "{} sitemap file(s) call a stylesheet without xslt-polyfill. Chrome shows a removal warning today and drops native XSLT on 17 November 2026 (Chrome 158): the files then render as one block of run-together text, worse than no stylesheet. Add the polyfill (Build, step 3).".format(len(bare)))
-    if not r.get("html_sitemap"):
-        add("WATCH", "people", "No HTML sitemap page found at the usual addresses (/plan-du-site, /sitemap, /site-map): the durable human version, linked from the footer (Build, step 4).")
+    # People: pretty-printed raw XML, nothing on top
+    styled = [p["file"] for p in r["people"] if p.get("stylesheet")]
+    if styled:
+        add("FIX", "people", "{} file(s) call an xml-stylesheet: remove the instruction, the XSL and any polyfill (SMP-11). Raw XML, pretty-printed, is the expected view; Chrome drops native XSLT on 17 November 2026.".format(len(styled)))
+    scripted = [p["file"] for p in r["people"] if p.get("script")]
+    if scripted:
+        add("FIX", "people", "{} file(s) contain a <script> element (often an xslt-polyfill): remove it, a sitemap carries URLs only (SMP-11).".format(len(scripted)))
+    ugly = [p for p in r["people"] if not p.get("pretty")]
+    for p in ugly[:5]:
+        b = p.get("first_bad_line") or {}
+        add("FIX", "people", "{} is not pretty-printed ({} lines). First difference at line {}: found '{}', expected '{}'. Run sitemap_audit.py --format on the generated file (SMP-09).".format(
+            p["file"], p.get("lines"), b.get("line"), b.get("found"), b.get("expected")))
+    if len(ugly) > 5:
+        add("FIX", "people", "{} more file(s) not pretty-printed.".format(len(ugly) - 5))
     # Robots
     ctype = r.get("content_type", "")
     if "xml" not in ctype:
@@ -256,10 +259,19 @@ def findings(r):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("url")
+    ap.add_argument("url", help="site or sitemap URL, or a local file with --format")
+    ap.add_argument("--format", action="store_true", help="pretty-print the local sitemap file given as url, in place")
     ap.add_argument("--max-children", type=int, default=100)
     ap.add_argument("--json", help="write the full report to this file")
     a = ap.parse_args()
+    if a.format:
+        with open(a.url, encoding="utf-8") as fh:
+            src = fh.read()
+        new = pretty(src)
+        with open(a.url, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(new)
+        print("{}: {} lines, {}".format(a.url, new.count("\n"), "unchanged" if new == src else "reformatted"))
+        return 0
     r = audit(a.url, a.max_children)
     F = findings(r)
     print("=" * 70)
@@ -282,12 +294,13 @@ def main():
             print("    per language: {}".format(", ".join("{} {}".format(k, v) for k, v in f["per_language"].items())))
         top = list(f["sections"].items())[:12]
         print("    sections: {}".format(", ".join("/{} {}".format(k, v) for k, v in top)))
-    p = r["people"][0] if r["people"] else {}
-    print("\n  people view: stylesheet {}  polyfill {}".format(p.get("stylesheet"), p.get("polyfill")))
-    print("  HTML sitemap page: {}".format(r.get("html_sitemap") or "not found"))
+    for p in r["people"]:
+        print("\n  people view {}: pretty {}  lines {}  stylesheet {}  script {}".format(
+            p["file"], p.get("pretty"), p.get("lines"), p.get("stylesheet"), p.get("script")))
+    print("  HTML sitemap page (optional): {}".format(r.get("html_sitemap") or "not found"))
     print("\nFINDINGS")
     if not F:
-        print("  none: readable by people, clean for robots")
+        print("  none: pretty-printed for people, clean for robots")
     for level, who, text in F:
         print("  [{}] ({}) {}".format(level, who, text))
     if a.json:
