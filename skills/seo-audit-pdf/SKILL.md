@@ -57,14 +57,19 @@ The script prints the PDF with headless Chrome (A4, page numbers in the footer, 
 | 5 | Detail by category | `.cat` sections of `.finding` cards | One card per point, with a status pill: `ok` OK, `fix` To fix, `prio` Priority, `watch` To watch, `minor` Minor. Categories in the order of the seo-geo-audit checklist, skipping those that do not apply |
 | 6 | Action plan, in order | `.plan` list | Numbered by impact. Each action: what to do, the pages it touches, who does it. No date, no duration, no effort column |
 | 7 | Not verified, and method | `.two-col` | What was out of reach and what access would unlock it; how the data was collected |
+| 8 | Closing page | `.final` | Blue sky, next step, the black button « Se connecter à Sorank » (app.sorank.com). Always kept |
 
 Keep it readable: the priorities section must be understandable alone by someone who reads nothing else. Group template-level problems ("one fix repairs 142 pages") and say so, because it turns a scary number into good news.
 
-## Design system (already in the template)
+## Design system (already in the template): Sorank branding
 
-- A4, 16 mm margins, footer with the domain and `page / total` on every page.
-- One accent color, status colors for pills only (green OK, amber to fix, red priority, blue to watch, grey minor), dark ink on white, soft grey tiles.
-- Inter for text (Google Fonts, falls back to the system font offline), tabular figures for numbers.
+The template carries the Sorank branding (design system v2). Keep it as is: the logo, the blue sky, the fonts and the closing page are part of the deliverable. A team that wants its own branding swaps the logo, the sky image and the colors in `:root`, nothing else.
+
+- A4, 16 mm margins, footer with the domain, sorank.com and `page / total` on every page.
+- Cover: a blue sky band with the white Sorank logo, the domain as the title, the one-line definition of SEO and GEO, and 4 white tiles (audit date and scope).
+- Two fonts only: Instrument Sans 500 for every title, Geist for the rest (Google Fonts, falls back to the system font offline). Never Inter, never violet.
+- Blue accent (`#4383f2`, text `#2a62d4`), black ink on white, white cards with a light grey border, status colors for pills only (green OK, amber to fix, red priority, blue to watch, grey minor, solid green done).
+- Closing page: blue sky, « Prochaine étape », « Transmettez ce plan à votre équipe » and the black button « Se connecter à Sorank » to app.sorank.com. Keep it on every report.
 - Each `h2` section starts with a short lead sentence; the first block after a heading is glued to it.
 - `.page-break` forces a new page before a major section when the previous one ends low on the page; use it sparingly, after checking the page images.
 
