@@ -27,7 +27,7 @@ Technical crawl rules for sitemaps (robots.txt line, Search Console submission, 
 |---|---|---|
 | SMP-01 | Served with HTTP 200 and Content-Type application/xml, UTF-8, at the address declared on the robots.txt `Sitemap:` line | Official |
 | SMP-02 | Max 50,000 URLs and 50 MB uncompressed per file; above that Google rejects the whole file | Official |
-| SMP-03 | Above about 500 URLs, a sitemap index with child files split by section (pages, blog, case studies, location pages, products) and, on multilingual sites, by language. Search Console then reports indexation per template, and each file stays short enough to read | Field rule |
+| SMP-03 | Multilingual site, whatever its size: `/sitemap.xml` is a short sitemap index listing one child per language (`/sitemaps/fr-1.xml`, `/sitemaps/en-1.xml`, numbered when a language exceeds one file), the layout used on sorank.com. Each entry carries loc, lastmod and the hreflang alternates only (no image tags). Monolingual site above about 500 URLs: same index, children split by section. Search Console then reports indexation per language or template, and each file stays short enough to read | Field rule |
 | SMP-04 | Only canonical, indexable, 200 URLs on the sitemap's own host, in https, no duplicates | Official |
 | SMP-05 | lastmod present on every URL and equal to the date of the last real content change. A date shared by a large share of URLs (build, import or generation date) is a lie Google learns to ignore | Official (Google ignores inaccurate lastmod) |
 | SMP-06 | No priority, no changefreq: Google ignores both. They add weight and noise to the file | Official |
@@ -53,7 +53,7 @@ Field case (a 5-language agency site, November 2026): one 1.4 MB file of 1762 UR
 
 ## Phase 3: Build
 
-1. **Structure (SMP-01 to SMP-08).** Generate one file for a small site, or a sitemap index plus one child per section and language above about 500 URLs, for example `sitemap-pages-fr.xml`, `sitemap-blog-en.xml`. Drop priority and changefreq. Take lastmod from the content's real update date (CMS updated_at, git commit date of the content file), never the build date. Keep hreflang in one place when possible; if both the heads and the sitemap carry it, generate both from the same table. Declare the index in robots.txt and submit it in Search Console and Bing Webmaster Tools.
+1. **Structure (SMP-01 to SMP-08).** Multilingual: a sitemap index at `/sitemap.xml` and one child per language, `/sitemaps/fr-1.xml`, `/sitemaps/en-1.xml` (sorank.com layout), each entry with loc, lastmod and its hreflang alternates, no image tags. Monolingual: one file for a small site, an index with one child per section above about 500 URLs. Drop priority and changefreq. Take lastmod from the content's real update date (CMS updated_at, git commit date of the content file), never the build date. Keep hreflang in one place when possible; if both the heads and the sitemap carry it, generate both from the same table. Declare the index in robots.txt and submit it in Search Console and Bing Webmaster Tools.
 2. **Order (SMP-10).** Emit entries in a stable order (home, then sections, then pages; language versions of a page side by side) and the children of each entry in the fixed order. A generator that iterates over an unordered set produces a different file on every build, which makes diffs useless.
 3. **Pretty-print (SMP-09, SMP-11).** Format every file as the last build step, then check it:
 
