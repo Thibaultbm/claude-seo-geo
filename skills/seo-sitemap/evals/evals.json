@@ -3,8 +3,8 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Our client opened https://example.com/sitemap.xml in Chrome and says it is broken: it is just a wall of XML that nobody can read. Search Console says the sitemap is fine. What is going on and how do we make it readable?",
-      "expected_output": "An answer that separates the two readers: the file is valid for robots (Search Console says Success) and only lacks a human view. It runs or asks for sitemap_audit.py, then installs the bundled assets/sitemap.xsl on the same origin with the xml-stylesheet instruction on the second line of every sitemap file, index included, and labels translated. It states that Chrome removes native XSLT on 17 November 2026 (Chrome 158) and that a stylesheet without the self-hosted, pinned xslt-polyfill renders as run-together text, so the polyfill script element goes in every styled file. It never proposes serving HTML at the sitemap address or switching content by user agent. It adds an HTML sitemap page linked from the footer as the durable human version, and the acceptance: audit exit 0, browser check with XSLT disabled, Search Console Success with an unchanged URL count.",
+      "prompt": "Our client opened https://example.com/sitemap.xml and says it looks broken: the whole file is a few endless lines of XML that nobody can read. Search Console says the sitemap is fine. What is going on and how do we make it look clean?",
+      "expected_output": "An answer that separates the two readers: the file is valid for robots (Search Console says Success) and only needs an elegant layout for people. It runs or asks for sitemap_audit.py, then pretty-prints every file (index and children) as the last build step with sitemap_audit.py --format or xmllint --format: XML declaration on line 1, one element per line, two-space indentation, fixed order inside each entry (loc, lastmod, alternates with x-default last, images), no blank lines. It does not add an XSL stylesheet, CSS, a script or an HTML layer, and it explains that the browser's raw XML view is the expected rendering. Acceptance: audit exit 0, xmllint --format diff empty, view-source shows the clean layout, Search Console Success with an unchanged URL count.",
       "files": []
     },
     {
@@ -15,8 +15,8 @@
     },
     {
       "id": 3,
-      "prompt": "Our sitemap already has a nice XSL stylesheet but since Chrome updated there is a red banner saying the site uses XSLT which will soon be removed. Should we just delete the stylesheet?",
-      "expected_output": "An answer that explains the banner (Chrome deprecation, native XSLT off on Stable from 17 November 2026, Chrome 158) and recommends keeping the stylesheet and adding the official xslt-polyfill, self-hosted at a pinned version, as the first child of the root element of every styled sitemap file in the XHTML namespace. It notes that removing the stylesheet only brings back the raw XML tree, that keeping it without the polyfill gives run-together text once XSLT is gone, and that Google has published nothing on a script element inside a sitemap, so the first deploy is checked in Search Console (Success, same URL count) with a fallback to the HTML sitemap page.",
+      "prompt": "Our sitemap has an XSL stylesheet and since Chrome updated there is a red banner saying the site uses XSLT which will soon be removed. What should we do?",
+      "expected_output": "An answer that recommends removing the stylesheet entirely: delete the xml-stylesheet instruction from every sitemap file, delete the XSL and any xslt-polyfill file, and keep the raw XML pretty-printed (identical to xmllint --format, one element per line, two-space indentation). It explains the banner (Chrome removes native XSLT on 17 November 2026), notes that robots ignored the stylesheet so nothing changes for them, does not suggest a polyfill or any HTML layer, and checks the result with sitemap_audit.py (no stylesheet or script finding) and Search Console (Success, same URL count).",
       "files": []
     }
   ]

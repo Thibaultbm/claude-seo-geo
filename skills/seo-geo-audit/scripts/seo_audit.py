@@ -1399,9 +1399,10 @@ def analyse_sitemap(base, robots):
         _, status, _, body = fetch(candidates[0])
         xml = body.decode("utf-8", errors="replace")
         bodies = [xml]
-        # Human view: an xml-stylesheet instruction, and the xslt-polyfill Chrome needs from 17 November 2026.
+        # Human view: pretty-printed raw XML (one element per line), no stylesheet or script on top.
         out["stylesheet"] = bool(re.search(r"<\?xml-stylesheet\b", xml[:2000]))
-        out["xslt_polyfill"] = "xslt-polyfill" in xml[:5000]
+        out["script"] = "<script" in xml[:10000]
+        out["pretty"] = xml.count("\n") >= 2 * xml.count("<loc>") and not re.search(r"<(url|sitemap)>[ \t]*<loc>|</loc>[ \t]*<", xml)
         if "<sitemapindex" in xml:
             children = re.findall(r"<loc>\s*([^<]+?)\s*</loc>", xml)
             out["type"] = "index"
@@ -1473,10 +1474,10 @@ def fmt(report):
         cnt = s.get("url_count") or s.get("url_count_estimate")
         line("  sitemap                    : {} ({}, ~{} URLs)".format(
             s.get("url"), s.get("type"), cnt))
-        if not s.get("stylesheet"):
-            line("  WARNING: no xml-stylesheet: in a browser the sitemap is a raw XML tree, unreadable for the client. Readable view: seo-sitemap skill.")
-        elif not s.get("xslt_polyfill"):
-            line("  WARNING: sitemap stylesheet without xslt-polyfill: Chrome drops native XSLT on 17 November 2026 and the sitemap then shows as run-together text (seo-sitemap skill, Build step 3).")
+        if not s.get("pretty"):
+            line("  WARNING: sitemap not pretty-printed (elements run together on long lines): format it like xmllint --format (seo-sitemap skill, sitemap_audit.py --format).")
+        if s.get("stylesheet") or s.get("script"):
+            line("  WARNING: sitemap carries an xml-stylesheet or a script: remove them, raw pretty-printed XML is the expected view (seo-sitemap skill).")
         if s.get("over_50k") or s.get("children_over_50k"):
             line("  WARNING: a sitemap file exceeds the 50,000 URL limit; Google rejects the whole file. Split it into child sitemaps under a sitemap index.")
         langs = s.get("languages")
