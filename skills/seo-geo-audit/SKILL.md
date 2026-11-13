@@ -158,6 +158,7 @@ Reassure before you criticize: lead with honest numbered reference points ("this
 | Product page issues | seo-content-product-page |
 | Thin homepage or sales page (no bold, no proof numbers, generic FAQ, no Organization or Course schema) | seo-content-homepage |
 | Article template gaps (no table of contents, author box, dates, CTA) or a blog hub without cover images | seo-content-blog (references/blog-templates.md) |
+| Blog categories missing, vague (news, home, accueil, uncategorized) or not linked to the pages that sell; posts not filed by theme | seo-content-blog (section « Blog categories: audit and creation », BLOG-38, BLOG-39) |
 | Service pages missing or merged | seo-content-service-page |
 | Category pages with no content | seo-content-collection-page |
 | Whole blocks absent from a page (no FAQ, no breadcrumb, no price in text) | seo-page-sections |
