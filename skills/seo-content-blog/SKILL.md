@@ -101,6 +101,8 @@ Every C row applies to the article, the hub and the author page. The rows below 
 | BLOG-35 | Publisher entity on the home | Organization node (@id #organization) on the homepage at least; footer social profiles real and identical to `sameAs` | schema_entity and social_placeholder on the home | The publisher every BlogPosting points to must exist |
 | BLOG-36 | Media hygiene | Video embedded from YouTube, never self-hosted; Substack or Medium mirrors set to noindex | manual | Page weight, a second surface, no duplicate outranking the original |
 | BLOG-37 | Year in titles computed, never typed | Any year in the title tag, H1, og:title or twitter:title is the current year rendered at build or request time from the clock (a template variable), never a hard-coded "2026"; exception: a year that belongs to a dated external source being cited ("State of SEO 2025 report") stays as written | stale-year check in the decay finder, manual | A typed year goes stale every January on every post at once; a computed year never does, and a cited source keeps its real date |
+| BLOG-38 | Blog categories that mirror the topic plan | 8 to 15 categories, one per big theme of the editorial plan, each a real indexable page with a clear name, a short readable slug (`/blogs/<category>/` on Shopify, `/category/<category>/` on WordPress, `/blog/<category>/` elsewhere), a 2-4 line intro, its head keyword and a link to the collection or service page it sells; no "news", "home", "accueil", "uncategorized" or brand-only category | manual: list the categories from the sitemap with their post counts | Each category ranks on the head term of its theme and passes authority to the page that sells; a vague category name ranks on nothing |
+| BLOG-39 | Every post filed in exactly one category | Each post sits in the category of its theme (tags are optional and noindex); no category with fewer than 3 posts once the plan is published; renamed or removed categories are 301-redirected | manual | A post in the wrong or a catch-all category breaks the silo and splits the internal links |
 
 ## Phase 2. Audit the existing page
 
@@ -264,6 +266,15 @@ Re-run the Phase 2 commands on the live or staged URLs. The finish line: TEMPLAT
 - [ ] Zero em dashes and zero en dashes anywhere in the deliverable, commas instead (C-25)
 
 Then sweep the Common mistakes list.
+
+## Blog categories: audit and creation
+
+Run this on every blog audit and before any editorial plan is scheduled. On Shopify each category is a separate blog (`/blogs/<category>/<post>`); on WordPress it is `/category/<category>/`; elsewhere it is usually `/blog/<category>/`.
+
+1. **Control the existing categories.** List them from the sitemap (or `/blogs/` and `/category/` URLs in the crawl) with the number of posts in each, in each language. Flag catch-all or meaningless names (news, home, accueil, blog, uncategorized), categories with fewer than 3 posts, duplicates, and categories with no intro or no link to a selling page (BLOG-38, BLOG-39).
+2. **Read the competitors' categories.** Extract the sitemaps of every competitor and of the main media and content sites of the niche (`competitor_sitemaps.py` of seo-competitor-analysis, one run per site, CSV of every URL) and collect their category and section slugs. Most shops have a single "news" blog: the media of the niche are the better model.
+3. **Create the target tree.** 8 to 15 categories, one per big theme of the editorial plan (seo-keyword-research), each with a name a buyer would use, a short slug, its head keyword and the collection or service page it supports. File every planned post in exactly one category.
+4. **Write the changes.** Categories to create, to rename (with 301), to remove (posts moved and redirected), posts to move; each one goes into the change list with its impact, and the tree goes into the deliverable as a table: category, address, number of posts, page it supports.
 
 ## Mandatory on every article page: reading-triggered capture popup
 
