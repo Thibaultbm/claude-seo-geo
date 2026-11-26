@@ -91,7 +91,7 @@ The crawl finds what no single-page audit can see (orphans, internal links point
 | [seo-competitor-analysis](skills/seo-competitor-analysis/SKILL.md) | Market analysis: asks for 5 competitors (or finds them), reads every competitor sitemap, shows the page models, topics and publishing pace you lack, ranked into a build plan |
 | [seo-content-data-study](skills/seo-content-data-study/SKILL.md) | Data studies, benchmarks, statistics and case study pages from your own data: anonymized by category, charts as text, downloadable dataset, embed code, Dataset schema |
 | [seo-internal-linking](skills/seo-internal-linking/SKILL.md) | Money-page-first linking, silos, orphan pages, anchors |
-| [seo-schema-markup](skills/seo-schema-markup/SKILL.md) | The structured data that still earns surfaces, ready JSON-LD templates, the markup Google retired |
+| [seo-schema-markup](skills/seo-schema-markup/SKILL.md) | The structured data that still earns surfaces, the content a page shows without its markup (reviews and ratings, product, prices, video, breadcrumb, address, author), ready JSON-LD templates, the markup Google retired |
 
 ### Authority, AI visibility and distribution
 
@@ -116,7 +116,7 @@ All standard-library Python 3.9+, read only, no API key, no install.
 
 | Script | What it does |
 |---|---|
-| `skills/seo-geo-audit/scripts/seo_audit.py` | Per page: SEO and GEO scores, ranked findings, every fact listed above; site-level robots, sitemap, llms.txt |
+| `skills/seo-geo-audit/scripts/seo_audit.py` | Per page: SEO and GEO scores, ranked findings, every fact listed above, and the structured data gaps (content shown without its markup); site-level robots, sitemap, llms.txt and a summary of the missing markup by type |
 | `skills/seo-geo-audit/scripts/page_benchmark.py` | Your page against 3-5 competitor pages: one table, block gaps, schema gaps, metrics below the median, and the vocabulary gap (terms and phrases half the competitors use and you never do, with the headings that carry them) |
 | `skills/seo-internal-linking/scripts/site_crawl.py` | Crawls the whole site from the homepage: orphans, click depth, weak inbound links, broken links and redirects, duplicate titles, meta and H1, thin pages, cannibalization candidates, generic anchors, stale pages, sitemap entries that should not be there |
 | `skills/seo-traffic-drop/scripts/content_decay.py` | From Search Console exports: the pages slowly losing clicks, classified as ranking loss, CTR loss, demand loss or seasonal, stale pages first, with the action for each |
