@@ -181,11 +181,24 @@ class Page(HTMLParser):
         self.tokens = []            # class / id / itemprop / rel tokens, lowercased
         self.times = 0
         self.iframes = []
+        self.videos = 0             # <video> players (not muted autoplay loops) and lite-youtube
+        self.address_tags = 0
+        self.microdata_types = []   # itemtype (microdata) and typeof (RDFa), last path segment
+        # Outside header / nav / footer / aside: a sitewide "5/5" badge in the
+        # menu is not a page that shows reviews.
+        self.body_text = []
+        self.body_tokens = []
+        self.body_headings = []     # (level, text)
+        self._div_stack = []        # True for a div that is page chrome (role=banner, navbar...)
+        self._div_chrome = 0
         self.elements = 0           # DOM size proxy
         self.resource_urls = []     # src / href of loaded resources (mixed content)
 
     def handle_startendtag(self, tag, attrs):
         self.handle_starttag(tag, attrs)
+        if tag == "div" and self._div_stack and not self._skip:
+            if self._div_stack.pop():
+                self._div_chrome -= 1
         if tag in ("strong", "b") and self._bold_depth:
             self._bold_depth -= 1
 
@@ -206,12 +219,39 @@ class Page(HTMLParser):
         # images, since lazy-load libraries stash a duplicate <img> there).
         if self._skip:
             return
+        if tag == "div":
+            # Builders (Webflow, Wix, page builders) draw the menu and the footer
+            # with divs: role=banner / contentinfo, or a navbar / footer class.
+            role = (a.get("role") or "").lower()
+            cls = set((a.get("class") or "").lower().split())
+            is_chrome = role in ("banner", "navigation", "contentinfo", "complementary") or bool(
+                cls & {"navbar", "w-nav", "site-header", "site-footer", "footer", "main-footer",
+                       "page-footer", "main-header", "header"})
+            self._div_stack.append(is_chrome)
+            self._div_chrome += is_chrome
+        in_chrome = (self._chrome_depth > 0 or self._div_chrome > 0
+                     or tag in ("header", "nav", "footer", "aside"))
         for key in ("class", "id", "itemprop", "rel", "aria-label"):
             v = a.get(key)
             if v:
                 self.tokens.append(v.lower())
+                if not in_chrome:
+                    self.body_tokens.append(v.lower())
         if a.get("id"):
             self.all_ids.add(a["id"])
+        # Microdata and RDFa count as markup present: a theme that ships Review
+        # in microdata must not be reported as "reviews without markup".
+        if a.get("itemtype"):
+            self.microdata_types.extend(t.rstrip("/").rsplit("/", 1)[-1]
+                                        for t in a["itemtype"].split() if t)
+        if a.get("typeof"):
+            self.microdata_types.extend(t.split(":")[-1] for t in a["typeof"].split() if t)
+        if tag == "video" and not ("autoplay" in a and "muted" in a and "loop" in a):
+            self.videos += 1
+        elif tag in ("lite-youtube", "lite-vimeo", "youtube-video", "lite-youtube-embed"):
+            self.videos += 1
+        elif tag == "address":
+            self.address_tags += 1
         if tag in ("main", "article"):
             self._main_depth += 1
             self.has_main = True
@@ -329,11 +369,16 @@ class Page(HTMLParser):
             self._main_depth = max(0, self._main_depth - 1)
         elif tag in ("header", "nav", "footer", "aside"):
             self._chrome_depth = max(0, self._chrome_depth - 1)
+        elif tag == "div" and self._div_stack:
+            if self._div_stack.pop():
+                self._div_chrome -= 1
         if tag == "title":
             self._in_title = False
         elif tag in ("h1", "h2", "h3", "h4", "h5", "h6") and self._cur_h:
             text = " ".join("".join(self._cur_h_text).split())
             self.headings.append((self._cur_h, text, self._cur_h_id))
+            if not (self._chrome_depth or self._div_chrome):
+                self.body_headings.append((self._cur_h, text))
             if self._cur_h_id:
                 self.heading_ids.add(self._cur_h_id)
             self._cur_h = None
@@ -390,6 +435,8 @@ class Page(HTMLParser):
         if self._p_depth:
             self._p_buf.append(data)
         self._text.append(data)
+        if not (self._chrome_depth or self._div_chrome):
+            self.body_text.append(data)
         if self._main_depth:
             self._main_text.append(data)
 
@@ -507,6 +554,91 @@ SCHEMA_REQUIRED = {
     "Event": ["name", "startDate", "location"],
     "Service": ["name", "provider|areaServed"],
 }
+
+# ---- Structured data gaps: content a visitor sees, markup that is absent ----
+# Each detector reads the visible page (text, headings, classes, embeds) and
+# checks that the matching Schema.org type exists in JSON-LD, microdata or RDFa.
+# Google's rule cuts both ways: markup must describe the visible page, so what
+# is visible and unmarked is a missed fact, and nothing is ever proposed for
+# content the page does not show. Text is read outside header, nav, footer and
+# aside, so a sitewide badge does not flag every page.
+
+# Types Google shows review stars for (review snippet documentation). Reviews a
+# business shows about itself, on Organization or LocalBusiness, are valid
+# markup that AI engines read, but they never earn stars.
+RATING_ELIGIBLE = {
+    "Product", "ProductGroup", "IndividualProduct", "ProductModel", "Car", "Vehicle",
+    "SoftwareApplication", "WebApplication", "MobileApplication", "VideoGame", "Game",
+    "Course", "Book", "Event", "Recipe", "Movie", "CreativeWorkSeason", "CreativeWorkSeries",
+    "Episode", "MediaObject", "MusicPlaylist", "MusicRecording", "HowTo",
+}
+# Class, id and aria-label parts (split on space, dash, underscore) that mark a
+# review or testimonial element, plus the containers of common review widgets.
+REVIEW_CLASS_PARTS = {
+    "review", "reviews", "testimonial", "testimonials", "temoignage", "temoignages", "avis",
+    "rating", "ratings", "stars", "kundenstimmen", "bewertungen", "resenas", "opiniones",
+    "testimonios", "recensioni", "avaliacoes", "depoimentos",
+    "trustpilot", "trustbox", "jdgm", "yotpo", "okereviews", "stamped", "trustindex",
+    "netreviews", "loox", "feefo", "ekomi", "senja", "reviewsio",
+}
+REVIEW_WIDGETS = [
+    ("Trustpilot", "widget.trustpilot.com"), ("Trustpilot", "trustpilot-widget"),
+    ("Judge.me", "judge.me"), ("Judge.me", "jdgm-"), ("Yotpo", "yotpo"), ("Okendo", "okendo"),
+    ("Stamped", "stamped.io"), ("Reviews.io", "reviews.io"), ("Loox", "loox.io"),
+    ("Trustindex", "trustindex"), ("Avis Verifies", "netreviews"), ("Avis Verifies", "avis-verifies"),
+    ("Trusted Shops", "trustedshops"), ("Trusted Shops", "etrusted"), ("Feefo", "feefo.com"),
+    ("eKomi", "ekomi"), ("Bazaarvoice", "bazaarvoice"), ("PowerReviews", "powerreviews"),
+    ("Senja", "senja.io"), ("Testimonial.to", "testimonial.to"), ("Elfsight", "elfsight"),
+    ("Featurable", "featurable"),
+]
+# "4.8/5", "4,9 sur 5", "4.7 out of 5" (integers only for 4 and 5, never
+# followed by "of" or "people": "4 out of 5 marketers" is not a rating).
+RATING_VALUE_RE = re.compile(
+    r"(?<![\d.,/])([1-5][.,]\d{1,2}|[45])\s?(?:/\s?5|out of 5|sur 5|von 5|de 5|su 5|di 5|uit 5|na 5|z 5)"
+    r"(?![\d.,])(?!\s+(?:of|des|de|du|der|di|van|marketers|people|personnes|clients|customers|users)\b)")
+STARS_RE = re.compile("[\\u2605\\u2606\\u2b50]{4,}")
+REVIEW_COUNT_RE = re.compile(
+    r"\b(\d{1,3}(?:[ .,  ]\d{3})+|\d+)\+?\s?(?:verified |customer |google |client )?"
+    r"(?:reviews|avis|ratings|evaluations|bewertungen|rezensionen|resenas|opiniones|valoraciones|"
+    r"recensioni|avaliacoes|beoordelingen|opinii|opinie|recenzji|omdomen|anmeldelser)\b")
+REVIEW_HEADING_RE = re.compile(
+    r"\b(reviews|customer review|testimonials?|temoignages?|avis (?:clients?|de nos clients|verifies|google)|"
+    r"nos avis|ils (?:nous recommandent|temoignent)|ce que (?:disent|pensent) nos clients|"
+    r"what (?:our )?(?:customers|clients|users|students) (?:say|think)|customer stories|wall of love|"
+    r"kundenstimmen|kundenbewertungen|bewertungen|erfahrungsberichte|opiniones|testimonios|"
+    r"resenas|recensioni|testimonianze|avaliacoes|depoimentos|beoordelingen|klantervaringen)\b")
+PRICE_RE = re.compile(
+    r"(?:[€$£]\s?\d{1,3}(?:[ .,  ]?\d{3})*(?:[.,]\d{1,2})?"
+    r"|\b\d{1,3}(?:[ .,  ]?\d{3})*(?:[.,]\d{1,2})?\s?"
+    r"(?:€|\$|£|eur\b|euros?\b|usd\b|chf\b|gbp\b|cad\b|aud\b))")
+RECURRING_RE = re.compile(
+    r"(/\s?(?:mo|month|mois|monat|mes|mese|maand|year|yr|an|jahr|ano|anno|jaar)\b|per (?:month|year)\b|"
+    r"par (?:mois|an)\b|pro (?:monat|jahr)\b|al (?:mes|ano|mese)\b|per maand\b|monthly|mensuel|yearly|annuel)")
+CART_RE = re.compile(
+    r"\b(add to (?:cart|bag|basket)|ajouter au panier|in den warenkorb|anadir al carrito|"
+    r"aggiungi al carrello|adicionar ao carrinho|in winkelwagen|dodaj do koszyka|buy now|acheter maintenant)\b")
+CART_TOKEN_RE = re.compile(r"(add-to-cart|addtocart|add_to_cart|single_add_to_cart|product-form\b|ajout-panier)")
+PRODUCT_PATH_RE = re.compile(r"/(products?|produits?|produkt|producto|prodotto|item|artikel|p)/[^/]+/?$", re.I)
+COLLECTION_PATH_RE = re.compile(r"/(collections?|categor(?:y|ies|ie|ia)|kategorie|shop|boutique|catalog(?:ue)?)(?:/|$)", re.I)
+PRICING_PATH_RE = re.compile(r"/(pricing|prices|tarifs?|prix|plans|preise|precios|prezzi|precos|prijzen|"
+                             r"cennik|priser|hinnat|fiyatlandirma|ceny)(?:/|$)", re.I)
+SAAS_RE = re.compile(r"(free trial|essai gratuit|start (?:for )?free|try (?:it )?(?:for )?free|sign up|"
+                     r"s.inscrire|create (?:an |your )?account|creer (?:un|votre) compte|kostenlos testen|"
+                     r"prueba gratis|prova gratuita|teste gratis|no credit card|sans carte bancaire)")
+COURSE_RE = re.compile(r"\b(online course|cours en ligne|formation en ligne|masterclass|bootcamp|"
+                       r"curriculum|syllabus|e-?learning|programme de la formation|course modules?)\b")
+HOURS_RE = re.compile(r"(horaires d.ouverture|heures d.ouverture|opening hours|opening times|business hours|"
+                      r"hours of operation|offnungszeiten|horario de apertura|orari di apertura|"
+                      r"horario de funcionamento|openingstijden|godziny otwarcia)")
+FAQ_HEADING_RE = re.compile(r"(\bfaq\b|frequently asked|questions frequentes|foire aux questions|"
+                            r"haufig gestellte fragen|preguntas frecuentes|domande frequenti|"
+                            r"perguntas frequentes|veelgestelde vragen)")
+AUTHOR_PAGE_RE = re.compile(r"/(author|authors|auteur|auteurs|team|equipe|people|experts?|autor|autore)/[^/]+/?$", re.I)
+VIDEO_HOSTS = ("youtube.com", "youtube-nocookie.com", "youtu.be", "vimeo.com", "wistia", "loom.com",
+               "dailymotion.com", "vidyard", "brightcove", "jwplayer")
+MAP_HOSTS = ("google.com/maps", "maps.google", "openstreetmap.org", "bing.com/maps", "maps.apple.com")
+ORG_TYPES = {"Organization", "Corporation", "LocalBusiness", "ProfessionalService", "OnlineStore",
+             "OnlineBusiness", "EducationalOrganization", "NGO", "Person"}
 
 # Severity weights used by the extension's displayed score (100 minus the sum).
 SEVERITY_POINTS = {"critical": 12.5, "high": 6, "medium": 3, "low": 1.5}
@@ -663,6 +795,316 @@ def schema_checks(objects):
         key = (pr["type"], tuple(pr["missing_or_empty"]))
         seen[key] = seen.get(key, 0) + 1
     return [{"type": k[0], "missing_or_empty": list(k[1]), "count": n} for k, n in seen.items()]
+
+
+def _tlist(t):
+    return [x for x in (t if isinstance(t, list) else [t]) if isinstance(x, str)]
+
+
+def _num(v):
+    try:
+        return float(str(v).replace(",", ".").strip())
+    except (TypeError, ValueError):
+        return None
+
+
+def schema_inventory(objects):
+    """What the JSON-LD declares beyond its type list: which nodes carry the
+    ratings, their values, and the entity fields the gap checks look for."""
+    inv = {"rating_hosts": [], "rating_values": [], "same_as": False, "address": False,
+           "hours": False, "offers": False, "author_strings": 0}
+    ids = {}
+
+    def index(node, depth=0):
+        if depth > 12:
+            return
+        if isinstance(node, dict):
+            if node.get("@id") and node.get("@type"):
+                ids[node["@id"]] = node["@type"]
+            for v in node.values():
+                index(v, depth + 1)
+        elif isinstance(node, list):
+            for v in node:
+                index(v, depth + 1)
+
+    def ref_types(v):
+        if isinstance(v, list) and v:
+            v = v[0]
+        if isinstance(v, dict):
+            if v.get("@type"):
+                return _tlist(v["@type"])
+            if v.get("@id") in ids:
+                return _tlist(ids[v["@id"]])
+        return []
+
+    def walk(node, parent, depth=0):
+        if depth > 12:
+            return
+        if isinstance(node, list):
+            for v in node:
+                walk(v, parent, depth + 1)
+            return
+        if not isinstance(node, dict):
+            return
+        types = _tlist(node.get("@type"))
+        if not types and node.get("@id") in ids:
+            types = _tlist(ids[node["@id"]])
+        st = set(types)
+        if node.get("sameAs"):
+            inv["same_as"] = True
+        if node.get("address") or "PostalAddress" in st:
+            inv["address"] = True
+        if node.get("openingHours") or node.get("openingHoursSpecification"):
+            inv["hours"] = True
+        if node.get("offers") or st & {"Offer", "AggregateOffer"}:
+            inv["offers"] = True
+        if st & {"Article", "BlogPosting", "NewsArticle"}:
+            au = node.get("author")
+            inv["author_strings"] += sum(1 for x in (au if isinstance(au, list) else [au])
+                                         if isinstance(x, str) and x.strip())
+        if node.get("aggregateRating") or node.get("review"):
+            inv["rating_hosts"].append(types or ["?"])
+        elif st & {"Review", "AggregateRating"} and not parent:
+            # Standalone node: the item it rates is in itemReviewed.
+            inv["rating_hosts"].append(ref_types(node.get("itemReviewed")) or ["?"])
+        if "AggregateRating" in st:
+            val = _num(node.get("ratingValue"))
+            if val is not None:
+                inv["rating_values"].append((val, _num(node.get("bestRating")) or 5.0))
+        for k, v in node.items():
+            if k != "@type":
+                walk(v, types or parent, depth + 1)
+
+    for o in objects:
+        index(o)
+    for o in objects:
+        walk(o, [])
+    return inv
+
+
+def schema_gaps(p, html, final, kind, out):
+    """Content a visitor can see on the page whose Schema.org markup is absent.
+    Returns findings ready for recommendations(): severity, pillar, code,
+    message, plus the evidence and the type expected, for the JSON summary."""
+    path = urlparse(final).path or "/"
+    present = set(p.jsonld_types) | set(p.microdata_types)
+    inv = schema_inventory(p.jsonld_objects)
+    body = _norm(re.sub(r"\s+", " ", " ".join(p.body_text)))
+    sig = html.lower()
+    heads = [_norm(t) for lvl, t in p.body_headings if 2 <= lvl <= 4]
+    gaps = []
+
+    def gap(sev, pillar, code, signal, evidence, expected, msg):
+        gaps.append({"severity": sev, "pillar": pillar, "code": code, "signal": signal,
+                     "evidence": evidence, "expected": expected, "message": msg})
+
+    # Shared signals
+    prices = PRICE_RE.findall(body)
+    distinct_prices = len(set(re.sub(r"\s", "", x) for x in prices))
+    cart_hits = len(CART_RE.findall(body)) + sum(1 for t in p.body_tokens if CART_TOKEN_RE.search(t))
+    collection_path = bool(COLLECTION_PATH_RE.search(path)) and not PRODUCT_PATH_RE.search(path)
+    product_page = (kind == "product" or (bool(prices) and not collection_path and (
+        bool(PRODUCT_PATH_RE.search(path)) or (cart_hits >= 1 and distinct_prices <= 4))))
+    recurring = bool(RECURRING_RE.search(body))
+    saas = "SoftwareApplication" in present or (bool(SAAS_RE.search(body)) and recurring)
+    course = "Course" in present or len(COURSE_RE.findall(body)) >= 2
+    map_embed = any(any(h in (s or "").lower() for h in MAP_HOSTS) for s in p.iframes)
+    hours = bool(HOURS_RE.search(body))
+    tel = any(l["href"].startswith("tel:") for l in p.links)
+    # A footer <address> repeats on every page: alone, it counts on the
+    # homepage and the contact page only.
+    contact = bool(re.search(r"/(contact|kontakt|contacto|contatti|contato|nous-trouver|acces|find-us)", path, re.I))
+    local = map_embed or hours or (p.address_tags > 0 and tel and (kind == "homepage" or contact))
+
+    # 1. Reviews, testimonials and ratings
+    ratings = [m.group(1) for m in RATING_VALUE_RE.finditer(body)]
+    counts = [m.group(0) for m in REVIEW_COUNT_RE.finditer(body) if m.group(1).strip("0 .,")]
+    stars = bool(STARS_RE.search(" ".join(p.body_text)))
+    review_els = sum(1 for t in p.body_tokens
+                     if set(re.split(r"[\s_\-]+", _norm(t))) & REVIEW_CLASS_PARTS)
+    widgets = sorted({n for n, pat in REVIEW_WIDGETS if pat in sig})
+    # Section titles only: short, not a question ("Can I review articles?"),
+    # not an article card title ("Localo review: what it does").
+    review_heads = [h for h in heads if len(h.split()) <= 8 and not h.strip().endswith("?") and ":" not in h
+                    and (REVIEW_HEADING_RE.search(h) or h.strip() in ("avis", "les avis", "nos avis"))]
+    strong = (bool(ratings) or stars or review_els >= 2 or (bool(widgets) and review_els >= 1)
+              or (bool(counts) and kind != "article"))
+    reviews_visible = strong or (bool(review_heads) and kind != "article")
+    has_review_markup = bool(present & {"Review", "AggregateRating"})
+    ev = []
+    if ratings:
+        ev.append("rating {}/5".format(ratings[0]))
+    if counts:
+        ev.append("'{}'".format(counts[0].strip()))
+    if stars:
+        ev.append("star characters")
+    if review_heads:
+        ev.append("heading '{}'".format(review_heads[0][:40]))
+    if review_els:
+        ev.append("{} review element(s) in classes".format(review_els))
+    if widgets:
+        ev.append("widget " + ", ".join(widgets))
+    # Where the reviews can earn stars: the item they review. Reviews of the
+    # business itself (agency, local shop, consultant) never get stars on its
+    # own site, so the finding stays low there and says why.
+    eligible = product_page or saas or course or bool(present & RATING_ELIGIBLE)
+    if product_page or "Product" in present:
+        host = "the Product node (stars in results, and the rating AI shopping answers quote)"
+    elif saas:
+        host = "a SoftwareApplication node (or Product) describing the software: it is eligible for stars"
+    elif course:
+        host = "the Course node: it is eligible for stars"
+    else:
+        host = "the Product, SoftwareApplication, Course or Event node they review: those earn stars"
+    if reviews_visible and not has_review_markup:
+        js = ""
+        if widgets and not (ratings or counts):
+            js = (" The reviews load through {}: crawlers that skip JavaScript see neither the reviews nor any"
+                  " markup, so turn on the widget's structured data option or render the average, the count"
+                  " and a few reviews in the HTML.".format(", ".join(widgets)))
+        editorial = kind in ("article", "blog_hub")
+        if editorial:
+            js += (" On a blog page the reviewed item is not the subject: mark the block up on the page about"
+                   " that item (homepage, pricing, product) first.")
+        if eligible:
+            gap("high" if product_page else "low" if editorial else "medium", "seo", "schema_gap_reviews",
+                "reviews", ev, "Review + AggregateRating",
+                "Reviews visible ({}) but no Review or AggregateRating markup. Mark up the reviews shown "
+                "(author, reviewRating, datePublished, reviewBody) and their average with count, inside {}.{}".format(
+                    "; ".join(ev), host, js))
+        else:
+            gap("low", "seo", "schema_gap_reviews", "reviews", ev, "Review on the item reviewed",
+                "Reviews visible ({}) with no markup, and nothing on the page they could earn stars on: reviews of "
+                "the business itself (Organization, LocalBusiness) never get stars on its own site (Google "
+                "self-serving rule, SVC-23). If they review a product, software, course or event the business "
+                "sells, mark them up inside that node; otherwise keep them as visible text with name, date and "
+                "rating, and earn the stars on the Google Business Profile.{}".format("; ".join(ev), js))
+    elif has_review_markup:
+        if ratings and counts and "AggregateRating" not in present:
+            gap("medium" if product_page else "low", "seo", "schema_gap_aggregate", "rating_summary", ev,
+                "AggregateRating",
+                "Average rating and review count visible ({}) but only individual Review markup: add an "
+                "AggregateRating (ratingValue, reviewCount) with the same numbers, inside {}.".format(
+                    "; ".join(ev[:2]), host))
+        hosts = inv["rating_hosts"]
+        if hosts and not any(set(h) & RATING_ELIGIBLE for h in hosts):
+            names = sorted({t for h in hosts for t in h})
+            if names == ["?"]:
+                msg = ("Review or AggregateRating markup is attached to nothing (no parent node, no "
+                       "itemReviewed): nest it in the Product, SoftwareApplication or Course reviewed.")
+            else:
+                msg = ("Ratings sit on {}: Google shows no stars for reviews a business displays about itself "
+                       "(self-serving rule), so this markup earns nothing in results. Move them to the product, "
+                       "software or course they review, or remove them (SVC-23 on service pages).".format(
+                           ", ".join(n for n in names if n != "?")))
+            gap("low", "seo", "schema_review_host", "reviews", names, "Review on an eligible item", msg)
+        shown = [_num(r) for r in ratings]
+        declared = [v for v, best in inv["rating_values"] if best == 5.0]
+        if shown and declared and not any(abs(d - s) < 0.051 for d in declared for s in shown if s is not None):
+            gap("medium", "seo", "schema_rating_mismatch", "rating_summary", ratings[:3], "same value as the page",
+                "AggregateRating says {} but the page shows {}: the markup must carry the numbers visitors "
+                "see, or Google may drop or penalize the rich result.".format(
+                    declared[0], "/5, ".join(ratings[:3]) + "/5"))
+
+    # 2. Product page without Product
+    if product_page and not present & {"Product", "ProductGroup", "IndividualProduct", "Car", "Vehicle"}:
+        ev_p = (["price " + prices[0].strip()] if prices else []) + (
+            ["{} add-to-cart signal(s)".format(cart_hits)] if cart_hits else [])
+        gap("high", "seo", "schema_gap_product", "product", ev_p, "Product + Offer",
+            "Product page (price {} and add to cart visible) without Product markup: no price, availability "
+            "or stars in results, and no product facts for AI shopping answers. Add Product with name, image, "
+            "sku or gtin, brand and an Offer (price, priceCurrency, availability).".format(
+                prices[0].strip() if prices else "?"))
+
+    # 3. Prices or plans without Offer
+    price_els = sum(1 for t in p.body_tokens if set(re.split(r"[\s_\-]+", _norm(t))) & {
+        "price", "prices", "pricing", "plan", "plans", "tarif", "tarifs", "prix", "preis", "precio",
+        "prezzo", "preco", "amount", "offer", "offre"})
+    pricing = bool(prices) and (bool(PRICING_PATH_RE.search(path)) or (
+        distinct_prices >= 2 and recurring and price_els >= 2 and kind not in ("article", "blog_hub")))
+    if pricing and not product_page and not inv["offers"]:
+        gap("medium", "seo", "schema_gap_offer", "pricing", ["{} price(s)".format(distinct_prices)],
+            "Offer",
+            "{} price(s) visible ({}) but no Offer markup: declare each plan as an Offer (price, priceCurrency, "
+            "UnitPriceSpecification for monthly billing) inside the {} node, so engines answering 'how much "
+            "does it cost' read the real price.".format(
+                distinct_prices, ", ".join(sorted({x.strip() for x in prices})[:3]),
+                "SoftwareApplication" if saas else "Course" if course else "Product or Service"))
+
+    # 4. Breadcrumb shown, BreadcrumbList absent
+    crumb = any("breadcrumb" in t or "ariane" in t for t in p.tokens)
+    if crumb and "BreadcrumbList" not in present:
+        gap("low", "seo", "schema_gap_breadcrumb", "breadcrumb", ["breadcrumb element"], "BreadcrumbList",
+            "Breadcrumb visible but no BreadcrumbList markup: without it, results show the raw URL instead of "
+            "the site path. One ListItem per level, same names as the visible links.")
+
+    # 5. Video on the page, VideoObject absent
+    vids = [s for s in p.iframes if any(h in (s or "").lower() for h in VIDEO_HOSTS)]
+    if (vids or p.videos) and "VideoObject" not in present:
+        gap("medium", "seo", "schema_gap_video", "video",
+            [x[:80] for x in vids[:2]] + (["{} <video> player(s)".format(p.videos)] if p.videos else []),
+            "VideoObject",
+            "Video on the page ({}) but no VideoObject: no video result or key moments, and AI engines miss its "
+            "title, duration and upload date. Add VideoObject (name, description, thumbnailUrl, uploadDate, "
+            "duration, embedUrl).".format(len(vids) + p.videos))
+
+    # 6. FAQ shown, FAQPage absent (low: Google removed FAQ rich results)
+    faq = any(FAQ_HEADING_RE.search(h) for h in heads) or (
+        p.details >= 3 and sum(1 for h in heads if h.strip().endswith("?")) >= 2)
+    if faq and not present & {"FAQPage", "QAPage"}:
+        gap("low", "geo", "schema_gap_faq", "faq", ["FAQ heading or {} accordions".format(p.details)], "FAQPage",
+            "FAQ visible but no FAQPage markup. Optional: Google shows no FAQ rich result since May 2026 and the "
+            "visible questions already serve AI engines; add it only when the template fills it from the same "
+            "fields (never an empty question).")
+
+    # 7. Address, map or opening hours shown, no LocalBusiness or address markup
+    if local and not inv["address"] and not inv["hours"]:
+        ev_l = [x for x, ok in (("map embed", map_embed), ("opening hours", hours),
+                                ("<address> with phone link", p.address_tags > 0 and tel)) if ok]
+        gap("medium", "seo", "schema_gap_local", "local", ev_l, "LocalBusiness",
+            "{} visible but no LocalBusiness or address markup: declare the most specific LocalBusiness subtype "
+            "with address, telephone, geo and openingHoursSpecification, identical to the Google Business "
+            "Profile (online-only business: Organization with address and contactPoint).".format(
+                ", ".join(ev_l).capitalize()))
+
+    # 8. Author shown on an article, no Person in the markup
+    tp = out.get("template", {})
+    if kind == "article":
+        if tp.get("author_block_markup") and not tp.get("author_in_jsonld") and "Person" not in present:
+            gap("medium", "geo", "schema_gap_author", "author", ["author block"], "Person",
+                "Author shown on the article but absent from the markup: set Article.author to a Person "
+                "(name, url of the author page, sameAs to the real profiles), ideally an @id shared by every "
+                "article of that author.")
+        elif inv["author_strings"]:
+            gap("low", "geo", "schema_author_string", "author", ["author as plain text"], "Person",
+                "Article author is a plain string: use a Person with url and sameAs (an @id pointing to the "
+                "author page node) so engines can tie the article to a provable author.")
+
+    # 9. Author or team member page without Person / ProfilePage
+    if AUTHOR_PAGE_RE.search(path) and not present & {"Person", "ProfilePage"}:
+        gap("medium", "geo", "schema_gap_profile", "author_page", [path], "ProfilePage + Person",
+            "Author or team page without ProfilePage and Person markup: it is the node every byline should "
+            "point to (name, jobTitle, image, sameAs, worksFor).")
+
+    # 10. Social profiles linked, entity markup without sameAs (home and about pages)
+    networks = (out.get("social_links") or {}).get("networks") or []
+    about = bool(re.search(r"/(about|a-propos|qui-sommes-nous|notre-histoire|uber-uns|sobre|chi-siamo)", path, re.I))
+    if (kind == "homepage" or about) and networks and present & ORG_TYPES and not inv["same_as"]:
+        gap("medium", "geo", "schema_gap_sameas", "social_profiles", networks[:6], "sameAs",
+            "Social profiles linked ({}) but no sameAs in the Organization or Person markup: the cheapest way to "
+            "tie the brand entity to its profiles, for Google's knowledge panel and for AI engines.".format(
+                ", ".join(networks[:6])))
+
+    # 11. Homepage without WebSite (site name in results)
+    if kind == "homepage" and present and "WebSite" not in present:
+        gap("low", "seo", "schema_gap_website", "site_name", ["homepage"], "WebSite",
+            "Homepage without WebSite markup (name, alternateName, url): it is what Google reads to choose the "
+            "site name shown above each result.")
+
+    return gaps, {"reviews_visible": reviews_visible, "product_page": product_page, "pricing": pricing,
+                  "video": bool(vids or p.videos), "breadcrumb": crumb, "faq": faq, "local": local,
+                  "saas": saas, "review_widgets": widgets, "ratings_shown": ratings[:5],
+                  "review_counts_shown": counts[:3], "microdata_types": sorted(set(p.microdata_types))}
 
 
 def page_kind(final, p, types):
@@ -882,6 +1324,7 @@ def deep_checks(p, html, final, headers, out):
     }
     out["schema_problems"] = schema_checks(p.jsonld_objects)
     out["jsonld_parse_errors"] = p.jsonld_errors
+    out["schema_gaps"], out["schema_signals"] = schema_gaps(p, html, final, kind, out)
     return out
 
 
@@ -1043,6 +1486,9 @@ def recommendations(pg, site):
             add("medium", "geo", "schema_article", "Article without Article / BlogPosting schema.")
     for sp in pg["schema_problems"][:5]:
         add("medium", "geo", "schema_fields", "{} x{}: missing or empty {}.".format(sp["type"], sp["count"], ", ".join(sp["missing_or_empty"])))
+    # Visible content without its markup (reviews, product, prices, video...)
+    for g in pg.get("schema_gaps", []):
+        add(g["severity"], g["pillar"], g["code"], g["message"])
 
     # Page templates (the blocks an article and a blog hub must ship)
     tp = pg["template"]
@@ -1573,6 +2019,12 @@ def fmt(report):
         if pg["schema_problems"]:
             line("  SCHEMA FIELDS: {}".format("; ".join("{} x{} missing {}".format(
                 s["type"], s["count"], "/".join(s["missing_or_empty"])) for s in pg["schema_problems"][:6])))
+        if pg.get("schema_gaps"):
+            line("  SCHEMA GAPS (visible on the page, not marked up): {}".format("; ".join(
+                "{} -> {}".format(g["signal"], g["expected"]) for g in pg["schema_gaps"])))
+        sm = (pg.get("schema_signals") or {}).get("microdata_types")
+        if sm:
+            line("  microdata / RDFa types: {}".format(", ".join(sm)))
         line("  FINDINGS ({}):".format(len(pg["recommendations"])))
         for r in pg["recommendations"]:
             line("     [{:<8}] {:<3} {}".format(r["severity"], r["pillar"].upper(), r["message"]))
@@ -1628,6 +2080,25 @@ def fmt(report):
         line("  Reminder: raw HTML only. A tag injected by a client-side script, a consent"
              " manager, or a server-side container does not show here; confirm in the browser"
              " (view-source or the Tag Assistant) before telling a client the tag is missing.")
+
+    # ---- Structured data gaps across the audited pages ----
+    # One unmarked block in a template repeats on every page built from it:
+    # listing the gap by type, with its pages, turns it into one template fix.
+    if lues:
+        par_type = {}
+        for x in lues:
+            for g in x.get("schema_gaps") or []:
+                par_type.setdefault((g["expected"], g["code"]), []).append(x["url"])
+        line("\n" + "-" * 70)
+        line("## Structured data missing for visible content ({} page(s) read)".format(len(lues)))
+        if not par_type:
+            line("  none detected: every block detected on these pages has its markup")
+        for (expected, code), urls in sorted(par_type.items(), key=lambda kv: -len(kv[1])):
+            line("  {:<28} {} of {} page(s) [{}]".format(expected, len(urls), len(lues), code))
+            for u in urls[:8]:
+                line("     {}".format(u))
+        line("  Raw HTML only: markup injected by Tag Manager or client-side code is invisible to AI"
+             " crawlers, so it counts as missing here. Templates and fixes: seo-schema-markup.")
 
     line("\n" + "=" * 70)
     line("JSON (machine summary):")

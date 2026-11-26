@@ -107,6 +107,73 @@ Remove the aggregateRating block entirely when the page displays no reviews. Pri
       }
     }
 
+## Review (each review displayed on the page)
+
+One Review per review the visitor can read on that page, nested in the item reviewed (Product, SoftwareApplication, Course, Event), next to the AggregateRating. Author, date, rating and text are the ones displayed; a review shown without a star rating keeps reviewBody and drops reviewRating.
+
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "{{REVIEWER_NAME_AS_DISPLAYED}}" },
+        "datePublished": "{{YYYY-MM-DD}}",
+        "reviewRating": { "@type": "Rating", "ratingValue": "{{STARS_AS_DISPLAYED}}", "bestRating": "5" },
+        "reviewBody": "{{REVIEW_TEXT_AS_DISPLAYED}}"
+      }
+    ]
+
+## SoftwareApplication (SaaS, app, browser extension)
+
+The node that carries the plans and the reviews of a software product: eligible for stars, where Organization is not. One Offer per plan shown on the page; drop aggregateRating and review when the page displays no review.
+
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "@id": "{{SITE_URL}}/#software",
+      "name": "{{PRODUCT_NAME}}",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "{{SITE_URL}}/",
+      "publisher": { "@id": "{{SITE_URL}}/#organization" },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "{{PLAN_NAME}}",
+          "price": "{{PRICE_AS_DISPLAYED}}",
+          "priceCurrency": "{{ISO_CURRENCY}}",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "{{PRICE_AS_DISPLAYED}}",
+            "priceCurrency": "{{ISO_CURRENCY}}",
+            "billingDuration": "P1M",
+            "unitCode": "MON"
+          }
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{REAL_AVERAGE_AS_DISPLAYED}}",
+        "reviewCount": "{{REAL_COUNT_AS_DISPLAYED}}"
+      },
+      "review": [ "{{REVIEW_NODES_AS_ABOVE}}" ]
+    }
+
+Declare it fully once (homepage or pricing page) and reference it by @id elsewhere. A testimonials band repeated on every page is marked up on the page about the software, not on every blog post.
+
+## VideoObject
+
+One per video the page plays. thumbnailUrl and uploadDate are required for video results; duration in ISO 8601 (PT2M30S = 2 minutes 30 seconds).
+
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "{{VIDEO_TITLE}}",
+      "description": "{{VIDEO_DESCRIPTION}}",
+      "thumbnailUrl": "{{THUMBNAIL_URL}}",
+      "uploadDate": "{{YYYY-MM-DD}}",
+      "duration": "{{PT2M30S}}",
+      "embedUrl": "{{EMBED_URL}}"
+    }
+
 ## LocalBusiness
 
 Name, address, and phone identical to the Google Business Profile, character for character (see the seo-local skill). Use the most specific subtype that fits (Dentist, Restaurant, Plumber) instead of plain LocalBusiness when one exists.

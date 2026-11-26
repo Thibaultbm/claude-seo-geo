@@ -18,6 +18,12 @@
       "prompt": "We are about to invest 2000/month in content for relai-rh.com (HR SaaS, site built with a React SPA). Before we start, give us a baseline audit focused on whether the investment makes sense right now.",
       "expected_output": "Audit that detects the client-side rendering as a Blocking finding for both Google and AI engines, explains why content spend is premature until server rendering or prerendering is in place, verifies crawler access and indexation facts, and delivers the 'rebuild before investing' verdict with a short path to unblock.",
       "files": []
+    },
+    {
+      "prompt": "Audit https://maison-dulac.fr for us: it's a furniture store on Shopify, the product pages show customer reviews from Judge.me and a YouTube video, and we never get stars in Google.",
+      "expected_output": "Script run on the homepage and several product pages. The structured data section of the report uses the script's schema gap findings: it names each content type visible without its markup (reviews and average rating without Review and AggregateRating, video without VideoObject, product price without Product or Offer if absent, breadcrumb without BreadcrumbList), with the number of pages concerned from the 'Structured data missing for visible content' summary, and treats it as one theme fix for the product template. Because the reviews come from Judge.me, it checks in a browser whether the widget's markup is in the raw HTML or injected by JavaScript (AI crawlers never run it) and points to the app's structured data option. It explains why the stars are missing, ranks the fix among the top priorities for a store, and hands the implementation to seo-schema-markup. It must NOT invent a rating, suggest importing stars from another platform, or report the gap as fixed without the re-run showing no SCHEMA GAPS line.",
+      "files": [],
+      "id": 4
     }
   ]
 }

@@ -1,10 +1,10 @@
 ---
 name: seo-schema-markup
-description: "Get valid Schema.org JSON-LD that still earns surfaces in 2026. Input: a page and its type (article, product, local business, person, and so on). Output: ready-to-adapt JSON-LD (Organization with sameAs, Article, Product, Offer, AggregateRating, LocalBusiness, BreadcrumbList, Person, WebSite, VideoObject, Event), entity graph linking with @id, a what-Google-dropped status table, and a two-validator routine. Use for schema, structured data, JSON-LD, rich results, review stars, breadcrumbs, sameAs, knowledge panel, or Rich Results Test errors."
+description: "Get valid Schema.org JSON-LD that still earns surfaces in 2026, and find the content a page shows without its markup. Input: a page and its type (article, product, local business, person, and so on). Output: the list of visible blocks left unmarked (reviews and ratings, product, prices, video, breadcrumb, address, author, social profiles), ready-to-adapt JSON-LD (Organization with sameAs, Article, Product, Offer, AggregateRating, LocalBusiness, BreadcrumbList, Person, WebSite, VideoObject, Event), entity graph linking with @id, a what-Google-dropped status table, and a two-validator routine. Use for schema, structured data, JSON-LD, rich results, review stars, breadcrumbs, sameAs, knowledge panel, Rich Results Test errors, or reviews that show no stars."
 license: MIT
 metadata:
   author: "Sorank (https://sorank.com)"
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Schema markup that still pays in 2026
@@ -23,6 +23,7 @@ Use it for:
 
 - Implementing JSON-LD on any page type (home, blog post, product, location, author, video, event)
 - Auditing existing markup for validity, eligibility, and honesty
+- Finding what a page shows but does not mark up: reviews without stars, prices without Offer, a video without VideoObject (Step 2)
 - Rich result work: review stars, prices, availability, breadcrumbs, video
 - Entity work: Organization, sameAs, author Person graphs for E-E-A-T
 - Deciding which schema types deserve effort in 2026 (status table below)
@@ -57,7 +58,44 @@ Why raw HTML: JSON-LD injected client-side (Google Tag Manager, SPA hydration) i
 
 Record per page type: which schema types exist, whether they validate, and whether the values match the visible page. The third question catches the violations that matter; the first two are mechanical.
 
-### Step 2: Map page types to schema types
+### Step 2: Find what the page shows and does not mark up
+
+In real audits, missing markup costs more than broken markup: reviews displayed with no stars in results, prices AI engines cannot read, a video with no video result. Run the collector of the seo-geo-audit skill on the homepage and one page per template:
+
+    python3 ../seo-geo-audit/scripts/seo_audit.py https://example.com /pricing /products/item /blog/post --no-images
+
+Each page prints a `SCHEMA GAPS` line and the matching findings; the report ends with "Structured data missing for visible content", each missing type with the pages that show the content, so one template fix is scoped at once. The script reads the visible page outside header, nav, footer and aside (a sitewide badge does not count), and counts microdata and RDFa as markup present.
+
+| Visible on the page | Markup expected | Where it goes | Code |
+|---|---|---|---|
+| Reviews, testimonials, a rating ("4.8/5", stars, "132 reviews"), a review widget | One Review per review shown, AggregateRating for the average and count | Inside the item reviewed: Product (store), SoftwareApplication (software, SaaS), Course (training), Event. Reviews of the business itself (Organization, LocalBusiness) never earn stars on its own site: the script then reports the gap as low and explains it | schema_gap_reviews |
+| Average and count shown, only individual reviews marked | AggregateRating with the same numbers | Same node as the reviews | schema_gap_aggregate |
+| Rating marked on Organization or LocalBusiness only, or attached to nothing | Move it to the item reviewed when there is one | Product, SoftwareApplication, Course | schema_review_host |
+| Marked rating differs from the rating shown | The value the visitor reads | Same node | schema_rating_mismatch |
+| A price and an add to cart button | Product with Offer (price, priceCurrency, availability) | The product page | schema_gap_product |
+| Plans and prices (pricing page, plan cards) | One Offer per plan, UnitPriceSpecification for monthly billing | SoftwareApplication, Product, Service or Course | schema_gap_offer |
+| A video player or embed | VideoObject | The page that plays it | schema_gap_video |
+| A breadcrumb | BreadcrumbList, same names as the links | Every page that shows it | schema_gap_breadcrumb |
+| An address, a map, opening hours | Most specific LocalBusiness subtype with address, geo, openingHoursSpecification (online-only: Organization with address) | Homepage, contact and location pages | schema_gap_local |
+| An author on an article | Article.author as a Person with url and sameAs, by @id | Every article | schema_gap_author, schema_author_string |
+| An author or team member page | ProfilePage with mainEntity Person | The author page | schema_gap_profile |
+| Links to the brand's social profiles | sameAs on Organization or Person | Homepage, about page | schema_gap_sameas |
+| The homepage itself | WebSite (name, alternateName, url), read by Google for the site name | Homepage | schema_gap_website |
+| An FAQ | FAQPage, optional: no rich result since May 2026 | The page | schema_gap_faq |
+
+What the script cannot see, checked by reading the page:
+
+- Reviews or prices rendered by JavaScript (Trustpilot, Judge.me, Yotpo, Okendo, Avis Verifies): the script names the widget. Open the page in a browser; markup the widget injects after rendering may reach Googlebot, never AI crawlers. Turn on the widget's server-side or structured data option.
+- Types that need judgment: Course on a training page with modules and a price, Event on a webinar or event page, JobPosting on each open role page, Recipe, Dataset on a downloadable data study (seo-content-data-study).
+
+Four rules decide the review markup:
+
+1. Only reviews displayed on that page, with the author, date, rating and text shown. Stars collected elsewhere (Google, Trustpilot, G2) and not displayed are never marked up.
+2. A testimonials band repeated on every page is marked up on the page whose subject is the reviewed item (homepage of a SaaS, pricing page, product page), not on every blog post.
+3. Software: the reviews are about the software, so they go on SoftwareApplication (applicationCategory, operatingSystem, offers, aggregateRating, review), which is eligible for stars where Organization is not. Template in references/jsonld-templates.md.
+4. Agency, local business, consultant: reviews of the business on its own site never earn stars, whatever the markup (self-serving rule, SVC-23 of seo-content-service-page). Keep them as visible text with name, date and rating, mark up the product, software or course they review when there is one, and grow the stars on the Google Business Profile (seo-local).
+
+### Step 3: Map page types to schema types
 
 | Page type | Implement | Skip |
 |---|---|---|
@@ -71,10 +109,11 @@ Record per page type: which schema types exist, whether they validate, and wheth
 | Training, coaching or course program page | Course (name, description, provider, offers when the price is public, hasCourseInstance with courseMode and courseWorkload); or Service when it is one-to-one coaching with no syllabus | Self-collected review stars on the program |
 | Video page | VideoObject | |
 | Event page | Event | |
-| SaaS pricing page | Product or Service with Offer when prices are public | "From" prices not shown on the page |
+| SaaS or app homepage | Organization plus SoftwareApplication, with aggregateRating and review when testimonials are shown | Reviews on the Organization node |
+| SaaS pricing page | SoftwareApplication (or Product) with one Offer per plan when prices are public | "From" prices not shown on the page |
 | Careers page | JobPosting (active Google jobs surface) | |
 
-### Step 3: Check what the CMS already outputs (field notes)
+### Step 4: Check what the CMS already outputs (field notes)
 
 Most schema problems in real audits are duplication problems, not absence problems. Check before adding anything:
 
@@ -85,11 +124,11 @@ Most schema problems in real audits are duplication problems, not absence proble
 | Webflow | No automatic schema | Add per-template embeds bound to CMS fields so values update with content |
 | Headless or SPA builds | Markup present in the repo, absent from the served HTML | Move it into the server response; confirm with the curl check from Step 1 |
 
-### Step 4: Apply the 2026 status table
+### Step 5: Apply the 2026 status table
 
 Spend implementation effort top-down by verdict. The full table is in Rules and thresholds; the two headline facts: FAQPage rich results no longer exist for anyone (removed May 7, 2026), and HowTo has had no surface since 2023. Do not let a client pay for either expecting SERP features.
 
-### Step 5: Build one entity graph, not isolated blocks
+### Step 6: Build one entity graph, not isolated blocks
 
 Engines reconcile entities; help them by linking nodes with stable @id values:
 
@@ -116,21 +155,21 @@ Why it matters: three pages each declaring a slightly different Organization (na
 
 Organization completeness, since this node feeds knowledge panels: logo at 112x112 px or larger on a crawlable URL, legal identifiers where applicable (vatID, iso6523Code), founder and foundingDate when public. Registry-grade identifiers give LLMs unambiguous hooks to reconcile the entity against company databases.
 
-### Step 6: Implement as JSON-LD
+### Step 7: Implement as JSON-LD
 
 - One script tag of type application/ld+json per graph, in head or body (Google accepts both).
 - JSON-LD is the format Google recommends over microdata and RDFa: decoupled from the HTML, it survives redesigns and template changes (https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data).
 - If microdata already exists (theme-generated), either remove it or keep its values strictly identical to the JSON-LD. Conflicting duplicate markup is worse than either alone because engines pick unpredictably.
 - Bind values to CMS fields, never hardcode prices or dates into templates: hardcoded values drift from the visible page within weeks (field observation).
 
-### Step 7: Validate twice, then verify in production
+### Step 8: Validate twice, then verify in production
 
 1. https://validator.schema.org checks vocabulary and syntax (catches typos, wrong types, broken nesting).
 2. https://search.google.com/test/rich-results checks Google eligibility (catches missing required fields per rich result type). Both are free, web-based, and need no API key.
 3. After deploy: curl the production URL and confirm the JSON-LD survived the build. SPA and static-site builds sometimes strip it or move it to client-side injection, which AI crawlers never see.
 4. Over the following weeks: watch the GSC Enhancements reports per type (error counts, valid item trends). A rich result that disappears with zero new errors usually means Google changed the feature, not the site; check the status table before debugging.
 
-### Step 8: Scale across hundreds of pages
+### Step 9: Scale across hundreds of pages
 
 - Generate from data, never by hand: bind template fields to the product database or CMS collections. Hand-edited JSON drifts from the page and breaks on the first locale-formatted date.
 - Roll out one template at a time (all product pages, then all articles), validate a sample of 3 to 5 URLs per template, and watch the matching GSC Enhancements report for a week before starting the next type.
@@ -162,6 +201,7 @@ Stars, prices, or breadcrumbs vanished from the SERP. Check in this order; most 
 | BreadcrumbList | Active breadcrumb display in results | Implement sitewide |
 | LocalBusiness | Active (maps and knowledge panel context) | Implement on location pages; pair with the seo-local skill |
 | Person | No direct rich result; E-E-A-T and author entity plumbing | Implement for every named author |
+| SoftwareApplication | Active software rich result: rating and price (https://developers.google.com/search/docs/appearance/structured-data/software-app) | SaaS, apps and extensions: the node that carries plans and reviews |
 | VideoObject | Active video surfaces | When a video is on the page |
 | Event | Active event surfaces | When events exist |
 
@@ -200,7 +240,7 @@ When in doubt, the Rich Results Test reports exactly which required field is mis
 | Either "ratingCount" or "reviewCount" should be specified | AggregateRating missing its count | Add the real displayed count |
 | Date not in ISO 8601 | Locale-formatted dates from the CMS | Output YYYY-MM-DD (or full ISO timestamps) |
 | Empty `name` on Question or empty `text` on Answer | Template outputs FAQ or Q&A markup before the CMS fields are filled | Render the node only when the field has content; `seo_audit.py` flags it as `schema_fields` |
-| Duplicate field or duplicate type on the page | Plugin @graph plus a manually pasted block | One source of truth per page (Step 3) |
+| Duplicate field or duplicate type on the page | Plugin @graph plus a manually pasted block | One source of truth per page (Step 4) |
 | Parsing error: missing comma, unclosed brace | Hand-edited JSON | Generate from references/jsonld-templates.md; lint before deploy |
 
 ### Multilingual sites
@@ -232,9 +272,10 @@ When auditing, return one table plus prioritized fixes:
 
     # Structured data audit: {domain} ({date})
 
-    | Page type | Types found | Valid | Matches visible content | Action |
-    |---|---|---|---|---|
-    | Blog post | Article (Yoast @graph) | Yes | dateModified auto-bumped | Stop date-bumping, add author Person |
+    | Page type | Types found | Valid | Matches visible content | Visible but not marked up | Action |
+    |---|---|---|---|---|---|
+    | Blog post | Article (Yoast @graph) | Yes | dateModified auto-bumped | Author block, video | Stop date-bumping, add author Person and VideoObject |
+    | Product | Product, Offer | Yes | Yes | 4.8/5 and 132 reviews | Add AggregateRating and Review in the Product node |
 
     ## Fixes in priority order
     1. {fix}: why it matters, the exact JSON-LD block, where it goes
@@ -256,6 +297,7 @@ Definition of done for any schema task:
 4. No {{ placeholder left anywhere in the build output
 5. Entity nodes linked by @id, no duplicate or diverging Organization declarations
 6. The matching GSC Enhancements report identified and on a watch list
+7. Every block the page shows that has a Schema.org type carries its markup: `seo_audit.py` prints no `SCHEMA GAPS` line for the page, or each remaining gap is written down as a judgment call
 
 ## Common mistakes
 
@@ -267,6 +309,8 @@ Definition of done for any schema task:
 | Shipping FAQPage for rich results in 2026 | Zero SERP return on the effort | Visible question-and-answer formatting for AI extraction (geo-visibility) |
 | JSON-LD injected via Tag Manager or client-side hydration | AI crawlers and source-level validators never see it | Server-render the script tag |
 | Adding a manual block next to the SEO plugin's @graph | Two diverging Organizations, engines pick unpredictably | Configure the plugin; one source of truth per page |
+| Reviews displayed on the page with no markup | No stars in results, no rating for AI shopping and comparison answers | Review and AggregateRating on the item reviewed (Step 2) |
+| A testimonials band marked up on every page, blog posts included | Ratings detached from the page subject | Mark it up on the page about the item (homepage of a SaaS, pricing, product) |
 | dateModified bumped on every deploy | Freshness signal discounted | Bump only on real content changes |
 | Isolated blocks without @id linking | Fragmented entity, weaker reconciliation | One Organization node, referenced by @id everywhere |
 | Templates shipped with {{PLACEHOLDERS}} left in | Broken facts in production | Search the build output for {{ before release |
