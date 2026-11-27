@@ -131,6 +131,11 @@ class Page(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.title = None
         self._in_title = False
+        # Only the document <title> counts: an inline SVG carries its own
+        # <title> (e.g. "Twitter_Logo_Blue"), and a second <title> tag must not be
+        # glued to the first one (both seen in Sorank audits, 26/11/2026).
+        self._svg = 0
+        self.title_count = 0
         self.meta_description = None
         self.meta_robots = None
         self.viewport = None
@@ -257,8 +262,12 @@ class Page(HTMLParser):
             self.has_main = True
         elif tag in ("header", "nav", "footer", "aside"):
             self._chrome_depth += 1
+        if tag == "svg":
+            self._svg += 1
         if tag == "title":
-            self._in_title = True
+            if not self._svg:
+                self.title_count += 1
+                self._in_title = self.title is None
         elif tag == "meta":
             name = (a.get("name") or "").lower()
             prop = (a.get("property") or "").lower()
@@ -372,6 +381,8 @@ class Page(HTMLParser):
         elif tag == "div" and self._div_stack:
             if self._div_stack.pop():
                 self._div_chrome -= 1
+        if tag == "svg" and self._svg:
+            self._svg -= 1
         if tag == "title":
             self._in_title = False
         elif tag in ("h1", "h2", "h3", "h4", "h5", "h6") and self._cur_h:
@@ -1346,6 +1357,8 @@ def recommendations(pg, site):
         add("medium", "seo", "title_short", "Title {} chars, aim for 30-60.".format(t["length"]))
     elif t["length"] > 60:
         add("medium", "seo", "title_long", "Title {} chars, Google truncates past about 60.".format(t["length"]))
+    if (t.get("tags") or 0) > 1:
+        add("low", "seo", "title_duplicate_tag", "{} <title> tags in the page: only the first counts, remove the others.".format(t["tags"]))
     m = pg["meta_description"]
     if not m["present"]:
         add("high", "seo", "meta_missing", "No meta description.")
@@ -1580,8 +1593,8 @@ def analyse_page(url, do_images=True):
     out["frameworks"] = fw
 
     # Title
-    title = (p.title or "").strip()
-    out["title"] = {"value": title, "length": len(title),
+    title = " ".join((p.title or "").split())
+    out["title"] = {"value": title, "length": len(title), "tags": p.title_count,
                     "generic": title.lower() in ("", "home", "homepage", "accueil",
                                                   "untitled", "new project", "welcome")}
     # Meta description
